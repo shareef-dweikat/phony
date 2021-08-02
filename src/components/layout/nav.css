@@ -1,0 +1,22 @@
+.nav-link {
+  color: #fff !important;
+  font-weight: 700 !important;
+}
+
+.ReactFlagsSelect-module_flagsSelect__2pfa2 > button {
+  color: #fff !important;
+  font-weight: bold;
+}
+.ReactFlagsSelect-module_selectOptionValue__vS99- {
+  color: #000 !important;
+  font-weight: bold;
+}
+
+.nav-img{
+width: 120px;
+/* height: 30px; */
+}
+.nav-img > img{
+  width: 100%;
+  height: auto;
+}

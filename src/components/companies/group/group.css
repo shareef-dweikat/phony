@@ -1,0 +1,34 @@
+.cellcom-back {
+  background-color: #742e6d;
+}
+.pelephone-back {
+  background-color: #0071b5;
+}
+.partner-back {
+  background-color: #742e6d;
+}
+.golan-back {
+  background-color: #ee1b24;
+}
+
+.mobile12-back {
+  background-color: #742e6d;
+}
+
+.group-text {
+  color: #ffffff;
+  font-size: 2.8rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.no-layout {
+  background: #fff;
+  border: 1px solid #25ace3;
+  font-weight: bold;
+  font-size: 1.52rem;
+  color: #40d48a !important;
+  text-decoration: none !important;
+}
+.mo-text {
+  color: #000 !important;
+  font-weight: 900 !important;
+}

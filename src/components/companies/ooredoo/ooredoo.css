@@ -1,0 +1,39 @@
+:root {
+  --main-ooredoo: #c9262d;
+  --back-ground: #db0b1b;
+}
+.oor-layout {
+  background-color: #25ace4;
+  color: #fff;
+  font-weight: 900 !important;
+}
+.sub-text {
+  color: #8dd5f4;
+  font-weight: bolder;
+  font-weight: bold;
+  font-size: 1.52rem;
+  color: #25ace3;
+}
+.ooredoo-text {
+  color: var(--main-ooredoo);
+  font-size: 1.8rem;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+.ooredoo-sub {
+  color: var(--main-ooredoo);
+  font-size: 1rem;
+  font-weight: bolder;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+.ooredoo-back {
+  background-color: var(--back-ground);
+}
+.text-abs-oore {
+  position: absolute;
+  top: 26%;
+  right: 12%;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #dc8d2f;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}

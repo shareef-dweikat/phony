@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap");
+@font-face {
+  font-family: "Helvetica Neue W23-regular";
+  src: url("../../assests//fonts/Helvetica\ Neue\ W23-bold.TTF");
+}
+@font-face {
+  font-family: "Helvetica Neue W23-bold";
+  src: url("../../assests/fonts/Helvetica\ Neue\ W23-regular.TTF");
+}
+body.english {
+  font-family: "Montserrat", sans-serif;
+  /* color: #000000; */
+}
+body.arabic {
+  font-family: "Helvetica Neue W23-regular";
+  /* color: #000000; */
+}
+span,
+h1,
+h2,
+h3,
+h5,
+h6,
+div,
+td,
+label,
+tr,
+table h4 {
+  font-weight: bolder;
+}
+
+body,
+td {
+  /* background-color: #fbfbfb !important; */
+}
+label {
+  font-weight: 700;
+}
+a {
+  font-weight: bold;
+}
+.card {
+  border: none;
+  word-wrap: normal !important;
+  position: relative;
+}
+.card-bal {
+  box-shadow: 0 3px 3px #42ace3 !important;
+  border: none !important;
+}
+.sign-but {
+  background-color: #25ace3;
+  color: #fff;
+  font-weight: bold !important;
+}
+.sign-but:hover {
+  color: #fff;
+}
+.sign-text {
+  font-weight: bolder;
+  color: #45b4e3;
+}
+
+.main-text {
+  color: #25ace3;
+}
+.main-header {
+  font-weight: bolder;
+}
+
+.sidebar__link {
+  color: #f3f4f6;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.link-main {
+  text-decoration: none;
+  color: #000000;
+  font-weight: 700;
+}
+.icon-main {
+  color: #45b4e3;
+}
+.card-home {
+  border: 10px #45b4e3 !important;
+}
+.active-link > a > span {
+  font-weight: 900;
+  color: #42ace3;
+}
+.nav-layout {
+  background: #25ace3;
+}
+.nav-layout > h5 {
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none !important;
+}
+.cards-layout {
+  background: #fff;
+  border: 1px solid #25ace3;
+  border-top: 0;
+  /* border-radius: 15px; */
+}
+.cards-layout > h5 {
+  font-weight: bolder;
+  font-size: 1.2rem;
+  color: #25ace3;
+  text-decoration: none !important;
+}
+
+.jawwal-layout {
+  background: #fff;
+  /* border-radius: 15px; */
+  border: 1px solid #25ace3;
+}
+.jawwal-layout > div > label {
+  font-weight: bold;
+  font-size: 1.52rem;
+  color: #25ace3;
+  text-decoration: none !important;
+}
+.mobile-no {
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+  color: #40d48a !important;
+  font-size: 1.5rem !important;
+
+  font-weight: bolder !important;
+}
+
+.outer-wrapper > a {
+  text-decoration: none;
+}
+.home-img {
+  background-size: cover;
+  background-position: 50%;
+}
+.outer-wrapper {
+  display: inline-block;
+  /* margin: 20px; */
+}
+.frame {
+  width: 200px;
+  height: 150px;
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+}
+.frame-card {
+  width: 200px;
+  height: 100px;
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+}
+img {
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+.d100-vh {
+  height: 100vh;
+}
+input :not(input) {
+  color: #000;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 5.8rem;
+  font-weight: bolder !important;
+}
+.creadit-text {
+  color: #74d099;
+  font-size: 1.5rem;
+}
+::-webkit-input-placeholder {
+  /* Edge */
+  /* color: rgb(130,130,130) !important; */
+  font-weight: 600;
+  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+  font-size: 1 rem;
+}
+input[type="text"],
+input[type="mobile"],
+input[type="email"],
+input[type="number"],
+input[type="password"] {
+  font-weight: 700;
+}
+
+/*LOGIN PAGE */
+.hero1 {
+  /* display: table; */
+  position: relative;
+  background: url("https://res.cloudinary.com/dtu4lltbk/image/upload/v1619824122/bg-login_qz50qv.jpg")
+    no-repeat;
+  padding: 150px 0;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  width: 100%;
+  height: auto;
+}
+.hero1:after {
+  content: "";
+  z-index: 0;
+  position: absolute;
+  /* background: rgba(0, 0, 0, 0.65); */
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+.hero1 .container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.login-body {
+  overflow: hidden;
+  margin: 0 auto;
+  /* position: relative; */
+  height: auto;
+}
+
+.login-body {
+  /* width: 100%; */
+  /* height: 380px; */
+
+  color: #ffffff;
+  background-color: #292b2c;
+}
+
+/* .p-grid {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+  margin-top: -0.5rem;
+} */
