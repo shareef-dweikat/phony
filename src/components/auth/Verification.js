@@ -101,7 +101,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
                         <TextFieldGroup
                           style={{ width: "100%" }}
                           className="mb-5 "
-                          placeholder="Enter the code"
+                          placeholder="Enter the Mobile Number "
                           name="mobile"
                           type="tel"
                           value={virefyForm.mobile}
