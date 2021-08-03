@@ -99,38 +99,30 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
             <div className="row mt-2">
               <div className="col-3" style={{paddingLeft:0}}>
                 <div className="card jawwal-back">
-                  <div className="m-3">
-                    <h1 className="jawwal-text m-4">{translate("jawwal3g")}</h1>
-                  </div>
+                  <h1 className="jawwal-text m-4">{translate("jawwal3g")}</h1>
                 </div>
               </div>
               <div className="col-9">
                 <div className="card nav-layout">
-                  <div className="form-group row">
-                    <label className="mt-2 col-md-5 col-sm-12 col-form-label mobile-semi">
-                      <button className={`btn btn-light main-text mx-2 refersh-but`} onClick={refreshClick}>
-                        {translate("refresh")}
-                      </button>
-                      <span>{translate("jawwalOffer3g")}</span>
+                  <div className="form-group row px-2">
+                    <label className="col-md-6 col-sm-12 col-form-label mobile-semi" style={{fontSize: "1.4rem"}}>
+                      {translate("jawwalOffer3g")} <br/><strong style={{fontSize: "1.6rem"}}>{mobileNo}</strong>
                     </label>
                     <label
-                      className="mt-2 col-md-3 col-sm-12 col-form-label mobile-semi"
-                      style={{ fontFamily: "initial", fontSize: "1.6rem" }}
-                    >
-                      {mobileNo}
-                    </label>
-                    <label
-                      className="col-md-4 col-sm-12 col-form-label mobile-semi"
+                      className="col-md-6 col-sm-12 col-form-label mobile-semi d-flex align-items-center justify-content-cnter"
                       style={{ fontFamily: "initial", fontSize: "2rem" }}
                     >
+                      <button className={`btn btn-light btn-md main-text mx-1`} onClick={refreshClick}>
+                        {translate("refresh")}
+                      </button>
                       <button
-                        className={`btn btn-light main-text mx-1 ${isRenew ? "selected-btn" : null}`}
+                        className={`btn btn-light btn-md main-text mx-1 ${isRenew ? "selected-btn" : null}`}
                         onClick={onRenewClick}
                       >
                         {translate("Renewable")}
                       </button>
                       <button
-                        className={`btn btn-light main-text mx-1 ${isNotRenew ? "selected-btn" : null}`}
+                        className={`btn btn-light btn-md main-text mx-1 ${isNotRenew ? "selected-btn" : null}`}
                         onClick={onNotRenewClick}
                       >
                         {translate("notRenew")}
@@ -150,7 +142,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
             <div className="card m-4s fixed-top1 position-sticky mt-2">
               <div className=" row mt-1 fixed-topx">
                 {selected !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-4 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper px-3 ">
                       <div className="frame1">
                         <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
@@ -162,7 +154,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                   </div>
                 )}
                 {jawwalRom !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-4 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper  px-3">
                       <div className="frame1">
                         <img alt="sssssssssss" src={jawwalRom.url} width="260px" height="100px"></img>
@@ -174,7 +166,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                   </div>
                 )}
                 {credit !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-4 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper px-3">
                       <div className="frame1">
                         <img
@@ -195,7 +187,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                   </div>
                 )}
                 {jawwalMin !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-6 col-6 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper px-3 ">
                       <div className="frame1">
                         <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
@@ -248,8 +240,8 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                     <h1 className="warning-text">{translate('NoAvailable')}</h1>
                   </div>
                 ) : (
-                  jawwal3g.map((item) => (
-                    <div className="col-lg-3 col-md-4 col-sm-4 mt-3 ">
+                  jawwal3g.map((item, index) => (
+                    <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                       <div className="card outer-wrapper charge-card">
                         <a
                           style={{ cursor: "pointer" }}
@@ -274,17 +266,21 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                               class="link-main details"
                               style={{ fontWeight: "bolder" }}
                               data-toggle="collapse"
-                              data-target={"#" + item.ID}
+                              data-target={"#" + index}
                               aria-expanded="true"
-                              aria-controls={item.ID}
+                              aria-controls={index}
                             >
                               <small>{translate("Details")}</small>
                             </a>
                           </h5>
                         </div>
 
-                        <div id={item.ID} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
-                          <div class="card-body">{item.des}</div>
+                        <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+                            {item.des}
+                            <br/>
+                            [{translate("ID")}:{item.id || item.ID}]
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -38,7 +38,7 @@ export default {
     //Home page
     home: "Home",
     balance: "Balance Avaliable",
-    company: "COMPANIES",
+    company: "Companies",
     nis: "NIS",
     gaming: "Gaming",
     cards: "Gift Cards",
@@ -56,6 +56,7 @@ export default {
     zain: "Zain",
     umniah: "Umniah",
     orange: "Orange",
+    forNumber: "For Number",
 
     //Home page
 

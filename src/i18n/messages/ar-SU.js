@@ -37,7 +37,7 @@ export default {
     //Home page
     home: "الرئيسية",
     balance: "الرصيد المتوفر",
-    company: "COMPANIES",
+    company: "شركات",
     nis: "شيكل",
     gaming: "ألعاب",
     cards: "بطاقات الهدايا",
@@ -110,7 +110,7 @@ export default {
     jawwalOffer3g: "3G Offers For the Number",
     jawwalOfferRoming: "عروض جوال تجوال",
     jawwalOfferMin: "عروض دقائق جوال",
-    jawwalOfferCredit: "عروض رصيد جوال لهذا الرقم",
+    jawwalOfferCredit: "عروض رصيد جوال",
     amount: "كمية",
     accept: "Process",
     logout: "تسجيل خروج",
@@ -129,6 +129,7 @@ export default {
     Credit: "رصيد",
     Roaming: "تجوال",
     ID: "ID",
+    forNumber: "للرقم",
     //ooredoo com
 
     etopup: "E-TOPUP",

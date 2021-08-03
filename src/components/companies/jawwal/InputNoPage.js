@@ -37,9 +37,7 @@ const InputNoPage = () => {
         <div className="col-lg-9 col-md-8 col-sm-6">
           <div className="card card-home">
             <div className="card img-back">
-              <div className="m-3">
-                <h1 className="header-text mt-5">{translate("newProduct")}</h1>
-              </div>
+              <h1 className="header-text">{translate("company")}</h1>
             </div>
             <div className="mt-2">
               <div className=" card nav-layout">

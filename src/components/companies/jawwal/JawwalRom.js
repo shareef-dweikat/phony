@@ -121,7 +121,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
             <div className="card m-4s fixed-top1 position-sticky mt-2">
               <div className=" row mt-1 fixed-topx">
                 {selected !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-4 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper px-3 ">
                       <div className="frame1">
                         <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
@@ -133,7 +133,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                   </div>
                 )}
                 {jawwal3g !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-4 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper px-3">
                       <div className="frame1">
                         <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
@@ -145,7 +145,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                   </div>
                 )}
                 {credit !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-4 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper px-3">
                       <div className="frame1">
                         <img
@@ -166,7 +166,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                   </div>
                 )}
                 {jawwalMin !== "" && (
-                  <div className="col-lg-4 col-md-4 col-sm-4 mt-4">
+                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
                     <div className="card outer-wrapper px-3 ">
                       <div className="frame1">
                         <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
@@ -271,7 +271,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                 ) : (
                   jawwalRom
                     .filter(({ country }) => country === typeRoming)
-                    .map((item) => (
+                    .map((item, index) => (
                       <div className="col-lg-3 col-md-4 col-sm-6 col-6 mt-4 ">
                         <div className="card outer-wrapper charge-card">
                           <a
@@ -297,21 +297,25 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                                 class="link-main details"
                                 style={{ fontWeight: "bolder" }}
                                 data-toggle="collapse"
-                                data-target={"#" + item.ID}
+                                data-target={"#" + index}
                                 aria-expanded="true"
-                                aria-controls={item.ID}
+                                aria-controls={index}
                               >
                                 <small>{translate("Details")}</small>{" "}
                               </a>
                             </h5>
                           </div>
                           <div
-                            id={item.ID}
+                            id={index}
                             class="collapse hidden"
                             aria-labelledby="headingOne"
                             data-parent="#accordion"
                           >
-                            <div class="card-body">{item.des}</div>
+                            <div class="card-body">
+                              {item.des}
+                              <br/>
+                              [{translate("ID")}:{item.id || item.ID}]
+                            </div>
                           </div>
                         </div>
                       </div>
