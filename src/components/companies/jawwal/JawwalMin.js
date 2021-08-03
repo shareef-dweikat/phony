@@ -136,18 +136,22 @@ const JawwalMin = ({
                       <button className={`btn btn-light btn-md main-text mx-2`} onClick={refreshClick}>
                         {translate("refresh")}
                       </button>
-                      <button
-                        className={`btn btn-light btn-md main-text mx-1 ${isRenew ? "selected-btn" : null}`}
-                        onClick={onRenewClick}
-                      >
-                        {translate("Renewable")}
-                      </button>
-                      <button
-                        className={`btn btn-light btn-md main-text mx-1 ${isNotRenew ? "selected-btn" : null}`}
-                        onClick={onNotRenewClick}
-                      >
-                        {translate("notRenew")}
-                      </button>
+                      <div class="btn-group" role="group" aria-label="Renewable">
+                        <button
+                          type="button"
+                          className={`btn btn-light btn-md main-text border-info border-left ${isRenew ? "selected-btn" : null}`}
+                          onClick={onRenewClick}
+                        >
+                          {translate("Renewable")}
+                        </button>
+                        <button
+                          type="button"
+                          className={`btn btn-light btn-md main-text border-info border-left ${isNotRenew ? "selected-btn" : null}`}
+                          onClick={onNotRenewClick}
+                        >
+                          {translate("notRenew")}
+                        </button>
+                      </div>
                     </label>
                   </div>
                 </div>
