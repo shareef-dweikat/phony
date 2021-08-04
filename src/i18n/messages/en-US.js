@@ -41,6 +41,7 @@ export default {
     company: "Companies",
     nis: "NIS",
     gaming: "Gaming",
+    internet: "Internet",
     cards: "Gift Cards",
     jawwal: "Jawwal",
     ooredoo: "Ooredoo",

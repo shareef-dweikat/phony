@@ -27,8 +27,13 @@ import RomOoredoo from "../companies/ooredoo/RomOoredoo";
 import ShababOoredoo from "../companies/ooredoo/ShababOoredoo";
 import Gaming from "../Gaming/Gaming";
 import Report from "../report/Report";
+import Internet from "../pages/Internet/Internet";
 import PrivateRoute from "./../common/PrivateRoute";
+import { useIntl } from 'react-intl';
+
 const Routes = ({ user }) => {
+  const intl = useIntl();
+
   return (
     <section className="container-fluid1">
       <Switch>
@@ -37,6 +42,7 @@ const Routes = ({ user }) => {
         <Route exact path="/report" component={Report} />
         <Route exact path="/gaming" component={Gaming} />
         <Route exact path="/verification/:id" component={Verification} />
+        { intl.locale === "en" && <Route exact path="/internet" component={Internet} />}
         {/* //COPMANY */}
 
         {/* JAWWAL COMPANY ROUTES */}

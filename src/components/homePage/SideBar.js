@@ -3,10 +3,13 @@ import { Link, useHistory } from "react-router-dom";
 import translate from "../../i18n/translate";
 import { connect } from "react-redux";
 import "./sidebar.css";
+import { useIntl } from 'react-intl';
 
 const SideBar = ({ user ,userData }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const intl = useIntl();
+
   return (
     <div>
       <div className="d100-vh">
@@ -28,8 +31,7 @@ const SideBar = ({ user ,userData }) => {
         <div className="mt-3">
           <div
             className={`sidebar__link ${
-              history === "/" ||
-              (history.split("/")[1] === "company" && "active-link")
+              history === "/" && "active-link"
             } m-4`}
           >
             <Link className=" link-main " to="/">
@@ -40,6 +42,23 @@ const SideBar = ({ user ,userData }) => {
             </Link>
           </div>
 
+          {intl.locale === "en" && (
+            <div
+              className={`sidebar__link ${
+                history === "/internet" && "active-link"
+              } m-4`}
+            >
+              <Link className="link-main " to="/internet">
+                <span>
+                  <i
+                    className="icon-main fa fa-gamepad  m-2"
+                    aria-hidden="true"
+                  ></i>
+                  {translate("internet")}
+                </span>
+              </Link>
+            </div>
+          )}
           <div
             className={`sidebar__link ${
               history === "/gaming" && "active-link"

@@ -36,12 +36,12 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   };
   return (
     <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "#25ace3" }}>
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">
+      <div className="container">
+        <Link className="navbar-brand m-0 p-0" to="/">
           <div className="nav-imsg">
             <img
-              width="100"
-              height="42"
+              width="auto"
+              height="60"
               alt=""
               src="https://res.cloudinary.com/dtu4lltbk/image/upload/v1624807236/Phone_Play1_1_gftbfd.png"
               className="d-inline-block align-top "

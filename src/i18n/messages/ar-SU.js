@@ -40,6 +40,7 @@ export default {
     company: "شركات",
     nis: "شيكل",
     gaming: "ألعاب",
+    internet: "إنترنت",
     cards: "بطاقات الهدايا",
     jawwal: "Jawwal",
     ooredoo: "Ooredoo",
