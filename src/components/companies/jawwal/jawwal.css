@@ -13,16 +13,21 @@
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   color: #fff;
   font-size: 1.6rem;
+  font-weight: normal;
   margin: 0;
   margin-right: 16px;
+}
+[lang="en"] .jawwal-text {
+  font-size: 1.4rem;
+  margin-right: 32px;
 }
 .mobile-semi {
   color: #fff;
 }
 .charge-card :hover {
-  transform: translateY(0) scale(1.1);
-  -webkit-transition: 0.3s ease-in-out;
-  transition: 0.3s ease-in-out;
+  transform: translateY(0) scale(1.05);
+  -webkit-transition: 0.2s ease-in-out;
+  transition: 0.2s ease-in-out;
   opacity: 0.9;
 }
 .fixed-top1 {

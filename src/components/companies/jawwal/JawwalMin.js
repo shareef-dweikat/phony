@@ -42,6 +42,8 @@ const JawwalMin = ({
   const [jawwal3g, setJawwal3g] = useState("");
   const [jawwalRom, setJawwalRom] = useState("");
   const [credit, setCredit] = useState("");
+  const [loadingSpinner, isLoading] = useState(false);
+
   useEffect(() => {
     document.title = "Home /Min Jawwal";
     getJawwalMin(mobileNo, false);
@@ -66,6 +68,8 @@ const JawwalMin = ({
   }, [isRenew, isNotRenew]);
   const onClickType3Min = (e) => {
     e.preventDefault();
+    isLoading(true);
+
     chargeJawwal(
       {
         jawwal3g: jawwal3g || null,
@@ -75,7 +79,10 @@ const JawwalMin = ({
       },
       history,
       pushHistory
-    );
+    )
+    .finally(() => {
+      isLoading(false);
+    });
   };
   const onTypeClick = (item) => {
     localStorage.jawwalMin = JSON.stringify(item);
@@ -128,7 +135,7 @@ const JawwalMin = ({
         <div className="col-lg-9 col-md-8 col-sm-6">
           <div className="card card-home">
             <div className="row mt-2">
-              <div className="col-3" style={{paddingLeft:0}}>
+              <div className="col-3">
                 <div className="card jawwal-back">
                   <h1 className="jawwal-text">{translate("jawwalMin")}</h1>
                 </div>
@@ -176,32 +183,6 @@ const JawwalMin = ({
           </div>
           <div className="position-relative">
             <div className="row">
-              <div className="col-2">
-                <div class="card total-balance-card mt-2">
-                  <div class="card-body py-2">
-                    <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
-                    <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
-                      (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                      (credit.price ? parseFloat(credit.price) : 0)}
-                    </h3>
-                    <button
-                      type="submit"
-                      class={`btn btn-success ${
-                        (selected.price ? parseFloat(selected.price) : 0) +
-                          (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                          (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                          (credit.price ? parseFloat(credit.price) : 0) ===
-                          0 && "disabled"
-                      }`}
-                      style={{margin: "auto", display: "block"}}
-                      onClick={onClickType3Min}
-                    >
-                      {translate("accept")}
-                    </button>
-                  </div>
-                </div>
-              </div>
               <div className="col-10">
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className="row mt-1 fixed-topx">
@@ -240,7 +221,7 @@ const JawwalMin = ({
                     )}
                     {jawwalRom !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper  px-3">
+                        <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwalRom.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwalRomRemove}>
@@ -252,7 +233,7 @@ const JawwalMin = ({
                     )}
                     {jawwal3g !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper ">
+                        <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
                             <a className="close-btn">
@@ -262,6 +243,34 @@ const JawwalMin = ({
                         </div>
                       </div>
                     )}
+                  </div>
+                </div>
+              </div>
+              <div className="col-2">
+                <div class="card total-balance-card mt-2">
+                  <div class="card-body py-2">
+                    <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
+                    <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
+                      (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
+                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                      (credit.price ? parseFloat(credit.price) : 0)}
+                    </h3>
+                    <button
+                      type="submit"
+                      class={`btn btn-success ${
+                        (selected.price ? parseFloat(selected.price) : 0) +
+                          (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
+                          (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                          (credit.price ? parseFloat(credit.price) : 0) ===
+                          0 && "disabled"
+                      }`}
+                      style={{margin: "auto", display: "block"}}
+                      disabled={loadingSpinner}
+                      onClick={onClickType3Min}
+                    >
+                      {translate("accept")}
+                    </button>
+                    {loadingSpinner && <Spinner />}
                   </div>
                 </div>
               </div>

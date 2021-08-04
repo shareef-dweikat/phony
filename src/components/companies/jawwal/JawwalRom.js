@@ -23,6 +23,8 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
   const [jawwalMin, setJawwalMin] = useState("");
   const [credit, setCredit] = useState("");
   const [jawwal3g, setJawwal3g] = useState("");
+  const [loadingSpinner, isLoading] = useState(false);
+
   useEffect(() => {
     getJawwalRom(mobileNo, false);
     document.title = "Home /Rom Jawwal";
@@ -41,6 +43,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
   }, []);
   const onClickTypeRom = (e) => {
     e.preventDefault();
+    isLoading(true);
     chargeJawwal(
       {
         jawwal3g: jawwal3g || null,
@@ -50,7 +53,10 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
       },
       history,
       pushHistory
-    );
+    )
+    .finally(() => {
+      isLoading(false);
+    });
   };
   const selectTypeClick = (type) => {
     setTypeRoming(type);
@@ -87,7 +93,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
         <div className="col-lg-9 col-md-8 col-sm-6">
           <div className="card card-home">
             <div className="row mt-2">
-              <div className="col-3" style={{paddingLeft:0}}>
+              <div className="col-3">
                 <div className="card jawwal-back">
                   <h1 className="jawwal-text">{translate("jawwalRom")}</h1>
                 </div>
@@ -119,37 +125,11 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
           </div>
           <div className=" position-relative">
             <div className="row">
-              <div className="col-2">
-                <div class="card total-balance-card mt-2">
-                  <div class="card-body py-2">
-                    <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
-                    <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
-                      (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                      (credit.price ? parseFloat(credit.price) : 0)}
-                    </h3>
-                    <button
-                      type="submit"
-                      class={`btn btn-success ${
-                        (selected.price ? parseFloat(selected.price) : 0) +
-                          (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                          (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                          (credit.price ? parseFloat(credit.price) : 0) ===
-                          0 && "disabled"
-                      }`}
-                      style={{margin: "auto", display: "block"}}
-                      onClick={onClickTypeRom}
-                    >
-                      {translate("accept")}
-                    </button>
-                  </div>
-                </div>
-              </div>
               <div className="col-10">
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className=" row mt-1 fixed-topx">
                     {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
                             <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
@@ -161,7 +141,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       </div>
                     )}
                     {jawwal3g !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
@@ -173,7 +153,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       </div>
                     )}
                     {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img
@@ -194,7 +174,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       </div>
                     )}
                     {jawwalMin !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
@@ -205,6 +185,34 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                         </div>
                       </div>
                     )}
+                  </div>
+                </div>
+              </div>
+              <div className="col-2">
+                <div class="card total-balance-card mt-2">
+                  <div class="card-body py-2">
+                    <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
+                    <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
+                      (jawwalMin.price ? parseFloat(jawwalMin.price) : 0) +
+                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                      (credit.price ? parseFloat(credit.price) : 0)}
+                    </h3>
+                    <button
+                      type="submit"
+                      class={`btn btn-success ${
+                        (selected.price ? parseFloat(selected.price) : 0) +
+                          (jawwalMin.price ? parseFloat(jawwalMin.price) : 0) +
+                          (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                          (credit.price ? parseFloat(credit.price) : 0) ===
+                          0 && "disabled"
+                      }`}
+                      style={{margin: "auto", display: "block"}}
+                      disabled={loadingSpinner}
+                      onClick={onClickTypeRom}
+                    >
+                      {translate("accept")}
+                    </button>
+                    {loadingSpinner && <Spinner />}
                   </div>
                 </div>
               </div>

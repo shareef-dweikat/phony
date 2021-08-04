@@ -221,12 +221,13 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   const sallerId = JSON.parse(localStorage.companies).sellerid;
   const reqToken = sallerId + token;
   const number = history.split("/")[3].slice(3);
+  
   // console.log(data, number, pushHistory ,lang ,data.jawwalCredit.price);
   if (data.jawwal3g !== null && data.jawwal3g !== undefined) {
     console.log(data.jawwal3g.ID.substring(0, data.jawwal3g.ID.length - 4));
 
     Notiflix.Notify.info("Jawwal 3G Charging is in progress");
-    axios
+    return axios
       .post(
         `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.ID.substring(
           0,
@@ -245,7 +246,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     console.log(data.jawwalRom.ID.substring(0, data.jawwalRom.ID.length - 4));
     Notiflix.Notify.info("Jawwal Roaming Charging is in progress");
 
-    axios
+    return axios
       .post(
         `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.jawwalRom.ID.substring(
           0,
@@ -263,7 +264,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   if (data.jawwalCredit !== null && data.jawwalCredit !== undefined) {
     Notiflix.Notify.info("Charging is in progress");
 
-    axios
+    return axios
       .post(
         `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=0`
       )
@@ -277,10 +278,10 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   }
   if (data.jawwalMin !== null && data.jawwalMin !== undefined) {
     Notiflix.Notify.info("Jawwal Min Charging is in progress");
-    console.log(data.jawwalMin.ID.substring(0, data.jawwalMin.ID.length - 4));
-    axios
+    console.log(data.jawwalMin.id.substring(0, data.jawwalMin.ID.length - 4));
+    return axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.ID.substring(
+        `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.id.substring(
           0,
           data.jawwalMin.ID.length - 4
         )}`

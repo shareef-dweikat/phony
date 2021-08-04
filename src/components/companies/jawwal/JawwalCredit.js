@@ -9,6 +9,7 @@ import { getJawwalCredit, chargeJawwal } from "../../../actions/companiesAction"
 import "./jawwal.css";
 import credit from "./credit";
 import SubNav from "./SubNav";
+import Spinner from "../../ui/spinner/Spinner";
 
 const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJawwal }) => {
   const history = useHistory().location.pathname;
@@ -31,6 +32,8 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   const [jawwal3g, setJawwal3g] = useState("");
   const [jawwalRom, setJawwalRom] = useState("");
   const [jawwalMin, setJawwalMin] = useState("");
+  const [loadingSpinner, isLoading] = useState(false);
+
   useEffect(() => {
     document.title = "Home /Credit Jawwal";
     // console.log(auth, jawwalCreadit);
@@ -49,6 +52,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   }, []);
   const onClickTypeCredit = (e) => {
     e.preventDefault();
+    isLoading(true);
     chargeJawwal(
       {
         jawwal3g: jawwal3g || null,
@@ -58,7 +62,10 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
       },
       history,
       pushHistory
-    );
+    )
+    .finally(() => {
+      isLoading(false);
+    });
   };
   const onChange = (e) => {
     console.log(e.target.value);
@@ -97,7 +104,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
         <div className="col-lg-9 col-md-8 col-sm-6">
           <div className="">
             <div className="row mt-2">
-              <div className="col-3" style={{paddingLeft:0}}>
+              <div className="col-3">
                 <div className="card jawwal-back">
                   <h1 className="jawwal-text">{translate("jawwalCredit")}</h1>
                 </div>
@@ -120,32 +127,6 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
             </div>
             <div className="position-relative">
               <div className="row">
-                <div className="col-2">
-                  <div class="card total-balance-card mt-2">
-                    <div class="card-body py-2">
-                      <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
-                      <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
-                        (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                        (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                        (credit.price ? parseFloat(credit.price) : 0)}
-                      </h3>
-                      <button
-                        type="submit"
-                        class={`btn btn-success ${
-                          (selected.price ? parseFloat(selected.price) : 0) +
-                            (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                            (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                            (credit.price ? parseFloat(credit.price) : 0) ===
-                            0 && "disabled"
-                        }`}
-                        style={{margin: "auto", display: "block"}}
-                        onClick={onClickTypeCredit}
-                      >
-                        {translate("accept")}
-                      </button>
-                    </div>
-                  </div>
-                </div>
                 <div className="col-10">
                   <div className="card m-4s fixed-top1 position-sticky mt-2">
                     <div className="row mt-1 fixed-topx">
@@ -209,15 +190,43 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                     </div>
                   </div>
                 </div>
+                <div className="col-2">
+                  <div class="card total-balance-card mt-2">
+                    <div class="card-body py-2">
+                      <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
+                      <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
+                        (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
+                        (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                        (jawwalMin.price ? parseFloat(jawwalMin.price) : 0)}
+                      </h3>
+                      <button
+                        type="submit"
+                        class={`btn btn-success ${
+                          (selected.price ? parseFloat(selected.price) : 0) +
+                            (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
+                            (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                            (jawwalMin.price ? parseFloat(jawwalMin.price) : 0) ===
+                            0 && "disabled"
+                        }`}
+                        style={{margin: "auto", display: "block"}}
+                        disabled={loadingSpinner}
+                        onClick={onClickTypeCredit}
+                      >
+                        {translate("accept")}
+                      </button>
+                      {loadingSpinner && <Spinner />}
+                    </div>
+                  </div>
+                </div>
               </div>
 
               <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
               
               <div class="form-group row d-flex justify-content-start">
-                <label for="colFormLabelLg" class="col-sm-1 col-form-label col-form-label-lg">
-                  {translate("SpecificCredit")}
-                </label>
-                <div className="col-md-4">
+                <div className="col-6 d-flex">
+                  <label for="colFormLabelLg" class="col-2 col-form-label col-form-label-lg" style={{minWidth: 160}}>
+                    {translate("SpecificCredit")}
+                  </label>
                   <TextFieldGroup
                     style={{ width: "100%" }}
                     className="mb-5"
@@ -241,7 +250,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                         title={item && item.des}
                         onClick={() => onTypeClick(item)}
                       >
-                        <div className="frame">
+                        <div className="card">
                           <img
                             src={item.url}
                             // width="100px"

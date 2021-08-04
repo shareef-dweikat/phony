@@ -49,13 +49,13 @@ const InputNumber = () => {
             <form className="m-5" onSubmit={onSubmit}>
               {isEmpty && <Message msg="Enter valid number" />}
               <div className="form-group row">
-                <label for="inputEmail3" className="col-sm-3 col-form-label">
-                  {translate("jawwalNo")}
-                </label>
-                <div className="col-sm-5 ">
+                <div className="col-12 col-md-7 d-flex">
+                  <label for="inputEmail3" className="col-3 col-form-label" style={{fontSize: "1.6rem", minWidth: 160}}>
+                    {translate("jawwalNo")}
+                  </label>
                   <TextFieldGroup value={value} onChange={(e) => setValue(e.target.value)} type="number" />
                 </div>
-                <div className="col-sm-3">
+                <div className="col-3 col-md-2">
                   <button style={{ width: "110%" }} type="submit" className="btn sign-but p-2 w-30" onSubmit={onSubmit}>
                     {translate("next")}{" "}
                   </button>
