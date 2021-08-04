@@ -2,29 +2,29 @@ import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import translate from "../../i18n/translate";
 import { connect } from "react-redux";
+import "./sidebar.css";
 
 const SideBar = ({ user ,userData }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   return (
     <div>
-      <div className="card d100-vh">
-        <div className="card card-bal mx-3">
-          <div className="m-2 text-center">
-            <h6>
-              <i
-                className="icon-main fa fa-balance-scale m-1"
-                aria-hidden="true"
-              />
-              {translate("balance")}
-            </h6>
-            <h4 className="main-text mt-3" style={{ fontWeight: "bolder" }}>
-              {(userData && userData.balance) || (currentUser && currentUser.balance)} {translate("nis")}
-            </h4>
-            <h6 className="mt-3">{(user.sellername)}</h6>
-            <h5 className="mt-3">{(userData && userData["seller id"]) || (currentUser && currentUser["seller id"])}</h5>
+      <div className="d100-vh">
+        <div class="widget-flat card">
+          <div class="card-body">
+            <div class="float-end">
+              <i class="icon-main fas fa-dollar-sign widget-icon"></i>
+            </div>
+            <h5 class="text-muted mt-0" title="Balance" style={{fontSize: "1rem"}}>{translate("balance")}</h5>
+            <h3 class="text-info mt-2 mb-3">₪ {(userData && userData.balance) || (currentUser && currentUser.balance)}</h3>
+            <p class="user-info mb-0 text-muted">
+              <span class="text-nowrap ms-1">{(user.sellername)}</span>
+              <span class="text-nowrap mx-2">|</span>
+              <span class="text-nowrap me-1">{(userData && userData["seller id"]) || (currentUser && currentUser["seller id"])}</span>
+            </p>
           </div>
         </div>
+      
         <div className="mt-3">
           <div
             className={`sidebar__link ${

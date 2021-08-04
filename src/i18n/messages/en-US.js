@@ -57,7 +57,7 @@ export default {
     umniah: "Umniah",
     orange: "Orange",
     forNumber: "For Number",
-
+    SpecificCredit: "Specific Credit",
     //Home page
 
     Report: "Report",

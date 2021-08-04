@@ -1,0 +1,16 @@
+.home .outer-wrapper {
+    width: 100%;
+    height: 150px;
+    border: 1px dashed #25ace3;
+}
+.home .outer-wrapper .frame {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+}
+.home .outer-wrapper .frame > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}

@@ -1,0 +1,29 @@
+.widget-flat {
+    position: relative;
+    overflow: hidden;
+    background-color: #e9eaec;
+    max-width: 250px;
+}
+[dir="ltr"] .widget-flat .card-body .float-end {
+    float: right!important;
+}
+.widget-flat .card-body .fw-normal {
+    font-size: 1rem;
+}
+.widget-flat .widget-icon {
+    color: #727cf5;
+    font-size: 20px;
+    background-color: rgba(114,124,245,.25);
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 3px;
+    display: inline-block;
+}
+
+.widget-flat .user-info {
+    background-color: #c0c4c785;
+    padding: 5px;
+    border-radius: 0.25rem;
+}

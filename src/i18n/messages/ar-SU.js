@@ -112,7 +112,7 @@ export default {
     jawwalOfferMin: "عروض دقائق جوال",
     jawwalOfferCredit: "عروض رصيد جوال",
     amount: "كمية",
-    accept: "Process",
+    accept: "إرسال",
     logout: "تسجيل خروج",
     total: "المجموع",
     rom: "Rom",
@@ -130,6 +130,8 @@ export default {
     Roaming: "تجوال",
     ID: "ID",
     forNumber: "للرقم",
+    SpecificCredit: "رصيد محدد",
+
     //ooredoo com
 
     etopup: "E-TOPUP",

@@ -20,3 +20,30 @@ width: 120px;
   width: 100%;
   height: auto;
 }
+.custom-lang {
+  padding-bottom: 0;
+}
+.custom-lang > button {
+  border: none;
+}
+[dir="rtl"] .custom-lang > button > span > span:nth-child(2) {
+  padding-right: 10px;
+  padding-left: 0;
+}
+.custom-lang > ul {
+  margin: 0;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #e7ebf0;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0;
+}
+.custom-lang > ul > li {
+  margin: 0;
+  padding: 7px 20px;
+}
+
+[dir="rtl"] .custom-lang > ul > li > span > span:nth-child(2) {
+  padding-right: 10px;
+  padding-left: 0;
+}

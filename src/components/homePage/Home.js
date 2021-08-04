@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import SideBar from "./SideBar";
 import moment from "moment";
 import { getLastTransaction } from "../../actions/reportsAction";
+import "./home.css";
+
 const Home = ({ user, getLastTransaction, last }) => {
   useEffect(() => {
     document.title = "Home /PlayPhone ";
@@ -13,7 +15,7 @@ const Home = ({ user, getLastTransaction, last }) => {
   }, []);
   const updateClick = () => getLastTransaction();
   return (
-    <div className="container">
+    <div className="home container">
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -27,7 +29,7 @@ const Home = ({ user, getLastTransaction, last }) => {
           <div className="">
             <div className="row">
               {user.jawwal === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/jawwalNo">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -45,7 +47,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.ooredoo === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/ooredoo/MobileNumer">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -62,7 +64,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.cellcom === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/group/cellcom">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -79,7 +81,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.pelephone === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/group/pelephone">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -96,7 +98,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.golan === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/group/golan">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -113,7 +115,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.mobile012 === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/group/mobile012">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -130,7 +132,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.azy === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/azy">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -147,7 +149,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.hot === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/hot">
                   <div className="card outer-wrapper">
                     <div className="frame">
@@ -164,7 +166,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.partner === "true" && (
-                <div className="col-lg-3 col-md-4 col-sm-6 mt-4">
+                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
                   <Link to="/company/group/partner">
                     <div className="card outer-wrapper">
                       <div className="frame">

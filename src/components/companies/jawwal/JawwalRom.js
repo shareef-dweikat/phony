@@ -94,18 +94,18 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
               </div>
               <div className="col-9">
                 <div className=" card nav-layout">
-                  <div className="form-group row">
-                    <label className="my-1 col-md-5 col-sm-12 col-form-label mobile-semi">
-                      <button className={`btn btn-light main-text mx-2 refersh-but`} onClick={refreshClick}>
+                <div className="form-group row px-2">
+                    <div className="col-md-6 col-sm-12 col-form-label mobile-semi">
+                      <i class="fas fa-phone" style={{fontSize: "1.4rem"}}></i>
+                      <span style={{fontSize: "1.6rem", marginRight: 10, marginLeft: 10, marginTop: 5, display: "inline-block"}}>{mobileNo}</span>
+                    </div>
+                    <label
+                      className="col-md-6 col-sm-12 col-form-label mobile-semi d-flex align-items-center justify-content-start"
+                      style={{ fontFamily: "initial", fontSize: "2rem" }}
+                    >
+                      <button className={`btn btn-light btn-md main-text mx-2`} onClick={refreshClick}>
                         {translate("refresh")}
                       </button>
-                      {translate("jawwalOfferRoming")}
-                    </label>
-                    <label
-                      className="my-1 col-md-3 col-sm-12 col-form-label mobile-semi"
-                      style={{ fontFamily: "initial", fontSize: "1.6rem" }}
-                    >
-                      {mobileNo}
                     </label>
                   </div>
                 </div>

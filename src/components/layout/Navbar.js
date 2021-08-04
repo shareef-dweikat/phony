@@ -93,10 +93,12 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
             color={"#fff"}
             countries={["PS", "US", "IL"]}
             selected={selected}
-            customLabels={{ US: "EN-US", PS: "AR-PS", IL: "IL-ISR" }}
+            customLabels={{ US: "English", PS: "Arabic", IL: "Hebrew" }}
             onSelect={(code) => onSelectLang(code)}
-            // showSelectedLabel={false}
+            selectedSize={14}
+            optionsSize={14}
             showLabal={true}
+            className="custom-lang"
           />
         </div>
       </div>
