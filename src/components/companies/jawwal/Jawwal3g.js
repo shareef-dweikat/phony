@@ -175,7 +175,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className=" row mt-1 fixed-topx">
                     {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
                             <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
@@ -187,7 +187,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       </div>
                     )}
                     {jawwalRom !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper  px-3">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwalRom.url} width="260px" height="100px"></img>
@@ -199,7 +199,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       </div>
                     )}
                     {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img
@@ -220,7 +220,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       </div>
                     )}
                     {jawwalMin !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>

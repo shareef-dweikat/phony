@@ -117,105 +117,106 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
               </div>
             </div>
           </div>
-          <div className=" card position-relative">
-            <div className="card m-4s fixed-top1 position-sticky mt-2">
-              <div className=" row mt-1 fixed-topx">
-                {selected !== "" && (
-                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
-                    <div className="card outer-wrapper px-3 ">
-                      <div className="frame1">
-                        <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
-                        <a className="close-btn">
-                          <i class="fa fa-times" aria-hidden="true" onClick={onJawwalRomRemove}></i>
-                        </a>
-                      </div>
-                    </div>
+          <div className=" position-relative">
+            <div className="row">
+              <div className="col-2">
+                <div class="card total-balance-card mt-2">
+                  <div class="card-body py-2">
+                    <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
+                    <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
+                      (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
+                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                      (credit.price ? parseFloat(credit.price) : 0)}
+                    </h3>
+                    <button
+                      type="submit"
+                      class={`btn btn-success ${
+                        (selected.price ? parseFloat(selected.price) : 0) +
+                          (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
+                          (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
+                          (credit.price ? parseFloat(credit.price) : 0) ===
+                          0 && "disabled"
+                      }`}
+                      style={{margin: "auto", display: "block"}}
+                      onClick={onClickTypeRom}
+                    >
+                      {translate("accept")}
+                    </button>
                   </div>
-                )}
-                {jawwal3g !== "" && (
-                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
-                    <div className="card outer-wrapper px-3">
-                      <div className="frame1">
-                        <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
-                        <a className="close-btn" onClick={onJawwal3gRemove}>
-                          <i class="fa fa-times" aria-hidden="true"></i>
-                        </a>
+                </div>
+              </div>
+              <div className="col-10">
+                <div className="card m-4s fixed-top1 position-sticky mt-2">
+                  <div className=" row mt-1 fixed-topx">
+                    {selected !== "" && (
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                        <div className="card outer-wrapper px-3 ">
+                          <div className="frame1">
+                            <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
+                            <a className="close-btn">
+                              <i class="fa fa-times" aria-hidden="true" onClick={onJawwalRomRemove}></i>
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                )}
-                {credit !== "" && (
-                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
-                    <div className="card outer-wrapper px-3">
-                      <div className="frame1">
-                        <img
-                          alt="sssssssssss"
-                          src={
-                            credit.url ||
-                            "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
-                          }
-                          width="260px"
-                          height="100px"
-                        ></img>
-                        {!credit.url && <label className="text-abs">{credit.price}</label>}
-                        <a className="close-btn" onClick={onCreditRemove}>
-                          <i class="fa fa-times" aria-hidden="true"></i>
-                        </a>
+                    )}
+                    {jawwal3g !== "" && (
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                        <div className="card outer-wrapper px-3">
+                          <div className="frame1">
+                            <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
+                            <a className="close-btn" onClick={onJawwal3gRemove}>
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                )}
-                {jawwalMin !== "" && (
-                  <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
-                    <div className="card outer-wrapper px-3 ">
-                      <div className="frame1">
-                        <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
-                        <a className="close-btn" onClick={onJawwalMinRemove}>
-                          <i class="fa fa-times" aria-hidden="true"></i>
-                        </a>
+                    )}
+                    {credit !== "" && (
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                        <div className="card outer-wrapper px-3">
+                          <div className="frame1">
+                            <img
+                              alt="sssssssssss"
+                              src={
+                                credit.url ||
+                                "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
+                              }
+                              width="260px"
+                              height="100px"
+                            ></img>
+                            {!credit.url && <label className="text-abs">{credit.price}</label>}
+                            <a className="close-btn" onClick={onCreditRemove}>
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
+                    )}
+                    {jawwalMin !== "" && (
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-2">
+                        <div className="card outer-wrapper px-3 ">
+                          <div className="frame1">
+                            <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
+                            <a className="close-btn" onClick={onJawwalMinRemove}>
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
               </div>
             </div>
-            <form class="form-inline mt-5">
-              <div class="form-group row d-flex justify-content-center">
-                <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">
-                  {translate("total")}
-                </label>
-                <div class="col-sm-4 text-center text-bold">
-                  <label class=" form-control-lg">
-                    {(selected.price ? parseFloat(selected.price) : 0) +
-                      (credit.price ? parseFloat(credit.price) : 0) +
-                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                      (jawwalMin.price ? parseFloat(jawwalMin.price) : 0)}
-                  </label>
-                </div>
-                <button
-                  type="submit"
-                  class={`col-sm-2 btn btn sign-but ${
-                    (selected.price ? parseFloat(selected.price) : 0) +
-                      (credit.price ? parseFloat(credit.price) : 0) +
-                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                      (jawwalMin.price ? parseFloat(jawwalMin.price) : 0) ===
-                      0 && "disabled"
-                  } `}
-                  onClick={onClickTypeRom}
-                >
-                  {translate("accept")}
-                </button>
-              </div>
-            </form>
-            <hr className="mt-2" style={{ border: "2px solid #000", fontWeight: "bolder" }} />
+            
+            <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
+            
             <div className="card">
               <div
                 className="d-flex justify-content-between mx-3 type-rom"
                 style={{ fontFamily: "initial", fontSize: "2rem" }}
               >
-                {/* <label
-                  className="  col-md-12 col-sm-12 col-form-label mobile-semi"
-                > */}
                 <button
                   className={`btn btn-light main-text mx-1 ${typeRoming === "Jordan" ? "rom-selected" : null}`}
                   onClick={() => selectTypeClick("Jordan")}

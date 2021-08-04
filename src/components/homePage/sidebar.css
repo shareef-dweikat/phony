@@ -23,7 +23,14 @@
 }
 
 .widget-flat .user-info {
-    background-color: #c0c4c785;
+    display: flex;
     padding: 5px;
+    background-color: #c0c4c785;
     border-radius: 0.25rem;
+}
+
+.widget-flat .username {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -206,7 +206,7 @@ const JawwalMin = ({
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className="row mt-1 fixed-topx">
                     {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
@@ -218,7 +218,7 @@ const JawwalMin = ({
                       </div>
                     )}
                     {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img
@@ -239,7 +239,7 @@ const JawwalMin = ({
                       </div>
                     )}
                     {jawwalRom !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper  px-3">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwalRom.url} width="260px" height="100px"></img>
@@ -251,7 +251,7 @@ const JawwalMin = ({
                       </div>
                     )}
                     {jawwal3g !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper ">
                           <div className="frame1">
                             <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
