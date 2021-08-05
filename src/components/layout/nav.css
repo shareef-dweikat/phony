@@ -50,3 +50,29 @@ width: 120px;
   padding-right: 10px;
   padding-left: 0;
 }
+
+.Dropdown-root.style1 .Dropdown-control {
+  color: #ffffff;
+  background-color: transparent;
+  border: none;
+  padding: 8px 40px 8px 10px
+}
+.Dropdown-root.style1 .Dropdown-control:hover {
+  box-shadow: none;
+}
+.Dropdown-root.style1 .Dropdown-control .Dropdown-arrow {
+  border-color: #fff transparent transparent;
+}
+.Dropdown-root.style1.is-open .Dropdown-control .Dropdown-arrow {
+  border-color: transparent transparent #fff;
+}
+.Dropdown-root.style1 .Dropdown-menu {
+  border: 1px solid #e7ebf0;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0;
+}
+.Dropdown-root.style1 .Dropdown-menu .Dropdown-option {
+  background-color: white;
+  color: #000;
+  text-align: center;
+}

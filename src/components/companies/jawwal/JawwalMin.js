@@ -43,6 +43,7 @@ const JawwalMin = ({
   const [jawwalRom, setJawwalRom] = useState("");
   const [credit, setCredit] = useState("");
   const [loadingSpinner, isLoading] = useState(false);
+  const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-4 mt-3");
 
   useEffect(() => {
     document.title = "Home /Min Jawwal";
@@ -62,6 +63,7 @@ const JawwalMin = ({
     if (localStorage.JawwalRom) {
       setJawwalRom(JSON.parse(localStorage.JawwalRom));
     }
+    refreshColumnStyle();
   }, []);
   useEffect(() => {
     getJawwalPackages();
@@ -126,6 +128,23 @@ const JawwalMin = ({
   const refreshClick = () => {
     getJawwalMin(mobileNo, true);
   };
+  const refreshColumnStyle = () => {
+    switch(localStorage.size) {
+      case "default":
+        setColumnStyle("col-lg-3 col-md-4 col-sm-6 col-6");
+        break;
+      case "column3":
+        setColumnStyle("col-lg-4 col-md-6 col-sm-6 col-6 card-lg");
+        break;
+      case "column4":
+      setColumnStyle("col-lg-3 col-md-4 col-sm-6 col-6  card-md");
+      break;
+      case "column6":
+      setColumnStyle("col-lg-2 col-md-2 col-sm-4 col-6 card-sm");
+      break;
+    }
+  }
+
   return (
     <div className="container">
       <div className="row mt-5">
@@ -278,63 +297,65 @@ const JawwalMin = ({
 
             <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
 
-            <div className="row">
-              {loading && (
-                <Spinner/>
-              )}
-              {jawwalMin && jawwalMin.length === 0 && !loading ? (
-                <div className="d-flex justify-content-center mt-3">
-                  <h1 className="warning-text">No available bundles</h1>
-                </div>
-              ) : (
-                jawwalMin.map((item, index) => (
-                  <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                    <div className="card outer-wrapper charge-card">
-                      <a
-                        style={{ cursor: "pointer" }}
-                        data-placement="top"
-                        title={item && item.des}
-                        onClick={() => onTypeClick(item)}
-                      >
-                        <div className="frame-card">
-                          <img
-                            alt="sssssssssss"
-                            src={item.url}
-                            // width="100px"
-                            // height="50px"
-                          ></img>
-
-                          {/* {item && item.des} */}
-                        </div>
-                      </a>
-                    </div>
-                    <div className="card">
-                      <div class="text-center" id="headingOne">
-                        <h5 class="mb-0 mx-">
-                          <a
-                            class="link-main details"
-                            style={{ fontWeight: "bolder" }}
-                            data-toggle="collapse"
-                            data-target={"#" + index}
-                            aria-expanded="true"
-                            aria-controls={index}
-                          >
-                            <small>{translate("Details")}</small>
-                          </a>
-                        </h5>
-                      </div>
-
-                      <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                          {item.des}
-                          <br/>
-                          [{translate("ID")}:{item.id || item.ID}]
-                        </div>
-                      </div>
-                    </div>
+            <div className="card list-cards">
+              <div className="row">
+                {loading && (
+                  <Spinner/>
+                )}
+                {jawwalMin && jawwalMin.length === 0 && !loading ? (
+                  <div className="d-flex justify-content-center mt-3">
+                    <h1 className="warning-text">No available bundles</h1>
                   </div>
-                ))
-              )}
+                ) : (
+                  jawwalMin.map((item, index) => (
+                    <div className={`${columnStyle} mt-3`}>
+                      <div className="card charge-card">
+                        <a
+                          style={{ cursor: "pointer" }}
+                          data-placement="top"
+                          title={item && item.des}
+                          onClick={() => onTypeClick(item)}
+                        >
+                          <div className="frame-card">
+                            <img
+                              alt="sssssssssss"
+                              src={item.url}
+                              // width="100px"
+                              // height="50px"
+                            ></img>
+
+                            {/* {item && item.des} */}
+                          </div>
+                        </a>
+                      </div>
+                      <div className="card">
+                        <div class="text-center" id="headingOne">
+                          <h5 class="mb-0 mx-">
+                            <a
+                              class="link-main details"
+                              style={{ fontWeight: "bolder" }}
+                              data-toggle="collapse"
+                              data-target={"#" + index}
+                              aria-expanded="true"
+                              aria-controls={index}
+                            >
+                              <small>{translate("Details")}</small>
+                            </a>
+                          </h5>
+                        </div>
+
+                        <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                          <div class="card-body">
+                            {item.des}
+                            <br/>
+                            [{translate("ID")}:{item.id || item.ID}]
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </div>
         </div>

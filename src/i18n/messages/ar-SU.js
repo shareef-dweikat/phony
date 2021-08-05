@@ -147,5 +147,10 @@ export default {
     ooredooMinOffer: "Ooredoo minutes Offers",
     NoAvailable: "No available bundles",
     ooredooOfferMin: "Ooredoo minutes Offers",
+
+    Default: "افتراضي",
+    column3: "3 أعمدة",
+    column4: "4 أعمدة",
+    column6: "6 أعمدة",
   },
 };

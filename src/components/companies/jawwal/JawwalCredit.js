@@ -33,6 +33,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   const [jawwalRom, setJawwalRom] = useState("");
   const [jawwalMin, setJawwalMin] = useState("");
   const [loadingSpinner, isLoading] = useState(false);
+  const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 col-6");
 
   useEffect(() => {
     document.title = "Home /Credit Jawwal";
@@ -49,7 +50,9 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
     if (localStorage.JawwalRom) {
       setJawwalRom(JSON.parse(localStorage.JawwalRom));
     }
+    refreshColumnStyle();
   }, []);
+  
   const onClickTypeCredit = (e) => {
     e.preventDefault();
     isLoading(true);
@@ -94,6 +97,24 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
     localStorage.removeItem("jawwalMin");
     setJawwalMin("");
   };
+
+  const refreshColumnStyle = () => {
+    switch(localStorage.size) {
+      case "default":
+        setColumnStyle("col-lg-3 col-md-4 col-sm-6 col-6");
+        break;
+      case "column3":
+        setColumnStyle("col-lg-4 col-md-6 col-sm-6 col-6 card-lg");
+        break;
+      case "column4":
+      setColumnStyle("col-lg-3 col-md-4 col-sm-6 col-6 card-md");
+      break;
+      case "column6":
+      setColumnStyle("col-lg-2 col-md-2 col-sm-4 col-6 card-sm");
+      break;
+    }
+  }
+
   return (
     <div className="container">
       <div className="row mt-5">
@@ -223,7 +244,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
 
               <div className="row ">
                 {credit.map((item) => (
-                  <div className="col-lg-3 col-md-4 col-sm-6 col-6 mt-1">
+                  <div className={`${columnStyle} mt-1`}>
                     <div className="card outer-wrapper charge-card">
                       <a
                         style={{ cursor: "pointer" }}
@@ -241,8 +262,8 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                     </div>
                   </div>
                 ))}
-                <div class="col-lg-3 col-md-4 col-sm-6 col-6 mt-1">
-                  <div class="card outer-wrapper">
+                <div className={columnStyle}>
+                  <div class="card card-credit outer-wrapper">
                     <a
                       style={{ cursor: "pointer" }}
                       data-placement="top"

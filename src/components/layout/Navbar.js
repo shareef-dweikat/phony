@@ -7,14 +7,22 @@ import { connect } from "react-redux";
 import { userData } from "../../actions/userAction";
 import "./nav.css";
 import logo from "../../assests/images/logo/white-logo.svg";
+import Dropdown from 'react-dropdown';
+
+const options = [
+  { value: 'default', label: translate('Default') },
+  { value: 'column3', label: translate('column3') },
+  { value: 'column4', label: translate('column4') },
+  { value: 'column6', label: translate('column6') },
+];
 
 const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   const history = useHistory();
   const [selected, setSelected] = useState("PS");
+
   useEffect(() => {
     if (isAuthenticated) {
       setTimeout(()=>   userData() ,1000)
-   
     }
     if (localStorage.langCity === "en") {
       setSelected("US");
@@ -36,10 +44,17 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   const onLogoutClick = () => {
     logoutUser(history);
   };
+  const getDefaultSize = () => {
+    return options.find((op) => op.value === localStorage.size);
+  }
+  const _onSelectSize = (e) => {
+    localStorage.setItem("size", e.value);
+    window.location.reload();
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "#25ace3" }}>
       <div className="container">
-        <Link className="navbar-brand my-0 me-3 p-0" to="/">
+        <Link className="navbar-brand my-0 p-0" to="/">
           <div className="nav-imsg">
             <img
               width="auto"
@@ -91,6 +106,9 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
               </li>
             )}
           </ul>
+
+          <Dropdown options={options} onChange={_onSelectSize} value={getDefaultSize()} placeholder="Size" className='style1'/>
+
           <ReactFlagsSelect
             color={"#fff"}
             countries={["PS", "US", "IL"]}

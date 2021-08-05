@@ -56,15 +56,15 @@
 }
 .text-abs {
   position: absolute;
-    top: 50%;
-    left: calc(50% + 5px);
-    font-size: 2rem;
-    font-weight: 900;
-    color: #14c259;
-    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-    transform: translateY(-50%);
-    text-align: center;
-    width: calc(50% - 10px);
+  top: 50%;
+  left: calc(50% + 5px);
+  font-size: 2rem;
+  font-weight: 900;
+  color: #14c259;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  transform: translateY(-50%);
+  text-align: center;
+  width: calc(50% - 10px);
 }
 .close-btn > i {
   color: #fff;
@@ -150,4 +150,22 @@
   border-bottom-left-radius: 0;
   border-top-right-radius: .25rem;
   border-bottom-right-radius: .25rem;
+}
+
+.card-sm .card-credit .form-group input {
+  font-size: 1rem !important;
+}
+.card-md .card-credit .form-group input {
+  font-size: 2rem !important;
+}
+.card-lg .card-credit .form-group input {
+  font-size: 2.5rem !important;
+  right: 5% !important;
+}
+.list-cards .frame-card {
+  width: 100%;
+  height: 100%;
+}
+.list-cards .charge-card {
+  margin-bottom: 10px;
 }

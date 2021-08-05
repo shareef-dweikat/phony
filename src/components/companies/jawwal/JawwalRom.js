@@ -24,6 +24,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
   const [credit, setCredit] = useState("");
   const [jawwal3g, setJawwal3g] = useState("");
   const [loadingSpinner, isLoading] = useState(false);
+  const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 col-6");
 
   useEffect(() => {
     getJawwalRom(mobileNo, false);
@@ -40,6 +41,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
     if (localStorage.JawwalRom) {
       setSelected(JSON.parse(localStorage.JawwalRom));
     }
+    refreshColumnStyle();
   }, []);
   const onClickTypeRom = (e) => {
     e.preventDefault();
@@ -84,6 +86,22 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
   const refreshClick = () => {
     getJawwalRom(mobileNo, false);
   };
+  const refreshColumnStyle = () => {
+    switch(localStorage.size) {
+      case "default":
+        setColumnStyle("col-lg-3 col-md-4 col-sm-6 col-6");
+        break;
+      case "column3":
+        setColumnStyle("col-lg-4 col-md-6 col-sm-6 col-6 card-lg");
+        break;
+      case "column4":
+      setColumnStyle("col-lg-3 col-md-4 col-sm-6 col-6 card-md");
+      break;
+      case "column6":
+      setColumnStyle("col-lg-2 col-md-2 col-sm-4 col-6 card-sm");
+      break;
+    }
+  }
   return (
     <div className="container">
       <div className="row mt-5">
@@ -268,7 +286,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                 {/* </label> */}
               </div>
             </div>
-            <div className="card">
+            <div className="card list-cards">
               <div className="row mb-5">
                 {loading && (
                   <Spinner/>
@@ -281,8 +299,8 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                   jawwalRom
                     .filter(({ country }) => country === typeRoming)
                     .map((item, index) => (
-                      <div className="col-lg-3 col-md-4 col-sm-6 col-6 mt-4 ">
-                        <div className="card outer-wrapper charge-card">
+                      <div className={`${columnStyle} mt-4`}>
+                        <div className="card charge-card">
                           <a
                             style={{ cursor: "pointer" }}
                             data-placement="top"
