@@ -14,7 +14,8 @@ const TextFieldGroup = ({
   onChange,
   disable,
   style,
-  required
+  required,
+  autoFocus = false
 }) => {
   const validateNumber = (event) => {
     event.target.value = event.target.value.replace(/\D/,'');
@@ -38,6 +39,7 @@ const TextFieldGroup = ({
         disabled={disable}
         style={style}
         required={required}
+        autoFocus={autoFocus}
       />
       ) : (
       <input
@@ -76,6 +78,7 @@ TextFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   disable: PropTypes.string,
+  autoFocus: PropTypes.bool,
 };
 TextFieldGroup.defaultProps = {
   type: "text",

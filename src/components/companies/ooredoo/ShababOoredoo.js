@@ -81,7 +81,7 @@ const ShababOoredoo = ({ getOoredooSuper, ooredooSuper, getOoredooSuperNotRenew,
                   style={{ fontFamily: "initial", fontSize: "2rem" }}
                 >
                   <button
-                    className={`btn btn-light main-text mx-1 ${isRenew ? "selected-btn" : null}`}
+                    className={`btn btn-light main-text mx-1 ${isRenew ? "selected-btn" : ""}`}
                     onClick={() => {
                       setIsNotRenew(false);
                       setIsRenew(true);
@@ -91,7 +91,7 @@ const ShababOoredoo = ({ getOoredooSuper, ooredooSuper, getOoredooSuperNotRenew,
                     {translate("Renewable")}
                   </button>
                   <button
-                    className={`btn btn-light main-text mx-1 ${isNotRenew ? "selected-btn" : null}`}
+                    className={`btn btn-light main-text mx-1 ${isNotRenew ? "selected-btn" : ""}`}
                     onClick={() => {
                       setIsNotRenew(true);
                       setIsRenew(false);

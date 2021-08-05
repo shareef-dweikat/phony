@@ -6,6 +6,8 @@ import { logoutUser } from "./../../actions/userAction";
 import { connect } from "react-redux";
 import { userData } from "../../actions/userAction";
 import "./nav.css";
+import logo from "../../assests/images/logo/white-logo.svg";
+
 const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   const history = useHistory();
   const [selected, setSelected] = useState("PS");
@@ -37,13 +39,13 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "#25ace3" }}>
       <div className="container">
-        <Link className="navbar-brand m-0 p-0" to="/">
+        <Link className="navbar-brand my-0 me-3 p-0" to="/">
           <div className="nav-imsg">
             <img
               width="auto"
               height="60"
               alt=""
-              src="https://res.cloudinary.com/dtu4lltbk/image/upload/v1624807236/Phone_Play1_1_gftbfd.png"
+              src={logo}
               className="d-inline-block align-top "
               alt=""
             />

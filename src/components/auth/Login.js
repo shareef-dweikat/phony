@@ -91,6 +91,7 @@ const Login = ({ loginUser, isAuthenticated, massage }) => {
                           value={loginForm.userName}
                           onChange={onChange}
                           error={errors1.userName}
+                          autoFocus={true}
                         />
                       </div>
                     </div>

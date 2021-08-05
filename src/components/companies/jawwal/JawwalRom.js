@@ -109,7 +109,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       className="col-md-6 col-sm-12 col-form-label mobile-semi d-flex align-items-center justify-content-start"
                       style={{ fontFamily: "initial", fontSize: "2rem" }}
                     >
-                      <button className={`btn btn-light btn-md main-text mx-2`} onClick={refreshClick}>
+                      <button className={`btn btn-light btn-md main-text mx-1`} onClick={refreshClick}>
                         {translate("refresh")}
                       </button>
                     </label>
@@ -132,7 +132,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
+                            <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
                             <a className="close-btn">
                               <i class="fa fa-times" aria-hidden="true" onClick={onJawwalRomRemove}></i>
                             </a>
@@ -144,7 +144,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
+                            <img alt={jawwal3g.id} src={jawwal3g.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwal3gRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -157,7 +157,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img
-                              alt="sssssssssss"
+                              alt="Jawwal Credit"
                               src={
                                 credit.url ||
                                 "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
@@ -177,7 +177,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
+                            <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwalMinRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>

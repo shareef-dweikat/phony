@@ -101,6 +101,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                         value={signUpForm.fullName}
                         onChange={onChange}
                         error={errors1.fullName}
+                        autoFocus={true}
                       />
                     </div>
                   </div>

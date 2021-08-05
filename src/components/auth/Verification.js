@@ -88,6 +88,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
                           value={virefyForm.verfiy}
                           onChange={onChange}
                           required={true}
+                          autoFocus={true}
                         />
                       </div>
                     </div>

@@ -58,7 +58,7 @@ const InputNoPage = () => {
                 <label for="inputEmail3" className="col-3 col-form-label" style={{fontSize: "1.6rem", minWidth: 160}}>
                   {translate("jawwalNo")}
                 </label>
-                <TextFieldGroup value={value} onChange={(e) => setValue(e.target.value)} type="number" />
+                <TextFieldGroup value={value} onChange={(e) => setValue(e.target.value)} type="number" autoFocus={true} />
               </div>
               <div className="col-3 col-md-2">
                 <button style={{ width: "110%" }} type="submit" className="btn sign-but p-2 w-30" onSubmit={onSubmit}>

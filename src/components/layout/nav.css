@@ -1,3 +1,6 @@
+[dir="rtl"] .navbar-brand {
+  margin-left: 1rem;
+}
 .nav-link {
   color: #fff !important;
   font-weight: 700 !important;

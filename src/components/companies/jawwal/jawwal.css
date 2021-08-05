@@ -6,7 +6,8 @@
   margin-bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  flex-direction: row;
 }
 .jawwal-text {
   font-weight: bolder;
@@ -14,12 +15,10 @@
   color: #fff;
   font-size: 1.6rem;
   font-weight: normal;
-  margin: 0;
-  margin-right: 16px;
+  margin: 0 16px;
 }
 [lang="en"] .jawwal-text {
-  font-size: 1.4rem;
-  margin-right: 32px;
+  font-size: 1.2rem;
 }
 .mobile-semi {
   color: #fff;
@@ -40,7 +39,7 @@
 }
 .frame1 {
   position: relative;
-  height: 70px;
+  height: 80px;
 }
 .close-btn {
   position: absolute;
@@ -57,13 +56,15 @@
 }
 .text-abs {
   position: absolute;
-  top: 50%;
-  right: 7%;
-  font-size: 2rem;
-  font-weight: 900;
-  color: #14c259;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  transform: translateY(-50%);
+    top: 50%;
+    left: calc(50% + 5px);
+    font-size: 2rem;
+    font-weight: 900;
+    color: #14c259;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    transform: translateY(-50%);
+    text-align: center;
+    width: calc(50% - 10px);
 }
 .close-btn > i {
   color: #fff;
@@ -132,4 +133,21 @@
   opacity: 1;
   background-color: #ffffff;
   box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+}
+.btn-renewable {
+  font-family: "Times New Roman", "Montserrat", sans-serif;
+  font-size: 1rem;
+}
+
+[dir="ltr"] .btn-group > .btn:not(:last-child) {
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+[dir="ltr"] .btn-group > .btn:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
 }

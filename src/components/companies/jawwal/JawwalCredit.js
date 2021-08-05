@@ -76,7 +76,6 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   const onTypeClick = (item) => {
     localStorage.JawwalCredit = JSON.stringify(item);
     setSelected(item);
-    // addChargeJawwal(item);
   };
   const onCreditRemove = () => {
     localStorage.removeItem("JawwalCredit");
@@ -129,13 +128,13 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
               <div className="row">
                 <div className="col-10">
                   <div className="card m-4s fixed-top1 position-sticky mt-2">
-                    <div className="row mt-1 fixed-topx">
+                    <div className="row mt-1 fixed-topx px-3">
                       {selected !== {} && selected.price && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper px-3">
+                        <div className="card outer-wrapper">
                           <div className="frame1">
                             <img
-                              alt="sssssssssss"
+                              alt="Jawwal Credit"
                               src={
                                 selected.url ||
                                 "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
@@ -153,9 +152,9 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                     )}
                     {jawwalRom !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper  px-3">
+                        <div className="card outer-wrapper">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={jawwalRom.url} width="260px" height="100px"></img>
+                            <img alt="Jawwal Rom" src={jawwalRom.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwalRomRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -165,9 +164,9 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                     )}
                     {jawwalMin !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper  px-3">
+                        <div className="card outer-wrapper">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
+                            <img alt="Jawwal Min" src={jawwalMin.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwalMinRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -177,9 +176,9 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                     )}
                     {jawwal3g !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper  px-3">
+                        <div className="card outer-wrapper">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={jawwal3g.url} width="260px" height="100px"></img>
+                            <img alt="Jawwal 3G" src={jawwal3g.url} width="260px" height="100px"></img>
                             <a className="close-btn">
                               <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
                             </a>
@@ -221,28 +220,10 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
               </div>
 
               <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
-              
-              <div class="form-group row d-flex justify-content-start">
-                <div className="col-6 d-flex">
-                  <label for="colFormLabelLg" class="col-2 col-form-label col-form-label-lg" style={{minWidth: 160}}>
-                    {translate("SpecificCredit")}
-                  </label>
-                  <TextFieldGroup
-                    style={{ width: "100%" }}
-                    className="mb-5"
-                    name="price"
-                    type="number"
-                    value={inputForm.price}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
-
-              <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
 
               <div className="row ">
                 {credit.map((item) => (
-                  <div className="col-lg-3 col-md-4 col-sm-6 col-6 mt-1 ">
+                  <div className="col-lg-3 col-md-4 col-sm-6 col-6 mt-1">
                     <div className="card outer-wrapper charge-card">
                       <a
                         style={{ cursor: "pointer" }}
@@ -253,8 +234,6 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                         <div className="card">
                           <img
                             src={item.url}
-                            // width="100px"
-                            // height="50px"
                           ></img>
                           {item && item.des}
                         </div>
@@ -262,6 +241,34 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                     </div>
                   </div>
                 ))}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6 mt-1">
+                  <div class="card outer-wrapper">
+                    <a
+                      style={{ cursor: "pointer" }}
+                      data-placement="top"
+                      title="custom credit"
+                      onClick={() => onTypeClick({price: inputForm.price})}
+                    >
+                      <div class="card">
+                        <img src="https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"></img>
+                        <TextFieldGroup
+                          style={{ 
+                            width: "calc(50% - 20px)", height: "70%", padding: 0,
+                            position: "absolute", top: "50%", right: "6%",
+                            transform: "translateY(-50%)",
+                            fontSize: "2rem", fontFamily: '"Montserrat", sans-serif', textAlign: "center",
+                            outline: "rgb(16, 16, 16) auto 4px", 
+                          }}
+                          className="mb-5"
+                          name="price"
+                          type="number"
+                          value={inputForm.price}
+                          onChange={onChange}
+                        />
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

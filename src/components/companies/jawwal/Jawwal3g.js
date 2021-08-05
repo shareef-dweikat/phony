@@ -118,20 +118,20 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       className="col-md-6 col-sm-12 col-form-label mobile-semi d-flex align-items-center justify-content-start"
                       style={{ fontFamily: "initial", fontSize: "2rem" }}
                     >
-                      <button className={`btn btn-light btn-md main-text mx-2`} onClick={refreshClick}>
+                      <button className={`btn btn-light btn-md main-text mx-1`} onClick={refreshClick}>
                         {translate("refresh")}
                       </button>
                       <div class="btn-group" role="group" aria-label="Renewable">
                         <button
                           type="button"
-                          className={`btn btn-light btn-md main-text border-info border-left ${isRenew ? "selected-btn" : null}`}
+                          className={`btn btn-light btn-md btn-renewable main-text border-info border-left px-1 ${isRenew ? "selected-btn" : ""}`}
                           onClick={onRenewClick}
                         >
                           {translate("Renewable")}
                         </button>
                         <button
                           type="button"
-                          className={`btn btn-light btn-md main-text border-info border-left ${isNotRenew ? "selected-btn" : null}`}
+                          className={`btn btn-light btn-md btn-renewable main-text border-info border-left px-1 ${isNotRenew ? "selected-btn" : ""}`}
                           onClick={onNotRenewClick}
                         >
                           {translate("notRenew")}
@@ -157,7 +157,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={selected.url} width="260px" height="100px"></img>
+                            <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
                             <a className="close-btn">
                               <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
                             </a>
@@ -169,7 +169,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper  px-3">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={jawwalRom.url} width="260px" height="100px"></img>
+                            <img alt={jawwalRom.id} src={jawwalRom.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwalRomRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -182,7 +182,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                         <div className="card outer-wrapper px-3">
                           <div className="frame1">
                             <img
-                              alt="sssssssssss"
+                              alt="Jawwal Credit"
                               src={
                                 credit.url ||
                                 "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
@@ -202,7 +202,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper px-3 ">
                           <div className="frame1">
-                            <img alt="sssssssssss" src={jawwalMin.url} width="260px" height="100px"></img>
+                            <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwalMinRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -266,10 +266,8 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                         >
                           <div className="frame-card">
                             <img
-                              alt="sssssssssss"
+                              alt={item.id}
                               src={item.url}
-                              // width="100px"
-                              // height="50px"
                             ></img>
                           </div>
                         </a>
