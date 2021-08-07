@@ -4,20 +4,23 @@ export default {
   [LOCALES.ENGLISH]: {
     //sign up page
     test: "test from English",
-    enter0: "Enter your Full name",
-    enter1: "Enter your Email",
+    enter0: "Enter your full name",
+    enter1: "Enter your email",
     enter2: "Enter your mobile number",
     enter3: "Enter your address",
     enter4: "Enter your user name",
+    enter5: "Enter your city",
     register1: "Sign Up",
-    confirmPassword: "Confirm password *",
-    password: "Password *",
+    confirmPassword: "Confirm password",
+    confirmPasswordRequired: "Confirm password *",
+    password: "Password",
+    passwordRequired: "Password *",
     signUp: "Sign Up ",
     fullname: "Full Name",
     email: "Email",
     address: "Address",
     haveAccount: "already have an account? ",
-    mobileNumber: "Mobile NO. *",
+    mobileNumber: "Mobile Number",
     village: "Village",
     //sign up page
 
@@ -156,5 +159,26 @@ export default {
     processing: "processing",
 
     Insurance: "Insurance",
+
+    // Sign in
+    "Username": "Username",
+    "Password": "Password",
+    "Sign in to your account": "Sign in to your account",
+    "Forgot Password?": "Forgot Password?",
+    "Sign in": "Sign in",
+    "Don't have an account?": "Don't have an account?",
+
+    //Sign Up
+    "Enter your city": "Enter your city",
+    "Enter your country": "Enter your country",
+    "Select a country": "Select a country",
+    "Create your free account": "Create your free account",
+    "Rererral Code": "Rererral Code",
+    "Enter Rererral Code": "Enter rererral code",
+    "You will be provided with your username": "You will be provided with your username",
+
+    "Palestine": "Palestine",
+    "Israel": "Israel",
+
   },
 };

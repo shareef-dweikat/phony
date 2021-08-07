@@ -31,15 +31,20 @@ import Internet from "../pages/Internet/Internet";
 import Insurance from "../pages/Insurance/Insurance";
 import PrivateRoute from "./../common/PrivateRoute";
 import { useIntl } from 'react-intl';
+import Navar from "../../components/layout/Navbar";
+import AuthenticatedRoutes from "./AuthenticatedRoutes";
 
 const Routes = ({ user }) => {
   const intl = useIntl();
 
   return (
-    <section className="container-fluid1">
-      <Switch>
-        <Route exact path="/signUp" component={SignUp} />
-        <Route exact path="/login" component={Login} />
+    <Switch>
+      <Route exact path="/signUp" component={SignUp} />
+      <Route exact path="/signin" component={Login} />
+      <Route component={AuthenticatedRoutes} />
+
+      <section className="container-fluid1">
+        <Navar />
         <Route exact path="/report" component={Report} />
         <Route exact path="/gaming" component={Gaming} />
         <Route exact path="/verification/:id" component={Verification} />
@@ -77,8 +82,8 @@ const Routes = ({ user }) => {
         {/* Cards      */}
         <Route exact path="/cards" component={Cards} />
         <Route exact path="/cards/:id" component={CompanyCards} />
-      </Switch>
-    </section>
+      </section>
+    </Switch>
   );
 };
 const mapStateToProps = (state) => ({

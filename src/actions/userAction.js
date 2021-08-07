@@ -12,10 +12,10 @@ export const setCurrentUser = (decode) => {
 
 // login user
 
-export const loginUser = (userData, history, callback) => (dispatch) => {
+export const loginUser = (userData, history) => (dispatch) => {
   dispatch(clearErrors());
 
-  axios
+  return axios
     .post(`http://api.phoneplay.me/api/v1/resources/signin?sellerid=${userData.userName}&pass=${userData.password}`)
     .then((res) => {
       //save to local storage
@@ -25,7 +25,7 @@ export const loginUser = (userData, history, callback) => (dispatch) => {
       if (res.data.status === "failed") {
         dispatch({
           type: GET_ERRORS,
-          payload: "Somthing went Wrong !!",
+          payload: "Invalid username or password",
         });
       } else {
         if (localStorage.cityCell) {
@@ -54,15 +54,12 @@ export const loginUser = (userData, history, callback) => (dispatch) => {
         type: GET_ERRORS,
         payload: "Somthing went Wrong !!",
       });
-    })
-    .finally(() => {
-      callback();
     });
 };
 
 export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
   dispatch(clearErrors());
-  axios
+  return axios
     .post(
       `http://api.phoneplay.me/api/v1/resources/check_verification_code?vnumber=${verfiyData.virefy}&sellerid=${userId} `
     )
@@ -91,7 +88,7 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
 
 export const signUpUser = (userData, userName, history) => (dispatch) => {
   dispatch(clearErrors());
-  axios
+  return axios
     .post(
       `http://api.phoneplay.me/api/v1/resources/signup?sellerid=${userName}&name=${userData.fullName}&passw=${
         userData.password
@@ -159,5 +156,5 @@ export const logoutUser = (router) => async (dispatch) => {
   localStorage.removeItem("companies");
 
   dispatch(setCurrentUser({}));
-  setTimeout(router.push("/login"), 1000);
+  setTimeout(router.push("/signin"), 1000);
 };

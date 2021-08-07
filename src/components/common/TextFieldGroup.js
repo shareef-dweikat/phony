@@ -3,11 +3,13 @@
 import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+import translate from "../../i18n/translate";
 const TextFieldGroup = ({
   name,
   placeholder,
   value,
-  lable,
+  label,
+  link,
   error,
   info,
   type,
@@ -24,26 +26,35 @@ const TextFieldGroup = ({
 
   return (
     <div className="form-group" style={{width: "100%"}}>
+      {label && (
+        <label for={name}><span>{label} {required && (<i class="asterisk">*</i>)}</span>
+          {link && link.url && link.text && (<a href={link.url} class="float-right">
+            {link.text}
+          </a>)}
+        </label>
+      )}
+
       {type === "number" ? (
         <input
-        //  id="exampleFormControlInput1"
-        type="text"
-        pattern="[0-9]*"
-        className={classnames("form-control form-control-lg rounded input-field", {
-          "is-invalid": error,
-        })}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={validateNumber}
-        disabled={disable}
-        style={style}
-        required={required}
-        autoFocus={autoFocus}
-      />
+          id={name}
+          type="text"
+          pattern="[0-9]*"
+          className={classnames("form-control form-control-lg rounded input-field", {
+            "is-invalid": error,
+            "disabled": disable
+          })}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={validateNumber}
+          disabled={disable}
+          style={style}
+          required={required}
+          autoFocus={autoFocus}
+        />
       ) : (
       <input
-        //  id="exampleFormControlInput1"
+        id={name}
         type={type}
         className={classnames("form-control form-control-lg rounded input-field", {
           "is-invalid": error,
@@ -72,7 +83,8 @@ TextFieldGroup.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
-  lable: PropTypes.string,
+  label: PropTypes.string,
+  link: PropTypes.object,
   error: PropTypes.string,
   info: PropTypes.string,
   type: PropTypes.string.isRequired,

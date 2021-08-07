@@ -7,6 +7,9 @@
   font-family: "Helvetica Neue W23-bold";
   src: url("../../assests/fonts/Helvetica\ Neue\ W23-regular.TTF");
 }
+[type=email], [type=number], [type=tel], [type=url] {
+  direction: unset !important;
+}
 body.english {
   font-family: "Montserrat", sans-serif;
   /* color: #000000; */
@@ -28,10 +31,9 @@ tr,
 table h4 {
   font-weight: bolder;
 }
-
-body,
-td {
-  /* background-color: #fbfbfb !important; */
+body,html {
+  background-color: #f7f9fb;
+  height: 100%;
 }
 label {
   font-weight: 700;
@@ -244,3 +246,140 @@ input[type="password"] {
   margin-left: -0.5rem;
   margin-top: -0.5rem;
 } */
+
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.auth .brand {
+  width: auto;
+  height: 70px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.auth .brand img {
+	width: 100%;
+}
+
+.auth .card-wrapper {
+	width: 490px;
+  margin: 6rem;
+  padding: 0;
+}
+
+.auth .card {
+	border-color: transparent;
+	box-shadow: 0 4px 8px rgba(0,0,0,.05);
+}
+
+.auth .card.fat {
+	padding: 48px 68px;
+}
+.auth .card.fat .card-body {
+	padding: 0;
+}
+.auth .card.fat .card-body form {
+  margin-top: 32px;
+}
+.auth .card .card-title {
+  font-weight: bold;
+	padding: 12px 0;
+  margin-bottom: 0;
+}
+.auth .card .card-subtitle {
+	padding: 12px 0;
+  margin-bottom: 0;
+}
+.auth .card .card-title + .card-subtitle {
+  padding-top: 0;
+}
+.auth .form-control {
+  border-width: 2.3px;
+  margin-top: 6px;
+  padding: 0 8px;
+  border: 1px solid #D8D8D8;
+  border-radius: 2px;
+  color: #4a4a4a;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  min-height: 34px;
+  outline: none;
+  padding: 0 8px;
+  transition: all .2s ease;
+}
+.auth .form-group {
+  margin-bottom: 12px;
+}
+.auth .form-group label {
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 12px 0 6px 0;
+}
+.auth .form-group a {
+  color: #0080a3;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+.auth .form-group.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+.auth .form-group.actions > button {
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: .1rem;
+  line-height: 1.2;
+  font-weight: bold;
+  text-transform: uppercase;
+  padding: 10px 48px;
+  box-shadow: 0 3px 12px -3px rgb(106 106 112 / 75%);
+  background-color: #00759c;
+  border: 1px solid #00759c;
+  border-radius: 3px;
+
+}
+.auth .btn.btn-block {
+	padding: 12px 10px;
+}
+
+.auth .footer {
+	margin: 40px 0;
+	color: #888;
+	text-align: center;
+}
+
+@media screen and (max-width: 425px) {
+	.auth .card-wrapper {
+		width: 90%;
+		margin: 0 auto;
+	}
+}
+
+@media screen and (max-width: 320px) {
+	.auth .card.fat {
+		padding: 0;
+	}
+
+	.auth .card.fat .card-body {
+		padding: 15px;
+	}
+}
+
+[dir="ltr"] .form-control.is-invalid,
+[dir="ltr"] .was-validated .form-control:invalid {
+  background-position: right calc(.375em + .1875rem) center;
+}
+
+i.asterisk {
+  color: red;
+}

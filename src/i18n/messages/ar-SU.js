@@ -3,20 +3,21 @@ import { LOCALES } from "../locales";
 export default {
   [LOCALES.ARABIC]: {
     test: "اختبار لغة عربية",
-    enter0: "Enter your Full name",
-    enter1: "Enter your Email",
-    enter2: "Enter your mobile number",
-    enter3: "Enter your address",
-    enter4: "Enter your user name",
-    register1: "Sign Up",
-    confirmPassword: "Confirm password *",
-    password: "Password *",
-    signUp: "Sign Up ",
-    fullname: "Full Name",
-    email: "Email",
-    address: "Address",
-    haveAccount: "already have an account? ",
-    mobileNumber: "Mobile NO. *",
+    enter0: "أدخل اسمك الكامل",
+    enter1: "أدخل بريدك الإلكتروني",
+    enter2: "أدخل رقم هاتفك المحمول",
+    enter3: "أدخل عنوانك",
+    enter4: "أدخل اسم المستخدم الخاص بك",
+    enter5: "أدخل مدينتك",
+    register1: "تسجيل",
+    confirmPassword: "تأكيد كلمة السر",
+    password: "كلمة السر",
+    signUp: "تسجيل ",
+    fullname: "الاسم الكامل",
+    email: "البريد الإلكتروني",
+    address: "العنوان",
+    haveAccount: "هل لديك حساب؟",
+    mobileNumber: "رقم المحمول",
     village: "Village",
     //sign up page
 
@@ -27,7 +28,7 @@ export default {
     signUpToCity: "Sign up to PhonePlay Network",
     palestine: "Palestine",
     isreal: "Israel",
-    City: "City",
+    City: "المدينة",
     //verifaction
     confirmPls: "Please Confirm your acount",
     weNeed: " We send confirmation code to your mobile number",
@@ -162,5 +163,26 @@ export default {
     processing: "معالجة",
 
     Insurance: "التأمين",
+
+    // Sign in
+    "Username": "اسم المستخدم",
+    "Password": "كلمة السر",
+    "Sign in to your account": "تسجيل الدخول إلى حسابك",
+    "Forgot Password?": "هل نسيت كلمة السر؟",
+    "Sign in": "تسجيل الدخول",
+    "Sign up": "اشتراك",
+    "Don't have an account?": "ليس لديك حساب؟",
+
+    //Sign Up
+    "Enter your city": "أدخل مدينتك",
+    "Enter your country": "أدخل دولتك",
+    "Select a country": "إختر دولة",
+    "Create your free account": "أنشئ حسابك المجاني",
+    "Rererral Code": "كود المرجع",
+    "Enter Rererral Code": "أدخل كود المرجع",
+    "You will be provided with your username": "سيتم تزويدك باسم مستخدم",
+
+    "Palestine": "فلسطين",
+    "Israel": "إسرائيل",
   },
 };

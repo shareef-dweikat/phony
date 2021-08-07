@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import translate from "../../../i18n/translate";
 import SideBar from "../../homePage/SideBar";
+import Insurance1Img from "../../../assests/images/insurances/al_motaheda.png";
 
 const Insurance = () => {
   useEffect(() => {
@@ -28,8 +29,8 @@ const Insurance = () => {
                       <img
                         height="150px"
                         width="200px"
-                        alt={translate("Al Motaheda")}
-                        src=""
+                        alt="Al Motaheda"
+                        src={Insurance1Img}
                       />
                     </div>
                     <div className="card cards-layout">

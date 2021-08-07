@@ -25,8 +25,8 @@ if (localStorage.jwtUserToken) {
     //logout the user
     store.dispatch(logoutUser());
 
-    //Redirect to login
-    window.location.href = "/login";
+    //Redirect to signin
+    window.location.href = "/signin";
   }
 }
 
@@ -42,9 +42,7 @@ function App() {
       <I18Provider locale={locale}>
         <Router>
           <Fragment>
-            <Navar />
             <Switch>
-              <PrivateRoute exact path="/" component={Home} />
               <Route component={Routes} />
             </Switch>
           </Fragment>

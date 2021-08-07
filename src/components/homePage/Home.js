@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import translate from "../../i18n/translate";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -12,8 +12,27 @@ const Home = ({ user, getLastTransaction, last }) => {
     document.title = "Home /PlayPhone ";
     getLastTransaction();
     setTimeout(() => getLastTransaction(), 10000);
+
+    refreshColumnStyle();
   }, []);
   const updateClick = () => getLastTransaction();
+  const [columnStyle, setColumnStyle] = useState("col-lg-2 col-md-4 col-sm-6 card-sm");
+
+  const refreshColumnStyle = () => {
+    switch(localStorage.size) {
+      case "column4":
+        setColumnStyle("col-lg-3 col-md-4 col-sm-6 card-md");
+        break;
+      case "column3":
+        setColumnStyle("col-lg-4 col-md-6 col-sm-6 card-lg");
+        break;
+      case "default":
+      case "column6":
+        setColumnStyle("col-lg-2 col-md-4 col-sm-6 card-sm");
+        break;
+    }
+  }
+
   return (
     <div className="home container">
       <div className="row mt-5">
@@ -29,7 +48,7 @@ const Home = ({ user, getLastTransaction, last }) => {
           <div className="">
             <div className="row">
               {user.jawwal === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/jawwalNo">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -47,7 +66,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.ooredoo === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/ooredoo/MobileNumer">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -64,7 +83,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.cellcom === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/group/cellcom">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -81,7 +100,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.pelephone === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/group/pelephone">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -98,7 +117,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.golan === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/group/golan">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -115,7 +134,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.mobile012 === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/group/mobile012">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -132,7 +151,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.azy === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/azy">
                     <div className="card outer-wrapper">
                       <div className="frame">
@@ -149,7 +168,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.hot === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/hot">
                   <div className="card outer-wrapper">
                     <div className="frame">
@@ -166,7 +185,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                 </div>
               )}
               {user.partner === "true" && (
-                <div className="col-lg-2 col-md-4 col-sm-6 mt-4">
+                <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/group/partner">
                     <div className="card outer-wrapper">
                       <div className="frame">

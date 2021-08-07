@@ -88,7 +88,7 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
             )}
             {!isAuthenticated && (
               <li className="nav-item">
-                <Link className="nav-link active" to="/Login">
+                <Link className="nav-link active" to="/signin">
                   {translate("login")}
                 </Link>
               </li>
@@ -99,7 +99,7 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
                   className="nav-link active"
                   style={{ cursor: "pointer" }}
                   onClick={onLogoutClick}
-                  // href="login"
+                  // href="signin"
                 >
                   {translate("logout")}
                 </a>
