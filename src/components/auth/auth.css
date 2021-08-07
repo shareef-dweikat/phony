@@ -151,6 +151,7 @@ a {
   vertical-align: middle;
   text-align: center;
   display: table-cell;
+  position: relative;
 }
 img {
   max-width: 100%;

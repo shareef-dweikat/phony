@@ -194,6 +194,7 @@ const Home = ({ user, getLastTransaction, last }) => {
                       <th scope="col ">{translate("Transaction")}</th>
                       <th scope="col">{translate("Provider")}</th>
                       <th scope="col">{translate("MobileNo.")}</th>
+                      <th scope="col">{translate("Amount")}</th>
                       <th scope="col">{translate("Data & Time")}</th>
                       <th scope="col">{translate("Status")}</th>
                     </tr>
@@ -208,8 +209,9 @@ const Home = ({ user, getLastTransaction, last }) => {
                         <th scope="row ">{item.transid}</th>
                         <td className="table-dadnger">{item.provider}</td>
                         <td>{item.number}</td>
+                        <td>₪ {item.cardamount || 0}</td>
                         <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
-                        <td>{item.status}</td>
+                        <td>{translate(item.status)}</td>
                       </tr>
                     ))}
                   </tbody>

@@ -151,5 +151,10 @@ export default {
     column3: "3 Column",
     column4: "4 Column",
     column6: "6 Column",
+
+    proccessing: "processing",
+    processing: "processing",
+
+    Insurance: "Insurance",
   },
 };

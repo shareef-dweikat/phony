@@ -7,6 +7,7 @@ import SideBar from "../../homePage/SideBar";
 import SubNav from "./SubNav";
 import { getJawwal3g, getNotRnewJawwal3g, chargeJawwal, getRnewJawwal3g } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
+import Badge from "../../ui/Badge/Badge";
 
 const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, chargeJawwal, getNotRnewJawwal3g }) => {
   const history = useHistory().location.pathname;
@@ -45,6 +46,10 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
     refreshColumnStyle();
 
   }, []);
+  useEffect(() => {
+    getJawwalPackages();
+  }, [isRenew, isNotRenew]);
+  
   const onClickType3g = (e) => {
     e.preventDefault();
     isLoading(true);
@@ -84,15 +89,22 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
   };
 
   const onRenewClick = () => {
-    getRnewJawwal3g();
-    setIsRenew(true);
+    setIsRenew(!isRenew);
     setIsNotRenew(false);
   };
   const onNotRenewClick = () => {
-    getNotRnewJawwal3g();
-    setIsNotRenew(true);
+    setIsNotRenew(!isNotRenew);
     setIsRenew(false);
   };
+  const getJawwalPackages = () => {
+    if (!isRenew && !isNotRenew) {
+      getJawwal3g(mobileNo, false);
+    } else if (isRenew) {
+      getRnewJawwal3g();
+    } else if (isNotRenew) {
+      getNotRnewJawwal3g();
+    }
+  }
   const refreshClick = () => {
     getJawwal3g(mobileNo, true);
   };
@@ -171,34 +183,10 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
             <div className="row">
               <div className="col-10">
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
-                  <div className=" row mt-1 fixed-topx">
-                    {selected !== "" && (
+                  <div className="row mt-1 fixed-topx px-3">
+                  {credit !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper px-3 ">
-                          <div className="frame1">
-                            <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
-                            <a className="close-btn">
-                              <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {jawwalRom !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper  px-3">
-                          <div className="frame1">
-                            <img alt={jawwalRom.id} src={jawwalRom.url} width="260px" height="100px"></img>
-                            <a className="close-btn" onClick={onJawwalRomRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper px-3">
+                        <div className="card outer-wrapper">
                           <div className="frame1">
                             <img
                               alt="Jawwal Credit"
@@ -219,10 +207,34 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                     )}
                     {jawwalMin !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper px-3 ">
+                        <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
                             <a className="close-btn" onClick={onJawwalMinRemove}>
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selected !== "" && (
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                        <div className="card outer-wrapper">
+                          <div className="frame1">
+                            <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
+                            <a className="close-btn">
+                              <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {jawwalRom !== "" && (
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                        <div className="card outer-wrapper">
+                          <div className="frame1">
+                            <img alt={jawwalRom.id} src={jawwalRom.url} width="260px" height="100px"></img>
+                            <a className="close-btn" onClick={onJawwalRomRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
                           </div>
@@ -234,7 +246,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
               </div>
               <div className="col-2">
                 <div class="card total-balance-card mt-2">
-                  <div class="card-body py-2">
+                  <div class="card-body p-2">
                     <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
                     <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
                       (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
@@ -283,11 +295,14 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card">
+                          <div className="frame-card position-relative">
                             <img
-                              alt={item.id}
+                              alt={item.id || item.ID}
                               src={item.url}
                             ></img>
+                            {(item.renew === "True" || item.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                           </div>
                         </a>
                       </div>

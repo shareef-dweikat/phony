@@ -51,7 +51,7 @@ const SideBar = ({ user ,userData }) => {
               <Link className="link-main " to="/internet">
                 <span>
                   <i
-                    className="icon-main fa fa-gamepad  m-2"
+                    className="icon-main fas fa-globe  m-2"
                     aria-hidden="true"
                   ></i>
                   {translate("internet")}
@@ -59,6 +59,21 @@ const SideBar = ({ user ,userData }) => {
               </Link>
             </div>
           )}
+          <div
+            className={`sidebar__link ${
+              history === "/insurance" && "active-link"
+            } m-4`}
+          >
+            <Link className="link-main " to="/insurance">
+              <span>
+                <i
+                  className="icon-main fas fa-car-crash  m-2"
+                  aria-hidden="true"
+                ></i>
+                {translate("Insurance")}
+              </span>
+            </Link>
+          </div>
           <div
             className={`sidebar__link ${
               history === "/gaming" && "active-link"

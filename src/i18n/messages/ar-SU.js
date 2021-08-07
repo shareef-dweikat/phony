@@ -141,7 +141,12 @@ export default {
     Back: "رجوع",
     Update: "تحديث",
     refresh: "تحديث",
-    Transaction: "Transaction ID",
+    Transaction: "رقم العملية",
+    Provider: "المزود",
+    "MobileNo.": "رقم المحمول",
+    Amount: "المبلغ",
+    "Data & Time": "التاريخ والوقت",
+    Status: "الحالة",
     ooredooSuperOffer: "Ooredoo Super Offers",
     ooredooRomOffer: "Ooredoo roaming Offers",
     ooredooMinOffer: "Ooredoo minutes Offers",
@@ -152,5 +157,10 @@ export default {
     column3: "3 أعمدة",
     column4: "4 أعمدة",
     column6: "6 أعمدة",
+
+    proccessing: "معالجة",
+    processing: "معالجة",
+
+    Insurance: "التأمين",
   },
 };

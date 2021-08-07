@@ -39,7 +39,7 @@
 }
 .frame1 {
   position: relative;
-  height: 80px;
+  height: 70px;
 }
 .close-btn {
   position: absolute;
@@ -168,4 +168,13 @@
 }
 .list-cards .charge-card {
   margin-bottom: 10px;
+}
+
+[dir="ltr"] .badge.left-100 {
+  right: -10px;
+  left: unset !important;
+}
+[dir="rtl"] .badge.left-100 {
+  right: unset !important;
+  left: -10px;
 }

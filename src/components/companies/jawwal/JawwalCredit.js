@@ -151,68 +151,68 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                   <div className="card m-4s fixed-top1 position-sticky mt-2">
                     <div className="row mt-1 fixed-topx px-3">
                       {selected !== {} && selected.price && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img
-                              alt="Jawwal Credit"
-                              src={
-                                selected.url ||
-                                "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
-                              }
-                              width="260px"
-                              height="100px"
-                            ></img>
-                            {!selected.url && <label className="text-abs">{selected.price}</label>}
-                            <a className="close-btn" onClick={onCreditRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                          <div className="card outer-wrapper">
+                            <div className="frame1">
+                              <img
+                                alt="Jawwal Credit"
+                                src={
+                                  selected.url ||
+                                  "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
+                                }
+                                width="260px"
+                                height="100px"
+                              ></img>
+                              {!selected.url && <label className="text-abs">{selected.price}</label>}
+                              <a className="close-btn" onClick={onCreditRemove}>
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                    {jawwalRom !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img alt="Jawwal Rom" src={jawwalRom.url} width="260px" height="100px"></img>
-                            <a className="close-btn" onClick={onJawwalRomRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
+                      )}
+                      {jawwalMin !== "" && (
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                          <div className="card outer-wrapper">
+                            <div className="frame1">
+                              <img alt="Jawwal Min" src={jawwalMin.url} width="260px" height="100px"></img>
+                              <a className="close-btn" onClick={onJawwalMinRemove}>
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                    {jawwalMin !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img alt="Jawwal Min" src={jawwalMin.url} width="260px" height="100px"></img>
-                            <a className="close-btn" onClick={onJawwalMinRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
+                      )}
+                      {jawwal3g !== "" && (
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                          <div className="card outer-wrapper">
+                            <div className="frame1">
+                              <img alt="Jawwal 3G" src={jawwal3g.url} width="260px" height="100px"></img>
+                              <a className="close-btn">
+                                <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
-                    {jawwal3g !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img alt="Jawwal 3G" src={jawwal3g.url} width="260px" height="100px"></img>
-                            <a className="close-btn">
-                              <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
-                            </a>
+                      )}
+                      {jawwalRom !== "" && (
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                          <div className="card outer-wrapper">
+                            <div className="frame1">
+                              <img alt="Jawwal Rom" src={jawwalRom.url} width="260px" height="100px"></img>
+                              <a className="close-btn" onClick={onJawwalRomRemove}>
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                              </a>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    )}
+                      )}
                     </div>
                   </div>
                 </div>
                 <div className="col-2">
                   <div class="card total-balance-card mt-2">
-                    <div class="card-body py-2">
+                    <div class="card-body p-2">
                       <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
                       <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
                         (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +

@@ -28,6 +28,7 @@ import ShababOoredoo from "../companies/ooredoo/ShababOoredoo";
 import Gaming from "../Gaming/Gaming";
 import Report from "../report/Report";
 import Internet from "../pages/Internet/Internet";
+import Insurance from "../pages/Insurance/Insurance";
 import PrivateRoute from "./../common/PrivateRoute";
 import { useIntl } from 'react-intl';
 
@@ -43,6 +44,8 @@ const Routes = ({ user }) => {
         <Route exact path="/gaming" component={Gaming} />
         <Route exact path="/verification/:id" component={Verification} />
         { intl.locale === "en" && <Route exact path="/internet" component={Internet} />}
+        <Route exact path="/insurance" component={Insurance} />
+        
         {/* //COPMANY */}
 
         {/* JAWWAL COMPANY ROUTES */}
@@ -54,7 +57,6 @@ const Routes = ({ user }) => {
         <PrivateRoute exact path="/company/jawwalRom/:id" component={JawwalRom} />
 
         {/* ooredoo Company*/}
-
         <PrivateRoute exact path="/company/ooredoo/MobileNumer" component={OoredooInputNu} />
         <PrivateRoute exact path="/company/ooredoo/:id" component={OoredooType} />
         <PrivateRoute exact path="/company/ooredoo/minutes/:id" component={MinOoredoo} />

@@ -14,6 +14,7 @@ import {
 } from "../../../actions/companiesAction";
 import SubNav from "./SubNav";
 import Spinner from "../../ui/spinner/Spinner";
+import Badge from "../../ui/Badge/Badge";
 
 const JawwalMin = ({
   auth,
@@ -43,7 +44,7 @@ const JawwalMin = ({
   const [jawwalRom, setJawwalRom] = useState("");
   const [credit, setCredit] = useState("");
   const [loadingSpinner, isLoading] = useState(false);
-  const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-4 mt-3");
+  const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-4");
 
   useEffect(() => {
     document.title = "Home /Min Jawwal";
@@ -107,7 +108,6 @@ const JawwalMin = ({
     localStorage.removeItem("JawwalRom");
     setJawwalRom("");
   };
-
   const onRenewClick = () => {
     setIsRenew(!isRenew);
     setIsNotRenew(false);
@@ -204,19 +204,7 @@ const JawwalMin = ({
             <div className="row">
               <div className="col-10">
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
-                  <div className="row mt-1 fixed-topx">
-                    {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
-                            <a className="close-btn" onClick={onJawwalMinRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                  <div className="row mt-1 fixed-topx px-3">
                     {credit !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper">
@@ -238,12 +226,12 @@ const JawwalMin = ({
                         </div>
                       </div>
                     )}
-                    {jawwalRom !== "" && (
+                    {selected !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper">
                           <div className="frame1">
-                            <img alt={jawwalRom.id} src={jawwalRom.url} width="260px" height="100px"></img>
-                            <a className="close-btn" onClick={onJawwalRomRemove}>
+                            <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
+                            <a className="close-btn" onClick={onJawwalMinRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
                           </div>
@@ -262,12 +250,24 @@ const JawwalMin = ({
                         </div>
                       </div>
                     )}
+                    {jawwalRom !== "" && (
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                        <div className="card outer-wrapper">
+                          <div className="frame1">
+                            <img alt={jawwalRom.id} src={jawwalRom.url} width="260px" height="100px"></img>
+                            <a className="close-btn" onClick={onJawwalRomRemove}>
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
               <div className="col-2">
                 <div class="card total-balance-card mt-2">
-                  <div class="card-body py-2">
+                  <div class="card-body p-2">
                     <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
                     <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
                       (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
@@ -316,15 +316,14 @@ const JawwalMin = ({
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card">
+                          <div className="frame-card position-relative">
                             <img
-                              alt="sssssssssss"
+                              alt={item.id || item.ID}
                               src={item.url}
-                              // width="100px"
-                              // height="50px"
                             ></img>
-
-                            {/* {item && item.des} */}
+                            {(item.renew === "True" || item.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                           </div>
                         </a>
                       </div>
