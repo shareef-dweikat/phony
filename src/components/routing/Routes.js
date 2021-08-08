@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Route, Switch } from "react-router-dom";
 import Login from "../auth/Login";
 import SignUp from "../auth/SignUp";
+import ForgotPassword from "../auth/ForgotPassword";
 import Verification from "../auth/Verification";
 import Cards from "../cards/Cards";
 import CompanyCards from "../cards/CompanyCards";
@@ -33,6 +34,7 @@ import PrivateRoute from "./../common/PrivateRoute";
 import { useIntl } from 'react-intl';
 import Navar from "../../components/layout/Navbar";
 import AuthenticatedRoutes from "./AuthenticatedRoutes";
+import ResetPassword from "../auth/ResetPassword";
 
 const Routes = ({ user }) => {
   const intl = useIntl();
@@ -41,13 +43,16 @@ const Routes = ({ user }) => {
     <Switch>
       <Route exact path="/signUp" component={SignUp} />
       <Route exact path="/signin" component={Login} />
+      <Route exact path="/forgot-password" component={ForgotPassword} />
+      <Route exact path="/reset-password/:id" component={ResetPassword} />
+      <Route exact path="/verification/:id" component={Verification} />
+
       <Route component={AuthenticatedRoutes} />
 
       <section className="container-fluid1">
         <Navar />
         <Route exact path="/report" component={Report} />
         <Route exact path="/gaming" component={Gaming} />
-        <Route exact path="/verification/:id" component={Verification} />
         { intl.locale === "en" && <Route exact path="/internet" component={Internet} />}
         <Route exact path="/insurance" component={Insurance} />
         

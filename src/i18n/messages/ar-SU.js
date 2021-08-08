@@ -26,21 +26,22 @@ export default {
     wellcome: "Welcome Guest",
     signToCity: "Sign in to PhonePlay Network",
     signUpToCity: "Sign up to PhonePlay Network",
-    palestine: "Palestine",
-    isreal: "Israel",
+    palestine: "فلسطين",
+    isreal: "إسرائيل",
     City: "المدينة",
     //verifaction
-    confirmPls: "Please Confirm your acount",
-    weNeed: " We send confirmation code to your mobile number",
-    code: "Confirmation code",
-    mobile: "Mobile number",
-    Confirm: "Confirm",
+    confirmPls: "الرجاء تأكيد حسابك",
+    weNeed: "لقد أرسلنا لك رمز تأكيد إلى رقم هاتفك المحمول",
+    code: "رمز التأكيد",
+    mobile: "رقم الهاتف المحمول",
+    Confirm: "أكد",
     //Home page
     home: "الرئيسية",
     balance: "الرصيد المتوفر",
     company: "شركات",
     nis: "شيكل",
     gaming: "ألعاب",
+    Insurance: "التأمين",
     internet: "إنترنت",
     cards: "بطاقات الهدايا",
     jawwal: "Jawwal",
@@ -68,12 +69,12 @@ export default {
     cancellation: "Cancellation",
     from: "From",
     to: "To",
-    search: "Search",
-    number: "Number",
+    search: "بحث",
+    number: "رقم",
     filtter: "Fillter",
     show: "إظهار",
-    transactionNo: "Transaction No.",
-    mobileNo: " Mobile No.",
+    transactionNo: "رقم المعاملة",
+    mobileNo: "رقم المحمول",
     value: "Value",
     status: "Status",
     time: "Time & Date",
@@ -123,7 +124,7 @@ export default {
     Saudi: "المملكة العربية السعودية",
     Locall: "محليا ",
     China: "الصين",
-    Turkey: "Turkey - UAE - USA",
+    Turkey: "تركيا - الإمارات - الولايات المتحدة الأمريكية",
     Others: "آخرون",
     Renewable: "متجدد",
     notRenew: "غير متجدد",
@@ -161,8 +162,7 @@ export default {
 
     proccessing: "معالجة",
     processing: "معالجة",
-
-    Insurance: "التأمين",
+    failed: "فشلت",
 
     // Sign in
     "Username": "اسم المستخدم",
@@ -184,5 +184,25 @@ export default {
 
     "Palestine": "فلسطين",
     "Israel": "إسرائيل",
+
+    // Forgot Password Validation messages
+    "User Name field is required": "حقل إسم المستخدم مطلوب",
+    "Password reset request": "طلب إعادة تعيين كلمة المرور",
+    "Enter your username and we will send you a confirmation code to your mobile number to create a new password.": "أدخل اسم المستخدم الخاص بك وسنرسل لك رمز تأكيد إلى رقم هاتفك المحمول لإنشاء كلمة مرور جديدة.",
+    "Send Code": "أرسل الرمز",
+    "Return to Sign in": "العودة إلى صفحة تسجيل الدخول",
+    "Enter the confirmation code": "أدخل رمز التأكيد",
+
+    // SignUp Validation Messages
+    "Full Name must be between 2 and 30 characters": "يجب أن يكون الاسم الكامل بين 2 و 30 حرفًا",
+    "Name field is required": "حقل الاسم مطلوب",
+    "Mobile Number is required": "رقم الهاتف المحمول مطلوب",
+    "City is required": "حقل المدينة مطلوب",
+    "Country is required": "حقل البلد مطلوب",
+    "Password field is required": "حقل كلمة المرور مطلوب",
+    "password must be at least 8 characters": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "confirm Password field is required": "مطلوب حقل تأكيد كلمة المرور",
+    "Passwords must match": "يجب ان تتطابق كلمات المرور",
+
   },
 };

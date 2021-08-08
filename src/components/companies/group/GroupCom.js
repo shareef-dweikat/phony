@@ -43,10 +43,6 @@ const GroupCom = ({ getGroupesData, groupCompaneis, loading, chargeGrpupCompany 
                 <div className=" col-5 m-3">
                   <h1 className="group-text m-4">{translate(typeCompany)}</h1>
                 </div>
-                {/* <div className=" col-4"></div>
-                <div className=" col-3 d-flex align-items-center">
-                  <img src="https://res.cloudinary.com/dtu4lltbk/image/upload/v1622301979/ooredoo-2_qhdwpd.svg" />
-                </div> */}
               </div>
             </div>
           </div>

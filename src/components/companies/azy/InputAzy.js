@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import SideBar from "../../homePage/SideBar";
 import Message from "../../common/Message";
 import TextFieldGroup from "../../common/TextFieldGroup";
+import "./style.css";
+
 const InputAzy = () => {
   useEffect(() => {
     document.title = "Home /Azy ";
@@ -30,7 +32,7 @@ const InputAzy = () => {
             <SideBar />
           </div>
           <div className="col-lg-9 col-md-8 col-sm-6">
-            <div className="card card-home">
+            <div className="card card-home azy">
               <div className="card img-back">
                 <h1 className="header-text">{translate("newProduct")}</h1>
               </div>

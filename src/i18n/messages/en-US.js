@@ -34,7 +34,7 @@ export default {
     City: "City",
     //verifaction
     confirmPls: "Please Confirm your acount",
-    weNeed: " We send confirmation code to your mobile number",
+    weNeed: "We sent you a confirmation code to your mobile number",
     code: "Confirmation code",
     mobile: "Mobile number",
     Confirm: "Confirm",
@@ -155,8 +155,9 @@ export default {
     column4: "4 Column",
     column6: "6 Column",
 
-    proccessing: "processing",
-    processing: "processing",
+    proccessing: "Processing",
+    processing: "Processing",
+    failed: "Failed",
 
     Insurance: "Insurance",
 
@@ -180,5 +181,24 @@ export default {
     "Palestine": "Palestine",
     "Israel": "Israel",
 
+    // Forgot Password Validation messages
+    "User Name field is required": "User Name field is required",
+    "Password reset request": "Password reset request",
+    "Enter your username and we will send you a confirmation code to your mobile number to create a new password.": "Enter your username and we will send you a confirmation code to your mobile number to create a new password.",
+    "Send Code": "Send Code",
+    "Return to Sign in": "Return to Sign in",
+    "Enter the confirmation code": "Enter the confirmation code",
+
+    // SignUp Validation Messages
+    "Full Name must be between 2 and 30 characters": "Full Name must be between 2 and 30 characters",
+    "Name field is required": "Name field is required",
+    "Mobile Number is required": "Mobile Number is required",
+    "City is required": "City is required",
+    "Country is required": "Country is required",
+    "Password field is required": "Password field is required",
+    "password must be at least 8 characters": "password must be at least 8 characters",
+    "confirm Password field is required": "confirm Password field is required",
+    "Passwords must match": "Passwords must match",
+    
   },
 };

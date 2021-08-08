@@ -178,3 +178,6 @@
   right: unset !important;
   left: -10px;
 }
+.card.jawwal .nav-layout {
+  background-color: #35a424;
+}

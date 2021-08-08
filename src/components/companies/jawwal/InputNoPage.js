@@ -35,9 +35,9 @@ const InputNoPage = () => {
           <SideBar />
         </div>
         <div className="col-lg-9 col-md-8 col-sm-6">
-          <div className="card card-home">
+          <div className="card card-home jawwal">
             <div className="mt-2">
-              <div className=" card nav-layout">
+              <div className="card nav-layout">
                 <h5 className="m-3">
                   <button className="mx-3 btn back-btn " onClick={backClick}>
                     {translate("Back")}

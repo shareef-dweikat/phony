@@ -26,7 +26,7 @@ const TextFieldGroup = ({
 
   return (
     <div className="form-group" style={{width: "100%"}}>
-      {label && (
+      {label && type !== 'hidden' && (
         <label for={name}><span>{label} {required && (<i class="asterisk">*</i>)}</span>
           {link && link.url && link.text && (<a href={link.url} class="float-right">
             {link.text}
@@ -72,7 +72,7 @@ const TextFieldGroup = ({
       {info && <small className="form-text text-muted">{info}</small>}
       {error && (
         <small className="form-text text-muted text-left">
-          {typeof error === "object" ? "" : error}
+          {typeof error === "object" ? "" : translate(error)}
         </small>
       )}
       {error && <div className="invalid-feedback"></div>}

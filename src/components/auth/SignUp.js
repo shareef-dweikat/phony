@@ -12,6 +12,7 @@ import validateSignUpInput from "../../validation/validateSignUpInput";
 import Message from "./../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
+import LanguageChooser from "../ui/Language/LanguageChooser";
 
 const countries = [
   {value: "palestine", label: "Palestine"},
@@ -67,6 +68,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
   };
   return (
     <section class="auth signup">
+      <LanguageChooser/>
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="card-wrapper">

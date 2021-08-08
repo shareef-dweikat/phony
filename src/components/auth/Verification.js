@@ -9,6 +9,7 @@ import Message from "./../common/Message";
 import Notiflix from "notiflix";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
+import LanguageChooser from "../ui/Language/LanguageChooser";
 
 const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
   const history = useHistory();
@@ -17,7 +18,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
 
   const [virefyForm, setVirefyForm] = useState({
     virefy: "",
-    mobile: "",
+    mobile: history.location.state.mobile,
   });
   const [errors1, setErrors1] = useState({});
   const [loading, isLoading] = useState(false);
@@ -47,6 +48,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
   };
   return (
     <section class="auth signin">
+      <LanguageChooser/>
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="card-wrapper">
@@ -81,8 +83,8 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
                     placeholder={intl.formatMessage({ id: "Enter the Mobile Number" })}
                     label={translate("mobile")}
                     name="mobile"
-                    type="tel"
-                    value={virefyForm.mobile}
+                    type="hidden"
+                    value={history.location.state.mobile}
                     onChange={onChange}
                     required={true}
                   />

@@ -5,9 +5,11 @@ import SideBar from "../../homePage/SideBar";
 import Message from "../../common/Message";
 import TextFieldGroup from "../../common/TextFieldGroup";
 const InputNumber = () => {
+  const history = useHistory();
   const [value, setValue] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);
-  const history = useHistory();
+  const [typeCompany, setTypeCompany] = useState(history.location.pathname.split("/")[3]);
+
   useEffect(() => {
     document.title = `Home /${history.location.pathname.split("/")[3]}`;
   }, []);
@@ -29,7 +31,7 @@ const InputNumber = () => {
             <SideBar />
           </div>
           <div className="col-lg-9 col-md-8 col-sm-6">
-            <div className="card card-home">
+            <div className={`card card-home ${typeCompany}`}>
               <div className="card img-back">
                 <div className="m-3">
                   <h1 className="header-text mt-5">{translate("newProduct")}</h1>

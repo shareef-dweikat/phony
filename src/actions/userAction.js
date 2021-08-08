@@ -19,8 +19,6 @@ export const loginUser = (userData, history) => (dispatch) => {
     .post(`http://api.phoneplay.me/api/v1/resources/signin?sellerid=${userData.userName}&pass=${userData.password}`)
     .then((res) => {
       //save to local storage
-
-      console.log(res.data.status);
       // const decode = jwt_decode(res.data.token);
       if (res.data.status === "failed") {
         dispatch({
@@ -37,7 +35,6 @@ export const loginUser = (userData, history) => (dispatch) => {
           dispatch(setCurrentUser(res.data));
           history.push("/");
         } else {
-          console.log(res.data.sellerid, "data", localStorage.cityCell, res.data["mobile number"]);
           axios
             .post(`http://api.phoneplay.me/api/v1/resources/verification?sellerid=${res.data.sellerid}`)
             .then((res) => {});
@@ -52,7 +49,7 @@ export const loginUser = (userData, history) => (dispatch) => {
       console.log(err);
       dispatch({
         type: GET_ERRORS,
-        payload: "Somthing went Wrong !!",
+        payload: "Something went wrong!",
       });
     });
 };
@@ -64,11 +61,9 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
       `http://api.phoneplay.me/api/v1/resources/check_verification_code?vnumber=${verfiyData.virefy}&sellerid=${userId} `
     )
     .then((res) => {
-      console.log(res, "resresresresresresres");
       if (res.data.status === "failed! wrong verification code") {
         Notiflix.Notify.failure("Wronge confirmation code");
       } else {
-        console.log(res.data, "res=>>>>>");
         const { token } = res.data;
         localStorage.setItem("jwtUserToken", token);
         localStorage.setItem("companies", JSON.stringify(res.data));
@@ -118,6 +113,36 @@ export const signUpUser = (userData, userName, history) => (dispatch) => {
       dispatch({
         type: GET_ERRORS,
         payload: "Somthing went Wrong !!",
+      });
+    });
+};
+
+export const resetPassword = (userData, history) => (dispatch) => {
+  dispatch(clearErrors());
+
+  return axios
+    .post(`http://api.phoneplay.me/api/v1/resources/forgot-password?sellerid=${userData.userName}`)
+    .then((res) => {
+      if (res.data.status === "failed") {
+        dispatch({
+          type: GET_ERRORS,
+          payload: "Username not found!",
+        });
+      } else {
+        axios
+          .post(`http://api.phoneplay.me/api/v1/resources/verification?sellerid=${res.data.sellerid}`)
+          .then((res) => {});
+        history.push({
+          pathname: `/reset-password/${res.data.sellerid}`,
+          state: { mobile: res.data["mobile number"] },
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: "Something went wrong!",
       });
     });
 };

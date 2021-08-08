@@ -4,18 +4,18 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser } from "./../../actions/userAction";
-import validateLoginInput from "../../validation/validateLoginInput";
-import Message from "./../common/Message";
+import { resetPassword } from "../../actions/userAction";
+import validateForgotPasswordInput from "../../validation/validateForgotPasswordInput";
+import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
 import LanguageChooser from "../ui/Language/LanguageChooser";
 
-const Login = ({ loginUser, isAuthenticated, massage }) => {
+const ForgotPassword = ({ resetPassword, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
   useEffect(() => {
-    document.title = "Sign In | PhonePlay";
+    document.title = "Forgot Password | PhonePlay";
     if (isAuthenticated) {
       history.push("/");
     }
@@ -33,19 +33,17 @@ const Login = ({ loginUser, isAuthenticated, massage }) => {
   const onSubmit = (e) => {
     isLoading(true);
     e.preventDefault();
-    const { errors, isValid } = validateLoginInput(loginForm);
+    const { errors, isValid } = validateForgotPasswordInput(loginForm);
     if (!isValid) {
       setErrors1(errors);
-      console.log("Errors=> ", errors);
       isLoading(false);
     } else {
-      loginUser(loginForm, history)
+      resetPassword(loginForm, history)
       .finally(() => {
         isLoading(false);
       });
     }
   };
-
   return (
     <section class="auth signin">
       <LanguageChooser/>
@@ -57,11 +55,13 @@ const Login = ({ loginUser, isAuthenticated, massage }) => {
                 <div class="brand">
                   <img src={Logo} alt="logo"></img>
                 </div>
-                <h4 class="card-title text-center">{translate("Sign in to your account")}</h4>
+
+                <h4 class="card-title text-center">{translate("Password reset request")}</h4>
+                <p class="card-subtitle mt-3 mb-1">{translate("Enter your username and we will send you a confirmation code to your mobile number to create a new password.")}</p>
 
                 {massage !== null && massage !== "" && massage !== undefined && <Message msg={massage} />}
 
-                <form method="POST" class="login-validation" novalidate="" onSubmit={(e) => onSubmit(e)}>
+                <form method="POST" class="forgot-validation mt-2" novalidate="" onSubmit={(e) => onSubmit(e)}>
                   <TextFieldGroup
                     style={{ width: "100%" }}
                     className="mb-5"
@@ -76,32 +76,17 @@ const Login = ({ loginUser, isAuthenticated, massage }) => {
                     required={true}
                   />
 
-                  <TextFieldGroup
-                    style={{ width: "100%" }}
-                    placeholder={intl.formatMessage({ id: "password" })}
-                    name="password"
-                    type="password"
-                    value={loginForm.password}
-                    onChange={onChange}
-                    error={errors1.password}
-                    label={translate("Password")}
-                    link={{
-                      url: "/forgot-password",
-                      text: translate("Forgot Password?")
-                    }}
-                    required={true}
-                  />
-
                   <div class="form-group mb-0 mt-4 actions">
                     <button type="submit" class="btn btn-primary btn-block" disabled={loading}>
-                    {translate("Sign in")}
+                      {translate("Send Code")}
                     </button>
+                  </div>
+
+                  <div class="mt-4 text-center">
+                    <a href="/signin"> {translate("Return to Sign in")}</a>
                   </div>
                 </form>
               </div>
-            </div>
-            <div class="mt-4 text-center">
-              {translate("Don't have an account?")} <a href="/signup">{translate("Sign up")}</a>
             </div>
           </div>
         </div>
@@ -114,4 +99,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   massage: state.error.massage,
 });
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { resetPassword })(ForgotPassword);

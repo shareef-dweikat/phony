@@ -32,3 +32,19 @@
   color: #000 !important;
   font-weight: 900 !important;
 }
+
+.card.cellcom .nav-layout {
+  background-color: #752e6d;
+}
+.card.pelephone .nav-layout {
+  background-color: #0072b6;
+}
+.card.golan .nav-layout {
+  background-color: #ee1b24;
+}
+.card.mobile012 .nav-layout {
+  background-color: #e51b38;
+}
+.card.partner .nav-layout {
+  background-color: #29d6c5;
+}
