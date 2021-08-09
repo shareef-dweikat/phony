@@ -9,11 +9,11 @@ import validateLoginInput from "../../validation/validateLoginInput";
 import Message from "./../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
-import LanguageChooser from "../ui/Language/LanguageChooser";
 
 const Login = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
+
   useEffect(() => {
     document.title = "Sign In | PhonePlay";
     if (isAuthenticated) {
@@ -26,6 +26,7 @@ const Login = ({ loginUser, isAuthenticated, massage }) => {
   });
   const [errors1, setErrors1] = useState({});
   const [loading, isLoading] = useState(false);
+  const [passwordChanged, isPasswordChanged] = useState(history.location?.state?.password_changed);
 
   const onChange = (e) => {
     setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
@@ -48,7 +49,6 @@ const Login = ({ loginUser, isAuthenticated, massage }) => {
 
   return (
     <section class="auth signin">
-      <LanguageChooser/>
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="card-wrapper">
@@ -60,6 +60,7 @@ const Login = ({ loginUser, isAuthenticated, massage }) => {
                 <h4 class="card-title text-center">{translate("Sign in to your account")}</h4>
 
                 {massage !== null && massage !== "" && massage !== undefined && <Message msg={massage} />}
+                {passwordChanged && !massage && <Message msg={intl.formatMessage({ id: "Your password changed successfully, you can login now with the new password" })} type="success"/>}
 
                 <form method="POST" class="login-validation" novalidate="" onSubmit={(e) => onSubmit(e)}>
                   <TextFieldGroup

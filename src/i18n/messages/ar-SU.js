@@ -3,11 +3,11 @@ import { LOCALES } from "../locales";
 export default {
   [LOCALES.ARABIC]: {
     test: "اختبار لغة عربية",
-    enter0: "أدخل اسمك الكامل",
+    enter0: "أدخل إسمك الكامل",
     enter1: "أدخل بريدك الإلكتروني",
     enter2: "أدخل رقم هاتفك المحمول",
     enter3: "أدخل عنوانك",
-    enter4: "أدخل اسم المستخدم الخاص بك",
+    enter4: "أدخل إسم المستخدم الخاص بك",
     enter5: "أدخل مدينتك",
     register1: "تسجيل",
     confirmPassword: "تأكيد كلمة السر",
@@ -31,10 +31,10 @@ export default {
     City: "المدينة",
     //verifaction
     confirmPls: "الرجاء تأكيد حسابك",
-    weNeed: "لقد أرسلنا لك رمز تأكيد إلى رقم هاتفك المحمول",
+    weNeed: "لقد أرسلنا لك رمز التأكيد برسالة نصية إلى هاتفك المحمول",
     code: "رمز التأكيد",
     mobile: "رقم الهاتف المحمول",
-    Confirm: "أكد",
+    Confirm: "تأكيد",
     //Home page
     home: "الرئيسية",
     balance: "الرصيد المتوفر",
@@ -165,13 +165,14 @@ export default {
     failed: "فشلت",
 
     // Sign in
-    "Username": "اسم المستخدم",
+    "Username": "إسم المستخدم",
     "Password": "كلمة السر",
     "Sign in to your account": "تسجيل الدخول إلى حسابك",
     "Forgot Password?": "هل نسيت كلمة السر؟",
     "Sign in": "تسجيل الدخول",
     "Sign up": "اشتراك",
     "Don't have an account?": "ليس لديك حساب؟",
+    "Invalid username or password": "خطأ في إسم المستخدم أو كلمة مرور",
 
     //Sign Up
     "Enter your city": "أدخل مدينتك",
@@ -188,10 +189,16 @@ export default {
     // Forgot Password Validation messages
     "User Name field is required": "حقل إسم المستخدم مطلوب",
     "Password reset request": "طلب إعادة تعيين كلمة المرور",
-    "Enter your username and we will send you a confirmation code to your mobile number to create a new password.": "أدخل اسم المستخدم الخاص بك وسنرسل لك رمز تأكيد إلى رقم هاتفك المحمول لإنشاء كلمة مرور جديدة.",
+    "Enter your below information and we will send you a confirmation code to your mobile number to create a new password.": "أدخل معلوماتك أدناه وسنرسل لك رمز تأكيد إلى رقم هاتفك المحمول لإنشاء كلمة مرور جديدة.",
     "Send Code": "أرسل الرمز",
     "Return to Sign in": "العودة إلى صفحة تسجيل الدخول",
     "Enter the confirmation code": "أدخل رمز التأكيد",
+    "Enter the last 4 digits of your mobile number": "أدخل آخر 4 أرقام من رقم هاتفك المحمول",
+    "Last 4 digits": "آخر 4 أرقام",
+    "The provided information is wrong!": "المعلومات المقدمة خاطئة!",
+    "Last 4 Digit field is required": "مطلوب حقل آخر 4 أرقام",
+    "This field is required": "هذا الحقل مطلوب",
+    "Your password changed successfully, you can login now with the new password": "تم تغيير كلمة المرور الخاصة بك بنجاح ، يمكنك تسجيل الدخول الآن باستخدام كلمة المرور الجديدة",
 
     // SignUp Validation Messages
     "Full Name must be between 2 and 30 characters": "يجب أن يكون الاسم الكامل بين 2 و 30 حرفًا",
@@ -204,5 +211,11 @@ export default {
     "confirm Password field is required": "مطلوب حقل تأكيد كلمة المرور",
     "Passwords must match": "يجب ان تتطابق كلمات المرور",
 
+    // Settings
+    "Language": "اللغة",
+    "Size": "الحجم",
+    "Select Language": "إختر لغة",
+    "Select Size": "إختر حجم",
+    
   },
 };

@@ -6,6 +6,7 @@ import SideBar from "../../homePage/SideBar";
 import SubNav from "./SubNav";
 import { getJawwalRom, chargeJawwal } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
+import Badge from "../../ui/Badge/Badge";
 
 const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
   const history = useHistory().location.pathname;
@@ -172,6 +173,9 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
+                            {(jawwalMin.renew === "True" || jawwalMin.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                             <a className="close-btn" onClick={onJawwalMinRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -184,6 +188,9 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwal3g.id} src={jawwal3g.url} width="260px" height="100px"></img>
+                            {(jawwal3g.renew === "True" || jawwal3g.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                             <a className="close-btn" onClick={onJawwal3gRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>

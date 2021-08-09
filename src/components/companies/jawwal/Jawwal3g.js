@@ -46,9 +46,6 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
     refreshColumnStyle();
 
   }, []);
-  useEffect(() => {
-    getJawwalPackages();
-  }, [isRenew, isNotRenew]);
   
   const onClickType3g = (e) => {
     e.preventDefault();
@@ -91,10 +88,12 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
   const onRenewClick = () => {
     setIsRenew(!isRenew);
     setIsNotRenew(false);
+    getJawwalPackages();
   };
   const onNotRenewClick = () => {
     setIsNotRenew(!isNotRenew);
     setIsRenew(false);
+    getJawwalPackages();
   };
   const getJawwalPackages = () => {
     if (!isRenew && !isNotRenew) {
@@ -184,7 +183,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
               <div className="col-10">
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className="row mt-1 fixed-topx px-3">
-                  {credit !== "" && (
+                    {credit !== "" && (
                       <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
                         <div className="card outer-wrapper">
                           <div className="frame1">
@@ -210,6 +209,9 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
+                            {(jawwalMin.renew === "True" || jawwalMin.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                             <a className="close-btn" onClick={onJawwalMinRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -222,6 +224,9 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
+                            {(selected.renew === "True" || selected.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                             <a className="close-btn">
                               <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
                             </a>

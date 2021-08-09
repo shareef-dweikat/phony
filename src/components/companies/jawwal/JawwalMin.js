@@ -66,9 +66,6 @@ const JawwalMin = ({
     }
     refreshColumnStyle();
   }, []);
-  useEffect(() => {
-    getJawwalPackages();
-  }, [isRenew, isNotRenew]);
   const onClickType3Min = (e) => {
     e.preventDefault();
     isLoading(true);
@@ -111,10 +108,12 @@ const JawwalMin = ({
   const onRenewClick = () => {
     setIsRenew(!isRenew);
     setIsNotRenew(false);
+    getJawwalPackages();
   };
   const onNotRenewClick = () => {
     setIsNotRenew(!isNotRenew);
     setIsRenew(false);
+    getJawwalPackages();
   };
   const getJawwalPackages = () => {
     if (!isRenew && !isNotRenew) {
@@ -231,6 +230,9 @@ const JawwalMin = ({
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
+                            {(selected.renew === "True" || selected.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                             <a className="close-btn" onClick={onJawwalMinRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -243,6 +245,9 @@ const JawwalMin = ({
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwal3g.id} src={jawwal3g.url} width="260px" height="100px"></img>
+                            {(jawwal3g.renew === "True" || jawwal3g.renew === "true") && (
+                              <Badge text={translate("Renewable")}></Badge>
+                            )}
                             <a className="close-btn">
                               <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
                             </a>

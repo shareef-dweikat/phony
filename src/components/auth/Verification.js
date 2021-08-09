@@ -9,7 +9,6 @@ import Message from "./../common/Message";
 import Notiflix from "notiflix";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
-import LanguageChooser from "../ui/Language/LanguageChooser";
 
 const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
   const history = useHistory();
@@ -48,7 +47,6 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
   };
   return (
     <section class="auth signin">
-      <LanguageChooser/>
       <div class="container">
         <div class="row justify-content-md-center">
           <div class="card-wrapper">
@@ -67,7 +65,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
                   <TextFieldGroup
                     style={{ width: "100%" }}
                     className="mb-5 "
-                    placeholder="Enter the code"
+                    placeholder={intl.formatMessage({ id: "Enter the confirmation code" })}
                     name="virefy"
                     type="text"
                     value={virefyForm.verfiy}
@@ -75,18 +73,6 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
                     required={true}
                     autoFocus={true}
                     label={translate("code")}
-                  />
-
-                  <TextFieldGroup
-                    style={{ width: "100%" }}
-                    className="mb-5 "
-                    placeholder={intl.formatMessage({ id: "Enter the Mobile Number" })}
-                    label={translate("mobile")}
-                    name="mobile"
-                    type="hidden"
-                    value={history.location.state.mobile}
-                    onChange={onChange}
-                    required={true}
                   />
 
                   <div class="form-group mb-0 mt-4 actions">

@@ -11,6 +11,7 @@ import { logoutUser, setCurrentUser } from "./actions/userAction";
 import setAuthToken from "./components/common/setAuthToken";
 import PrivateRoute from "./components/common/PrivateRoute";
 import jwt_decode from "jwt-decode";
+import Settings from "./components/ui/Settings/Settings";
 
 if (localStorage.jwtUserToken) {
   // Set Auth token header
@@ -40,6 +41,7 @@ function App() {
   return (
     <Provider store={store}>
       <I18Provider locale={locale}>
+        <Settings />
         <Router>
           <Fragment>
             <Switch>

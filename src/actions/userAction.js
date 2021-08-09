@@ -117,29 +117,56 @@ export const signUpUser = (userData, userName, history) => (dispatch) => {
     });
 };
 
-export const resetPassword = (userData, history) => (dispatch) => {
+export const forgotPassword = (userData, history) => (dispatch) => {
   dispatch(clearErrors());
 
   return axios
-    .post(`http://api.phoneplay.me/api/v1/resources/forgot-password?sellerid=${userData.userName}`)
+    .post(`http://api.phoneplay.me/api/v1/resources/forget_password?seller_id=${userData.userName}&mobile_last4=${userData.last4Digit}`)
     .then((res) => {
-      if (res.data.status === "failed") {
+      if (res.data === "False" || res.data === "false" || res.data === "failed") {
         dispatch({
           type: GET_ERRORS,
-          payload: "Username not found!",
+          payload: "The provided information is wrong!",
         });
       } else {
-        axios
-          .post(`http://api.phoneplay.me/api/v1/resources/verification?sellerid=${res.data.sellerid}`)
-          .then((res) => {});
         history.push({
-          pathname: `/reset-password/${res.data.sellerid}`,
-          state: { mobile: res.data["mobile number"] },
+          pathname: `/reset-password`,
+          state: {
+            sellerId: userData.userName,
+            last4Digit: userData.last4Digit
+          },
         });
       }
     })
     .catch((err) => {
       console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: "Something went wrong!",
+      });
+    });
+};
+
+export const resetPassword = (verfiyData, history) => (dispatch) => {
+  dispatch(clearErrors());
+  return axios
+    .post(
+      `http://api.phoneplay.me/api/v1/resources/forget_password_verification?seller_id=${verfiyData.seller_id}&mobile_last4=${verfiyData.last_4_digit}&random_number=${verfiyData.random_number}&new_password=${verfiyData.password}`
+    )
+    .then((res) => {
+      if (res.data === "False" || res.data === "false" || res.data === "failed") {
+        dispatch({
+          type: GET_ERRORS,
+          payload: "The provided information is wrong!",
+        });
+      } else {
+        history.push({
+          pathname: "/signin",
+          state: { password_changed: true },
+        });
+      }
+    })
+    .catch((err) => {
       dispatch({
         type: GET_ERRORS,
         payload: "Something went wrong!",

@@ -168,6 +168,7 @@ export default {
     "Forgot Password?": "Forgot Password?",
     "Sign in": "Sign in",
     "Don't have an account?": "Don't have an account?",
+    "Invalid username or password": "Invalid username or password",
 
     //Sign Up
     "Enter your city": "Enter your city",
@@ -184,10 +185,15 @@ export default {
     // Forgot Password Validation messages
     "User Name field is required": "User Name field is required",
     "Password reset request": "Password reset request",
-    "Enter your username and we will send you a confirmation code to your mobile number to create a new password.": "Enter your username and we will send you a confirmation code to your mobile number to create a new password.",
+    "Enter your below information and we will send you a confirmation code to your mobile number to create a new password.": "Enter your below information and we will send you a confirmation code to your mobile number to create a new password.",
     "Send Code": "Send Code",
     "Return to Sign in": "Return to Sign in",
     "Enter the confirmation code": "Enter the confirmation code",
+    "Enter the last 4 digits of your mobile number": "Enter the last 4 digits of your mobile number",
+    "Last 4 digits": "Last 4 digits",
+    "The provided information is wrong!": "The provided information is wrong!",
+    "Last 4 Digit field is required": "Last 4 Digit field is required",
+    "Your password changed successfully, you can login now with the new password": "Your password changed successfully, you can login now with the new password",
 
     // SignUp Validation Messages
     "Full Name must be between 2 and 30 characters": "Full Name must be between 2 and 30 characters",
@@ -199,6 +205,12 @@ export default {
     "password must be at least 8 characters": "password must be at least 8 characters",
     "confirm Password field is required": "confirm Password field is required",
     "Passwords must match": "Passwords must match",
+
+    // Settings
+    "Language": "Language",
+    "Size": "Size",
+    "Select Language": "Select Language",
+    "Select Size": "Select Size",
     
   },
 };

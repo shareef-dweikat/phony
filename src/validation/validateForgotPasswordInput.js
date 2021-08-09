@@ -5,9 +5,14 @@ function validateForgotPasswordInput(data) {
   let errors = {};
 
   data.userName = !isEmpty(data.userName) ? data.userName : "";
+  data.last4Digit = !isEmpty(data.last4Digit) ? data.last4Digit : "";
 
   if (Validator.isEmpty(data.userName)) {
-    errors.userName = "User Name field is required";
+    errors.userName = "This field is required";
+  }
+
+  if (Validator.isEmpty(data.last4Digit)) {
+    errors.last4Digit = "This field is required";
   }
 
   return {

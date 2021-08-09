@@ -244,6 +244,7 @@ input[type="password"] {
   font-weight: bold;
 	padding: 12px 0;
   margin-bottom: 0;
+  direction: ltr;
 }
 .auth .card .card-subtitle {
 	padding: 12px 0;

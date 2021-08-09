@@ -1,56 +1,22 @@
 import React, { useEffect, useState } from "react";
-import ReactFlagsSelect from "react-flags-select";
 import { Link, useHistory } from "react-router-dom";
-import translate from "../../i18n/translate";
 import { logoutUser } from "./../../actions/userAction";
 import { connect } from "react-redux";
 import { userData } from "../../actions/userAction";
 import "./nav.css";
 import logo from "../../assests/images/logo/white-logo.svg";
-import Dropdown from 'react-dropdown';
-
-const options = [
-  { value: 'default', label: translate('Default') },
-  { value: 'column3', label: translate('column3') },
-  { value: 'column4', label: translate('column4') },
-  { value: 'column6', label: translate('column6') },
-];
+import translate from "../../i18n/translate";
 
 const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   const history = useHistory();
-  const [selected, setSelected] = useState("PS");
-
   useEffect(() => {
     if (isAuthenticated) {
       setTimeout(()=>   userData() ,1000)
     }
-    if (localStorage.langCity === "en") {
-      setSelected("US");
-    } else if (localStorage.langCity === "is") {
-      setSelected("IL");
-    }
   }, []);
-  const onSelectLang = (code) => {
-    console.log("code", code);
-    if (code === "US") {
-      localStorage.langCity = "en";
-    } else if (code === "PS") {
-      localStorage.langCity = "ar";
-    } else {
-      localStorage.langCity = "is";
-    }
-    window.location.reload();
-  };
   const onLogoutClick = () => {
     logoutUser(history);
   };
-  const getDefaultSize = () => {
-    return options.find((op) => op.value === localStorage.size);
-  }
-  const _onSelectSize = (e) => {
-    localStorage.setItem("size", e.value);
-    window.location.reload();
-  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "#25ace3" }}>
       <div className="container">
@@ -106,20 +72,6 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
               </li>
             )}
           </ul>
-
-          <Dropdown options={options} onChange={_onSelectSize} value={getDefaultSize()} placeholder="Size" className='style1'/>
-
-          <ReactFlagsSelect
-            color={"#fff"}
-            countries={["PS", "US", "IL"]}
-            selected={selected}
-            customLabels={{ US: "English", PS: "Arabic", IL: "Hebrew" }}
-            onSelect={(code) => onSelectLang(code)}
-            selectedSize={14}
-            optionsSize={14}
-            showLabal={true}
-            className="custom-lang"
-          />
         </div>
       </div>
     </nav>

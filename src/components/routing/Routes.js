@@ -44,7 +44,7 @@ const Routes = ({ user }) => {
       <Route exact path="/signUp" component={SignUp} />
       <Route exact path="/signin" component={Login} />
       <Route exact path="/forgot-password" component={ForgotPassword} />
-      <Route exact path="/reset-password/:id" component={ResetPassword} />
+      <Route exact path="/reset-password" component={ResetPassword} />
       <Route exact path="/verification/:id" component={Verification} />
 
       <Route component={AuthenticatedRoutes} />
