@@ -14,6 +14,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
   const pushHistory = useHistory();
   const [isRenew, setIsRenew] = useState(false);
   const [isNotRenew, setIsNotRenew] = useState(false);
+  const [init, isInit] = useState(false);
   const [mobileNo, setMobileNo] = useState(
     history.split("/")[3].slice(3, 6) +
       "-" +
@@ -31,11 +32,11 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
   useEffect(() => {
     getJawwal3g(mobileNo, false);
     document.title = "Home /3G Jawwal";
-    if (localStorage.jawwal3g) {
-      setSelected(JSON.parse(localStorage.jawwal3g));
+    if (localStorage.Jawwal3g) {
+      setSelected(JSON.parse(localStorage.Jawwal3g));
     }
-    if (localStorage.jawwalMin) {
-      setJawwalMin(JSON.parse(localStorage.jawwalMin));
+    if (localStorage.JawwalMin) {
+      setJawwalMin(JSON.parse(localStorage.JawwalMin));
     }
     if (localStorage.JawwalCredit) {
       setCredit(JSON.parse(localStorage.JawwalCredit));
@@ -46,6 +47,14 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
     refreshColumnStyle();
 
   }, []);
+  
+  useEffect(() => {
+    if (init) {
+      getJawwalPackages();
+    }
+    isInit(true);
+  }, [isRenew, isNotRenew]);
+
   
   const onClickType3g = (e) => {
     e.preventDefault();
@@ -65,7 +74,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
     });
   };
   const onTypeClick = (item) => {
-    localStorage.jawwal3g = JSON.stringify(item);
+    localStorage.Jawwal3g = JSON.stringify(item);
     setSelected(item);
   };
   const onCreditRemove = () => {
@@ -73,11 +82,11 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
     setCredit("");
   };
   const onJawwal3gRemove = () => {
-    localStorage.removeItem("jawwal3g");
+    localStorage.removeItem("Jawwal3g");
     setSelected("");
   };
   const onJawwalMinRemove = () => {
-    localStorage.removeItem("jawwalMin");
+    localStorage.removeItem("JawwalMin");
     setJawwalMin("");
   };
   const onJawwalRomRemove = () => {
@@ -88,12 +97,12 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
   const onRenewClick = () => {
     setIsRenew(!isRenew);
     setIsNotRenew(false);
-    getJawwalPackages();
+    isInit(true);
   };
   const onNotRenewClick = () => {
     setIsNotRenew(!isNotRenew);
     setIsRenew(false);
-    getJawwalPackages();
+    isInit(true);
   };
   const getJawwalPackages = () => {
     if (!isRenew && !isNotRenew) {
@@ -184,7 +193,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className="row mt-1 fixed-topx px-3">
                     {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img
@@ -196,7 +205,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                               width="260px"
                               height="100px"
                             ></img>
-                            {!credit.url && <label className="text-abs">{credit.price}</label>}
+                            {credit.flexiblePrice && <label className="text-abs">{selected.price}</label>}
                             <a className="close-btn" onClick={onCreditRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -205,7 +214,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       </div>
                     )}
                     {jawwalMin !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
@@ -220,7 +229,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       </div>
                     )}
                     {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
@@ -235,7 +244,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
                       </div>
                     )}
                     {jawwalRom !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwalRom.id} src={jawwalRom.url} width="260px" height="100px"></img>

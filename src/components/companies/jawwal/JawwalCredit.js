@@ -7,10 +7,11 @@ import SideBar from "../../homePage/SideBar";
 import TextFieldGroup from "./../../common/TextFieldGroup";
 import { getJawwalCredit, chargeJawwal } from "../../../actions/companiesAction";
 import "./jawwal.css";
-import credit from "./credit";
+import credits, { EMPTY_CREDIT } from "./credits";
 import SubNav from "./SubNav";
 import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
+import Summary from "../../ui/Summary/Summary";
 
 const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJawwal }) => {
   const history = useHistory().location.pathname;
@@ -39,11 +40,11 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   useEffect(() => {
     document.title = "Home /Credit Jawwal";
     // console.log(auth, jawwalCreadit);
-    if (localStorage.jawwalMin) {
-      setJawwalMin(JSON.parse(localStorage.jawwalMin));
+    if (localStorage.JawwalMin) {
+      setJawwalMin(JSON.parse(localStorage.JawwalMin));
     }
-    if (localStorage.jawwal3g) {
-      setJawwal3g(JSON.parse(localStorage.jawwal3g));
+    if (localStorage.Jawwal3g) {
+      setJawwal3g(JSON.parse(localStorage.Jawwal3g));
     }
     if (localStorage.JawwalCredit) {
       setSelected(JSON.parse(localStorage.JawwalCredit));
@@ -73,9 +74,10 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   };
   const onChange = (e) => {
     console.log(e.target.value);
+    const selectedCredit = { ...EMPTY_CREDIT, price: e.target.value };
     setInputForm({ ...inputForm, [e.target.name]: e.target.value });
-    setSelected({ price: e.target.value });
-    localStorage.JawwalCredit = JSON.stringify({ price: e.target.value });
+    setSelected(selectedCredit);
+    localStorage.JawwalCredit = JSON.stringify(selectedCredit);
   };
   const onTypeClick = (item) => {
     localStorage.JawwalCredit = JSON.stringify(item);
@@ -87,7 +89,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
     setInputForm({ ...inputForm, ["price"]: 0 });
   };
   const onJawwal3gRemove = () => {
-    localStorage.removeItem("jawwal3g");
+    localStorage.removeItem("Jawwal3g");
     setJawwal3g("");
   };
   const onJawwalRomRemove = () => {
@@ -95,9 +97,27 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
     setJawwalRom("");
   };
   const onJawwalMinRemove = () => {
-    localStorage.removeItem("jawwalMin");
+    localStorage.removeItem("JawwalMin");
     setJawwalMin("");
   };
+
+  const onRemove = (type) => {
+    console.log("type", type);
+    switch(type) {
+      case "JawwalCredit":
+        onCreditRemove();
+        break;
+      case "JawwalMin":
+        onJawwalMinRemove();
+        break;
+      case "Jawwal3g":
+        onJawwal3gRemove();
+        break;
+      case "JawwalRom":
+        onJawwalRomRemove();
+        break;
+    }
+  }
 
   const refreshColumnStyle = () => {
     switch(localStorage.size) {
@@ -152,7 +172,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                   <div className="card m-4s fixed-top1 position-sticky mt-2">
                     <div className="row mt-1 fixed-topx px-3">
                       {selected !== {} && selected.price && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                           <div className="card outer-wrapper">
                             <div className="frame1">
                               <img
@@ -164,7 +184,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                                 width="260px"
                                 height="100px"
                               ></img>
-                              {!selected.url && <label className="text-abs">{selected.price}</label>}
+                              {selected.flexiblePrice && <label className="text-abs">{selected.price}</label>}
                               <a className="close-btn" onClick={onCreditRemove}>
                                 <i class="fa fa-times" aria-hidden="true"></i>
                               </a>
@@ -173,7 +193,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                         </div>
                       )}
                       {jawwalMin !== "" && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                           <div className="card outer-wrapper">
                             <div className="frame1">
                               <img alt="Jawwal Min" src={jawwalMin.url} width="260px" height="100px"></img>
@@ -188,7 +208,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                         </div>
                       )}
                       {jawwal3g !== "" && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                           <div className="card outer-wrapper">
                             <div className="frame1">
                               <img alt="Jawwal 3G" src={jawwal3g.url} width="260px" height="100px"></img>
@@ -203,7 +223,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                         </div>
                       )}
                       {jawwalRom !== "" && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                           <div className="card outer-wrapper">
                             <div className="frame1">
                               <img alt="Jawwal Rom" src={jawwalRom.url} width="260px" height="100px"></img>
@@ -247,11 +267,19 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                 </div>
               </div>
 
+              {/* <Summary selectedItems={{
+                JawwalCredit :selected,
+                JawwalMin: jawwalMin,
+                JawwalRom: jawwal3g,
+                Jawwal3g: jawwalRom,
+              }}
+              onRemove={onRemove}/> */}
+
               <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
 
               <div className="row ">
-                {credit.map((item) => (
-                  <div className={`${columnStyle} mt-1`}>
+                {credits.map((item) => (
+                  <div className={`${columnStyle} my-2`}>
                     <div className="card outer-wrapper charge-card">
                       <a
                         style={{ cursor: "pointer" }}
@@ -269,20 +297,20 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                     </div>
                   </div>
                 ))}
-                <div className={columnStyle}>
+                <div className={`${columnStyle} my-2`}>
                   <div class="card card-credit outer-wrapper">
                     <a
                       style={{ cursor: "pointer" }}
                       data-placement="top"
                       title="custom credit"
-                      onClick={() => onTypeClick({price: inputForm.price})}
+                      onClick={() => onTypeClick({...EMPTY_CREDIT, price: inputForm.price})}
                     >
                       <div class="card">
-                        <img src="https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"></img>
+                        <img src={EMPTY_CREDIT.url}></img>
                         <TextFieldGroup
                           style={{ 
                             width: "calc(50% - 20px)", height: "70%", padding: 0,
-                            position: "absolute", top: "50%", right: "6%",
+                            position: "absolute", top: "50%", left: "calc(50% + 12px)",
                             transform: "translateY(-50%)",
                             fontSize: "2rem", fontFamily: '"Montserrat", sans-serif', textAlign: "center",
                             outline: "rgb(16, 16, 16) auto 4px", 

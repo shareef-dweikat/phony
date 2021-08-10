@@ -31,6 +31,7 @@ const JawwalMin = ({
   const pushHistory = useHistory();
   const [isRenew, setIsRenew] = useState(false);
   const [isNotRenew, setIsNotRenew] = useState(false);
+  const [init, isInit] = useState(false);
   const [mobileNo, setMobileNo] = useState(
     history.split("/")[3].slice(3, 6) +
       "-" +
@@ -50,13 +51,13 @@ const JawwalMin = ({
     document.title = "Home /Min Jawwal";
     getJawwalMin(mobileNo, false);
     // getChargeJawwal();
-    if (localStorage.jawwalMin) {
-      setSelected(JSON.parse(localStorage.jawwalMin));
+    if (localStorage.JawwalMin) {
+      setSelected(JSON.parse(localStorage.JawwalMin));
       setAmount((prev) => prev + parseFloat(selected.price));
       // amount+=parseFloat(selected.price)
     }
-    if (localStorage.jawwal3g) {
-      setJawwal3g(JSON.parse(localStorage.jawwal3g));
+    if (localStorage.Jawwal3g) {
+      setJawwal3g(JSON.parse(localStorage.Jawwal3g));
     }
     if (localStorage.JawwalCredit) {
       setCredit(JSON.parse(localStorage.JawwalCredit));
@@ -66,6 +67,14 @@ const JawwalMin = ({
     }
     refreshColumnStyle();
   }, []);
+
+  useEffect(() => {
+    if (init) {
+      getJawwalPackages();
+    }
+    isInit(true);
+  }, [isRenew, isNotRenew]);
+
   const onClickType3Min = (e) => {
     e.preventDefault();
     isLoading(true);
@@ -85,7 +94,7 @@ const JawwalMin = ({
     });
   };
   const onTypeClick = (item) => {
-    localStorage.jawwalMin = JSON.stringify(item);
+    localStorage.JawwalMin = JSON.stringify(item);
     setSelected(item);
     // addChargeJawwal(item);
   };
@@ -94,11 +103,11 @@ const JawwalMin = ({
     setCredit("");
   };
   const onJawwal3gRemove = () => {
-    localStorage.removeItem("jawwal3g");
+    localStorage.removeItem("Jawwal3g");
     setJawwal3g("");
   };
   const onJawwalMinRemove = () => {
-    localStorage.removeItem("jawwalMin");
+    localStorage.removeItem("JawwalMin");
     setSelected("");
   };
   const onJawwalRomRemove = () => {
@@ -108,14 +117,16 @@ const JawwalMin = ({
   const onRenewClick = () => {
     setIsRenew(!isRenew);
     setIsNotRenew(false);
-    getJawwalPackages();
+    isInit(true);
   };
   const onNotRenewClick = () => {
     setIsNotRenew(!isNotRenew);
     setIsRenew(false);
-    getJawwalPackages();
+    isInit(true);
   };
   const getJawwalPackages = () => {
+    console.log("isRenew", isRenew);
+    console.log("isNotRenew", isNotRenew);
     if (!isRenew && !isNotRenew) {
       getJawwalMin(mobileNo, false);
     } else if (isRenew) {
@@ -205,7 +216,7 @@ const JawwalMin = ({
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className="row mt-1 fixed-topx px-3">
                     {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img
@@ -217,7 +228,7 @@ const JawwalMin = ({
                               width="260px"
                               height="100px"
                             ></img>
-                            {!credit.url && <label className="text-abs">{credit.price}</label>}
+                            {credit.flexiblePrice && <label className="text-abs">{selected.price}</label>}
                             <a className="close-btn" onClick={onCreditRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -226,7 +237,7 @@ const JawwalMin = ({
                       </div>
                     )}
                     {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
@@ -241,7 +252,7 @@ const JawwalMin = ({
                       </div>
                     )}
                     {jawwal3g !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwal3g.id} src={jawwal3g.url} width="260px" height="100px"></img>
@@ -256,7 +267,7 @@ const JawwalMin = ({
                       </div>
                     )}
                     {jawwalRom !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwalRom.id} src={jawwalRom.url} width="260px" height="100px"></img>

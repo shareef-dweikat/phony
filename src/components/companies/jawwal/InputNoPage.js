@@ -20,8 +20,8 @@ const InputNoPage = () => {
     } else {
       setIsEmprty(false);
       // localStorage.setItem("chargeJawwal", JSON.stringify({ charge: [] }));
-      localStorage.removeItem("jawwalMin");
-      localStorage.removeItem("jawwal3g");
+      localStorage.removeItem("JawwalMin");
+      localStorage.removeItem("Jawwal3g");
       localStorage.removeItem("JawwalCredit");
       localStorage.removeItem("JawwalRom");
       history.push(`/company/jawwalCredit/${"+97" + value}`);

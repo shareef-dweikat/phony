@@ -30,11 +30,11 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
   useEffect(() => {
     getJawwalRom(mobileNo, false);
     document.title = "Home /Rom Jawwal";
-    if (localStorage.jawwal3g) {
-      setJawwal3g(JSON.parse(localStorage.jawwal3g));
+    if (localStorage.Jawwal3g) {
+      setJawwal3g(JSON.parse(localStorage.Jawwal3g));
     }
-    if (localStorage.jawwalMin) {
-      setJawwalMin(JSON.parse(localStorage.jawwalMin));
+    if (localStorage.JawwalMin) {
+      setJawwalMin(JSON.parse(localStorage.JawwalMin));
     }
     if (localStorage.JawwalCredit) {
       setCredit(JSON.parse(localStorage.JawwalCredit));
@@ -73,11 +73,11 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
     setCredit("");
   };
   const onJawwal3gRemove = () => {
-    localStorage.removeItem("jawwal3g");
+    localStorage.removeItem("Jawwal3g");
     setJawwal3g("");
   };
   const onJawwalMinRemove = () => {
-    localStorage.removeItem("jawwalMin");
+    localStorage.removeItem("JawwalMin");
     setJawwalMin("");
   };
   const onJawwalRomRemove = () => {
@@ -148,7 +148,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                 <div className="card m-4s fixed-top1 position-sticky mt-2">
                   <div className="row mt-1 fixed-topx px-3">
                     {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img
@@ -160,7 +160,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                               width="260px"
                               height="100px"
                             ></img>
-                            {!credit.url && <label className="text-abs">{credit.price}</label>}
+                            {credit.flexiblePrice && <label className="text-abs">{selected.price}</label>}
                             <a className="close-btn" onClick={onCreditRemove}>
                               <i class="fa fa-times" aria-hidden="true"></i>
                             </a>
@@ -169,7 +169,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       </div>
                     )}
                     {jawwalMin !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
@@ -184,7 +184,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       </div>
                     )}
                     {jawwal3g !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={jawwal3g.id} src={jawwal3g.url} width="260px" height="100px"></img>
@@ -199,7 +199,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       </div>
                     )}
                     {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-4">
+                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                         <div className="card outer-wrapper">
                           <div className="frame1">
                             <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>

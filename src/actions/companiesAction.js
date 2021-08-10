@@ -294,8 +294,8 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
         }
       });
   }
-  localStorage.removeItem("jawwalMin");
-  localStorage.removeItem("jawwal3g");
+  localStorage.removeItem("JawwalMin");
+  localStorage.removeItem("Jawwal3g");
   localStorage.removeItem("JawwalCredit");
   localStorage.removeItem("JawwalRom");
   pushHistory.push("/");
