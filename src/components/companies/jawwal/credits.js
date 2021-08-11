@@ -3,11 +3,13 @@ import Jawwal15 from "../../../assests/images/bundles/jawwal/jawwal-15.png";
 import Jawwal20 from "../../../assests/images/bundles/jawwal/jawwal-20.png";
 import Jawwal25 from "../../../assests/images/bundles/jawwal/jawwal-25.png";
 import Jawwal30 from "../../../assests/images/bundles/jawwal/jawwal-30.png";
+import Jawwal35 from "../../../assests/images/bundles/jawwal/jawwal-35.png";
 import Jawwal40 from "../../../assests/images/bundles/jawwal/jawwal-40.png";
 import Jawwal45 from "../../../assests/images/bundles/jawwal/jawwal-45.png";
 import Jawwal50 from "../../../assests/images/bundles/jawwal/jawwal-50.png";
 import Jawwal60 from "../../../assests/images/bundles/jawwal/jawwal-60.png";
 import Jawwal70 from "../../../assests/images/bundles/jawwal/jawwal-70.png";
+import Jawwal80 from "../../../assests/images/bundles/jawwal/jawwal-80.png";
 import Jawwal90 from "../../../assests/images/bundles/jawwal/jawwal-90.png";
 import Jawwal100 from "../../../assests/images/bundles/jawwal/jawwal-100.png";
 import Jawwal200 from "../../../assests/images/bundles/jawwal/jawwal-200.png";
@@ -54,6 +56,12 @@ const credits = [
   },
   {
     dis: "",
+    price: "35",
+    url: Jawwal35,
+    id: "0035",
+  },
+  {
+    dis: "",
     price: "40",
     url: Jawwal40,
     id: "0040",
@@ -81,6 +89,12 @@ const credits = [
     price: "70",
     url: Jawwal70,
     id: "0070",
+  },
+  {
+    dis: "",
+    price: "80",
+    url: Jawwal80,
+    id: "0080",
   },
   {
     dis: "",
