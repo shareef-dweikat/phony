@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactFlagsSelect from "react-flags-select";
 import { useHistory } from "react-router-dom";
+import { LOCALES_COUNTRIES } from "../../../../i18n";
 
 const langs = {
     ar: "PS",
@@ -10,7 +11,7 @@ const langs = {
 
 const LanguageChooser = () => {
     const history = useHistory();
-    const [selected, setSelected] = useState(langs[localStorage.langCity]);
+    const [selected, setSelected] = useState(langs[localStorage.langCity] || LOCALES_COUNTRIES.ARABIC);
 
     useEffect(() => {
         if (localStorage.langCity === "en") {

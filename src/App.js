@@ -36,7 +36,7 @@ function App() {
   if (localStorage.langCity) {
     lang = localStorage.getItem("langCity");
   }
-  const [locale, setLocale] = useState(lang || LOCALES.ENGLISH);
+  const [locale, setLocale] = useState(lang || LOCALES.ARABIC);
 
   return (
     <Provider store={store}>
