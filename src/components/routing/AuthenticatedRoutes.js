@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Login from "../auth/Login";
+import Login from "../auth/SignIn";
 import SignUp from "../auth/SignUp";
 import Verification from "../auth/Verification";
 import Cards from "../cards/Cards";
@@ -48,7 +48,6 @@ const AuthenticatedRoutes = ({ user }) => {
               
               <Route exact path="/report" component={Report} />
               <Route exact path="/gaming" component={Gaming} />
-              <Route exact path="/verification/:id" component={Verification} />
               { intl.locale === "en" && <Route exact path="/internet" component={Internet} />}
               <Route exact path="/insurance" component={Insurance} />
               

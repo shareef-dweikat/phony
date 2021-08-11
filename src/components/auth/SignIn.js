@@ -4,13 +4,13 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser } from "./../../actions/userAction";
+import { loginUser } from "../../actions/userAction";
 import validateLoginInput from "../../validation/validateLoginInput";
-import Message from "./../common/Message";
+import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
 
-const Login = ({ loginUser, isAuthenticated, massage }) => {
+const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
 
@@ -115,4 +115,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   massage: state.error.massage,
 });
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { loginUser })(SignIn);

@@ -39,7 +39,7 @@ export const loginUser = (userData, history) => (dispatch) => {
             .post(`http://api.phoneplay.me/api/v1/resources/verification?sellerid=${res.data.sellerid}`)
             .then((res) => {});
           history.push({
-            pathname: `/Verification/${res.data.sellerid}`,
+            pathname: `/verification/${res.data.sellerid}`,
             state: { mobile: res.data["mobile number"] },
           });
         }
