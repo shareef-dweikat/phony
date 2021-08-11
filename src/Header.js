@@ -4,7 +4,7 @@ function Header() {
   const [isLinkElementLoaded, setLinkElementLoaded] = useState(false)
 
     useEffect(() => {
-    const linkElement = document.createElement("link");
+      const linkElement = document.createElement("link");
       linkElement.setAttribute("rel", "stylesheet");
       linkElement.setAttribute("type", "text/css");
       linkElement.setAttribute(

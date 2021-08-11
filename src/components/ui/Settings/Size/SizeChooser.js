@@ -10,11 +10,8 @@ const options = [
 ];
 
 const SizeChooser = ({type="dropdown"}) => {
-  const [size, setSize] = useState(localStorage.size)
-
-  const getDefaultSize = () => {
-    return options.find((op) => op.value === localStorage.size);
-  }
+  const [size, setSize] = useState((localStorage.size || "default"))
+  
   const _onSelectSize = (e) => {
     let newSize = e.value;
     if (e.target) {
@@ -30,7 +27,7 @@ const SizeChooser = ({type="dropdown"}) => {
         <Dropdown
           options={options}
           onChange={_onSelectSize}
-          value={getDefaultSize()}
+          value={size}
           placeholder="Size"
           className='style1'/>
       )}
