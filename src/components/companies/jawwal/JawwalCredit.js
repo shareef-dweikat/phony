@@ -11,7 +11,6 @@ import credits, { EMPTY_CREDIT } from "./credits";
 import SubNav from "./SubNav";
 import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
-import Summary from "../../ui/Summary/Summary";
 
 const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJawwal }) => {
   const history = useHistory().location.pathname;
