@@ -4,7 +4,7 @@ import { GET_LAST_TRANSACTION, CLEAR_ERRORS, GET_ERRORS } from "./types";
 export const getLastTransaction = () => (dispatch) => {
   dispatch(clearErrors());
   const sallerId = JSON.parse(localStorage.companies).sellerid;
-  axios
+  return axios
     .post(
       `http://api.phoneplay.me/api/v1/resources/get_seller_transactions?sellerid=${sallerId}`
     )
