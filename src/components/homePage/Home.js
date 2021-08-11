@@ -15,8 +15,17 @@ const Home = ({ user, getLastTransaction, last }) => {
 
     refreshColumnStyle();
   }, []);
-  const updateClick = () => getLastTransaction();
+
+  const updateClick = () => {
+    isLoading(true);
+    getLastTransaction()
+    .finally(() => {
+      isLoading(false);
+    })
+  };
+
   const [columnStyle, setColumnStyle] = useState("col-lg-2 col-md-4 col-sm-6 card-sm");
+  const [loading, isLoading] = useState(false);
 
   const refreshColumnStyle = () => {
     switch(localStorage.size) {
@@ -201,12 +210,12 @@ const Home = ({ user, getLastTransaction, last }) => {
                   </Link>
                 </div>
               )}
-              <div className="my-3 d-flex flex-row-reverse">
-                <button className="btn rom-selected" onClick={updateClick}>
+              <div className="mt-5 d-flex flex-row-reverse">
+                <button className="btn rom-selected" onClick={updateClick} disabled={loading}>
                   {translate("Update")}
                 </button>
               </div>
-              <div className="my-4">
+              <div className="my-3">
                 <table class="table text-center">
                   <thead>
                     <tr>

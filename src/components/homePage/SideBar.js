@@ -34,12 +34,12 @@ const SideBar = ({ user ,userData }) => {
               history === "/" && "active-link"
             } m-4`}
           >
-            <Link className=" link-main " to="/">
+            <a className="link-main " href="/">
               <span>
                 <i className="icon-main fa fa-home m-2"></i>
                 {translate("home")}
               </span>
-            </Link>
+            </a>
           </div>
 
           {intl.locale === "en" && (
@@ -48,7 +48,7 @@ const SideBar = ({ user ,userData }) => {
                 history === "/internet" && "active-link"
               } m-4`}
             >
-              <Link className="link-main " to="/internet">
+              <a className="link-main " href="/internet">
                 <span>
                   <i
                     className="icon-main fas fa-globe  m-2"
@@ -56,7 +56,7 @@ const SideBar = ({ user ,userData }) => {
                   ></i>
                   {translate("internet")}
                 </span>
-              </Link>
+              </a>
             </div>
           )}
           <div
@@ -64,7 +64,7 @@ const SideBar = ({ user ,userData }) => {
               history === "/insurance" && "active-link"
             } m-4`}
           >
-            <Link className="link-main " to="/insurance">
+            <a className="link-main " href="/insurance">
               <span>
                 <i
                   className="icon-main fas fa-car-crash  m-2"
@@ -72,14 +72,14 @@ const SideBar = ({ user ,userData }) => {
                 ></i>
                 {translate("Insurance")}
               </span>
-            </Link>
+            </a>
           </div>
           <div
             className={`sidebar__link ${
               history === "/gaming" && "active-link"
             } m-4`}
           >
-            <Link className="link-main " to="/gaming">
+            <a className="link-main " href="/gaming">
               <span>
                 <i
                   className="icon-main fa fa-gamepad  m-2"
@@ -87,14 +87,14 @@ const SideBar = ({ user ,userData }) => {
                 ></i>
                 {translate("gaming")}
               </span>
-            </Link>
+            </a>
           </div>
           <div
             className={`sidebar__link ${
               history === "/cards" && "active-link"
             } m-4`}
           >
-            <Link className="link-main " to="/cards">
+            <a className="link-main " href="/cards">
               <span>
                 <i
                   className="icon-main fa fa-credit-card  m-2"
@@ -102,14 +102,14 @@ const SideBar = ({ user ,userData }) => {
                 ></i>
                 {translate("cards")}
               </span>
-            </Link>
+            </a>
           </div>
           <div
             className={`sidebar__link ${
               history === "/points" && "active-link"
             } m-4`}
           >
-            <Link className="link-main " to="/points">
+            <a className="link-main " href="/points">
               <span>
                 <i
                   className="icon-main fa fa-hand-pointer  m-2"
@@ -117,7 +117,7 @@ const SideBar = ({ user ,userData }) => {
                 ></i>
                 {translate("points")}
               </span>
-            </Link>
+            </a>
           </div>
 
           <div
@@ -125,7 +125,7 @@ const SideBar = ({ user ,userData }) => {
               history === "/messages" && "active-link"
             } m-4`}
           >
-            <Link className="link-main " to="/messages">
+            <a className="link-main " href="/messages">
               <span>
                 <i
                   className="icon-main fa fa-comments  m-2"
@@ -133,19 +133,19 @@ const SideBar = ({ user ,userData }) => {
                 ></i>
                 {translate("messages")}
               </span>
-            </Link>
+            </a>
           </div>
           <div
             className={`sidebar__link ${
               history === "/report" && "active-link"
             } m-4`}
           >
-            <Link className="link-main " to="/report">
+            <a className="link-main " href="/report">
               <span>
                 <i className="icon-main fa fa-file m-2" aria-hidden="true"></i>
                 {translate("Report")}
               </span>
-            </Link>
+            </a>
           </div>
         </div>
       </div>
