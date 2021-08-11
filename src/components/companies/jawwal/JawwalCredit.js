@@ -280,10 +280,8 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                 {credits.map((item) => (
                   <div className={`${columnStyle} my-2`}>
                     <div className="card outer-wrapper charge-card">
-                      <a
+                      <div
                         style={{ cursor: "pointer" }}
-                        data-placement="top"
-                        title={item && item.des}
                         onClick={() => onTypeClick(item)}
                       >
                         <div className="card">
@@ -292,16 +290,14 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                           ></img>
                           {item && item.des}
                         </div>
-                      </a>
+                      </div>
                     </div>
                   </div>
                 ))}
                 <div className={`${columnStyle} my-2`}>
                   <div class="card card-credit outer-wrapper">
-                    <a
+                    <div
                       style={{ cursor: "pointer" }}
-                      data-placement="top"
-                      title="custom credit"
                       onClick={() => onTypeClick({...EMPTY_CREDIT, price: inputForm.price})}
                     >
                       <div class="card">
@@ -321,7 +317,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                           onChange={onChange}
                         />
                       </div>
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
