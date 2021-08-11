@@ -6,6 +6,7 @@ import App from "./App";
 import Header from "./Header";
 import reportWebVitals from "./reportWebVitals";
 import OneSignal from 'react-onesignal';
+import "./web.config";
 
 OneSignal.initialize('32b3d194-341a-4b3e-b04e-e416ea3131f9', {
   autoRegister: true,
