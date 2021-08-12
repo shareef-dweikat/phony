@@ -8,6 +8,7 @@ import SubNav from "./SubNav";
 import { getJawwal3g, getNotRnewJawwal3g, chargeJawwal, getRnewJawwal3g } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
+import { useIntl } from "react-intl";
 
 const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, chargeJawwal, getNotRnewJawwal3g }) => {
   const history = useHistory().location.pathname;
@@ -29,9 +30,11 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
   const [loadingSpinner, isLoading] = useState(false);
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-4");
 
+  const intl = useIntl();
   useEffect(() => {
     getJawwal3g(mobileNo, false);
-    document.title = "3G Jawwal | Phone Play";
+    document.title = intl.formatMessage({ id: "3G Jawwal | Phone Play"});
+    
     if (localStorage.Jawwal3g) {
       setSelected(JSON.parse(localStorage.Jawwal3g));
     }

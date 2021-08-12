@@ -12,12 +12,12 @@ import { Helmet } from 'react-helmet'
 OneSignal.initialize(process.env.REACT_APP_ONE_SIGNAL_APP_ID, {
   autoRegister: true,
   autoResubscribe: true,
-  allowLocalhostAsSecureOrigin: true,
+  allowLocalhostAsSecureOrigin: process.env.REACT_APP_ONE_SIGNAL_ALLOW_LOCAL,
   subdomainName: process.env.REACT_APP_ONE_SIGNAL_SUBDOMAIN,
   safari_web_id: process.env.REACT_APP_ONE_SIGNAL_SAFARI_WEB_ID,
 });
 
-const TITLE = process.env.REACT_APP_TITLE;
+const TITLE = process.env.REACT_APP_SITE_TITLE;
 
 ReactDOM.render(
   <React.StrictMode>
