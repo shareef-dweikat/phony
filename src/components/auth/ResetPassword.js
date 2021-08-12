@@ -29,7 +29,7 @@ const ResetPassword = ({ resetPassword, isAuthenticated, massage, mobile }) => {
 
   useEffect(() => {
     console.log(history.state);
-    document.title = "Reset Password | PhonePlay";
+    document.title = "Reset Password | Phone Play";
     if (isAuthenticated) {
       history.push("/");
     }

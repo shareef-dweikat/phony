@@ -8,7 +8,7 @@ import TextFieldGroup from "../../common/TextFieldGroup";
 
 const OoredooInputNu = () => {
   useEffect(() => {
-    document.title = "Home /Ooredoo ";
+    document.title = "Ooredoo | Phone Play";
   }, []);
   const [value, setValue] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);

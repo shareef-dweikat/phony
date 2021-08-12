@@ -14,7 +14,7 @@ const ForgotPassword = ({ forgotPassword, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
   useEffect(() => {
-    document.title = "Forgot Password | PhonePlay";
+    document.title = "Forgot Password | Phone Play";
     if (isAuthenticated) {
       history.push("/");
     }

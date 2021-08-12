@@ -6,7 +6,7 @@ import SideBar from "../homePage/SideBar";
 import { getCards } from "../../actions/cardsAction";
 const Cards = ({ getCards, cards }) => {
   useEffect(() => {
-    document.title = "PhonePlay/Electornic Cards ";
+    document.title = "Electornic Cards | Phone Play";
     getCards();
   }, []);
   return (

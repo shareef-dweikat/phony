@@ -19,7 +19,7 @@ const ShababOoredoo = ({ getOoredooSuper, ooredooSuper, getOoredooSuperNotRenew,
   const [rom, setRom] = useState("");
   const [shabab, setShabab] = useState("");
   useEffect(() => {
-    document.title = "Ooredoo Shabab";
+    document.title = "Ooredoo Shabab | Phone Play";
     getOoredooSuper();
     if (localStorage.ooredoo3g) {
       setG3(JSON.parse(localStorage.ooredoo3g));

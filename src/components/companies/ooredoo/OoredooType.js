@@ -7,7 +7,7 @@ import "./ooredoo.css";
 const OoredooType = () => {
   const history = useHistory().location.pathname;
   useEffect(() => {
-    document.title = "Home /Ooredoo ";
+    document.title = "Ooredoo | Phone Play";
   }, []);
   return (
     <div className="container">

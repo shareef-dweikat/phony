@@ -37,7 +37,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 col-6");
 
   useEffect(() => {
-    document.title = "Home /Credit Jawwal";
+    document.title = "Credit Jawwal | Phone Play";
     // console.log(auth, jawwalCreadit);
     if (localStorage.JawwalMin) {
       setJawwalMin(JSON.parse(localStorage.JawwalMin));

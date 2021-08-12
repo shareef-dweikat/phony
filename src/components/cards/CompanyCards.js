@@ -9,7 +9,7 @@ import { getCompanyCards } from "../../actions/cardsAction";
 const CompanyCards = ({ companyCards, getCompanyCards }) => {
   const history = useHistory();
   useEffect(() => {
-    document.title = "PhonePlay/ Cards ";
+    document.title = "Cards | Phone Play";
     getCompanyCards(history.location.pathname.split("/")[2]);
   }, []);
   const backClick = () => history.push("/cards");

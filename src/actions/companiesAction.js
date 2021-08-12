@@ -45,6 +45,8 @@ if (localStorage.langCity === "en") {
 }
 //jawwal Actions
 
+const BASE_API_URL = process.env.REACT_APP_BASE_API;
+
 export const getJawwal3g = (mobileNo, refresh) => (dispatch) => {
   dispatch(clearErrors());
   dispatch({
@@ -64,7 +66,7 @@ export const getJawwal3g = (mobileNo, refresh) => (dispatch) => {
     });
   } else {
     axios.post(
-      `http://api.phoneplay.me/api/v1/resources/JAB?number=${mobileNo
+      `${BASE_API_URL}/JAB?number=${mobileNo
         .split("-")
         .join("")}&bundle=3g&language=${lang}&refresh=${refresh}`
     )
@@ -104,7 +106,7 @@ export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
     });
   } else {
     axios.post(
-      `http://api.phoneplay.me/api/v1/resources/JAB?number=${mobileNo
+      `${BASE_API_URL}/JAB?number=${mobileNo
         .split("-")
         .join("")}&bundle=rom&language=arabic&refresh=${refresh}`
     )
@@ -130,7 +132,7 @@ export const getJawwalCredit = (mobileNo) => (dispatch) => {
   console.log(mobileNo.slice(4));
   axios
     .post(
-      `http://api.phoneplay.me/api/v1/resources/JAB?number=${mobileNo
+      `${BASE_API_URL}/JAB?number=${mobileNo
         .split("-")
         .join("")}&bundle=jawwalMin&language=${lang}`
     )
@@ -169,7 +171,7 @@ export const getJawwalMin = (mobileNo, refresh) => (dispatch) => {
   } else {
     axios
     .post(
-      `http://api.phoneplay.me/api/v1/resources/JAB?number=${mobileNo
+      `${BASE_API_URL}/JAB?number=${mobileNo
         .split("-")
         .join("")}&bundle=min&language=${lang}&refresh=${refresh}`
     )
@@ -229,7 +231,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     Notiflix.Notify.info("Jawwal 3G Charging is in progress");
     return axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.ID.substring(
+        `${BASE_API_URL}/jawwal_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.ID.substring(
           0,
           data.jawwal3g.ID.length - 4
         )}`
@@ -248,7 +250,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
 
     return axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.jawwalRom.ID.substring(
+        `${BASE_API_URL}/jawwal_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.jawwalRom.ID.substring(
           0,
           data.jawwalRom.ID.length - 4
         )}`
@@ -266,7 +268,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
 
     return axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=0`
+        `${BASE_API_URL}/jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=0`
       )
       .then((res) => {
         if (res === "Failed") {
@@ -281,7 +283,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     console.log(data.jawwalMin.id.substring(0, data.jawwalMin.ID.length - 4));
     return axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.id.substring(
+        `${BASE_API_URL}/jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.id.substring(
           0,
           data.jawwalMin.ID.length - 4
         )}`
@@ -341,7 +343,7 @@ export const getOoredooMin = (mobileNo) => (dispatch) => {
     type: LOADING_TRUE,
   });
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/ooredoo_get_bundles?bundle=MIN&language=arabic`)
+    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=MIN&language=arabic`)
     .then((res) =>
       dispatch({
         type: GET_OOREDOO_MIN,
@@ -380,7 +382,7 @@ export const getOoredoo3g = () => (dispatch) => {
   });
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/ooredoo_get_bundles?bundle=3G&language=arabic`)
+    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=3G&language=arabic`)
     .then((res) =>
       dispatch({
         type: GET_OOREDOO_3G,
@@ -419,7 +421,7 @@ export const getOoredooRom = () => (dispatch) => {
   });
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/ooredoo_get_bundles?bundle=ROM&language=arabic`)
+    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=ROM&language=arabic`)
     .then((res) =>
       dispatch({
         type: GET_OOREDOO_ROM,
@@ -458,7 +460,7 @@ export const getOoredooSuper = () => (dispatch) => {
   });
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/ooredoo_get_bundles?bundle=YOUTH&language=arabic`)
+    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=YOUTH&language=arabic`)
     .then((res) =>
       dispatch({
         type: GET_OOREDOO_SUPER,
@@ -496,7 +498,7 @@ export const chargeOoredoo = (history) => (dispatch) => {
     Notiflix.Notify.info("Ooredoo  Charging is in progress");
     axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/ooredoo_topup?number=${mobile}&cardtype=topup&pci=0&language=${lang}&amount=${credit.price}&token=${token}`
+        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=topup&pci=0&language=${lang}&amount=${credit.price}&token=${token}`
       )
       .then((res) => {
         if (res === "Failed") {
@@ -512,7 +514,7 @@ export const chargeOoredoo = (history) => (dispatch) => {
     const ooredoo3g = JSON.parse(localStorage.ooredoo3g);
     axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/ooredoo_topup?number=${mobile}&amount=1&cardtype=3G&pci=${ooredoo3g.bundleid}&language=${lang}&token=${token}`
+        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&amount=1&cardtype=3G&pci=${ooredoo3g.bundleid}&language=${lang}&token=${token}`
       )
       .then((res) => {
         console.log(res, "resssss");
@@ -530,7 +532,7 @@ export const chargeOoredoo = (history) => (dispatch) => {
 
     axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/ooredoo_topup?number=${mobile}&cardtype=min&pci=${ooredooMin.bundleid}&language=${lang}&amount=0&token=${token}`
+        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=min&pci=${ooredooMin.bundleid}&language=${lang}&amount=0&token=${token}`
       )
       .then((res) => {
         if (res === "Failed") {
@@ -547,7 +549,7 @@ export const chargeOoredoo = (history) => (dispatch) => {
     Notiflix.Notify.info("Jawwal Min Charging is in progress");
     axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/ooredoo_topup?number=${mobile}&cardtype=rom&pci=0&language=${lang}&amount=10&token=${token}`
+        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=rom&pci=0&language=${lang}&amount=10&token=${token}`
       )
       .then((res) => {
         if (res === "Failed") {
@@ -562,7 +564,7 @@ export const chargeOoredoo = (history) => (dispatch) => {
     Notiflix.Notify.info("Jawwal ooredooSuper Charging is in progress");
     axios
       .post(
-        `http://api.phoneplay.me/api/v1/resources/ooredoo_topup?number=${mobile}&cardtype=rom&pci=0&language=${lang}&amount=10&token=${token}`
+        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=rom&pci=0&language=${lang}&amount=10&token=${token}`
       )
       .then((res) => {
         if (res === "Failed") {
@@ -591,7 +593,7 @@ export const getGroupesData = (type) => (dispatch) => {
   });
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/peletalk_get_products?company=${type}&language=${lang}`)
+    .post(`${BASE_API_URL}/peletalk_get_products?company=${type}&language=${lang}`)
     .then((res) =>
       dispatch({
         type: GET_GROUP_COMPANIES,
@@ -614,7 +616,7 @@ export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) =>
   dispatch(clearErrors());
   axios
     .post(
-      `http://api.phoneplay.me/api/v1/resources/${type}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`
+      `${BASE_API_URL}/${type}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`
     )
     .then((res) =>
       dispatch({
@@ -636,7 +638,7 @@ export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) =>
 export const getAzy = (mobile) => (dispatch) => {
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/azy_get_products?language=${lang}`)
+    .post(`${BASE_API_URL}/azy_get_products?language=${lang}`)
     .then((res) =>
       dispatch({
         type: GET_AZY,
@@ -654,7 +656,7 @@ export const getAzy = (mobile) => (dispatch) => {
 export const ChargeAzy = (mobile, history) => (dispatch) => {
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/peletalk_get_products?company=&language=${lang}`)
+    .post(`${BASE_API_URL}/peletalk_get_products?company=&language=${lang}`)
     .then((res) => {
       console.log(res);
     })
@@ -670,7 +672,7 @@ export const ChargeAzy = (mobile, history) => (dispatch) => {
 export const getHot = (mobile, history) => (dispatch) => {
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/hot_get_products?language=${lang}`)
+    .post(`${BASE_API_URL}/hot_get_products?language=${lang}`)
     .then((res) =>
       dispatch({
         type: GET_HOT,
@@ -689,7 +691,7 @@ export const getHot = (mobile, history) => (dispatch) => {
 export const ChargeHot = (mobile, history) => (dispatch) => {
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/peletalk_get_products?company=&language=${lang}`)
+    .post(`${BASE_API_URL}/peletalk_get_products?company=&language=${lang}`)
     .then((res) => {
       console.log(res);
     })

@@ -29,7 +29,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
 
   useEffect(() => {
     getJawwalRom(mobileNo, false);
-    document.title = "Home /Rom Jawwal";
+    document.title = "Rom Jawwal | Phone Play";
     if (localStorage.Jawwal3g) {
       setJawwal3g(JSON.parse(localStorage.Jawwal3g));
     }

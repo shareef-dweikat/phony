@@ -13,7 +13,7 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
   useEffect(() => {
     console.log(mobileNo, "mobileNo");
     getHot(mobileNo);
-    document.title = "PhonePlay/ Azy ";
+    document.title = "Azy | Phone Play";
   }, []);
   const onTypeClick = (item) => {
     // chargeGrpupCompany();

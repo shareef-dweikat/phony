@@ -24,7 +24,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
 
   useEffect(() => {
     console.log(history.state);
-    document.title = "Sign In | PhonePlay";
+    document.title = "Sign In | Phone Play";
     if (isAuthenticated) {
       history.push("/");
     }

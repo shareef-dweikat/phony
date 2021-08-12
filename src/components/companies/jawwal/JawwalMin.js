@@ -48,7 +48,7 @@ const JawwalMin = ({
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-4");
 
   useEffect(() => {
-    document.title = "Home /Min Jawwal";
+    document.title = "Min Jawwal | Phone Play";
     getJawwalMin(mobileNo, false);
     // getChargeJawwal();
     if (localStorage.JawwalMin) {

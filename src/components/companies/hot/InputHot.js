@@ -8,7 +8,7 @@ import "./style.css";
 
 const InputHot = () => {
   useEffect(() => {
-    document.title = "Home /Hot ";
+    document.title = "Hot | Phone Play";
   }, []);
   const [value, setValue] = useState("");
   const [isEmpty, setIsEmpty] = useState(false);

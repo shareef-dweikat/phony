@@ -18,6 +18,7 @@
     "react-dom": "^17.0.2",
     "react-dropdown": "^1.9.2",
     "react-flags-select": "^2.1.2",
+    "react-helmet": "^6.1.0",
     "react-intl": "^5.15.7",
     "react-onesignal": "^1.7.0",
     "react-phone-number-input": "^3.1.20",

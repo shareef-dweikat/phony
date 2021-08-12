@@ -14,7 +14,7 @@ const GroupCom = ({ getGroupesData, groupCompaneis, loading, chargeGrpupCompany 
   const mobileNo = history.location.pathname.split("/")[4];
   useEffect(() => {
     getGroupesData(typeCompany);
-    document.title = "PhonePlay/ " + history.location.pathname.split("/")[3];
+    document.title = history.location.pathname.split("/")[3] + " | Phone Play";
   }, []);
   const onTypeClick = (item) => {
     setSelected(item);

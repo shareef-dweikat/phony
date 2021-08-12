@@ -13,7 +13,7 @@ const Azy = ({ getAzy, loading, azy, ChargeAzy }) => {
   useEffect(() => {
     console.log(mobileNo, "mobileNo");
     getAzy(mobileNo);
-    document.title = "PhonePlay/ Azy ";
+    document.title = "Azy | Phone Play";
   }, []);
   const onTypeClick = (item) => {
     // chargeGrpupCompany();

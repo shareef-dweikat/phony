@@ -11,7 +11,7 @@ const Report = () => {
     to: "",
   });
   useEffect(() => {
-    document.title = "Report/City-Cell ";
+    document.title = "Report | Phone Play";
   }, []);
   const onChangeDate = (e) => {
     setDateForm({ ...dateForm, [e.target.name]: e.target.value });

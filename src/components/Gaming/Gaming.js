@@ -5,7 +5,7 @@ import SideBar from "../homePage/SideBar";
 
 const Gaming = () => {
   useEffect(() => {
-    document.title = "Gaming/PlayPhone ";
+    document.title = "Gaming | Phone Play";
   }, []);
   return (
     <div>

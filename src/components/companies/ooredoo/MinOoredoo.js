@@ -19,7 +19,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
   const [rom, setRom] = useState("");
   const [shabab, setShabab] = useState("");
   useEffect(() => {
-    document.title = "Ooredoo  Minutes";
+    document.title = "Ooredoo  Minutes | Phone Play";
     getOoredooMin();
     if (localStorage.ooredoo3g) {
       setG3(JSON.parse(localStorage.ooredoo3g));

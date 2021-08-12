@@ -7,7 +7,7 @@ import TextFieldGroup from "../../common/TextFieldGroup";
 import "react-phone-number-input/style.css";
 const InputNoPage = () => {
   useEffect(() => {
-    document.title = "Home /Jawwal ";
+    document.title = "Jawwal | Phone Play";
   }, []);
   const [value, setValue] = useState();
   const [isEmprty, setIsEmprty] = useState(false);

@@ -11,7 +11,7 @@ const InputNumber = () => {
   const [typeCompany, setTypeCompany] = useState(history.location.pathname.split("/")[3]);
 
   useEffect(() => {
-    document.title = `Home /${history.location.pathname.split("/")[3]}`;
+    document.title = `${history.location.pathname.split("/")[3]}` + " | Phone Play";
   }, []);
   const onSubmit = (e) => {
     e.preventDefault();

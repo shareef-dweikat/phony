@@ -16,7 +16,7 @@ const CreditOoredoo = () => {
   const [rom, setRom] = useState("");
   const [shabab, setShabab] = useState("");
   useEffect(() => {
-    document.title = "Ooredoo Credit";
+    document.title = "Ooredoo Credit | Phone Play";
     if (localStorage.ooredoo3g) {
       setG3(JSON.parse(localStorage.ooredoo3g));
     }

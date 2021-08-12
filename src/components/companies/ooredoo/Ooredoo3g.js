@@ -19,7 +19,7 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
   const [rom, setRom] = useState("");
   const [shabab, setShabab] = useState("");
   useEffect(() => {
-    document.title = "Ooredoo  3G";
+    document.title = "Ooredoo  3G | Phone Play";
     getOoredoo3g();
     if (localStorage.ooredoo3g) {
       setG3(JSON.parse(localStorage.ooredoo3g));

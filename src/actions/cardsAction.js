@@ -1,11 +1,13 @@
 import axios from "axios";
 import { GET_CARDS, CLEAR_ERRORS, GET_ERRORS, GET_COPMANY_CARDS } from "./types";
 
+const BASE_API_URL = process.env.REACT_APP_BASE_API;
+
 export const getCards = () => (dispatch) => {
   const token = localStorage.jwtUserToken;
   dispatch(clearErrors());
-  axios
-    .post(`http://api.phoneplay.me/api/v1/resources/get_cards?token=${token}`)
+  return axios
+    .post(`${BASE_API_URL}/get_cards?token=${token}`)
     .then((res) => {
       console.log(res.data);
       dispatch({
@@ -25,7 +27,7 @@ export const getCards = () => (dispatch) => {
 export const getCompanyCards = () => (dispatch) => {
   dispatch(clearErrors());
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/get_cards`)
+    .post(`${BASE_API_URL}/get_cards`)
     .then((res) => {
       console.log(res.data);
       dispatch({

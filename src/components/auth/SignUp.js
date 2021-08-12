@@ -23,7 +23,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    document.title = "PhonePlay/Sign up";
+    document.title = "Sign up | Phone Play";
     if (isAuthenticated) {
       history.push("/");
     }

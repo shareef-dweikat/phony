@@ -7,15 +7,23 @@ import Header from "./Header";
 import reportWebVitals from "./reportWebVitals";
 import OneSignal from 'react-onesignal';
 import "./web.config";
+import { Helmet } from 'react-helmet'
 
-OneSignal.initialize('32b3d194-341a-4b3e-b04e-e416ea3131f9', {
+OneSignal.initialize(process.env.REACT_APP_ONE_SIGNAL_APP_ID, {
   autoRegister: true,
   autoResubscribe: true,
-  persistNotification: true
+  allowLocalhostAsSecureOrigin: true,
+  subdomainName: process.env.REACT_APP_ONE_SIGNAL_SUBDOMAIN,
+  safari_web_id: process.env.REACT_APP_ONE_SIGNAL_SAFARI_WEB_ID,
 });
+
+const TITLE = process.env.REACT_APP_TITLE;
 
 ReactDOM.render(
   <React.StrictMode>
+    <Helmet>
+      <title>{ TITLE }</title>
+    </Helmet>
     <Header />
     <App />
   </React.StrictMode>,

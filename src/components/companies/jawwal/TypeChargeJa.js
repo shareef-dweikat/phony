@@ -6,7 +6,7 @@ const TypeChargeJa = () => {
   const history = useHistory().location.pathname;
   const historyPush= useHistory()
   useEffect(() => {
-    document.title = "Home /Jawwal ";
+    document.title = "Jawwal | Phone Play";
   }, []);
   const backClick = () => historyPush.goBack();
 

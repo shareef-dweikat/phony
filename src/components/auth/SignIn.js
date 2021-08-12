@@ -15,7 +15,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const intl = useIntl();
 
   useEffect(() => {
-    document.title = "Sign In | PhonePlay";
+    document.title = "Sign In | Phone Play";
     if (isAuthenticated) {
       history.push("/");
     }

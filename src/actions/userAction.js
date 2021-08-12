@@ -3,6 +3,8 @@ import { SET_CURRENT_USER, GET_ERRORS, CLEAR_ERRORS, GET_USER_DATA } from "./typ
 import jwt_decode from "jwt-decode";
 import Notiflix from "notiflix";
 
+const BASE_API_URL = process.env.REACT_APP_BASE_API;
+
 export const setCurrentUser = (decode) => {
   return {
     type: SET_CURRENT_USER,
@@ -16,7 +18,7 @@ export const loginUser = (userData, history) => (dispatch) => {
   dispatch(clearErrors());
 
   return axios
-    .post(`http://api.phoneplay.me/api/v1/resources/signin?sellerid=${userData.userName}&pass=${userData.password}`)
+    .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}`)
     .then((res) => {
       //save to local storage
       // const decode = jwt_decode(res.data.token);
@@ -36,7 +38,7 @@ export const loginUser = (userData, history) => (dispatch) => {
           history.push("/");
         } else {
           axios
-            .post(`http://api.phoneplay.me/api/v1/resources/verification?sellerid=${res.data.sellerid}`)
+            .post(`${BASE_API_URL}/verification?sellerid=${res.data.sellerid}`)
             .then((res) => {});
           history.push({
             pathname: `/verification/${res.data.sellerid}`,
@@ -58,7 +60,7 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
   dispatch(clearErrors());
   return axios
     .post(
-      `http://api.phoneplay.me/api/v1/resources/check_verification_code?vnumber=${verfiyData.virefy}&sellerid=${userId} `
+      `${BASE_API_URL}/check_verification_code?vnumber=${verfiyData.virefy}&sellerid=${userId} `
     )
     .then((res) => {
       if (res.data.status === "failed! wrong verification code") {
@@ -85,7 +87,7 @@ export const signUpUser = (userData, userName, history) => (dispatch) => {
   dispatch(clearErrors());
   return axios
     .post(
-      `http://api.phoneplay.me/api/v1/resources/signup?sellerid=${userName}&name=${userData.fullName}&passw=${
+      `${BASE_API_URL}/signup?sellerid=${userName}&name=${userData.fullName}&passw=${
         userData.password
       }&country=${userData.country}&city=${userData.city}&address=${userData.address}&mobileNo=${
         userData.mobile
@@ -121,7 +123,7 @@ export const forgotPassword = (userData, history) => (dispatch) => {
   dispatch(clearErrors());
 
   return axios
-    .post(`http://api.phoneplay.me/api/v1/resources/forget_password?seller_id=${userData.userName}&mobile_last4=${userData.last4Digit}`)
+    .post(`${BASE_API_URL}/forget_password?seller_id=${userData.userName}&mobile_last4=${userData.last4Digit}`)
     .then((res) => {
       if (res.data === "False" || res.data === "false" || res.data === "failed") {
         dispatch({
@@ -151,7 +153,7 @@ export const resetPassword = (verfiyData, history) => (dispatch) => {
   dispatch(clearErrors());
   return axios
     .post(
-      `http://api.phoneplay.me/api/v1/resources/forget_password_verification?seller_id=${verfiyData.seller_id}&mobile_last4=${verfiyData.last_4_digit}&random_number=${verfiyData.random_number}&new_password=${verfiyData.password}`
+      `${BASE_API_URL}/forget_password_verification?seller_id=${verfiyData.seller_id}&mobile_last4=${verfiyData.last_4_digit}&random_number=${verfiyData.random_number}&new_password=${verfiyData.password}`
     )
     .then((res) => {
       if (res.data === "False" || res.data === "false" || res.data === "failed") {
@@ -178,7 +180,7 @@ export const userData = () => (dispatch) => {
   dispatch(clearErrors());
   const sallerId = JSON.parse(localStorage.companies).sellerid;
   axios
-    .post(`http://api.phoneplay.me/api/v1/resources/check_balance?sellerid=${sallerId}`)
+    .post(`${BASE_API_URL}/check_balance?sellerid=${sallerId}`)
     .then((res) => {
       dispatch({
         type: GET_USER_DATA,

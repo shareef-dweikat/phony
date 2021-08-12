@@ -9,7 +9,7 @@ import "./home.css";
 
 const Home = ({ user, getLastTransaction, last }) => {
   useEffect(() => {
-    document.title = "Home /PlayPhone ";
+    document.title = "Home | Phone Play";
     getLastTransaction();
     setTimeout(() => getLastTransaction(), 10000);
 

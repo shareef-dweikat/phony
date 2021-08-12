@@ -172,13 +172,7 @@
 .list-cards .charge-card {
   margin-bottom: 10px;
 }
-
-[dir="ltr"] .badge.left-100 {
-  right: -10px;
-  left: unset !important;
-}
-[dir="rtl"] .badge.left-100 {
-  right: unset !important;
+.badge.left-100 {
   left: -10px;
 }
 .card.jawwal .nav-layout {

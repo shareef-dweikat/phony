@@ -31,7 +31,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
 
   useEffect(() => {
     getJawwal3g(mobileNo, false);
-    document.title = "Home /3G Jawwal";
+    document.title = "3G Jawwal | Phone Play";
     if (localStorage.Jawwal3g) {
       setSelected(JSON.parse(localStorage.Jawwal3g));
     }
