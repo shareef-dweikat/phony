@@ -45,6 +45,10 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+            <li className="nav-item">
+              <div id="notification-section"></div>
+            </li>
+
             {!isAuthenticated && (
               <li className="nav-item">
                 <Link className="nav-link active" to="/signUp">
