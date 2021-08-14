@@ -5,7 +5,7 @@ export const LOCALES = {
 };
 
 export const LOCALES_COUNTRIES = {
-  ENGLISH: "US",
-  ARABIC: "PS",
-  ISRAEL: "IL",
+  en: "US",
+  ar: "PS",
+  is: "IL",
 };

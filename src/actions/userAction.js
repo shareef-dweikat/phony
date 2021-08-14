@@ -14,14 +14,14 @@ export const setCurrentUser = (decode) => {
 
 // login user
 
-export const loginUser = (userData, history) => (dispatch) => {
+export const loginUser = (userData, pushNotificationUserId, ip, history) => (dispatch) => {
   dispatch(clearErrors());
-
+  
+  const config = {headers: {"X-Real-IP": ip, "X-Identifier": pushNotificationUserId }}
   return axios
-    .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}`)
+    .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}`, null, config)
     .then((res) => {
       //save to local storage
-      // const decode = jwt_decode(res.data.token);
       if (res.data.status === "failed") {
         dispatch({
           type: GET_ERRORS,
@@ -83,8 +83,10 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
     });
 };
 
-export const signUpUser = (userData, userName, history) => (dispatch) => {
+export const signUpUser = (userData, userName, pushNotificationUserId, ip, history) => (dispatch) => {
   dispatch(clearErrors());
+
+  const config = {headers: {"X-Real-IP": ip, "X-Identifier": pushNotificationUserId }}
   return axios
     .post(
       `${BASE_API_URL}/signup?sellerid=${userName}&name=${userData.fullName}&passw=${
@@ -92,9 +94,9 @@ export const signUpUser = (userData, userName, history) => (dispatch) => {
       }&country=${userData.country}&city=${userData.city}&address=${userData.address}&mobileNo=${
         userData.mobile
       }&email=${userData.email}${userData.code !== null ? `&code=${userData.code}` : null}`
-    )
+    , null, config)
     .then((res) => {
-      if (res.data.status === "failed") {
+      if ((typeof res.data === "string" && res.data.includes("failed")) || res.data.status === "failed") {
         dispatch({
           type: GET_ERRORS,
           payload: "Somthing went Wrong !!",
@@ -174,6 +176,10 @@ export const resetPassword = (verfiyData, history) => (dispatch) => {
         payload: "Something went wrong!",
       });
     });
+};
+
+export const callIpApi = () => {
+  return axios.get("https://ipapi.co/json/");
 };
 
 export const userData = () => (dispatch) => {

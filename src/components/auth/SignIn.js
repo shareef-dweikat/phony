@@ -4,7 +4,7 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/userAction";
+import { loginUser, callIpApi } from "../../actions/userAction";
 import validateLoginInput from "../../validation/validateLoginInput";
 import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
@@ -13,11 +13,18 @@ import Logo from "../../assests/images/logo/black-logo.svg";
 const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
+  const [ip, setIp] = useState(null);
 
   useEffect(() => {
     document.title = "Sign In | Phone Play";
     if (isAuthenticated) {
       history.push("/");
+    }
+    if (!ip) {
+      callIpApi()
+      .then((result) => {
+        setIp(result.data.ip);
+      });
     }
   }, []);
   const [loginForm, setLoginForm] = useState({
@@ -40,7 +47,8 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
       console.log("Errors=> ", errors);
       isLoading(false);
     } else {
-      loginUser(loginForm, history)
+      const pushNotificationUserId = localStorage.getItem("_webPushUserHash") || window.Engagespot?._socketData?.uuid;
+      loginUser(loginForm, pushNotificationUserId, ip, history)
       .finally(() => {
         isLoading(false);
       });

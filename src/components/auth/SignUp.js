@@ -3,9 +3,9 @@ import translate from "../../i18n/translate";
 import TextFieldGroup from "../common/TextFieldGroup";
 import Select from "../common/Select";
 import { useIntl } from "react-intl";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUpUser } from "./../../actions/userAction";
+import { signUpUser, callIpApi } from "./../../actions/userAction";
 import axios from "axios";
 import "./auth.css";
 import validateSignUpInput from "../../validation/validateSignUpInput";
@@ -21,16 +21,19 @@ const countries = [
 const SignUp = ({ isAuthenticated, signUpUser }) => {
   const history = useHistory();
   const [userName, setUserName] = useState("");
+  const [ip, setIp] = useState(null);
 
   useEffect(() => {
     document.title = "Sign up | Phone Play";
     if (isAuthenticated) {
       history.push("/");
     }
-    axios.post("http://api.phoneplay.me/api/v1/resources/getsellerno").then((res) => {
-      console.log(res.data);
-      setUserName(res.data);
-    });
+    if (!ip) {
+      callIpApi()
+      .then((result) => {
+        setIp(result.data.ip);
+      });
+    }
   }, []);
   const [signUpForm, setSignUpForm] = useState({
     fullName: "",
@@ -59,7 +62,8 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
       setErrors1(errors);
       isLoading(false);
     } else {
-      signUpUser(signUpForm, userName, history)
+      const pushNotificationUserId = localStorage.getItem("_webPushUserHash") || window.Engagespot?._socketData?.uuid;
+      signUpUser(signUpForm, userName, pushNotificationUserId, ip, history)
       .finally(() => {
         isLoading(false);
       });

@@ -19,7 +19,13 @@ const SideBar = ({ user ,userData }) => {
               <i class="icon-main fas fa-dollar-sign widget-icon"></i>
             </div> */}
             <h5 class="text-muted mt-0" title="Balance" style={{fontSize: "1rem"}}>{translate("balance")}</h5>
-            <h3 class="text-info my-2">₪ {(userData && userData.balance) || (currentUser && currentUser.balance)}</h3>
+            <h3 class="text-info my-2 mb-1">₪ {(userData && userData.balance) || (currentUser && currentUser.balance)}</h3>
+
+            <hr className="divider my-2"></hr>
+
+            <h5 class="text-muted mt-0" title="Debt" style={{fontSize: "1rem"}}>{translate("Debt")}</h5>
+            <h3 class="text-danger my-2">₪ {(userData && userData.debth) || (currentUser && currentUser.debth)}</h3>
+
             <p class="user-info mb-0 text-muted">
               <span class="username text-nowrap ms-1">{(user.sellername)}</span>
               <span class="text-nowrap mx-2">|</span>

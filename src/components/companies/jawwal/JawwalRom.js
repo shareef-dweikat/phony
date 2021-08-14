@@ -125,7 +125,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
                       <span style={{fontSize: "1.6rem", marginRight: 10, marginLeft: 10, marginTop: 5, display: "inline-block"}}>{mobileNo}</span>
                     </div>
                     <label
-                      className="col-md-6 col-sm-12 col-form-label mobile-semi d-flex align-items-center justify-content-start"
+                      className="col-md-6 col-sm-12 col-form-label mobile-semi d-flex align-items-center justify-content-end"
                       style={{ fontFamily: "initial", fontSize: "2rem" }}
                     >
                       <button className={`btn btn-light btn-md main-text mx-1`} onClick={refreshClick}>

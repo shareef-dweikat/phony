@@ -11,7 +11,7 @@ const langs = {
 
 const LanguageChooser = () => {
     const history = useHistory();
-    const [selected, setSelected] = useState(langs[localStorage.langCity] || LOCALES_COUNTRIES.ARABIC);
+    const [selected, setSelected] = useState(langs[localStorage.langCity] || LOCALES_COUNTRIES[process.env.REACT_APP_DEFAULT_LANG]);
 
     useEffect(() => {
         if (localStorage.langCity === "en") {

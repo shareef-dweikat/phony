@@ -212,5 +212,6 @@ export default {
     "Select Language": "Select Language",
     "Select Size": "Select Size",
     
+    "Debt": "Debt",
   },
 };

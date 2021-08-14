@@ -34,3 +34,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+hr.divider {
+    margin: 0;
+    border-bottom: 1px dashed indigo;
+    background: transparent;
+}

@@ -126,8 +126,8 @@ export default {
     China: "الصين",
     Turkey: "تركيا - الإمارات - الولايات المتحدة الأمريكية",
     Others: "آخرون",
-    Renewable: "متجدد",
-    notRenew: "غير متجدد",
+    Renewable: "متجددة",
+    notRenew: "غير متجددة",
     Details: "تفاصيل",
     Credit: "رصيد",
     Roaming: "تجوال",
@@ -217,5 +217,6 @@ export default {
     "Select Language": "إختر لغة",
     "Select Size": "إختر حجم",
     
+    "Debt": "الديون",
   },
 };

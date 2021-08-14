@@ -1,15 +1,11 @@
 import React, { useState, Fragment } from "react";
-
 import Routes from "./components/routing/Routes";
 import { Provider } from "react-redux";
 import store from "./store";
 import { I18Provider, LOCALES } from "./i18n";
-import Navar from "./components/layout/Navbar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./components/homePage/Home";
 import { logoutUser, setCurrentUser } from "./actions/userAction";
 import setAuthToken from "./components/common/setAuthToken";
-import PrivateRoute from "./components/common/PrivateRoute";
 import jwt_decode from "jwt-decode";
 import Settings from "./components/ui/Settings/Settings";
 
@@ -37,7 +33,7 @@ function App() {
   if (localStorage.langCity) {
     lang = localStorage.getItem("langCity");
   }
-  const [locale, setLocale] = useState(lang || LOCALES.ARABIC);
+  const [locale, setLocale] = useState(lang || process.env.REACT_APP_DEFAULT_LANG);
 
   return (
     <Provider store={store}>
