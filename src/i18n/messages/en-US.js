@@ -213,5 +213,6 @@ export default {
     "Select Size": "Select Size",
     
     "Debt": "Debt",
+    "ads1": "Dear customers: Please note that the site is currently under maintenance, you may encounter problems"
   },
 };

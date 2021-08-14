@@ -32,6 +32,7 @@ import Insurance from "../pages/Insurance/Insurance";
 import PrivateRoute from "../common/PrivateRoute";
 import { useIntl } from 'react-intl';
 import Navar from "../layout/Navbar";
+import SubNavbar from "../layout/SubNavbar";
 import Home from "../../components/homePage/Home";
 
 const AuthenticatedRoutes = ({ user }) => {
@@ -40,6 +41,8 @@ const AuthenticatedRoutes = ({ user }) => {
   return (
     <>
       <Navar />
+      <SubNavbar />
+
       <Router>
         <Fragment>
           <Switch>

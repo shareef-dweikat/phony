@@ -1,0 +1,8 @@
+.subnav {
+    transform: translateY(30px);
+}
+.subnav .pp-typing {
+    padding: 10px;
+    background: darkseagreen;
+    border-radius: 0.25rem;
+}
