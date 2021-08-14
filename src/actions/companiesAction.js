@@ -222,8 +222,6 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const number = history.split("/")[3];
-  console.log("number", number);  
-
   const promises = [];
   
   // console.log(data, number, pushHistory ,lang ,data.jawwalCredit.price);

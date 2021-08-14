@@ -14,11 +14,11 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
 
   const [typeRoming, setTypeRoming] = useState("Jordan");
   const [mobileNo, setMobileNo] = useState(
-    history.split("/")[3].slice(3, 6) +
+    history.split("/")[3].slice(0, 3) +
       "-" +
-      history.split("/")[3].slice(6, 9) +
+      history.split("/")[3].slice(3, 6) +
       "-" +
-      history.split("/")[3].slice(9, 13)
+      history.split("/")[3].slice(6, 10)
   );
   const [selected, setSelected] = useState("");
   const [jawwalMin, setJawwalMin] = useState("");

@@ -17,11 +17,11 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, charg
   const [isNotRenew, setIsNotRenew] = useState(false);
   const [init, isInit] = useState(false);
   const [mobileNo, setMobileNo] = useState(
-    history.split("/")[3].slice(3, 6) +
+    history.split("/")[3].slice(0, 3) +
       "-" +
-      history.split("/")[3].slice(6, 9) +
+      history.split("/")[3].slice(3, 6) +
       "-" +
-      history.split("/")[3].slice(9, 13)
+      history.split("/")[3].slice(6, 10)
   );
   const [selected, setSelected] = useState("");
   const [jawwalMin, setJawwalMin] = useState("");

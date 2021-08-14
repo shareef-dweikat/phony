@@ -33,11 +33,11 @@ const JawwalMin = ({
   const [isNotRenew, setIsNotRenew] = useState(false);
   const [init, isInit] = useState(false);
   const [mobileNo, setMobileNo] = useState(
-    history.split("/")[3].slice(3, 6) +
+    history.split("/")[3].slice(0, 3) +
       "-" +
-      history.split("/")[3].slice(6, 9) +
+      history.split("/")[3].slice(3, 6) +
       "-" +
-      history.split("/")[3].slice(9, 13)
+      history.split("/")[3].slice(6, 10)
   );
   var [amount, setAmount] = useState("");
   const [selected, setSelected] = useState("");
@@ -48,13 +48,12 @@ const JawwalMin = ({
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-4");
 
   useEffect(() => {
-    document.title = "Min Jawwal | Phone Play";
+    document.title = "Jawwal Min | Phone Play";
     getJawwalMin(mobileNo, false);
     // getChargeJawwal();
     if (localStorage.JawwalMin) {
       setSelected(JSON.parse(localStorage.JawwalMin));
       setAmount((prev) => prev + parseFloat(selected.price));
-      // amount+=parseFloat(selected.price)
     }
     if (localStorage.Jawwal3g) {
       setJawwal3g(JSON.parse(localStorage.Jawwal3g));

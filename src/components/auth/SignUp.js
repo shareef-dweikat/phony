@@ -5,11 +5,9 @@ import Select from "../common/Select";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUpUser, callIpApi } from "./../../actions/userAction";
-import axios from "axios";
+import { signUpUser, callIpApi, callGetSellerNumber } from "./../../actions/userAction";
 import "./auth.css";
 import validateSignUpInput from "../../validation/validateSignUpInput";
-import Message from "./../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
 
@@ -30,10 +28,14 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
     }
     if (!ip) {
       callIpApi()
-      .then((result) => {
-        setIp(result.data.ip);
+      .then((info) => {
+        setIp(info.ip);
       });
     }
+
+    callGetSellerNumber().then((res) => {
+      setUserName(res.data);
+    });
   }, []);
   const [signUpForm, setSignUpForm] = useState({
     fullName: "",
@@ -85,9 +87,10 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                 <form method="POST" class="signup-validation" novalidate="" onSubmit={(e) => onSubmit(e)}>
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "You will be provided with your username" })}
+                    placeholder={intl.formatMessage({ id: "Creating a username ..." })}
                     name="username"
                     type="text"
+                    value={userName}
                     label={translate("Username")}
                     disable={true}
                   />

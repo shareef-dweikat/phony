@@ -2,8 +2,10 @@ import axios from "axios";
 import { SET_CURRENT_USER, GET_ERRORS, CLEAR_ERRORS, GET_USER_DATA } from "./types";
 import jwt_decode from "jwt-decode";
 import Notiflix from "notiflix";
+import IPData from 'ipdata';
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API;
+const ipdata = new IPData(process.env.REACT_APP_IPDATA_KEY);
 
 export const setCurrentUser = (decode) => {
   return {
@@ -178,8 +180,12 @@ export const resetPassword = (verfiyData, history) => (dispatch) => {
     });
 };
 
+export const callGetSellerNumber = () => {
+  return axios.post("http://api.phoneplay.me/api/v1/resources/getsellerno");
+};
+
 export const callIpApi = () => {
-  return axios.get("https://ipapi.co/json/");
+  return ipdata.lookup();
 };
 
 export const userData = () => (dispatch) => {

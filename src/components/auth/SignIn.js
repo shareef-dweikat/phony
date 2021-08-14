@@ -22,8 +22,8 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
     }
     if (!ip) {
       callIpApi()
-      .then((result) => {
-        setIp(result.data.ip);
+      .then((info) => {
+        setIp(info.ip);
       });
     }
   }, []);
