@@ -17,11 +17,11 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   const pushHistory = useHistory();
 
   const [mobileNo, setMobileNo] = useState(
-    history.split("/")[3].slice(3, 6) +
+    history.split("/")[3].slice(0, 3) +
       "-" +
-      history.split("/")[3].slice(6, 9) +
+      history.split("/")[3].slice(3, 6) +
       "-" +
-      history.split("/")[3].slice(9, 13)
+      history.split("/")[3].slice(6, 10)
   );
   const [inputForm, setInputForm] = useState({
     dis: "",
@@ -154,7 +154,9 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
                   <div className="form-group row px-2">
                     <div className="col-md-6 col-sm-12 col-form-label mobile-semi">
                       <i class="fas fa-phone" style={{fontSize: "1.4rem"}}></i>
-                      <span style={{fontSize: "1.6rem", marginRight: 10, marginLeft: 10, marginTop: 5, display: "inline-block"}}>{mobileNo}</span>
+                      <span style={{fontSize: "1.6rem", marginRight: 10, marginLeft: 10, marginTop: 5, display: "inline-block"}}>
+                        { mobileNo }
+                      </span>
                     </div>
                   </div>
                 </div>

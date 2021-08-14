@@ -19,12 +19,11 @@ const InputNoPage = () => {
       setIsEmprty(true);
     } else {
       setIsEmprty(false);
-      // localStorage.setItem("chargeJawwal", JSON.stringify({ charge: [] }));
       localStorage.removeItem("JawwalMin");
       localStorage.removeItem("Jawwal3g");
       localStorage.removeItem("JawwalCredit");
       localStorage.removeItem("JawwalRom");
-      history.push(`/company/jawwalCredit/${"+97" + value}`);
+      history.push(`/company/jawwalCredit/${value}`);
     }
   };
   const backClick = () => history.push("/");

@@ -193,6 +193,7 @@ input[type="password"] {
   justify-content: center;
   font-size: 14px;
   position: relative;
+  padding-top: 40px;
 }
 
 .auth::before {

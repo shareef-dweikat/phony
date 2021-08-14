@@ -15,9 +15,6 @@ const SideBar = ({ user ,userData }) => {
       <div className="d100-vh">
         <div class="widget-flat card">
           <div class="card-body">
-            {/* <div class="float-end">
-              <i class="icon-main fas fa-dollar-sign widget-icon"></i>
-            </div> */}
             <h5 class="text-muted mt-0" title="Balance" style={{fontSize: "1rem"}}>{translate("balance")}</h5>
             <h3 class="text-info my-2 mb-1">₪ {(userData && userData.balance) || (currentUser && currentUser.balance)}</h3>
 

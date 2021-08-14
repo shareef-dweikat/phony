@@ -221,11 +221,9 @@ export const getNotRnewJawwal3g = () => (dispatch) => {
 export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
-  const sallerId = JSON.parse(localStorage.companies).sellerid;
-  const reqToken = sallerId + token;
-  const number = history.split("/")[3].slice(3);
+  const number = history.split("/")[3];
+  console.log("number", number);  
 
-  console.log("data", data);
   const promises = [];
   
   // console.log(data, number, pushHistory ,lang ,data.jawwalCredit.price);
@@ -269,9 +267,9 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   return Promise.all(promises).then((res) => {
     console.log(res);
     const isAuthFailed = res.some((result) => result.data == "failed, token error");
-    console.log("isAuthFailed", isAuthFailed);
+
     if (isAuthFailed) {
-      logoutUser(pushHistory)
+      return logoutUser(pushHistory)
     }
 
     localStorage.removeItem("JawwalMin");

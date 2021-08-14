@@ -2,16 +2,16 @@ import React, { useState, Fragment } from "react";
 import Routes from "./components/routing/Routes";
 import { Provider } from "react-redux";
 import store from "./store";
-import { I18Provider, LOCALES } from "./i18n";
+import { I18Provider } from "./i18n";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { logoutUser, setCurrentUser } from "./actions/userAction";
-import setAuthToken from "./components/common/setAuthToken";
+import setRequestHeader from "./components/common/setRequestHeader";
 import jwt_decode from "jwt-decode";
 import Settings from "./components/ui/Settings/Settings";
 
 if (localStorage.jwtUserToken) {
   // Set Auth token header
-  setAuthToken(localStorage.jwtUserToken);
+  setRequestHeader("Authorization", localStorage.jwtUserToken);
   //decode token  and get user info
   const decode = jwt_decode(localStorage.jwtUserToken);
   //set user and isAuth
@@ -26,6 +26,10 @@ if (localStorage.jwtUserToken) {
     // window.open("/signin");
     window.location.href = "/signin";
   }
+}
+
+if (localStorage._webPushUserHash) {
+  setRequestHeader("X-Identifier", localStorage._webPushUserHash);
 }
 
 function App() {
