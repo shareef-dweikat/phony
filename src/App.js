@@ -4,32 +4,31 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { I18Provider } from "./i18n";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { logoutUser, setCurrentUser } from "./actions/userAction";
+import { logoutUser, setCurrentUser, getMainPicture } from "./actions/userAction";
 import setRequestHeader from "./components/common/setRequestHeader";
 import jwt_decode from "jwt-decode";
 import Settings from "./components/ui/Settings/Settings";
 
 if (localStorage.jwtUserToken) {
-  // Set Auth token header
-  setRequestHeader("Authorization", localStorage.jwtUserToken);
-  //decode token  and get user info
+  setRequestHeader("token", localStorage.jwtUserToken);
   const decode = jwt_decode(localStorage.jwtUserToken);
-  //set user and isAuth
-  store.dispatch(setCurrentUser(JSON.parse(localStorage.getItem("companies")))); // u can dispatch any action u want to store
-  //check for expired token
+  store.dispatch(setCurrentUser(JSON.parse(localStorage.getItem("companies"))));
   const currentTime = Date.now() / 1000;
   if (decode.exp < currentTime) {
-    //logout the user
     store.dispatch(logoutUser());
-
-    //Redirect to signin
-    // window.open("/signin");
     window.location.href = "/signin";
   }
 }
-
 if (localStorage._webPushUserHash) {
   setRequestHeader("X-Identifier", localStorage._webPushUserHash);
+}
+
+if (!sessionStorage.getItem("main_picture") || sessionStorage.getItem("main_picture") === "undefined") {
+  getMainPicture().then((result) => {
+    if (result !== null) {
+      sessionStorage.setItem("main_picture", result);
+    }
+  })
 }
 
 function App() {

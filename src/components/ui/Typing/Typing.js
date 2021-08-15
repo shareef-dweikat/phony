@@ -1,13 +1,14 @@
 import React from 'react';
-import Typist from 'react-typist';
+import Typist from 'react-text-typist';
 import "./style.css";
 
-const Typing = (props) => {
+const Typing = ({
+  sentences,
+  loop = false
+}) => {
   return (
     <div className="pp-typing">
-      <Typist>
-        {props.children}
-      </Typist>
+      <Typist sentences={sentences} loop={loop} />
     </div>
   );
 };

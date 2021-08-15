@@ -188,6 +188,21 @@ export const callIpApi = () => {
   return ipdata.lookup();
 };
 
+export const getMainPicture = () => {
+  return axios.post("http://api.phoneplay.me/api/v1/resources/get_main_picture")
+  .then((res) => {
+    if (res.data.status !== "success") {
+      return null;
+    } else {
+      return res.data.main_image_url;
+    }
+  });
+}
+
+export const getAdvertise = (lang = "ar") => {
+  return axios.post(`http://api.phoneplay.me/api/v1/resources/advertise?lang=${lang}`);
+}
+
 export const userData = () => (dispatch) => {
   dispatch(clearErrors());
   const sallerId = JSON.parse(localStorage.companies).sellerid;

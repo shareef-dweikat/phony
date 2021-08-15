@@ -32,7 +32,9 @@ const InputNumber = () => {
           </div>
           <div className="col-lg-9 col-md-8 col-sm-6">
             <div className={`card card-home ${typeCompany}`}>
-              <div className="card img-back">
+                          <div className="card img-back" style={
+                sessionStorage.getItem("main_picture") ? {backgroundImage: `url("${sessionStorage.getItem("main_picture")}")` } : {}
+              }>
                 <div className="m-3">
                   <h1 className="header-text mt-5">{translate("newProduct")}</h1>
                 </div>

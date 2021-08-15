@@ -26,7 +26,9 @@ const Report = () => {
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
             <div className="card card-home">
-              <div className="card img-back">
+                          <div className="card img-back" style={
+                sessionStorage.getItem("main_picture") ? {backgroundImage: `url("${sessionStorage.getItem("main_picture")}")` } : {}
+              }>
                 <h1 className="header-text">
                   {translate("Report")}
                 </h1>
