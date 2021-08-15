@@ -1,14 +1,26 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import translate from "../../i18n/translate";
 import { connect } from "react-redux";
-import "./sidebar.css";
 import { useIntl } from 'react-intl';
+import "./sidebar.css";
 
 const SideBar = ({ user ,userData }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const intl = useIntl();
+  const [engagespotInit, isEngagespotInit] = useState(false);
+
+  useEffect(() => {
+    updateEngagespot();
+  }, [])
+
+  const updateEngagespot = () => {
+    if (!engagespotInit && currentUser["seller id"]) {
+      window.Engagespot?.identifyUser(currentUser["seller id"]);
+      isEngagespotInit(true);
+    }
+  }
 
   return (
     <div>

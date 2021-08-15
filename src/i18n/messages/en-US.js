@@ -19,7 +19,7 @@ export default {
     fullname: "Full Name",
     email: "Email",
     address: "Address",
-    haveAccount: "already have an account? ",
+    haveAccount: "Already have an account? ",
     mobileNumber: "Mobile Number",
     village: "Village",
     //sign up page

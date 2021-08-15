@@ -18,7 +18,6 @@ const countries = [
 
 const SignUp = ({ isAuthenticated, signUpUser }) => {
   const history = useHistory();
-  const [userName, setUserName] = useState("");
   const [ip, setIp] = useState(null);
 
   useEffect(() => {
@@ -34,10 +33,11 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
     }
 
     callGetSellerNumber().then((res) => {
-      setUserName(res.data);
+      setSignUpForm({ ...signUpForm, username: res.data });
     });
   }, []);
   const [signUpForm, setSignUpForm] = useState({
+    username: "",
     fullName: "",
     email: "",
     mobile: "",
@@ -64,8 +64,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
       setErrors1(errors);
       isLoading(false);
     } else {
-      const pushNotificationUserId = localStorage.getItem("_webPushUserHash") || window.Engagespot?._socketData?.uuid;
-      signUpUser(signUpForm, userName, pushNotificationUserId, ip, history)
+      signUpUser(signUpForm, ip, history)
       .finally(() => {
         isLoading(false);
       });
@@ -90,7 +89,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                     placeholder={intl.formatMessage({ id: "Creating a username ..." })}
                     name="username"
                     type="text"
-                    value={userName}
+                    value={signUpForm.username}
                     label={translate("Username")}
                     disable={true}
                   />
@@ -192,7 +191,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                   
                   <div class="form-group mb-0 mt-4 actions">
                     <button type="submit" class="btn btn-primary btn-block" disabled={loading}>
-                    {translate("register1")}
+                      {translate("register1")}
                     </button>
                   </div>
                 </form>

@@ -47,8 +47,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
       console.log("Errors=> ", errors);
       isLoading(false);
     } else {
-      const pushNotificationUserId = localStorage.getItem("_webPushUserHash") || window.Engagespot?._socketData?.uuid;
-      loginUser(loginForm, pushNotificationUserId, ip, history)
+      loginUser(loginForm, ip, history)
       .finally(() => {
         isLoading(false);
       });

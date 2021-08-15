@@ -8,6 +8,9 @@ import { getLastTransaction } from "../../actions/reportsAction";
 import "./home.css";
 
 const Home = ({ user, getLastTransaction, last }) => {
+  const [columnStyle, setColumnStyle] = useState("col-lg-2 col-md-4 col-sm-6 card-sm");
+  const [loading, isLoading] = useState(false);
+
   useEffect(() => {
     document.title = "Home | Phone Play";
     getLastTransaction();
@@ -23,9 +26,6 @@ const Home = ({ user, getLastTransaction, last }) => {
       isLoading(false);
     })
   };
-
-  const [columnStyle, setColumnStyle] = useState("col-lg-2 col-md-4 col-sm-6 card-sm");
-  const [loading, isLoading] = useState(false);
 
   const refreshColumnStyle = () => {
     switch(localStorage.size) {

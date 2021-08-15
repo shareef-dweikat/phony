@@ -16,10 +16,10 @@ export const setCurrentUser = (decode) => {
 
 // login user
 
-export const loginUser = (userData, pushNotificationUserId, ip, history) => (dispatch) => {
+export const loginUser = (userData, ip, history) => (dispatch) => {
   dispatch(clearErrors());
   
-  const config = {headers: {"X-Real-IP": ip, "X-Identifier": pushNotificationUserId }}
+  const config = {headers: {"X-Real-IP": ip, "X-Identifier": userData.username }}
   return axios
     .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}`, null, config)
     .then((res) => {
@@ -85,13 +85,40 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
     });
 };
 
-export const signUpUser = (userData, userName, pushNotificationUserId, ip, history) => (dispatch) => {
+export const verfiySignUpUser = (data, history) => (dispatch) => {
   dispatch(clearErrors());
-
-  const config = {headers: {"X-Real-IP": ip, "X-Identifier": pushNotificationUserId }}
+  
   return axios
     .post(
-      `${BASE_API_URL}/signup?sellerid=${userName}&name=${userData.fullName}&passw=${
+      `${BASE_API_URL}/verify_mobile_number?code=${data.verificationCode}&sellerid=${data.sellerId}&mobile_number=${data.mobile}`
+    ).then((res) => {
+      if (res.data.status === "failed! wrong verification code") {
+        Notiflix.Notify.failure("Wronge confirmation code");
+      } else {
+        const { token } = res.data;
+        localStorage.setItem("jwtUserToken", token);
+        localStorage.setItem("companies", JSON.stringify(res.data));
+        localStorage.setItem("cityCell", "cityCell");
+        dispatch(setCurrentUser(res.data));
+        history.push("/");
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: "Something went wrong !!",
+      });
+    });
+};
+
+export const signUpUser = (userData, ip, history) => (dispatch) => {
+  dispatch(clearErrors());
+
+  const config = {headers: {"X-Real-IP": ip, "X-Identifier": userData.username }}
+  return axios
+    .post(
+      `${BASE_API_URL}/signup?sellerid=${userData.username}&name=${userData.fullName}&passw=${
         userData.password
       }&country=${userData.country}&city=${userData.city}&address=${userData.address}&mobileNo=${
         userData.mobile
@@ -101,17 +128,16 @@ export const signUpUser = (userData, userName, pushNotificationUserId, ip, histo
       if ((typeof res.data === "string" && res.data.includes("failed")) || res.data.status === "failed") {
         dispatch({
           type: GET_ERRORS,
-          payload: "Somthing went Wrong !!",
+          payload: "Something went Wrong !!",
         });
       } else {
-        const { token } = res.data;
-        //set token to local storage
-        localStorage.setItem("jwtUserToken", token);
-        localStorage.setItem("cityCell", "cityCell");
-        localStorage.setItem("companies", JSON.stringify(res.data));
-        //set current user
-        dispatch(setCurrentUser(res.data));
-        history.push("/");
+        history.push({
+          pathname: "/signup-verification",
+          state: {
+            sellerId: userData.username,
+            mobile: userData.mobile,
+          },
+        });
       }
     })
     .catch((err) => {
@@ -238,4 +264,6 @@ export const logoutUser = (router) => async (dispatch) => {
 
   dispatch(setCurrentUser({}));
   setTimeout(router.push("/signin"), 1000);
+
+  window.Engagespot?.clearUser();
 };
