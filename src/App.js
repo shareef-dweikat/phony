@@ -19,9 +19,6 @@ if (localStorage.jwtUserToken) {
     window.location.href = "/signin";
   }
 }
-if (localStorage._webPushUserHash) {
-  setRequestHeader("X-Identifier", localStorage._webPushUserHash);
-}
 
 if (!sessionStorage.getItem("main_picture") || sessionStorage.getItem("main_picture") === "undefined") {
   getMainPicture().then((result) => {

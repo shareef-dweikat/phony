@@ -4,22 +4,34 @@ import translate from "../../i18n/translate";
 import { connect } from "react-redux";
 import { useIntl } from 'react-intl';
 import "./sidebar.css";
+import { currentRates } from "../../actions/currencyAction";
+import setRequestHeader from "../../components/common/setRequestHeader";
 
 const SideBar = ({ user ,userData }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const intl = useIntl();
   const [engagespotInit, isEngagespotInit] = useState(false);
+  const [rates, setRates] = useState([]);
 
   useEffect(() => {
+    updateCurrencyRate();
     updateEngagespot();
   }, [])
 
   const updateEngagespot = () => {
     if (!engagespotInit && currentUser["seller id"]) {
       window.Engagespot?.identifyUser(currentUser["seller id"]);
+      setRequestHeader("X-Identifier", currentUser["seller id"]);
       isEngagespotInit(true);
     }
+  }
+
+  const updateCurrencyRate = () => {
+    currentRates("ILS", ["USD","JOD","EUR"]).then((rates) => {
+      console.log("rates", rates);
+      setRates(rates)
+    });
   }
 
   return (
@@ -35,7 +47,7 @@ const SideBar = ({ user ,userData }) => {
             <h5 class="text-muted mt-0" title="Debt" style={{fontSize: "1rem"}}>{translate("Debt")}</h5>
             <h3 class="text-danger my-2">₪ {(userData && userData.debth) || (currentUser && currentUser.debth)}</h3>
 
-            <p class="user-info mb-0 text-muted">
+            <p class="user-info mb-0 px-2 text-muted">
               <span class="username text-nowrap ms-1">{(user.sellername)}</span>
               <span class="text-nowrap mx-2">|</span>
               <span class="text-nowrap me-1">{(userData && userData["seller id"]) || (currentUser && currentUser["seller id"])}</span>
@@ -162,6 +174,10 @@ const SideBar = ({ user ,userData }) => {
               </span>
             </a>
           </div>
+        </div>
+
+        <div className="currency-section">
+
         </div>
       </div>
     </div>
