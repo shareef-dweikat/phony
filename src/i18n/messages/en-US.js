@@ -216,5 +216,8 @@ export default {
     "ads1": "Dear customers: Please note that the site is currently under maintenance, you may encounter problems",
     "Creating a username ...": "Creating a username ...",
     "No available bundles": "No available bundles",
+    "Currency exchange rates": "Currency exchange rates",
+    "Currency": "Currency",
+    "Price": "Price",
   },
 };

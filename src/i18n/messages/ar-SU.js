@@ -222,5 +222,12 @@ export default {
     "Creating a username ...": "جاري انشاء إسم مستخدم",
 
     "No available bundles": "لا يتوفر حزم",
+    "Currency exchange rates": "اسعار صرف العملات",
+    "Currency": "العملة",
+    "Price": "السعر",
+    "USD / ILS": "دولار أمريكي / شيكل",
+    "JOD / ILS": "دينار أردني / شيكل",
+    "EUR / ILS": "يورو / شيكل",
+    
   },
 };

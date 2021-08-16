@@ -40,3 +40,33 @@ hr.divider {
     border-bottom: 1px dashed indigo;
     background: transparent;
 }
+
+.card.card-currency {
+    max-width: 260px;
+    margin-bottom: 40px;
+}
+.card.card-currency .card-body {
+    background-color: #e9eaec;
+    border-radius: 0.25rem;
+}
+.card.card-currency table.currecy-rates {
+    width: 100%;
+    min-height: 220px;
+}
+.card.card-currency table.currecy-rates td,
+.card.card-currency table.currecy-rates th {
+    border: 1px solid #dee2e6;
+    padding: 8px 12px;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+    font-size: 14px;
+}
+
+.card.card-currency table.currecy-rates tr th:nth-child(2n+1),
+.card.card-currency table.currecy-rates tr td:nth-child(2n+1) {
+    width: 70%;
+}
+.card.card-currency table.currecy-rates tr th:nth-child(2n),
+.card.card-currency table.currecy-rates tr td:nth-child(2n) {
+    width: 30%;
+}

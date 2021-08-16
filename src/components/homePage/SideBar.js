@@ -6,6 +6,8 @@ import { useIntl } from 'react-intl';
 import "./sidebar.css";
 import { currentRates } from "../../actions/currencyAction";
 import setRequestHeader from "../../components/common/setRequestHeader";
+import _ from "lodash";
+import Spinner from "../ui/spinner/Spinner";
 
 const SideBar = ({ user ,userData }) => {
   const history = useHistory().location.pathname;
@@ -13,9 +15,10 @@ const SideBar = ({ user ,userData }) => {
   const intl = useIntl();
   const [engagespotInit, isEngagespotInit] = useState(false);
   const [rates, setRates] = useState([]);
+  const [loading, isLoading] = useState(false);
 
   useEffect(() => {
-    // updateCurrencyRate();
+    updateCurrencyRate();
     updateEngagespot();
   }, [])
 
@@ -28,15 +31,17 @@ const SideBar = ({ user ,userData }) => {
   }
 
   const updateCurrencyRate = () => {
-    currentRates("ILS", ["USD","JOD","EUR"]).then((rates) => {
-      console.log("rates", rates);
+    isLoading(true);
+    currentRates("ILS", ["USD","JOD","EUR"])
+    .then((rates) => {
       setRates(rates)
+      isLoading(false)
     });
   }
 
   return (
     <div>
-      <div className="d100-vh">
+      <div className="sidebar">
         <div class="widget-flat card">
           <div class="card-body">
             <h5 class="text-muted mt-0" title="Balance" style={{fontSize: "1rem"}}>{translate("balance")}</h5>
@@ -176,8 +181,28 @@ const SideBar = ({ user ,userData }) => {
           </div>
         </div>
 
-        <div className="currency-section">
-
+        <div className="card card-currency">
+          <div className="card-body">
+            <h6>{translate("Currency exchange rates")}</h6>
+            <hr class="divider my-2"></hr>
+            <table className="currecy-rates">
+              <thead>
+                <tr>
+                  <th>{translate("Currency")}</th>
+                  <th>{translate("Price")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rates.map((rate) => (
+                  <tr>
+                    <td>{translate(_.trim(rate.currency) + " / ILS")}</td>
+                    <td>{rate.value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {loading && (<Spinner type="inner"/>)}
+          </div>
         </div>
       </div>
     </div>
