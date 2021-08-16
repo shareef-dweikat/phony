@@ -3,6 +3,7 @@
 }
 .subnav .pp-typing {
     padding: 10px;
-    background: darkseagreen;
+    background: #e9eaec;
     border-radius: 0.25rem;
+    font-size: 14px;
 }

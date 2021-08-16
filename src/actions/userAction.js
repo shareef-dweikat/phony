@@ -92,8 +92,8 @@ export const verfiySignUpUser = (data, history) => (dispatch) => {
     .post(
       `${BASE_API_URL}/verify_mobile_number?code=${data.verificationCode}&sellerid=${data.sellerId}&mobile_number=${data.mobile}`
     ).then((res) => {
-      if (res.data.status === "failed! wrong verification code") {
-        Notiflix.Notify.failure("Wronge confirmation code");
+      if (res.data == "failed") {
+        Notiflix.Notify.failure("Wrong confirmation code");
       } else {
         const { token } = res.data;
         localStorage.setItem("jwtUserToken", token);

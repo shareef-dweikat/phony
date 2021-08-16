@@ -36,8 +36,6 @@ const SignUpVerification = ({ verfiySignUpUser, isAuthenticated, massage }) => {
     e.preventDefault();
     isLoading(true);
 
-    console.log(virefyForm);
-
     const { errors, isValid } = validateSignUpVerificationInput(virefyForm);
     if (!isValid) {
       if (errors.general) {

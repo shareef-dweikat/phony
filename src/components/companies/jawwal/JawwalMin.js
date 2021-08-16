@@ -15,6 +15,7 @@ import {
 import SubNav from "./SubNav";
 import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
+import _ from "lodash";
 
 const JawwalMin = ({
   auth,
@@ -124,8 +125,6 @@ const JawwalMin = ({
     isInit(true);
   };
   const getJawwalPackages = () => {
-    console.log("isRenew", isRenew);
-    console.log("isNotRenew", isNotRenew);
     if (!isRenew && !isNotRenew) {
       getJawwalMin(mobileNo, false);
     } else if (isRenew) {
@@ -317,9 +316,9 @@ const JawwalMin = ({
                 {loading && (
                   <Spinner/>
                 )}
-                {jawwalMin && jawwalMin.length === 0 && !loading ? (
+                {!_.isArray(jawwalMin) && !loading ? (
                   <div className="d-flex justify-content-center mt-3">
-                    <h1 className="warning-text">No available bundles</h1>
+                    <h2 className="text-info">{translate("No available bundles")}</h2>
                   </div>
                 ) : (
                   jawwalMin.map((item, index) => (

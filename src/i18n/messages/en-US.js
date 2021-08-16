@@ -213,6 +213,8 @@ export default {
     "Select Size": "Select Size",
     
     "Debt": "Debt",
-    "ads1": "Dear customers: Please note that the site is currently under maintenance, you may encounter problems"
+    "ads1": "Dear customers: Please note that the site is currently under maintenance, you may encounter problems",
+    "Creating a username ...": "Creating a username ...",
+    "No available bundles": "No available bundles",
   },
 };

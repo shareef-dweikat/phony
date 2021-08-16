@@ -15,7 +15,7 @@ const SideBar = ({ user ,userData }) => {
   const [rates, setRates] = useState([]);
 
   useEffect(() => {
-    updateCurrencyRate();
+    // updateCurrencyRate();
     updateEngagespot();
   }, [])
 
