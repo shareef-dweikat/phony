@@ -1,8 +1,8 @@
 import axios from "axios";
 import { SET_CURRENT_USER, GET_ERRORS, CLEAR_ERRORS, GET_USER_DATA } from "./types";
-import jwt_decode from "jwt-decode";
 import Notiflix from "notiflix";
 import IPData from 'ipdata';
+import { isObject, isString } from "lodash";
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API;
 const ipdata = new IPData(process.env.REACT_APP_IPDATA_KEY);
@@ -92,15 +92,26 @@ export const verfiySignUpUser = (data, history) => (dispatch) => {
     .post(
       `${BASE_API_URL}/verify_mobile_number?code=${data.verificationCode}&sellerid=${data.sellerId}&mobile_number=${data.mobile}`
     ).then((res) => {
-      if (res.data == "failed") {
-        Notiflix.Notify.failure("Wrong confirmation code");
-      } else {
+      if (isObject(res.data)) {
         const { token } = res.data;
         localStorage.setItem("jwtUserToken", token);
         localStorage.setItem("companies", JSON.stringify(res.data));
         localStorage.setItem("cityCell", "cityCell");
         dispatch(setCurrentUser(res.data));
         history.push("/");
+
+      } else if (isString(res.data) && res.data === "failed") {
+        Notiflix.Notify.failure("You entered a wrong confirmation code, please try again");
+      } else if (isString(res.data) && res.data === "verification code timeout") {
+        Notiflix.Notify.failure("Timeout, Please sign up again");
+        setTimeout(() => {
+          history.push("/signup?timeout");
+        }, 2000);
+      } else {
+        Notiflix.Notify.failure("Something went wrong!!, please try sign up again");
+        setTimeout(() => {
+          history.push("/signup?timeout");
+        }, 2000);
       }
     })
     .catch((err) => {

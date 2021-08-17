@@ -3,29 +3,15 @@ import translate from "../../i18n/translate";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import SideBar from "./SideBar";
-import moment from "moment";
-import { getLastTransaction } from "../../actions/reportsAction";
+import TransactionTable from "../common/TransactionTable";
 import "./home.css";
 
-const Home = ({ user, getLastTransaction, last }) => {
+const Home = ({ user }) => {
   const [columnStyle, setColumnStyle] = useState("col-lg-2 col-md-4 col-sm-6 card-sm");
-  const [loading, isLoading] = useState(false);
-
   useEffect(() => {
     document.title = "Home | Phone Play";
-    getLastTransaction();
-    setTimeout(() => getLastTransaction(), 10000);
-
     refreshColumnStyle();
   }, []);
-
-  const updateClick = () => {
-    isLoading(true);
-    getLastTransaction()
-    .finally(() => {
-      isLoading(false);
-    })
-  };
 
   const refreshColumnStyle = () => {
     switch(localStorage.size) {
@@ -212,51 +198,15 @@ const Home = ({ user, getLastTransaction, last }) => {
                   </Link>
                 </div>
               )}
-              <div className="mt-5 d-flex flex-row-reverse">
-                <button className="btn rom-selected" onClick={updateClick} disabled={loading}>
-                  {translate("Update")}
-                </button>
-              </div>
-              <div className="my-3">
-                <table class="table text-center">
-                  <thead>
-                    <tr>
-                      <th scope="col ">{translate("Transaction")}</th>
-                      <th scope="col">{translate("Provider")}</th>
-                      <th scope="col">{translate("MobileNo.")}</th>
-                      <th scope="col">{translate("Amount")}</th>
-                      <th scope="col">{translate("Data & Time")}</th>
-                      <th scope="col">{translate("Status")}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {last.map((item) => (
-                      <tr
-                        className={`${item.status === "proccessing" && "table-active"} ${
-                          item.status === "success" && "table-success"
-                        } ${item.status === "failed" && "table-danger"}`}
-                      >
-                        <th scope="row ">{item.transid}</th>
-                        <td className="table-dadnger">{item.provider}</td>
-                        <td>{item.number}</td>
-                        <td>₪ {item.cardamount || 0}</td>
-                        <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
-                        <td>{translate(item.status)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <TransactionTable />
             </div>
           </div>
         </div>
       </div>
-      {/* {translate("test")} */}
     </div>
   );
 };
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  last: state.reports.lastTransaction,
 });
-export default connect(mapStateToProps, { getLastTransaction })(Home);
+export default connect(mapStateToProps)(Home);

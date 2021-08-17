@@ -1,14 +1,12 @@
-import axios from "axios";
 import { GET_LAST_TRANSACTION, CLEAR_ERRORS, GET_ERRORS } from "./types";
-
-const BASE_API_URL = process.env.REACT_APP_BASE_API;
+import ApiRequest from "./ApiRequest";
 
 export const getLastTransaction = () => (dispatch) => {
   dispatch(clearErrors());
   const sallerId = JSON.parse(localStorage.companies).sellerid;
-  return axios
+  return ApiRequest
     .post(
-      `${BASE_API_URL}/get_seller_transactions?sellerid=${sallerId}`
+      `get_seller_transactions?sellerid=${sallerId}`
     )
     .then((res) => {
       console.log(res.data);
@@ -24,6 +22,18 @@ export const getLastTransaction = () => (dispatch) => {
         payload: "Somthing went Wrong !!",
       });
     });
+};
+
+export const showTransctionDetails = (tran_id, lang) => {
+  return new Promise((resolve, reject) => {
+    ApiRequest.post(`get_tranaction_status?trand_no=${tran_id}&lang=${lang}`)
+    .then((res) => {
+      resolve(res.data);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  });
 };
 
 export const clearErrors = () => {

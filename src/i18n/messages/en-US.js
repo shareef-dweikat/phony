@@ -220,5 +220,10 @@ export default {
     "Currency exchange rates": "Currency exchange rates",
     "Currency": "Currency",
     "Price": "Price",
+    "USD / ILS": "USD / ILS",
+    "JOD / ILS": "USD / ILS",
+    "EUR / ILS": "USD / ILS",
+    "Show": "Show",
+    "OK": "OK",
   },
 };
