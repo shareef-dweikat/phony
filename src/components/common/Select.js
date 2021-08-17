@@ -2,6 +2,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import translate from "../../i18n/translate";
+import { useIntl } from "react-intl";
 
 const Select = ({
   name,
@@ -16,15 +18,17 @@ const Select = ({
   required,
   autoFocus = false
 }) => {
+  const intl = useIntl();
+
   return (
     <div className="form-group" style={{width: "100%"}}>
         {label && (
-            <label for={name}><span>{label} {required && (<i class="asterisk">*</i>)}</span></label>
+          <label for={name}><span>{label} {required && (<i class="asterisk">*</i>)}</span></label>
         )}
         <select
             className={classnames("form-select", {
-                "is-invalid": error,
-                "disabled": disable
+              "is-invalid": error,
+              "disabled": disable
             })}
             name={name} 
             autoFocus={autoFocus}
@@ -33,12 +37,12 @@ const Select = ({
             required={required}
             style={style}
         >
-            <option selected>{placeholder}</option>
-            {options.map((op) => (<option value={op.value}>{op.label}</option>))}
+            <option value="null" selected>{placeholder}</option>
+            {options.map((op) => (<option value={op.value}>{intl.formatMessage({ id: op.label })}</option>))}
         </select>
         {error && (
             <small className="form-text text-muted text-left">
-                {typeof error === "object" ? "" : error}
+              {typeof error === "object" ? "" : translate(error)}
             </small>
         )}
         {error && <div className="invalid-feedback"></div>}

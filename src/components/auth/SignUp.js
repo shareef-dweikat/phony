@@ -10,6 +10,8 @@ import "./auth.css";
 import validateSignUpInput from "../../validation/validateSignUpInput";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
+import { CITIES } from "./cities";
+import { isNil } from "lodash";
 
 const countries = [
   {value: "palestine", label: "Palestine"},
@@ -19,6 +21,7 @@ const countries = [
 const SignUp = ({ isAuthenticated, signUpUser }) => {
   const history = useHistory();
   const [ip, setIp] = useState(null);
+  const [cities, setSities] = useState([]);
 
   useEffect(() => {
     document.title = "Sign up | Phone Play";
@@ -44,7 +47,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
     password: "",
     password2: "",
     address: "",
-    country: "palestine",
+    country: "",
     city: "",
     code: null,
   });
@@ -53,9 +56,19 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
 
   const intl = useIntl();
   const onChange = (e) => {
+    if (e.target.name === "country" && e.target.value === "null") {
+      return;
+    }
+
     setSignUpForm({ ...signUpForm, [e.target.name]: e.target.value });
+    if (e.target.name === "country") {
+      console.log(e.target.value);
+      setSities(CITIES[e.target.value]);
+      setSignUpForm({ ...signUpForm, city: ""});
+    }
   };
   const onSubmit = (e) => {
+    console.log(signUpForm);
     e.preventDefault();
     isLoading(true);
 
@@ -124,17 +137,17 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                     options={countries}
                     error={errors1.country}
                     required={true}
+                    onChange={onChange}
                   />
 
-                  <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "enter5" })}
+                  <Select
                     name="city"
-                    type="text"
-                    value={signUpForm.city}
-                    onChange={onChange}
+                    placeholder={intl.formatMessage({ id: "enter5" })}
+                    label={intl.formatMessage({ id: "City" })}
+                    options={cities}
                     error={errors1.city}
-                    label={translate("City")}
                     required={true}
+                    onChange={onChange}
                   />
 
                   <TextFieldGroup
