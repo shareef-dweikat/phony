@@ -45,3 +45,6 @@ export const GET_HOT = "GET_HOT";
 //Cards
 export const GET_CARDS = "GET_CARDS";
 export const GET_COPMANY_CARDS = "GET_COPMANY_CARDS ";
+
+// Insurances
+export const GET_INSURANCES = "GET_INSURANCES";

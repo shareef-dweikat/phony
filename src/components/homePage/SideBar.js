@@ -52,6 +52,11 @@ const SideBar = ({ user ,userData }) => {
             <h5 class="text-muted mt-0" title="Debt" style={{fontSize: "1rem"}}>{translate("Debt")}</h5>
             <h3 class="text-danger my-2">₪ {(userData && userData.debth) || (currentUser && currentUser.debth)}</h3>
 
+            <hr className="divider my-2"></hr>
+
+            <h5 class="text-muted mt-0" title="Points" style={{fontSize: "1rem"}}>{translate("Points")}</h5>
+            <h3 class="text-success my-2">₪ {(userData && userData.points) || (currentUser && currentUser.points)}</h3>
+
             <p class="user-info mb-0 px-2 text-muted">
               <span class="username text-nowrap ms-1">{(user.sellername)}</span>
               <span class="text-nowrap mx-2">|</span>
@@ -73,24 +78,21 @@ const SideBar = ({ user ,userData }) => {
               </span>
             </a>
           </div>
-
-          {intl.locale === "en" && (
-            <div
-              className={`sidebar__link ${
-                history === "/internet" && "active-link"
-              } m-4`}
-            >
-              <a className="link-main " href="/internet">
-                <span>
-                  <i
-                    className="icon-main fas fa-globe  m-2"
-                    aria-hidden="true"
-                  ></i>
-                  {translate("internet")}
-                </span>
-              </a>
-            </div>
-          )}
+          <div
+            className={`sidebar__link ${
+              history === "/internet" && "active-link"
+            } m-4`}
+          >
+            <a className="link-main " href="/internet">
+              <span>
+                <i
+                  className="icon-main fas fa-globe  m-2"
+                  aria-hidden="true"
+                ></i>
+                {translate("internet")}
+              </span>
+            </a>
+          </div>
           <div
             className={`sidebar__link ${
               history === "/insurance" && "active-link"

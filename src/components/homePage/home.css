@@ -1,19 +1,19 @@
-.home .outer-wrapper {
+.style1 .outer-wrapper {
     width: 100%;
     height: 150px;
     border: 1px dashed #25ace3;
 }
-.home .outer-wrapper .frame {
+.style1 .outer-wrapper .frame {
     display: block;
     width: 100%;
     height: 100%;
     padding: 5px;
 }
-.home .outer-wrapper .frame > img {
+.style1 .outer-wrapper .frame > img {
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
-.home .nav-layout > h5 {
+.style1 .nav-layout > h5 {
     font-size: 1rem;
 }

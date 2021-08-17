@@ -51,7 +51,6 @@ hr.divider {
 }
 .card.card-currency table.currecy-rates {
     width: 100%;
-    min-height: 220px;
 }
 .card.card-currency table.currecy-rates td,
 .card.card-currency table.currecy-rates th {

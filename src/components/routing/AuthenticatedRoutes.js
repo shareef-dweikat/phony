@@ -51,7 +51,7 @@ const AuthenticatedRoutes = ({ user }) => {
               
               <Route exact path="/report" component={Report} />
               <Route exact path="/gaming" component={Gaming} />
-              { intl.locale === "en" && <Route exact path="/internet" component={Internet} />}
+              <Route exact path="/internet" component={Internet} />
               <Route exact path="/insurance" component={Insurance} />
               
               {/* //COPMANY */}

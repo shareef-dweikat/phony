@@ -43,7 +43,7 @@ const Home = ({ user, getLastTransaction, last }) => {
   }
 
   return (
-    <div className="home container">
+    <div className="home container style1">
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -181,17 +181,17 @@ const Home = ({ user, getLastTransaction, last }) => {
               {user.hot === "true" && (
                 <div className={`${columnStyle} mt-4`}>
                   <Link to="/company/hot">
-                  <div className="card outer-wrapper">
-                    <div className="frame">
-                      <img
-                        alt=""
-                        src="https://res.cloudinary.com/dtu4lltbk/image/upload/v1619131544/Hotmobilelogo.svg_gjfklv.png"
-                      />
+                    <div className="card outer-wrapper">
+                      <div className="frame">
+                        <img
+                          alt=""
+                          src="https://res.cloudinary.com/dtu4lltbk/image/upload/v1619131544/Hotmobilelogo.svg_gjfklv.png"
+                        />
+                      </div>
+                      <div className=" card nav-layout">
+                        <h5 className="m-2 text-center">{translate("hotMobile")}</h5>
+                      </div>
                     </div>
-                    <div className=" card nav-layout">
-                      <h5 className="m-2 text-center">{translate("hotMobile")}</h5>
-                    </div>
-                  </div>
                   </Link>
                 </div>
               )}
