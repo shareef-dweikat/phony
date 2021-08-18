@@ -90,8 +90,7 @@ const CreditOoredoo = ({ auth, loading }) => {
           <div className="">
             <div className="row mt-2">
               <div className="col-3">
-                <div className="card ooredoo-back">
-                </div>
+                <div className="card ooredoo-back"></div>
               </div>
               <div className="col-9">
                 <div className=" card nav-layout">

@@ -295,7 +295,6 @@ export const addChargeJawwal = (data) => (dispatch) => {
 export const getChargeJawwal = () => (dispatch) => {
   dispatch(clearErrors());
   const charge = JSON.parse(localStorage.chargeJawwal);
-  // console.log(typeof charge);
   dispatch({
     type: GET_JAWWAL_CHARGE,
     payload: charge,
@@ -309,7 +308,7 @@ export const clearErrors = () => {
 };
 
 //OOREDOO
-export const getOoredooMin = (mobileNo) => (dispatch) => {
+export const getOoredooMin = (mobileNo, refresh = false) => (dispatch) => {
   dispatch(clearErrors());
   dispatch({
     type: GET_OOREDOO_MIN,
@@ -318,21 +317,30 @@ export const getOoredooMin = (mobileNo) => (dispatch) => {
   dispatch({
     type: LOADING_TRUE,
   });
-  axios
-    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=MIN&language=arabic`)
-    .then((res) =>
+
+  const storageHash = sha256(`N${mobileNo}TooredooMin`).toString();
+  const ooredooMin = JSON.parse(localStorage.getItem(storageHash));
+  if (!refresh && ooredooMin) {
+    dispatch({
+      type: GET_OOREDOO_MIN,
+      payload: ooredooMin,
+    });
+  } else {
+    ApiRequest
+    .post(`ooredoo_get_bundles?bundle=MIN&language=arabic`)
+    .then((res) => {
       dispatch({
         type: GET_OOREDOO_MIN,
         payload: res.data,
-      })
-    )
-    .catch((err) =>
-      // console.log(err,'fffffff')
+      });
+      localStorage.setItem(storageHash, JSON.stringify(res.data));
+    }).catch((err) =>
       dispatch({
         type: GET_ERRORS,
         payload: err,
       })
     );
+  }
 };
 
 export const getOoredooMinRenew = () => (dispatch) => {
@@ -348,7 +356,7 @@ export const getOoredooMinNotRenew = () => (dispatch) => {
   });
 };
 
-export const getOoredoo3g = () => (dispatch) => {
+export const getOoredoo3g = (refresh = false) => (dispatch) => {
   dispatch({
     type: GET_OOREDOO_3G,
     payload: [],
@@ -357,21 +365,30 @@ export const getOoredoo3g = () => (dispatch) => {
     type: LOADING_TRUE,
   });
   dispatch(clearErrors());
-  axios
-    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=3G&language=arabic`)
-    .then((res) =>
+
+  const storageHash = sha256(`NallTooredoo3G`).toString();
+  const ooredoo3g = JSON.parse(localStorage.getItem(storageHash));
+  if (!refresh && ooredoo3g) {
+    dispatch({
+      type: GET_OOREDOO_3G,
+      payload: ooredoo3g,
+    });
+  } else {
+    ApiRequest
+    .post(`ooredoo_get_bundles?bundle=3G&language=arabic`)
+    .then((res) =>{
       dispatch({
         type: GET_OOREDOO_3G,
         payload: res.data,
       })
-    )
-    .catch((err) =>
-      // console.log(err,'fffffff')
+      localStorage.setItem(storageHash, JSON.stringify(res.data))
+    }).catch((err) =>
       dispatch({
         type: GET_ERRORS,
         payload: err,
       })
     );
+  }
 };
 
 export const getOoredoo3gRenew = () => (dispatch) => {
@@ -387,7 +404,7 @@ export const getOoredoo3gNotRenew = () => (dispatch) => {
   });
 };
 
-export const getOoredooRom = () => (dispatch) => {
+export const getOoredooRom = (refresh = false) => (dispatch) => {
   dispatch({
     type: GET_OOREDOO_ROM,
     payload: [],
@@ -396,21 +413,30 @@ export const getOoredooRom = () => (dispatch) => {
     type: LOADING_TRUE,
   });
   dispatch(clearErrors());
-  axios
-    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=ROM&language=arabic`)
-    .then((res) =>
+
+  const storageHash = sha256(`NallTooredooRom`).toString();
+  const ooredooRom = JSON.parse(localStorage.getItem(storageHash));
+  if (!refresh && ooredooRom) {
+    dispatch({
+      type: GET_OOREDOO_ROM,
+      payload: ooredooRom,
+    });
+  } else {
+    ApiRequest
+    .post(`ooredoo_get_bundles?bundle=ROM&language=arabic`)
+    .then((res) => {
       dispatch({
         type: GET_OOREDOO_ROM,
         payload: res.data,
       })
-    )
-    .catch((err) =>
-      // console.log(err,'fffffff')
+      localStorage.setItem(storageHash, JSON.stringify(res.data))
+    }).catch((err) =>
       dispatch({
         type: GET_ERRORS,
         payload: err,
       })
     );
+  }
 };
 
 export const getOoredooRomRenew = () => (dispatch) => {
@@ -426,7 +452,7 @@ export const getOoredooRomNotRenew = () => (dispatch) => {
   });
 };
 
-export const getOoredooSuper = () => (dispatch) => {
+export const getOoredooSuper = (refresh = false) => (dispatch) => {
   dispatch({
     type: GET_OOREDOO_SUPER,
     payload: [],
@@ -435,29 +461,39 @@ export const getOoredooSuper = () => (dispatch) => {
     type: LOADING_TRUE,
   });
   dispatch(clearErrors());
-  axios
-    .post(`${BASE_API_URL}/ooredoo_get_bundles?bundle=YOUTH&language=arabic`)
-    .then((res) =>
+
+  const storageHash = sha256(`NallTooredooSuper`).toString();
+  const ooredooSuper = JSON.parse(localStorage.getItem(storageHash));
+  if (!refresh && ooredooSuper) {
+    dispatch({
+      type: GET_OOREDOO_SUPER,
+      payload: ooredooSuper,
+    });
+  } else {
+    ApiRequest
+    .post(`ooredoo_get_bundles?bundle=YOUTH&language=arabic`)
+    .then((res) => {
       dispatch({
         type: GET_OOREDOO_SUPER,
         payload: res.data,
       })
-    )
-    .catch((err) =>
-      // console.log(err,'fffffff')
+      localStorage.setItem(storageHash, JSON.stringify(res.data))
+    }).catch((err) =>
       dispatch({
         type: GET_ERRORS,
         payload: err,
       })
     );
+  }
 };
-export const getOoredooSuperRenew = (mobileNo) => (dispatch) => {
+
+export const getOoredooSuperRenew = () => (dispatch) => {
   dispatch(clearErrors());
   dispatch({
     type: GET_RENEW_OOREDOO_SUPER,
   });
 };
-export const getOoredooSuperNotRenew = (mobileNo) => (dispatch) => {
+export const getOoredooSuperNotRenew = () => (dispatch) => {
   dispatch(clearErrors());
   dispatch({
     type: GET_NOR_RENEW_OOREDOO_SUPER,
@@ -467,31 +503,25 @@ export const getOoredooSuperNotRenew = (mobileNo) => (dispatch) => {
 export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
-  console.log(history.location);
   const number = history.split("/")[4];
   const promises = [];
   
   // console.log(data, number, pushHistory ,lang ,data.jawwalCredit.price);
   if (data.ooredoo3g !== null && data.ooredoo3g !== undefined) {
-    console.log(data.ooredoo3g.id);
-
     Notiflix.Notify.info("ooredoo 3G Charging is in progress");
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.id}`
+      `ooredoo_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.ooredoo3g.bundleid}`
     );
     promises.push(promise);
   }
-
   if (data.ooredooRom !== null && data.ooredooRom !== undefined) {
-    console.log(data.ooredooRom.id);
     Notiflix.Notify.info("ooredoo Roaming Charging is in progress");
 
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.ooredooRom.id}`
+      `ooredoo_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.ooredooRom.bundleid}`
     );
     promises.push(promise);
   }
-
   if (data.ooredooCredit !== null && data.ooredooCredit !== undefined) {
     Notiflix.Notify.info("Charging is in progress");
 
@@ -502,25 +532,31 @@ export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
   }
   if (data.ooredooMin !== null && data.ooredooMin !== undefined) {
     Notiflix.Notify.info("ooredoo Min Charging is in progress");
-    console.log(data.ooredooMin.id);
-
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.ooredooMin.id}`
+      `ooredoo_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.ooredooMin.bundleid}`
     );
     promises.push(promise);
   }
+  if (data.ooredooSuper !== null && data.ooredooSuper !== undefined) {
+    Notiflix.Notify.info("Jawwal ooredooSuper Charging is in progress");
+    const promise = ApiRequest.post(
+      `ooredoo_topup?number=${number}&cardtype=super&language=${lang}&token=${token}&amount=0&pci=${data.ooredooRom.bundleid}`
+    );
+    promises.push(promise);
+  }
+  
   return Promise.all(promises).then((res) => {
-    console.log(res);
     const isAuthFailed = res.some((result) => result.data == "failed, token error");
 
     if (isAuthFailed) {
       return logoutUser(pushHistory)
     }
 
-    localStorage.removeItem("JawwalMin");
-    localStorage.removeItem("Jawwal3g");
-    localStorage.removeItem("JawwalCredit");
-    localStorage.removeItem("JawwalRom");
+    localStorage.removeItem("ooredooMin");
+    localStorage.removeItem("ooredoo3g");
+    localStorage.removeItem("ooredooCredit");
+    localStorage.removeItem("ooredooRom");
+    localStorage.removeItem("ooredooSuper");
     pushHistory.push("/");
   });
 };

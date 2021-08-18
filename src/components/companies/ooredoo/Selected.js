@@ -52,7 +52,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
         ooredooRom: rom || null,
         ooredooCredit: credit || null,
         ooredooMin: min || null,
-        ooredooShabab: shabab || null,
+        ooredooSuper: shabab || null,
       },
       history,
       pushHistory
@@ -92,7 +92,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 <div className="card outer-wrapper">
                   <div className="frame1">
                     <img alt="Ooredoo Min" src={min.url} width="260px" height="100px"></img>
-                    {(min.renew === "True" || min.renew === "true") && (
+                    {(min.auto_renew === "True" || min.auto_renew === "true") && (
                       <Badge text={translate("Renewable")}></Badge>
                     )}
                     <a className="close-btn" onClick={removeMin}>
@@ -107,7 +107,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 <div className="card outer-wrapper">
                   <div className="frame1">
                     <img alt="Ooredoo 3G" src={g3.url} width="260px" height="100px"></img>
-                    {(g3.renew === "True" || g3.renew === "true") && (
+                    {(g3.auto_renew === "True" || g3.auto_renew === "true") && (
                       <Badge text={translate("Renewable")}></Badge>
                     )}
                     <a className="close-btn">
@@ -123,6 +123,18 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                   <div className="frame1">
                     <img alt="Ooredoo Rom" src={rom.url} width="260px" height="100px"></img>
                     <a className="close-btn" onClick={removeRom}>
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            )}
+            {shabab !== "" && (
+              <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
+                <div className="card outer-wrapper">
+                  <div className="frame1">
+                    <img alt="Ooredoo Shabab" src={shabab.url} width="260px" height="100px"></img>
+                    <a className="close-btn" onClick={removeShabab}>
                       <i class="fa fa-times" aria-hidden="true"></i>
                     </a>
                   </div>
