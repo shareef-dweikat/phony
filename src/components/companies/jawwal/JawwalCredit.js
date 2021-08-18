@@ -2,20 +2,16 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import translate from "../../../i18n/translate";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SideBar from "../../homePage/SideBar";
 import TextFieldGroup from "./../../common/TextFieldGroup";
-import { getJawwalCredit, chargeJawwal } from "../../../actions/companiesAction";
 import "./jawwal.css";
 import credits, { EMPTY_CREDIT } from "./credits";
 import SubNav from "./SubNav";
-import Spinner from "../../ui/spinner/Spinner";
-import Badge from "../../ui/Badge/Badge";
+import Selected from "./Selected";
 
-const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJawwal }) => {
+const JawwalCredit = ({auth, loading}) => {
   const history = useHistory().location.pathname;
-  const pushHistory = useHistory();
-
   const [mobileNo, setMobileNo] = useState(
     history.split("/")[3].slice(0, 3) +
       "-" +
@@ -33,7 +29,6 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
   const [jawwal3g, setJawwal3g] = useState("");
   const [jawwalRom, setJawwalRom] = useState("");
   const [jawwalMin, setJawwalMin] = useState("");
-  const [loadingSpinner, isLoading] = useState(false);
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 col-6");
 
   useEffect(() => {
@@ -54,25 +49,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
     refreshColumnStyle();
   }, []);
   
-  const onClickTypeCredit = (e) => {
-    e.preventDefault();
-    isLoading(true);
-    chargeJawwal(
-      {
-        jawwal3g: jawwal3g || null,
-        jawwalRom: jawwalRom || null,
-        jawwalCredit: selected || null,
-        jawwalMin: jawwalMin || null,
-      },
-      history,
-      pushHistory
-    )
-    .finally(() => {
-      isLoading(false);
-    });
-  };
   const onChange = (e) => {
-    console.log(e.target.value);
     const selectedCredit = { ...EMPTY_CREDIT, price: e.target.value };
     setInputForm({ ...inputForm, [e.target.name]: e.target.value });
     setSelected(selectedCredit);
@@ -82,41 +59,6 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
     localStorage.JawwalCredit = JSON.stringify(item);
     setSelected(item);
   };
-  const onCreditRemove = () => {
-    localStorage.removeItem("JawwalCredit");
-    setSelected("");
-    setInputForm({ ...inputForm, ["price"]: 0 });
-  };
-  const onJawwal3gRemove = () => {
-    localStorage.removeItem("Jawwal3g");
-    setJawwal3g("");
-  };
-  const onJawwalRomRemove = () => {
-    localStorage.removeItem("JawwalRom");
-    setJawwalRom("");
-  };
-  const onJawwalMinRemove = () => {
-    localStorage.removeItem("JawwalMin");
-    setJawwalMin("");
-  };
-
-  const onRemove = (type) => {
-    console.log("type", type);
-    switch(type) {
-      case "JawwalCredit":
-        onCreditRemove();
-        break;
-      case "JawwalMin":
-        onJawwalMinRemove();
-        break;
-      case "Jawwal3g":
-        onJawwal3gRemove();
-        break;
-      case "JawwalRom":
-        onJawwalRomRemove();
-        break;
-    }
-  }
 
   const refreshColumnStyle = () => {
     switch(localStorage.size) {
@@ -168,113 +110,16 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
               </div>
             </div>
             <div className="position-relative">
-              <div className="row">
-                <div className="col-10">
-                  <div className="card m-4s fixed-top1 position-sticky mt-2">
-                    <div className="row mt-1 fixed-topx px-3">
-                      {selected !== {} && selected.price && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                          <div className="card outer-wrapper">
-                            <div className="frame1">
-                              <img
-                                alt="Jawwal Credit"
-                                src={
-                                  selected.url ||
-                                  "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
-                                }
-                                width="260px"
-                                height="100px"
-                              ></img>
-                              {selected.flexiblePrice && <label className="text-abs">{selected.price}</label>}
-                              <a className="close-btn" onClick={onCreditRemove}>
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {jawwalMin !== "" && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                          <div className="card outer-wrapper">
-                            <div className="frame1">
-                              <img alt="Jawwal Min" src={jawwalMin.url} width="260px" height="100px"></img>
-                              {(jawwalMin.renew === "True" || jawwalMin.renew === "true") && (
-                                <Badge text={translate("Renewable")}></Badge>
-                              )}
-                              <a className="close-btn" onClick={onJawwalMinRemove}>
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {jawwal3g !== "" && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                          <div className="card outer-wrapper">
-                            <div className="frame1">
-                              <img alt="Jawwal 3G" src={jawwal3g.url} width="260px" height="100px"></img>
-                              {(jawwal3g.renew === "True" || jawwal3g.renew === "true") && (
-                                <Badge text={translate("Renewable")}></Badge>
-                              )}
-                              <a className="close-btn">
-                                <i class="fa fa-times" aria-hidden="true" onClick={onJawwal3gRemove}></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      {jawwalRom !== "" && (
-                        <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                          <div className="card outer-wrapper">
-                            <div className="frame1">
-                              <img alt="Jawwal Rom" src={jawwalRom.url} width="260px" height="100px"></img>
-                              <a className="close-btn" onClick={onJawwalRomRemove}>
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className="col-2">
-                  <div class="card total-balance-card mt-2">
-                    <div class="card-body p-2">
-                      <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
-                      <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
-                        (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                        (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                        (jawwalMin.price ? parseFloat(jawwalMin.price) : 0)}
-                      </h3>
-                      <button
-                        type="submit"
-                        class={`btn btn-success ${
-                          (selected.price ? parseFloat(selected.price) : 0) +
-                            (jawwalRom.price ? parseFloat(jawwalRom.price) : 0) +
-                            (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                            (jawwalMin.price ? parseFloat(jawwalMin.price) : 0) ===
-                            0 && "disabled"
-                        }`}
-                        style={{margin: "auto", display: "block"}}
-                        disabled={loadingSpinner}
-                        onClick={onClickTypeCredit}
-                      >
-                        {translate("accept")}
-                      </button>
-                      {loadingSpinner && <Spinner />}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* <Summary selectedItems={{
-                JawwalCredit :selected,
-                JawwalMin: jawwalMin,
-                JawwalRom: jawwal3g,
-                Jawwal3g: jawwalRom,
-              }}
-              onRemove={onRemove}/> */}
+              <Selected
+                min={jawwalMin}
+                setMin={setJawwalMin}
+                g3={jawwal3g}
+                setg3={setJawwal3g}
+                credit={selected}
+                setCredit={setSelected}
+                setRom={setJawwalRom}
+                rom={jawwalRom}
+              />
 
               <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
 
@@ -333,8 +178,7 @@ const JawwalCredit = ({ getJawwalCredit, auth, jawwalCreadit, loading, chargeJaw
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  jawwalCreadit: state.companies.jawwalCreadit,
   loading: state.companies.loading,
 });
 
-export default connect(mapStateToProps, { getJawwalCredit, chargeJawwal })(JawwalCredit);
+export default connect(mapStateToProps)(JawwalCredit);

@@ -1,12 +1,12 @@
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import translate from "../../../i18n/translate";
-import { chargeOoredoo } from "../../../actions/companiesAction";
+import { chargeJawwal } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
 
-const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab, setRom, rom, chargeOoredoo }) => {
+const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, chargeJawwal }) => {
   const history = useHistory().location.pathname;
   const pushHistory = useHistory();
   const [inputForm, setInputForm] = useState({
@@ -18,41 +18,30 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
   const [loadingSpinner, isLoading] = useState(false);
 
   const onCreditRemove = () => {
-    localStorage.removeItem("ooredooCredit");
+    localStorage.removeItem("JawwalCredit");
     setCredit("");
   };
   const remove3g = () => {
-    localStorage.removeItem("ooredoo3g");
+    localStorage.removeItem("Jawwal3g");
     setg3("");
   };
   const removeMin = () => {
-    localStorage.removeItem("ooredooMin");
+    localStorage.removeItem("JawwalMin");
     setMin("");
   };
   const removeRom = () => {
-    localStorage.removeItem("ooredooRom");
+    localStorage.removeItem("JawwalRom");
     setRom("");
-  };
-  const removeShabab = () => {
-    localStorage.removeItem("ooredooSuper");
-    setShabab("");
-  };
-  const onChange = (e) => {
-    console.log(e.target.value);
-    setInputForm({ ...inputForm, [e.target.name]: e.target.value });
-    setCredit({ price: e.target.value });
-    localStorage.ooredooCredit = JSON.stringify({ price: e.target.value });
   };
   const onClickTypeCredit = (e) => {
     e.preventDefault();
     isLoading(true);
-    chargeOoredoo(
+    chargeJawwal(
       {
-        ooredoo3g: g3 || null,
-        ooredooRom: rom || null,
-        ooredooCredit: credit || null,
-        ooredooMin: min || null,
-        ooredooShabab: shabab || null,
+        jawwal3g: g3 || null,
+        jawwalRom: rom || null,
+        jawwalCredit: credit || null,
+        jawwalMin: min || null,
       },
       history,
       pushHistory
@@ -71,7 +60,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 <div className="card outer-wrapper">
                   <div className="frame1">
                     <img
-                      alt="Ooredoo Credit"
+                      alt="Jawwal Credit"
                       src={
                         credit.url ||
                         "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
@@ -168,4 +157,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { chargeOoredoo })(Selected);
+export default connect(mapStateToProps, { chargeJawwal })(Selected);

@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import translate from "../../../i18n/translate";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SideBar from "../../homePage/SideBar";
 import SubNav from "./SubNav";
-import { getJawwalRom, chargeJawwal } from "../../../actions/companiesAction";
+import { getJawwalRom } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
-import Badge from "../../ui/Badge/Badge";
+import Selected from "./Selected";
 
-const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
+const JawwalRom = ({ getJawwalRom, loading, jawwalRom }) => {
   const history = useHistory().location.pathname;
-  const pushHistory = useHistory();
 
   const [typeRoming, setTypeRoming] = useState("Jordan");
   const [mobileNo, setMobileNo] = useState(
@@ -24,7 +23,6 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
   const [jawwalMin, setJawwalMin] = useState("");
   const [credit, setCredit] = useState("");
   const [jawwal3g, setJawwal3g] = useState("");
-  const [loadingSpinner, isLoading] = useState(false);
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 col-6");
 
   useEffect(() => {
@@ -44,45 +42,13 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
     }
     refreshColumnStyle();
   }, []);
-  const onClickTypeRom = (e) => {
-    e.preventDefault();
-    isLoading(true);
-    chargeJawwal(
-      {
-        jawwal3g: jawwal3g || null,
-        jawwalRom: selected || null,
-        jawwalCredit: credit || null,
-        jawwalMin: jawwalMin || null,
-      },
-      history,
-      pushHistory
-    )
-    .finally(() => {
-      isLoading(false);
-    });
-  };
+  
   const selectTypeClick = (type) => {
     setTypeRoming(type);
   };
   const onTypeClick = (item) => {
     localStorage.JawwalRom = JSON.stringify(item);
     setSelected(item);
-  };
-  const onCreditRemove = () => {
-    localStorage.removeItem("JawwalCredit");
-    setCredit("");
-  };
-  const onJawwal3gRemove = () => {
-    localStorage.removeItem("Jawwal3g");
-    setJawwal3g("");
-  };
-  const onJawwalMinRemove = () => {
-    localStorage.removeItem("JawwalMin");
-    setJawwalMin("");
-  };
-  const onJawwalRomRemove = () => {
-    localStorage.removeItem("JawwalRom");
-    setSelected("");
   };
   const refreshClick = () => {
     getJawwalRom(mobileNo, false);
@@ -143,105 +109,16 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom, chargeJawwal }) => {
             </div>
           </div>
           <div className=" position-relative">
-            <div className="row">
-              <div className="col-10">
-                <div className="card m-4s fixed-top1 position-sticky mt-2">
-                  <div className="row mt-1 fixed-topx px-3">
-                    {credit !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img
-                              alt="Jawwal Credit"
-                              src={
-                                credit.url ||
-                                "https://res.cloudinary.com/dtu4lltbk/image/upload/v1622203339/eced7efa-a16b-4fdd-9528-2c1f10356e1c_lzfhei.jpg"
-                              }
-                              width="260px"
-                              height="100px"
-                            ></img>
-                            {credit.flexiblePrice && <label className="text-abs">{selected.price}</label>}
-                            <a className="close-btn" onClick={onCreditRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {jawwalMin !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img alt={jawwalMin.id} src={jawwalMin.url} width="260px" height="100px"></img>
-                            {(jawwalMin.renew === "True" || jawwalMin.renew === "true") && (
-                              <Badge text={translate("Renewable")}></Badge>
-                            )}
-                            <a className="close-btn" onClick={onJawwalMinRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {jawwal3g !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img alt={jawwal3g.id} src={jawwal3g.url} width="260px" height="100px"></img>
-                            {(jawwal3g.renew === "True" || jawwal3g.renew === "true") && (
-                              <Badge text={translate("Renewable")}></Badge>
-                            )}
-                            <a className="close-btn" onClick={onJawwal3gRemove}>
-                              <i class="fa fa-times" aria-hidden="true"></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                    {selected !== "" && (
-                      <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
-                        <div className="card outer-wrapper">
-                          <div className="frame1">
-                            <img alt={selected.id} src={selected.url} width="260px" height="100px"></img>
-                            <a className="close-btn">
-                              <i class="fa fa-times" aria-hidden="true" onClick={onJawwalRomRemove}></i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-              <div className="col-2">
-                <div class="card total-balance-card mt-2">
-                  <div class="card-body p-2">
-                    <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
-                    <h3 class="text-info mt-2">₪ {(selected.price ? parseFloat(selected.price) : 0) +
-                      (jawwalMin.price ? parseFloat(jawwalMin.price) : 0) +
-                      (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                      (credit.price ? parseFloat(credit.price) : 0)}
-                    </h3>
-                    <button
-                      type="submit"
-                      class={`btn btn-success ${
-                        (selected.price ? parseFloat(selected.price) : 0) +
-                          (jawwalMin.price ? parseFloat(jawwalMin.price) : 0) +
-                          (jawwal3g.price ? parseFloat(jawwal3g.price) : 0) +
-                          (credit.price ? parseFloat(credit.price) : 0) ===
-                          0 && "disabled"
-                      }`}
-                      style={{margin: "auto", display: "block"}}
-                      disabled={loadingSpinner}
-                      onClick={onClickTypeRom}
-                    >
-                      {translate("accept")}
-                    </button>
-                    {loadingSpinner && <Spinner />}
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Selected
+              min={jawwalMin}
+              setMin={setJawwalMin}
+              g3={jawwal3g}
+              setg3={setJawwal3g}
+              credit={credit}
+              setCredit={setCredit}
+              rom={selected}
+              setRom={setSelected}
+            />
             
             <hr className="mt-3" style={{ border: "2px solid #42ace3", backgroundColor: "#42ace3", fontWeight: "bolder" }} />
             
@@ -368,4 +245,4 @@ const mapStateToProps = (state) => ({
   jawwalRom: state.companies.jawwalRom,
   loading: state.companies.loading,
 });
-export default connect(mapStateToProps, { getJawwalRom, chargeJawwal })(JawwalRom);
+export default connect(mapStateToProps, { getJawwalRom })(JawwalRom);

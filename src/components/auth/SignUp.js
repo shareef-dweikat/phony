@@ -56,25 +56,19 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
 
   const intl = useIntl();
   const onChange = (e) => {
-    console.log(e.target.name);
-    console.log(e.target.value);
     if (e.target.name === "country" && e.target.value === "null") {
       return;
     }
     const newValue = {
       [e.target.name]: e.target.value,
     }
-
     if (e.target.name === "country") {
       setSities(CITIES[e.target.value]);
       newValue["city"] = "";
     }
-    console.log("Set new value", newValue);
-
     setSignUpForm({ ...signUpForm, ...newValue });
   };
   const onSubmit = (e) => {
-    console.log(signUpForm);
     e.preventDefault();
     isLoading(true);
 

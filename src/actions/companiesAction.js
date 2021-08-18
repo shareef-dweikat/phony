@@ -33,6 +33,7 @@ import {
 } from "./types";
 import Notiflix from "notiflix";
 import { logoutUser } from "./userAction";
+import ApiRequest from "./ApiRequest";
 
 var lang;
 if (localStorage.langCity === "en") {
@@ -463,98 +464,65 @@ export const getOoredooSuperNotRenew = (mobileNo) => (dispatch) => {
   });
 };
 
-export const chargeOoredoo = (history) => (dispatch) => {
+export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
-  const mobile = history.location.pathname.split("/")[4];
-  if (localStorage.ooredooCredit) {
-    console.log(JSON.parse(localStorage.ooredooCredit).price, "priccce");
-    const credit = JSON.parse(localStorage.ooredooCredit);
-    Notiflix.Notify.info("Ooredoo  Charging is in progress");
-    axios
-      .post(
-        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=topup&pci=0&language=${lang}&amount=${credit.price}&token=${token}`
-      )
-      .then((res) => {
-        if (res === "Failed") {
-          Notiflix.Notify.failure("Jawwal 3G Charging is failed");
-        } else {
-          Notiflix.Notify.success("Jawwal 3G Charging is succeeded");
-        }
-      });
+  console.log(history.location);
+  const number = history.split("/")[4];
+  const promises = [];
+  
+  // console.log(data, number, pushHistory ,lang ,data.jawwalCredit.price);
+  if (data.ooredoo3g !== null && data.ooredoo3g !== undefined) {
+    console.log(data.ooredoo3g.id);
+
+    Notiflix.Notify.info("ooredoo 3G Charging is in progress");
+    const promise = ApiRequest.post(
+      `ooredoo_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.id}`
+    );
+    promises.push(promise);
   }
-  if (localStorage.ooredoo3g) {
-    console.log(localStorage.ooredoo3g);
-    Notiflix.Notify.info("Jawwal Roaming Charging is in progress");
-    const ooredoo3g = JSON.parse(localStorage.ooredoo3g);
-    axios
-      .post(
-        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&amount=1&cardtype=3G&pci=${ooredoo3g.bundleid}&language=${lang}&token=${token}`
-      )
-      .then((res) => {
-        console.log(res, "resssss");
-        if (res === "Failed") {
-          Notiflix.Notify.failure("Jawwal Roaming Charging is failed");
-        } else {
-          Notiflix.Notify.success("Jawwal Roaming Charging is succeeded");
-        }
-      });
+
+  if (data.ooredooRom !== null && data.ooredooRom !== undefined) {
+    console.log(data.ooredooRom.id);
+    Notiflix.Notify.info("ooredoo Roaming Charging is in progress");
+
+    const promise = ApiRequest.post(
+      `ooredoo_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.ooredooRom.id}`
+    );
+    promises.push(promise);
   }
-  if (localStorage.ooredooMin) {
+
+  if (data.ooredooCredit !== null && data.ooredooCredit !== undefined) {
     Notiflix.Notify.info("Charging is in progress");
-    console.log(localStorage.ooredooMin);
-    const ooredooMin = JSON.parse(localStorage.ooredooMin);
 
-    axios
-      .post(
-        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=min&pci=${ooredooMin.bundleid}&language=${lang}&amount=0&token=${token}`
-      )
-      .then((res) => {
-        if (res === "Failed") {
-          Notiflix.Notify.failure("Charging is failed");
-        } else {
-          Notiflix.Notify.success("Charging is succeeded");
-        }
-      });
+    const promise = ApiRequest.post(
+      `ooredoo_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.ooredooCredit.price}&pci=${data.ooredooCredit.id}`
+    );
+    promises.push(promise);
   }
-  if (localStorage.ooredooRom) {
-    console.log(localStorage.ooredooRom);
-    const ooredooRom = JSON.parse(localStorage.ooredooMin);
+  if (data.ooredooMin !== null && data.ooredooMin !== undefined) {
+    Notiflix.Notify.info("ooredoo Min Charging is in progress");
+    console.log(data.ooredooMin.id);
 
-    Notiflix.Notify.info("Jawwal Min Charging is in progress");
-    axios
-      .post(
-        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=rom&pci=0&language=${lang}&amount=10&token=${token}`
-      )
-      .then((res) => {
-        if (res === "Failed") {
-          Notiflix.Notify.failure("Jawwal Min Charging is failed");
-        } else {
-          Notiflix.Notify.success("Jawwal Min Charging is succeeded");
-        }
-      });
+    const promise = ApiRequest.post(
+      `ooredoo_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.ooredooMin.id}`
+    );
+    promises.push(promise);
   }
-  if (localStorage.ooredooSuper) {
-    console.log(localStorage.ooredooRom);
-    Notiflix.Notify.info("Jawwal ooredooSuper Charging is in progress");
-    axios
-      .post(
-        `${BASE_API_URL}/ooredoo_topup?number=${mobile}&cardtype=rom&pci=0&language=${lang}&amount=10&token=${token}`
-      )
-      .then((res) => {
-        if (res === "Failed") {
-          Notiflix.Notify.failure("Jawwal Min Charging is failed");
-        } else {
-          Notiflix.Notify.success("Jawwal Min Charging is succeeded");
-        }
-      });
-  }
-  localStorage.removeItem("ooredooCredit");
-  localStorage.removeItem("ooredoo3g");
-  localStorage.removeItem("ooredooMin");
-  localStorage.removeItem("ooredooRom");
-  localStorage.removeItem("ooredooSuper");
-  history.push("/");
+  return Promise.all(promises).then((res) => {
+    console.log(res);
+    const isAuthFailed = res.some((result) => result.data == "failed, token error");
+
+    if (isAuthFailed) {
+      return logoutUser(pushHistory)
+    }
+
+    localStorage.removeItem("JawwalMin");
+    localStorage.removeItem("Jawwal3g");
+    localStorage.removeItem("JawwalCredit");
+    localStorage.removeItem("JawwalRom");
+    pushHistory.push("/");
+  });
 };
 
 // Group Companies

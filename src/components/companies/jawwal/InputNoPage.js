@@ -5,20 +5,21 @@ import SideBar from "../../homePage/SideBar";
 import Message from "../../common/Message";
 import TextFieldGroup from "../../common/TextFieldGroup";
 import "react-phone-number-input/style.css";
+
 const InputNoPage = () => {
   useEffect(() => {
     document.title = "Jawwal | Phone Play";
   }, []);
   const [value, setValue] = useState();
-  const [isEmprty, setIsEmprty] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
   const history = useHistory();
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (value === undefined || value.split("").length < 10 || value.split("").length > 10) {
-      setIsEmprty(true);
+      setIsEmpty(true);
     } else {
-      setIsEmprty(false);
+      setIsEmpty(false);
       localStorage.removeItem("JawwalMin");
       localStorage.removeItem("Jawwal3g");
       localStorage.removeItem("JawwalCredit");
@@ -47,7 +48,7 @@ const InputNoPage = () => {
             </div>
           </div>
           <form className="my-5" onSubmit={onSubmit}>
-            {isEmprty && <Message msg="Enter valid number" />}
+            {isEmpty && <Message msg="Enter valid number" />}
             <div className="form-group row">
               <div className="col-12 col-md-7 d-flex">
                 <label for="inputEmail3" className="col-3 col-form-label" style={{fontSize: "1.6rem", minWidth: 160}}>

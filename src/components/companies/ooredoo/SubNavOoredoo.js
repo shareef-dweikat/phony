@@ -5,10 +5,9 @@ import translate from "./../../../i18n/translate";
 const SubNavOoredoo = ({ mobile }) => {
   const history = useHistory().location.pathname.split("/")[3];
   const historyPush = useHistory();
-  console.log(history);
   return (
     <div>
-      <div className=" d-flex justify-content-around sub-nav my-4 ">
+      <div className="d-flex justify-content-around sub-nav my-2">
         <div className="my-2">
           <button onClick={() => historyPush.push("/company/ooredoo/MobileNumer")} className="btn rom-selected ">
             {translate("Back")}

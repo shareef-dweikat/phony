@@ -103,7 +103,9 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
                 </label>
               </div>
             </div>
+            
             <SubNavOoredoo mobile={mobileNo} />
+
             <Selected
               min={min}
               setMin={setMin}
@@ -116,7 +118,9 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
               setRom={setRom}
               rom={rom}
             />
+
             <hr className="mt-3" style={{ border: "2px solid #000", fontWeight: "bolder" }} />
+            
             <div className="row">
               {loading === true ? (
                 <Spinner/>

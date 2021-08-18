@@ -44,7 +44,6 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
     const { errors, isValid } = validateLoginInput(loginForm);
     if (!isValid) {
       setErrors1(errors);
-      console.log("Errors=> ", errors);
       isLoading(false);
     } else {
       loginUser(loginForm, ip, history)
