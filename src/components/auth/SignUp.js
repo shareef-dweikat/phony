@@ -56,16 +56,22 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
 
   const intl = useIntl();
   const onChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
     if (e.target.name === "country" && e.target.value === "null") {
       return;
     }
-
-    setSignUpForm({ ...signUpForm, [e.target.name]: e.target.value });
-    if (e.target.name === "country") {
-      console.log(e.target.value);
-      setSities(CITIES[e.target.value]);
-      setSignUpForm({ ...signUpForm, city: ""});
+    const newValue = {
+      [e.target.name]: e.target.value,
     }
+
+    if (e.target.name === "country") {
+      setSities(CITIES[e.target.value]);
+      newValue["city"] = "";
+    }
+    console.log("Set new value", newValue);
+
+    setSignUpForm({ ...signUpForm, ...newValue });
   };
   const onSubmit = (e) => {
     console.log(signUpForm);
@@ -136,6 +142,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                     label={intl.formatMessage({ id: "Enter your country" })}
                     options={countries}
                     error={errors1.country}
+                    value={signUpForm.country}
                     required={true}
                     onChange={onChange}
                   />
@@ -146,6 +153,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                     label={intl.formatMessage({ id: "City" })}
                     options={cities}
                     error={errors1.city}
+                    value={signUpForm.city}
                     required={true}
                     onChange={onChange}
                   />

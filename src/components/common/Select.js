@@ -37,8 +37,8 @@ const Select = ({
             required={required}
             style={style}
         >
-            <option value="null" selected>{placeholder}</option>
-            {options.map((op) => (<option value={op.value}>{intl.formatMessage({ id: op.label })}</option>))}
+            <option value="null" selected={value === "null"}>{placeholder}</option>
+            {options.map((op) => (<option value={op.value} selected={value === op.value}>{intl.formatMessage({ id: op.label })}</option>))}
         </select>
         {error && (
             <small className="form-text text-muted text-left">

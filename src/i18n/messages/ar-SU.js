@@ -233,6 +233,9 @@ export default {
     "Reason": "السبب",
     "OK": "حسنا",
     "Phone Number": "رقم التليفون",
+    "Show Reason": "أظهار السبب",
+    "Actions": "أجراءات",
+    "Cancel": "إلغاء",
 
     // Cities
     "Abasan al-Kabira": "عبسان الكبيرة",

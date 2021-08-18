@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import translate from "../../i18n/translate";
-import { getLastTransaction, showTransctionDetails } from "../../actions/reportsAction";
+import { getLastTransaction, showTransctionDetails, cancelTransction } from "../../actions/reportsAction";
 import moment from "moment";
 import Spinner from "../ui/spinner/Spinner";
 import { connect } from "react-redux";
@@ -20,7 +20,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
         });
     }, []);
 
-    const updateClick = () => {
+    const updateTransactions = () => {
         isLoading(true);
         getLastTransaction()
         .finally(() => {
@@ -42,10 +42,19 @@ const TransactionTable = ({ getLastTransaction, last }) => {
         });
     }
 
+    const cancelTransaction = (tranId) => {
+        isLoading(true);
+        cancelTransction(tranId).then((res) => {
+            updateTransactions();
+        }).finally(() => {
+            isLoading(false);
+        });
+    }
+
     return (
         <div className="transactions">
             <div className="mt-5 d-flex flex-row-reverse">
-                <button className="btn rom-selected" onClick={updateClick} disabled={loading}>
+                <button className="btn rom-selected" onClick={updateTransactions} disabled={loading}>
                     {translate("Update")}
                 </button>
             </div>
@@ -59,7 +68,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             <th scope="col">{translate("Amount")}</th>
                             <th scope="col">{translate("Data & Time")}</th>
                             <th scope="col">{translate("Status")}</th>
-                            <th scope="col">{translate("Reason")}</th>
+                            <th scope="col">{translate("Actions")}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,9 +85,16 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
                                 <td>{translate(item.status)}</td>
                                 <td>
-                                    <Button size="sm" onClick={() => showReason(item.transid)} disabled={loading}>
-                                        {translate("Show")}
-                                    </Button>
+                                    {item.status == "failed" && (
+                                        <Button size="sm" onClick={() => showReason(item.transid)} disabled={loading}>
+                                            {translate("Show Reason")}
+                                        </Button>
+                                    )}
+                                    {item.status == "succuss" && (
+                                        <Button size="sm" onClick={() => cancelTransaction(item.transid)} disabled={loading}>
+                                            {translate("Cancel")}
+                                        </Button>
+                                    )}
                                 </td>
                             </tr>
                         ))}

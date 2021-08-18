@@ -36,6 +36,18 @@ export const showTransctionDetails = (tran_id, lang) => {
   });
 };
 
+export const cancelTransction = (tran_id) => {
+  return new Promise((resolve, reject) => {
+    ApiRequest.post(`cancel_tranaction?trand_no=${tran_id}`)
+    .then((res) => {
+      resolve(res.data);
+    })
+    .catch((err) => {
+      reject(err);
+    });
+  });
+};
+
 export const clearErrors = () => {
   return {
     type: CLEAR_ERRORS,
