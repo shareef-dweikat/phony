@@ -225,5 +225,6 @@ export default {
     "EUR / ILS": "USD / ILS",
     "Show": "Show",
     "OK": "OK",
+    "Phone Number": "Phone Number",
   },
 };

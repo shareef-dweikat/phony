@@ -232,6 +232,7 @@ export default {
     "Show": "إظهار",
     "Reason": "السبب",
     "OK": "حسنا",
+    "Phone Number": "رقم التليفون",
 
     // Cities
     "Abasan al-Kabira": "عبسان الكبيرة",

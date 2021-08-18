@@ -32,7 +32,7 @@ const SideBar = ({ user ,userData }) => {
 
   const updateCurrencyRate = () => {
     isLoading(true);
-    currentRates("ILS", ["USD","JOD","EUR"])
+    currentRates()
     .then((rates) => {
       setRates(rates)
       isLoading(false)

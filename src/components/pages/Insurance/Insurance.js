@@ -56,14 +56,6 @@ const Insurance = ({ getInsurances, insurances }) => {
             <SideBar />
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
-            <div className="card card-home">
-              <div className="card img-back" style={
-                sessionStorage.getItem("main_picture") ? {backgroundImage: `url("${sessionStorage.getItem("main_picture")}")` } : {}
-              }>
-                <h1 className="header-text">{translate("Insurance")}</h1>
-              </div>
-            </div>
-
             <div>
               <div className="row mb-5">
                 {insurances.map((insurance) => (
@@ -77,7 +69,7 @@ const Insurance = ({ getInsurances, insurances }) => {
                       </div>
                       <div className="card nav-layout">
                         <h5 className="m-2 text-center">{insurance.name}</h5>
-                        <h6 className="m-2 text-center">{translate("mobileNo")}<br/>{insurance.phone}</h6>
+                        <h6 className="m-2 text-center">{translate("Phone Number")}<br/>{insurance.phone}</h6>
                       </div>
                     </div>
                   </div>

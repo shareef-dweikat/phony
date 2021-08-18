@@ -48,3 +48,6 @@ export const GET_COPMANY_CARDS = "GET_COPMANY_CARDS ";
 
 // Insurances
 export const GET_INSURANCES = "GET_INSURANCES";
+
+// Internet
+export const GET_INTERNETS= "GET_INTERNETS";
