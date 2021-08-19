@@ -209,7 +209,6 @@ export const getNotRnewJawwal3g = () => (dispatch) => {
 
 export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   dispatch(clearErrors());
-  const token = localStorage.jwtUserToken;
   const number = history.split("/")[3];
   const promises = [];
   
@@ -226,7 +225,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     Notiflix.Notify.info("Charging is in progress");
 
     const promise = ApiRequest.post(
-      `jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=${data.jawwalCredit.id}`
+      `jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&amount=${data.jawwalCredit.price}&pci=${data.jawwalCredit.id}`
     );
     promises.push(promise);
   }
@@ -234,7 +233,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   if (data.jawwal3g !== null && data.jawwal3g !== undefined) {
     Notiflix.Notify.info("Jawwal 3G Charging is in progress");
     const promise = ApiRequest.post(
-      `jawwal_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.id}`
+      `jawwal_topup?number=${number}&cardtype=3g&language=${lang}&amount=0&pci=${data.jawwal3g.id}`
     );
     promises.push(promise);
   }
@@ -243,7 +242,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     Notiflix.Notify.info("Jawwal Roaming Charging is in progress");
 
     const promise = ApiRequest.post(
-      `jawwal_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.jawwalRom.id}`
+      `jawwal_topup?number=${number}&cardtype=rom&language=${lang}&amount=0&pci=${data.jawwalRom.id}`
     );
     promises.push(promise);
   }
@@ -252,7 +251,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     Notiflix.Notify.info("Jawwal Min Charging is in progress");
 
     const promise = ApiRequest.post(
-      `jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.id}`
+      `jawwal_topup?number=${number}&cardtype=min&language=${lang}&amount=0&pci=${data.jawwalMin.id}`
     );
     promises.push(promise);
   }
@@ -488,14 +487,13 @@ export const getOoredooSuperNotRenew = () => (dispatch) => {
 
 export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
   dispatch(clearErrors());
-  const token = localStorage.jwtUserToken;
   const number = history.split("/")[4];
   const promises = [];
   
   if (data.ooredoo3g !== null && data.ooredoo3g !== undefined) {
     Notiflix.Notify.info("ooredoo 3G Charging is in progress");
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.ooredoo3g.bundleid}`
+      `ooredoo_topup?number=${number}&cardtype=3g&language=${lang}&amount=0&pci=${data.ooredoo3g.bundleid}`
     );
     promises.push(promise);
   }
@@ -503,7 +501,7 @@ export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
     Notiflix.Notify.info("ooredoo Roaming Charging is in progress");
 
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.ooredooRom.bundleid}`
+      `ooredoo_topup?number=${number}&cardtype=rom&language=${lang}&amount=0&pci=${data.ooredooRom.bundleid}`
     );
     promises.push(promise);
   }
@@ -511,21 +509,21 @@ export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
     Notiflix.Notify.info("Charging is in progress");
 
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.ooredooCredit.price}&pci=${data.ooredooCredit.id}`
+      `ooredoo_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&amount=${data.ooredooCredit.price}&pci=${data.ooredooCredit.id}`
     );
     promises.push(promise);
   }
   if (data.ooredooMin !== null && data.ooredooMin !== undefined) {
     Notiflix.Notify.info("ooredoo Min Charging is in progress");
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.ooredooMin.bundleid}`
+      `ooredoo_topup?number=${number}&cardtype=min&language=${lang}&amount=0&pci=${data.ooredooMin.bundleid}`
     );
     promises.push(promise);
   }
   if (data.ooredooSuper !== null && data.ooredooSuper !== undefined) {
     Notiflix.Notify.info("Jawwal ooredooSuper Charging is in progress");
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=super&language=${lang}&token=${token}&amount=0&pci=${data.ooredooRom.bundleid}`
+      `ooredoo_topup?number=${number}&cardtype=super&language=${lang}&amount=0&pci=${data.ooredooRom.bundleid}`
     );
     promises.push(promise);
   }
