@@ -12,7 +12,6 @@ import Spinner from "../ui/spinner/Spinner";
 const SideBar = ({ user }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const intl = useIntl();
   const [engagespotInit, isEngagespotInit] = useState(false);
   const [rates, setRates] = useState([]);
   const [loading, isLoading] = useState(false);
@@ -23,9 +22,9 @@ const SideBar = ({ user }) => {
   }, [])
 
   const updateEngagespot = () => {
-    if (!engagespotInit && currentUser["seller id"]) {
-      window.Engagespot?.identifyUser(currentUser["seller id"]);
-      setRequestHeader("X-Identifier", currentUser["seller id"]);
+    if (!engagespotInit && currentUser?.sellerid) {
+      window.Engagespot?.identifyUser(currentUser?.sellerid);
+      setRequestHeader("X-Identifier", currentUser?.sellerid);
       isEngagespotInit(true);
     }
   }
@@ -58,9 +57,9 @@ const SideBar = ({ user }) => {
             <h3 class="text-success my-2">₪ {currentUser && currentUser.points}</h3>
 
             <p class="user-info mb-0 px-2 text-muted">
-              <span class="username text-nowrap ms-1">{user?.sellername}</span>
+              <span class="username text-nowrap ms-1">{(user?.sellername || currentUser?.sellername)}</span>
               <span class="text-nowrap mx-2">|</span>
-              <span class="text-nowrap me-1">{user?.sellerid}</span>
+              <span class="text-nowrap me-1">{(user?.sellerid || currentUser.sellerid)}</span>
             </p>
           </div>
         </div>

@@ -67,8 +67,13 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
     )
     .then((res) => {
       if (res.data.status === "failed! wrong verification code") {
-        Notiflix.Notify.failure("Wrong confirmation code");
+        Notiflix.Notify.failure("Wronge confirmation code");
       } else {
+        const { token } = res.data;
+        localStorage.setItem("jwtUserToken", token);
+        localStorage.setItem("companies", JSON.stringify(res.data));
+        localStorage.setItem("cityCell", "cityCell");
+        dispatch(setCurrentUser(res.data));
         history.push("/");
       }
     })
@@ -76,7 +81,7 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
       console.log(err);
       dispatch({
         type: GET_ERRORS,
-        payload: "Something went wrong !!",
+        payload: "Somthing went Wrong !!",
       });
     });
 };
