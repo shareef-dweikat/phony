@@ -9,7 +9,7 @@ import setRequestHeader from "../../components/common/setRequestHeader";
 import _ from "lodash";
 import Spinner from "../ui/spinner/Spinner";
 
-const SideBar = ({ user ,userData }) => {
+const SideBar = ({ user }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const intl = useIntl();
@@ -45,22 +45,22 @@ const SideBar = ({ user ,userData }) => {
         <div class="widget-flat card">
           <div class="card-body">
             <h5 class="text-muted mt-0" title="Balance" style={{fontSize: "1rem"}}>{translate("Balance Avaliable")}</h5>
-            <h3 class="text-info my-2 mb-1">₪ {(userData && userData.balance) || (currentUser && currentUser.balance)}</h3>
+            <h3 class="text-info my-2 mb-1">₪ {currentUser && currentUser.balance}</h3>
 
             <hr className="divider my-2"></hr>
 
             <h5 class="text-muted mt-0" title="Debt" style={{fontSize: "1rem"}}>{translate("Debt")}</h5>
-            <h3 class="text-danger my-2">₪ {(userData && userData.debth) || (currentUser && currentUser.debth)}</h3>
+            <h3 class="text-danger my-2">₪ {currentUser && currentUser.debth}</h3>
 
             <hr className="divider my-2"></hr>
 
             <h5 class="text-muted mt-0" title="Points" style={{fontSize: "1rem"}}>{translate("Points")}</h5>
-            <h3 class="text-success my-2">₪ {(userData && userData.points) || (currentUser && currentUser.points)}</h3>
+            <h3 class="text-success my-2">₪ {currentUser && currentUser.points}</h3>
 
             <p class="user-info mb-0 px-2 text-muted">
-              <span class="username text-nowrap ms-1">{(user.sellername)}</span>
+              <span class="username text-nowrap ms-1">{user?.sellername}</span>
               <span class="text-nowrap mx-2">|</span>
-              <span class="text-nowrap me-1">{(userData && userData["seller id"]) || (currentUser && currentUser["seller id"])}</span>
+              <span class="text-nowrap me-1">{user?.sellerid}</span>
             </p>
           </div>
         </div>
@@ -212,6 +212,5 @@ const SideBar = ({ user ,userData }) => {
 };
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  userData: state.auth.userData,
 });
 export default connect(mapStateToProps, {})(SideBar);

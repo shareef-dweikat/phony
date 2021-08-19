@@ -76,7 +76,6 @@ export const getJawwal3g = (mobileNo, refresh) => (dispatch) => {
       localStorage.setItem(storageHash, JSON.stringify(res.data));
     })
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
@@ -112,7 +111,6 @@ export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
       localStorage.setItem(storageHash, JSON.stringify(res.data));
     })
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
@@ -123,7 +121,6 @@ export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
 
 export const getJawwalCredit = (mobileNo) => (dispatch) => {
   dispatch(clearErrors());
-  console.log(mobileNo.slice(4));
   axios
     .post(
       `${BASE_API_URL}/JAB?number=${mobileNo
@@ -137,7 +134,6 @@ export const getJawwalCredit = (mobileNo) => (dispatch) => {
       })
     )
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err.response,
@@ -236,8 +232,6 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   }
 
   if (data.jawwal3g !== null && data.jawwal3g !== undefined) {
-    console.log(data.jawwal3g.id);
-
     Notiflix.Notify.info("Jawwal 3G Charging is in progress");
     const promise = ApiRequest.post(
       `jawwal_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.id}`
@@ -246,7 +240,6 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   }
 
   if (data.jawwalRom !== null && data.jawwalRom !== undefined) {
-    console.log(data.jawwalRom.id);
     Notiflix.Notify.info("Jawwal Roaming Charging is in progress");
 
     const promise = ApiRequest.post(
@@ -257,7 +250,6 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
 
   if (data.jawwalMin !== null && data.jawwalMin !== undefined) {
     Notiflix.Notify.info("Jawwal Min Charging is in progress");
-    console.log(data.jawwalMin.id);
 
     const promise = ApiRequest.post(
       `jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.id}`
@@ -265,7 +257,6 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     promises.push(promise);
   }
   return Promise.all(promises).then((res) => {
-    console.log(res);
     const isAuthFailed = res.some((result) => result.data == "failed, token error");
 
     if (isAuthFailed) {
@@ -283,13 +274,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
 export const addChargeJawwal = (data) => (dispatch) => {
   dispatch(clearErrors());
   const chargeJal = JSON.parse(localStorage.chargeJawwal);
-  console.log(typeof chargeJal, chargeJal);
   chargeJal.push(data);
-  // dispatch({
-  //   type: ADD_JAWWAL_CHARGE,
-  //   payload: data,
-  // });
-  console.log(chargeJal);
   localStorage.setItem("chargeJawwal", JSON.stringify(chargeJal));
 };
 
@@ -507,7 +492,6 @@ export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
   const number = history.split("/")[4];
   const promises = [];
   
-  // console.log(data, number, pushHistory ,lang ,data.jawwalCredit.price);
   if (data.ooredoo3g !== null && data.ooredoo3g !== undefined) {
     Notiflix.Notify.info("ooredoo 3G Charging is in progress");
     const promise = ApiRequest.post(
@@ -581,7 +565,6 @@ export const getGroupesData = (type) => (dispatch) => {
       })
     )
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
@@ -590,7 +573,6 @@ export const getGroupesData = (type) => (dispatch) => {
 };
 
 export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) => {
-  console.log(type, mobile, data, history, "type, mobile, data, history");
   const token = localStorage.jwtUserToken;
 
   dispatch(clearErrors());
@@ -605,13 +587,11 @@ export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) =>
       })
     )
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
       })
     );
-    // history.push('/')
 };
 
 //Hot && azy
@@ -626,7 +606,6 @@ export const getAzy = (mobile) => (dispatch) => {
       })
     )
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
@@ -641,7 +620,6 @@ export const ChargeAzy = (mobile, history) => (dispatch) => {
       console.log(res);
     })
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
@@ -660,7 +638,6 @@ export const getHot = (mobile, history) => (dispatch) => {
       })
     )
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
@@ -676,7 +653,6 @@ export const ChargeHot = (mobile, history) => (dispatch) => {
       console.log(res);
     })
     .catch((err) =>
-      // console.log(err,'fffffff')
       dispatch({
         type: GET_ERRORS,
         payload: err,
