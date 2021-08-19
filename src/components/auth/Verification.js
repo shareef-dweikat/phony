@@ -56,7 +56,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
                   <img src={Logo} alt="logo"></img>
                 </div>
                 <h4 class="card-title text-center">
-                  {translate('weNeed')} <br/> (xxx)-xxx-xx{history.location.state.mobile.slice(8, 10)}
+                  {translate('We sent you a confirmation code to your mobile number')} <br/> (xxx)-xxx-xx{history.location.state.mobile.slice(8, 10)}
                 </h4>
 
                 {massage !== null && massage !== "" && massage !== undefined && <Message msg={massage} />}
@@ -72,7 +72,7 @@ const Verification = ({ verfiyUser, isAuthenticated, massage, mobile }) => {
                     onChange={onChange}
                     required={true}
                     autoFocus={true}
-                    label={translate("code")}
+                    label={translate("Confirmation code")}
                   />
 
                   <div class="form-group mb-0 mt-4 actions">

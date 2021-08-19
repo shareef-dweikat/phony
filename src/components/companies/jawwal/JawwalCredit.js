@@ -19,12 +19,7 @@ const JawwalCredit = ({auth, loading}) => {
       "-" +
       history.split("/")[3].slice(6, 10)
   );
-  const [inputForm, setInputForm] = useState({
-    dis: "",
-    price: null,
-    url: null,
-    id: "",
-  });
+  const [price, setPrice] = useState(null);
   const [selected, setSelected] = useState({});
   const [jawwal3g, setJawwal3g] = useState("");
   const [jawwalRom, setJawwalRom] = useState("");
@@ -51,7 +46,7 @@ const JawwalCredit = ({auth, loading}) => {
   
   const onChange = (e) => {
     const selectedCredit = { ...EMPTY_CREDIT, price: e.target.value };
-    setInputForm({ ...inputForm, [e.target.name]: e.target.value });
+    setPrice(e.target.value);
     setSelected(selectedCredit);
     localStorage.JawwalCredit = JSON.stringify(selectedCredit);
   };
@@ -145,7 +140,7 @@ const JawwalCredit = ({auth, loading}) => {
                   <div class="card card-credit outer-wrapper">
                     <div
                       style={{ cursor: "pointer" }}
-                      onClick={() => onTypeClick({...EMPTY_CREDIT, price: inputForm.price})}
+                      onClick={() => onTypeClick({...EMPTY_CREDIT, price: price})}
                     >
                       <div class="card">
                         <img src={EMPTY_CREDIT.url}></img>
@@ -160,8 +155,8 @@ const JawwalCredit = ({auth, loading}) => {
                           className="mb-5"
                           name="price"
                           type="number"
-                          value={inputForm.price}
                           onChange={onChange}
+                          min={10}
                         />
                       </div>
                     </div>

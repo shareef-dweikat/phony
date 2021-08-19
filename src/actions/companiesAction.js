@@ -225,7 +225,24 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   const number = history.split("/")[3];
   const promises = [];
   
-  // console.log(data, number, pushHistory ,lang ,data.jawwalCredit.price);
+  if (data.jawwalCredit.price < 10 ) {
+    Notiflix.Notify.warning("اقل حد للشحن هو 10 شيكل", {
+      className: "notiflix-notify pp-notiflix",
+    });
+    return new Promise((resolve, reject) => {
+      reject();
+    });
+  }
+
+  if (data.jawwalCredit !== null && data.jawwalCredit !== undefined) {
+    Notiflix.Notify.info("Charging is in progress");
+
+    const promise = axios.post(
+      `${BASE_API_URL}/jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=${data.jawwalCredit.id}`
+    );
+    promises.push(promise);
+  }
+
   if (data.jawwal3g !== null && data.jawwal3g !== undefined) {
     console.log(data.jawwal3g.id);
 
@@ -246,14 +263,6 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     promises.push(promise);
   }
 
-  if (data.jawwalCredit !== null && data.jawwalCredit !== undefined) {
-    Notiflix.Notify.info("Charging is in progress");
-
-    const promise = axios.post(
-      `${BASE_API_URL}/jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=${data.jawwalCredit.id}`
-    );
-    promises.push(promise);
-  }
   if (data.jawwalMin !== null && data.jawwalMin !== undefined) {
     Notiflix.Notify.info("Jawwal Min Charging is in progress");
     console.log(data.jawwalMin.id);

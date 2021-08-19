@@ -79,7 +79,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                       width="260px"
                       height="100px"
                     ></img>
-                    {credit.flexiblePrice && <label className="text-abs">{credit.price}</label>}
+                    {credit.flexiblePrice && <label className="text-abs-oore">{credit.price}</label>}
                     <a className="close-btn" onClick={onCreditRemove}>
                       <i class="fa fa-times" aria-hidden="true"></i>
                     </a>
@@ -122,6 +122,9 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 <div className="card outer-wrapper">
                   <div className="frame1">
                     <img alt="Ooredoo Rom" src={rom.url} width="260px" height="100px"></img>
+                    {(rom.auto_renew === "True" || rom.auto_renew === "true") && (
+                      <Badge text={translate("Renewable")}></Badge>
+                    )}
                     <a className="close-btn" onClick={removeRom}>
                       <i class="fa fa-times" aria-hidden="true"></i>
                     </a>
@@ -134,6 +137,9 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 <div className="card outer-wrapper">
                   <div className="frame1">
                     <img alt="Ooredoo Shabab" src={shabab.url} width="260px" height="100px"></img>
+                    {(shabab.auto_renew === "True" || shabab.auto_renew === "true") && (
+                      <Badge text={translate("Renewable")}></Badge>
+                    )}
                     <a className="close-btn" onClick={removeShabab}>
                       <i class="fa fa-times" aria-hidden="true"></i>
                     </a>

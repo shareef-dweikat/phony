@@ -61,7 +61,7 @@ const SignUpVerification = ({ verfiySignUpUser, isAuthenticated, massage }) => {
                   <img src={Logo} alt="logo"></img>
                 </div>
                 <h4 class="card-title text-center">
-                  {translate('weNeed')} <br/> (xxx)-xxx-xx{history.location?.state?.mobile.slice(8, 10)}
+                  {translate('We sent you a confirmation code to your mobile number')} <br/> (xxx)-xxx-xx{history.location?.state?.mobile.slice(8, 10)}
                 </h4>
 
                 {massage !== null && massage !== "" && massage !== undefined && <Message msg={massage} />}
@@ -78,7 +78,7 @@ const SignUpVerification = ({ verfiySignUpUser, isAuthenticated, massage }) => {
                     onChange={onChange}
                     required={true}
                     autoFocus={true}
-                    label={translate("code")}
+                    label={translate("Confirmation code")}
                   />
 
                   <div class="form-group mb-0 mt-4 actions">
@@ -90,7 +90,7 @@ const SignUpVerification = ({ verfiySignUpUser, isAuthenticated, massage }) => {
               </div>
             </div>
             <div class="mt-4 text-center">
-              {translate("haveAccount")} <a href="/signin">{translate("Sign in")}</a>
+              {translate("Already have an account?")} <a href="/signin">{translate("Sign in")}</a>
             </div>
           </div>
         </div>

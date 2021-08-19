@@ -52,14 +52,14 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
             {!isAuthenticated && (
               <li className="nav-item">
                 <Link className="nav-link active" to="/signup">
-                  {translate("signUp")}
+                  {translate("Sign Up")}
                 </Link>
               </li>
             )}
             {!isAuthenticated && (
               <li className="nav-item">
                 <Link className="nav-link active" to="/signin">
-                  {translate("login")}
+                  {translate("Login")}
                 </Link>
               </li>
             )}

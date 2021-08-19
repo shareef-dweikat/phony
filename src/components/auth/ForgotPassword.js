@@ -63,7 +63,7 @@ const ForgotPassword = ({ forgotPassword, isAuthenticated, massage }) => {
                   <TextFieldGroup
                     style={{ width: "100%" }}
                     className="mb-5"
-                    placeholder={intl.formatMessage({ id: "enter4" })}
+                    placeholder={intl.formatMessage({ id: "Enter your username" })}
                     name="userName"
                     type="number"
                     value={forgotPassowrdForm.userName}

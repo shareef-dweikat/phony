@@ -58,7 +58,7 @@ const GroupCom = ({ getGroupesData, groupCompaneis, loading, chargeGrpupCompany 
                   </button>
                 </div>
                 <label className="mt-1  mo-text col-md-5 col-sm-12 col-form-label mobile-semi">
-                  {translate("mobileNo")}:
+                  {translate("Mobile No.")}:
                 </label>
                 <label
                   className=" mt-1 col-md-3 col-sm-12 col-form-label mobile-semi"

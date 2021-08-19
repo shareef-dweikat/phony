@@ -130,7 +130,7 @@ const Report = () => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("mobileNo")}
+                      {translate("Mobile No.")}
                     </th>
                     <th scope="col text-center">
                       <i
@@ -151,7 +151,7 @@ const Report = () => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("time")}
+                      {translate("Time & Date")}
                     </th>
                     <th scope="col text-center">{translate("restoration")}</th>
                   </tr>
@@ -186,7 +186,6 @@ const Report = () => {
             </div>
           </div>
         </div>
-        {/* {translate("test")} */}
       </div>
     </div>
   );

@@ -44,7 +44,7 @@ const SideBar = ({ user ,userData }) => {
       <div className="sidebar">
         <div class="widget-flat card">
           <div class="card-body">
-            <h5 class="text-muted mt-0" title="Balance" style={{fontSize: "1rem"}}>{translate("balance")}</h5>
+            <h5 class="text-muted mt-0" title="Balance" style={{fontSize: "1rem"}}>{translate("Balance Avaliable")}</h5>
             <h3 class="text-info my-2 mb-1">₪ {(userData && userData.balance) || (currentUser && currentUser.balance)}</h3>
 
             <hr className="divider my-2"></hr>
@@ -74,7 +74,7 @@ const SideBar = ({ user ,userData }) => {
             <a className="link-main " href="/">
               <span>
                 <i className="icon-main fa fa-home m-2"></i>
-                {translate("home")}
+                {translate("Home")}
               </span>
             </a>
           </div>
@@ -89,7 +89,7 @@ const SideBar = ({ user ,userData }) => {
                   className="icon-main fas fa-globe  m-2"
                   aria-hidden="true"
                 ></i>
-                {translate("internet")}
+                {translate("Internet")}
               </span>
             </a>
           </div>
@@ -119,7 +119,7 @@ const SideBar = ({ user ,userData }) => {
                   className="icon-main fa fa-gamepad  m-2"
                   aria-hidden="true"
                 ></i>
-                {translate("gaming")}
+                {translate("Gaming")}
               </span>
             </a>
           </div>
@@ -134,7 +134,7 @@ const SideBar = ({ user ,userData }) => {
                   className="icon-main fa fa-credit-card  m-2"
                   aria-hidden="true"
                 ></i>
-                {translate("cards")}
+                {translate("Gift Cards")}
               </span>
             </a>
           </div>

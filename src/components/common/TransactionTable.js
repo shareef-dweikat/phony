@@ -34,8 +34,8 @@ const TransactionTable = ({ getLastTransaction, last }) => {
         .then((res) => {
             isLoading(false);
             swal({
-                title: `${intl.formatMessage({ id: "Transaction" })} #${tranId}`,
-                text: res,
+                title: res,
+                text: "",
                 icon: "info",
                 button: intl.formatMessage({ id:"OK" }),
             });
@@ -64,9 +64,9 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                         <tr>
                             <th scope="col ">{translate("Transaction")}</th>
                             <th scope="col">{translate("Provider")}</th>
-                            <th scope="col">{translate("MobileNo.")}</th>
+                            <th scope="col">{translate("Mobile No.")}</th>
                             <th scope="col">{translate("Amount")}</th>
-                            <th scope="col">{translate("Data & Time")}</th>
+                            <th scope="col">{translate("Date & Time")}</th>
                             <th scope="col">{translate("Status")}</th>
                             <th scope="col">{translate("Actions")}</th>
                         </tr>

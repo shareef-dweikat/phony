@@ -39,7 +39,7 @@ const Home = ({ user }) => {
             <div className="card img-back" style={
                 sessionStorage.getItem("main_picture") ? {backgroundImage: `url("${sessionStorage.getItem("main_picture")}")` } : {}
               }>
-              <h1 className="header-text">{translate("company")}</h1>
+              <h1 className="header-text">{translate("Companies")}</h1>
             </div>
           </div>
           <div className="">

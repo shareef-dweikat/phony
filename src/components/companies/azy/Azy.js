@@ -11,7 +11,6 @@ const Azy = ({ getAzy, loading, azy, ChargeAzy }) => {
   const [selected, setSelected] = useState();
   const mobileNo = history.location.pathname.split("/")[3];
   useEffect(() => {
-    console.log(mobileNo, "mobileNo");
     getAzy(mobileNo);
     document.title = "Azy | Phone Play";
   }, []);
@@ -51,7 +50,7 @@ const Azy = ({ getAzy, loading, azy, ChargeAzy }) => {
                     </button>
                   </div>
                   <label className="mt-1  mo-text col-md-5 col-sm-12 col-form-label mobile-semi">
-                    {translate("mobileNo")}:
+                    {translate("Mobile No.")}:
                   </label>
                   <label
                     className=" mt-1 col-md-3 col-sm-12 col-form-label mobile-semi"

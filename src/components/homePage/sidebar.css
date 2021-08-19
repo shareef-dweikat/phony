@@ -69,3 +69,7 @@ hr.divider {
 .card.card-currency table.currecy-rates tr td:nth-child(2n) {
     width: 30%;
 }
+
+#wholeContainer {
+    top: 16px !important;
+}

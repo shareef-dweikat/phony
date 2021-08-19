@@ -94,7 +94,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                   <img src={Logo} alt="logo"></img>
                 </div>
                 <h4 class="card-title text-center">{translate("Create your free account")}</h4>
-                <h6 class="card-subtitle text-center">{translate("haveAccount")} <a href="/signin">{translate("Sign in")}</a></h6>
+                <h6 class="card-subtitle text-center">{translate("Already have an account?")} <a href="/signin">{translate("Sign in")}</a></h6>
                 
                 <form method="POST" class="signup-validation" novalidate="" onSubmit={(e) => onSubmit(e)}>
 
@@ -108,25 +108,25 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                   />
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "enter0" })}
+                    placeholder={intl.formatMessage({ id: "Enter your fullname" })}
                     name="fullName"
                     type="text"
                     value={signUpForm.fullName}
                     onChange={onChange}
                     error={errors1.fullName}
                     autoFocus={true}
-                    label={translate("fullname")}
+                    label={translate("Fullname")}
                     required={true}
                   />
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "enter2" })}
+                    placeholder={intl.formatMessage({ id: "Enter your mobile number" })}
                     name="mobile"
                     type="number"
                     value={signUpForm.mobile}
                     onChange={onChange}
                     error={errors1.mobile}
-                    label={translate("mobileNumber")}
+                    label={translate("Mobile Number")}
                     required={true}
                   />
 
@@ -143,7 +143,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
 
                   <Select
                     name="city"
-                    placeholder={intl.formatMessage({ id: "enter5" })}
+                    placeholder={intl.formatMessage({ id: "Enter your city" })}
                     label={intl.formatMessage({ id: "City" })}
                     options={cities}
                     error={errors1.city}
@@ -153,45 +153,45 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                   />
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "enter3" })}
+                    placeholder={intl.formatMessage({ id: "Enter your address" })}
                     name="address"
                     type="text"
                     value={signUpForm.address}
                     onChange={onChange}
                     error={errors1.address}
-                    label={translate("address")}
+                    label={translate("Address")}
                   />
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "password" })}
+                    placeholder={intl.formatMessage({ id: "Password" })}
                     name="password"
                     type="password"
                     value={signUpForm.password}
                     onChange={onChange}
                     error={errors1.password}
-                    label={translate("password")}
+                    label={translate("Password")}
                     required={true}
                   />
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "confirmPassword" })}
+                    placeholder={intl.formatMessage({ id: "Confirm password" })}
                     name="password2"
                     type="password"
                     value={signUpForm.password2}
                     onChange={onChange}
                     error={errors1.password2}
-                    label={translate("confirmPassword")}
+                    label={translate("Confirm password")}
                     required={true}
                   />
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "enter1" })}
+                    placeholder={intl.formatMessage({ id: "Enter your email" })}
                     name="email"
                     type="email"
                     value={signUpForm.email}
                     onChange={onChange}
                     error={errors1.email}
-                    label={translate("email")}
+                    label={translate("Email")}
                   />
 
                   <TextFieldGroup
@@ -206,7 +206,7 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
                   
                   <div class="form-group mb-0 mt-4 actions">
                     <button type="submit" class="btn btn-primary btn-block" disabled={loading}>
-                      {translate("register1")}
+                      {translate("Register")}
                     </button>
                   </div>
                 </form>

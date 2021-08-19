@@ -16,12 +16,7 @@ const CreditOoredoo = ({ auth, loading }) => {
   const mobileNo = history.split("/")[4];
   const formattedMbileNo = mobileNo.slice(0, 3) + "-" + mobileNo.slice(3, 6) + "-" + mobileNo.slice(6, 10);
 
-  const [inputForm, setInputForm] = useState({
-    dis: "",
-    price: null,
-    url: null,
-    id: "",
-  });
+  const [price, setPrice] = useState(null);
   const [g3, setG3] = useState("");
   const [min, setMin] = useState("");
   const [credit, setCredit] = useState("");
@@ -54,7 +49,7 @@ const CreditOoredoo = ({ auth, loading }) => {
   
   const onChange = (e) => {
     const selectedCredit = { ...EMPTY_CREDIT, price: e.target.value };
-    setInputForm({ ...inputForm, [e.target.name]: e.target.value });
+    setPrice(e.target.value);
     setCredit(selectedCredit);
     localStorage.ooredooCredit = JSON.stringify(selectedCredit);
   };
@@ -148,23 +143,23 @@ const CreditOoredoo = ({ auth, loading }) => {
                   <div class="card card-credit outer-wrapper">
                     <div
                       style={{ cursor: "pointer" }}
-                      onClick={() => onTypeClick({...EMPTY_CREDIT, price: inputForm.price})}
+                      onClick={() => onTypeClick({...EMPTY_CREDIT, price: price})}
                     >
                       <div class="card">
                         <img src={EMPTY_CREDIT.url}></img>
                         <TextFieldGroup
                           style={{ 
-                            width: "calc(50% - 35px)", height: "90%", padding: 0,
-                            position: "absolute", top: "50%", left: "calc(50% + 25px)",
+                            width: "calc(50% - 20px)", height: "70%", padding: 0,
+                            position: "absolute", top: "50%", left: "calc(50% + 12px)",
                             transform: "translateY(-50%)",
                             fontSize: "2rem", fontFamily: '"Montserrat", sans-serif', textAlign: "center",
-                            outline: "#333d4c auto 4px", backgroundColor: "transparent", color: "#fff",
+                            outline: "rgb(16, 16, 16) auto 4px", color: "#bb0d0e",
                           }}
                           className="mb-5"
                           name="price"
                           type="number"
-                          value={inputForm.price}
                           onChange={onChange}
+                          min={10}
                         />
                       </div>
                     </div>

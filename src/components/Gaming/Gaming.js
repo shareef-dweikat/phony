@@ -19,7 +19,7 @@ const Gaming = () => {
               <div className="card img-back" style={
                 sessionStorage.getItem("main_picture") ? {backgroundImage: `url("${sessionStorage.getItem("main_picture")}")` } : {}
               }>
-                <h1 className="header-text">{translate("gaming")}</h1>
+                <h1 className="header-text">{translate("Gaming")}</h1>
               </div>
             </div>
 

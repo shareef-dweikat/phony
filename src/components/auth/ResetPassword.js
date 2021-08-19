@@ -63,7 +63,7 @@ const ResetPassword = ({ resetPassword, isAuthenticated, massage, mobile }) => {
                   <img src={Logo} alt="logo"></img>
                 </div>
                 <h4 class="card-title text-center">
-                  {translate('weNeed')}<br/>
+                  {translate('We sent you a confirmation code to your mobile number')}<br/>
                   <span className="mobile-number">(xxx)-xxx-{virefyForm?.last_4_digit}</span>
                 </h4>
 
@@ -81,28 +81,28 @@ const ResetPassword = ({ resetPassword, isAuthenticated, massage, mobile }) => {
                     onChange={onChange}
                     required={true}
                     autoFocus={true}
-                    label={translate("code")}
+                    label={translate("Confirmation code")}
                   />
                   
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "password" })}
+                    placeholder={intl.formatMessage({ id: "Password" })}
                     name="password"
                     type="password"
                     value={virefyForm.password}
                     onChange={onChange}
                     error={errors1.password}
-                    label={translate("password")}
+                    label={translate("Password")}
                     required={true}
                   />
 
                   <TextFieldGroup
-                    placeholder={intl.formatMessage({ id: "confirmPassword" })}
+                    placeholder={intl.formatMessage({ id: "Confirm password" })}
                     name="password2"
                     type="password"
                     value={virefyForm.password2}
                     onChange={onChange}
                     error={errors1.password2}
-                    label={translate("confirmPassword")}
+                    label={translate("Confirm password")}
                     required={true}
                   />
 

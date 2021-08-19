@@ -1,9 +1,9 @@
-import en from "./en-US";
-import ar from "./ar-SU";
-import is from "./is-ISR";
+import en from "./en.json";
+import ar from "./ar.json";
+import he from "./he.json";
 
 export default {
-  ...en,
-  ...ar,
-  ...is,
+  en: en,
+  ar: ar,
+  is: he,
 };

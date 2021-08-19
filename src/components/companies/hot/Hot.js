@@ -11,7 +11,6 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
   const [selected, setSelected] = useState();
   const mobileNo = history.location.pathname.split("/")[3];
   useEffect(() => {
-    console.log(mobileNo, "mobileNo");
     getHot(mobileNo);
     document.title = "Azy | Phone Play";
   }, []);
@@ -54,7 +53,7 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
                     </button>
                   </div>
                   <label className="mt-1  mo-text col-md-5 col-sm-12 col-form-label mobile-semi">
-                    {translate("mobileNo")}:
+                    {translate("Mobile No.")}:
                   </label>
                   <label
                     className=" mt-1 col-md-3 col-sm-12 col-form-label mobile-semi"

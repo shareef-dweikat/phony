@@ -34,7 +34,7 @@
   right: 12%;
   font-size: 2rem;
   font-weight: 900;
-  color: #dc8d2f;
+  color: #bb0d0e;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
@@ -43,9 +43,16 @@
 }
 
 .ooredoo-container .text-abs {
-  left: calc(50% + 10px);
-  font-size: 1.4rem;
-  color: #fff;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 5px);
+  font-size: 2rem;
+  font-weight: 900;
+  color: #14c259;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  transform: translateY(-50%);
+  text-align: center;
+  width: calc(50% - 10px);
 }
 
 .ooredoo-container .ooredoo-back {

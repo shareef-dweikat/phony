@@ -72,7 +72,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
                   <TextFieldGroup
                     style={{ width: "100%" }}
                     className="mb-5"
-                    placeholder={intl.formatMessage({ id: "enter4" })}
+                    placeholder={intl.formatMessage({ id: "Enter your username" })}
                     name="userName"
                     type="number"
                     value={loginForm.userName}
@@ -85,7 +85,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
 
                   <TextFieldGroup
                     style={{ width: "100%" }}
-                    placeholder={intl.formatMessage({ id: "password" })}
+                    placeholder={intl.formatMessage({ id: "Password" })}
                     name="password"
                     type="password"
                     value={loginForm.password}
@@ -108,7 +108,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
               </div>
             </div>
             <div class="mt-4 text-center">
-              {translate("Don't have an account?")} <a href="/signup">{translate("Sign up")}</a>
+              {translate("Don't have an account?")} <a href="/signup">{translate("Sign Up")}</a>
             </div>
           </div>
         </div>
