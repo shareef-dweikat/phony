@@ -3,6 +3,7 @@ import { SET_CURRENT_USER, GET_ERRORS, CLEAR_ERRORS, GET_USER_DATA } from "./typ
 import Notiflix from "notiflix";
 import IPData from 'ipdata';
 import { isObject, isString } from "lodash";
+import ApiRequest from "./ApiRequest";
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API;
 const ipdata = new IPData(process.env.REACT_APP_IPDATA_KEY);
@@ -218,7 +219,7 @@ export const resetPassword = (verfiyData, history) => (dispatch) => {
 };
 
 export const callGetSellerNumber = () => {
-  return axios.post("http://api.phoneplay.me/api/v1/resources/getsellerno");
+  return ApiRequest.post("getsellerno");
 };
 
 export const callIpApi = () => {
@@ -226,7 +227,7 @@ export const callIpApi = () => {
 };
 
 export const getMainPicture = () => {
-  return axios.post("http://api.phoneplay.me/api/v1/resources/get_main_picture")
+  return ApiRequest.post("get_main_picture")
   .then((res) => {
     if (res.data.status !== "success") {
       return null;
@@ -237,7 +238,7 @@ export const getMainPicture = () => {
 }
 
 export const getAdvertise = (lang = "ar") => {
-  return axios.post(`http://api.phoneplay.me/api/v1/resources/advertise?lang=${lang}`);
+  return ApiRequest.post(`advertise?lang=${lang}`);
 }
 
 export const userData = () => (dispatch) => {

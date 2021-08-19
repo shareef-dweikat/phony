@@ -67,11 +67,7 @@ export const getJawwal3g = (mobileNo, refresh) => (dispatch) => {
       payload: jawwal3g,
     });
   } else {
-    axios.post(
-      `${BASE_API_URL}/JAB?number=${mobileNo
-        .split("-")
-        .join("")}&bundle=3g&language=${lang}&refresh=${refresh}`
-    )
+    ApiRequest.post(`/JAB?number=${mobileNo.split("-").join("")}&bundle=3g&language=${lang}&refresh=${refresh}`)
     .then((res) => {
       dispatch({
         type: GET_JAWWAL_3G,
@@ -107,11 +103,7 @@ export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
       payload: jawwalRom,
     });
   } else {
-    axios.post(
-      `${BASE_API_URL}/JAB?number=${mobileNo
-        .split("-")
-        .join("")}&bundle=rom&language=arabic&refresh=${refresh}`
-    )
+    ApiRequest.post(`JAB?number=${mobileNo.split("-").join("")}&bundle=rom&language=arabic&refresh=${refresh}`)
     .then((res) => {
       dispatch({
         type: GET_JAWWAL_ROM,
@@ -237,8 +229,8 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   if (data.jawwalCredit !== null && data.jawwalCredit !== undefined) {
     Notiflix.Notify.info("Charging is in progress");
 
-    const promise = axios.post(
-      `${BASE_API_URL}/jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=${data.jawwalCredit.id}`
+    const promise = ApiRequest.post(
+      `jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&token=${token}&amount=${data.jawwalCredit.price}&pci=${data.jawwalCredit.id}`
     );
     promises.push(promise);
   }
@@ -247,8 +239,8 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     console.log(data.jawwal3g.id);
 
     Notiflix.Notify.info("Jawwal 3G Charging is in progress");
-    const promise = axios.post(
-      `${BASE_API_URL}/jawwal_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.id}`
+    const promise = ApiRequest.post(
+      `jawwal_topup?number=${number}&cardtype=3g&language=${lang}&token=${token}&amount=0&pci=${data.jawwal3g.id}`
     );
     promises.push(promise);
   }
@@ -257,8 +249,8 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     console.log(data.jawwalRom.id);
     Notiflix.Notify.info("Jawwal Roaming Charging is in progress");
 
-    const promise = axios.post(
-      `${BASE_API_URL}/jawwal_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.jawwalRom.id}`
+    const promise = ApiRequest.post(
+      `jawwal_topup?number=${number}&cardtype=rom&language=${lang}&token=${token}&amount=0&pci=${data.jawwalRom.id}`
     );
     promises.push(promise);
   }
@@ -267,8 +259,8 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     Notiflix.Notify.info("Jawwal Min Charging is in progress");
     console.log(data.jawwalMin.id);
 
-    const promise = axios.post(
-      `${BASE_API_URL}/jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.id}`
+    const promise = ApiRequest.post(
+      `jawwal_topup?number=${number}&cardtype=min&language=${lang}&token=${token}&amount=0&pci=${data.jawwalMin.id}`
     );
     promises.push(promise);
   }
