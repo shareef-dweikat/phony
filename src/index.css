@@ -28,3 +28,7 @@ code {
 .mt-7 {
   margin-top: 5rem!important;
 }
+
+.hidden {
+  display: none !important;
+}

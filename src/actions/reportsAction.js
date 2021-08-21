@@ -9,7 +9,6 @@ export const getLastTransaction = () => (dispatch) => {
       `get_seller_transactions?sellerid=${sallerId}`
     )
     .then((res) => {
-      console.log(res.data);
       dispatch({
         type: GET_LAST_TRANSACTION,
         payload: res.data,

@@ -10,6 +10,7 @@ import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
 import { useIntl } from "react-intl";
 import Selected from "./Selected";
+import { isArray } from "lodash";
 
 const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNotRnewJawwal3g }) => {
   const history = useHistory().location.pathname;
@@ -173,7 +174,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNo
                 {loading && (
                   <Spinner/>
                 )}
-                {jawwal3g && jawwal3g.length === 0 && !loading ? (
+                {!isArray(jawwal3g) && !loading ? (
                   <div className="d-flex justify-content-center mt-3">
                     <h1 className="warning-text">{translate('NoAvailable')}</h1>
                   </div>

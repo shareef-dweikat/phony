@@ -45,7 +45,10 @@ export const loginUser = (userData, ip, history) => (dispatch) => {
             .then((res) => {});
           history.push({
             pathname: `/verification/${res.data.sellerid}`,
-            state: { mobile: res.data["mobile number"] },
+            state: {
+              mobile: res.data["mobile number"],
+              sellerId: userData.userName,
+            },
           });
         }
       }
@@ -159,6 +162,30 @@ export const signUpUser = (userData, ip, history) => (dispatch) => {
         payload: "Somthing went Wrong !!",
       });
     });
+};
+
+export const callResendCode = (sellerid) => (dispatch) => {
+  return new Promise((resolve, rejct) => {
+    return ApiRequest
+    .post(`verification?sellerid=${sellerid}`)
+    .then((res) => {
+      if (res.data != "success") {
+        dispatch({
+          type: GET_ERRORS,
+          payload: "Something went wrong!",
+        });
+      }
+      return resolve(res);
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({
+        type: GET_ERRORS,
+        payload: "Something went wrong!",
+      });
+      rejct(err);
+    });
+  })
 };
 
 export const forgotPassword = (userData, history) => (dispatch) => {

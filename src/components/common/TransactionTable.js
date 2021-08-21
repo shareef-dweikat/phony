@@ -5,7 +5,7 @@ import moment from "moment";
 import Spinner from "../ui/spinner/Spinner";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
-import swal from 'sweetalert';
+import Toast from "./Toast";
 import { useIntl } from "react-intl";
 
 const TransactionTable = ({ getLastTransaction, last }) => {
@@ -33,7 +33,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
         showTransctionDetails(tranId, intl.locale)
         .then((res) => {
             isLoading(false);
-            swal({
+            Toast.fire({
                 title: res,
                 text: "",
                 icon: "info",

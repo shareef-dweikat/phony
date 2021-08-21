@@ -263,5 +263,9 @@
   "village": "قرية",
   "weNeed": "أرسلنا لك رمز التأكيد على رقم هاتفك المحمول",
   "wellcome": "Welcome Guest",
-  "xBox": "إكس بوكس"
+  "xBox": "إكس بوكس",
+
+  "Resend code": "إعادة إرسال الرمز",
+  "Something went wrong!": "هناك خطأ ما!"
+
 }

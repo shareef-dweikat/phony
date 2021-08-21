@@ -6,7 +6,7 @@ import { LOCALES_COUNTRIES } from "../../../../i18n";
 const langs = {
     ar: "PS",
     en: "US",
-    is: "IL"
+    he: "IL"
 };
 
 const LanguageChooser = () => {
@@ -16,7 +16,7 @@ const LanguageChooser = () => {
     useEffect(() => {
         if (localStorage.langCity === "en") {
           setSelected("US");
-        } else if (localStorage.langCity === "is") {
+        } else if (localStorage.langCity === "he") {
           setSelected("IL");
         }
     }, []);
@@ -27,7 +27,7 @@ const LanguageChooser = () => {
         } else if (code === "PS") {
             localStorage.langCity = "ar";
         } else {
-            localStorage.langCity = "is";
+            localStorage.langCity = "he";
         }
         window.location.reload();
     };

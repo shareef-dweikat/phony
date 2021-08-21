@@ -34,16 +34,16 @@ import {
 import Notiflix from "notiflix";
 import { logoutUser } from "./userAction";
 import ApiRequest from "./ApiRequest";
+import Toast from "../components/common/Toast";
+import { isEmpty, isNil } from "lodash";
 
-var lang;
+var lang = "arabic";
 if (localStorage.langCity === "en") {
   lang = "english";
 } else if (localStorage.langCity === "ar") {
   lang = "arabic";
-} else if (localStorage.langCity === "is") {
+} else if (localStorage.langCity === "he") {
   lang = "israel";
-} else {
-  lang = "english";
 }
 //jawwal Actions
 
@@ -212,63 +212,98 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   const number = history.split("/")[3];
   const promises = [];
   
-  if (data.jawwalCredit.price < 10 ) {
-    Notiflix.Notify.warning("اقل حد للشحن هو 10 شيكل", {
-      className: "notiflix-notify pp-notiflix",
-    });
-    return new Promise((resolve, reject) => {
-      reject();
-    });
-  }
-
-  if (data.jawwalCredit !== null && data.jawwalCredit !== undefined) {
-    Notiflix.Notify.info("Charging is in progress");
-
+  if (!isNil(data.jawwalCredit)) {
+    if (data.jawwalCredit.price < 10 ) {
+      Notiflix.Notify.warning("اقل حد للشحن هو 10 شيكل", {
+        className: "notiflix-notify pp-notiflix",
+      });
+      return new Promise((resolve, reject) => {
+        reject();
+      });
+    }
+  
     const promise = ApiRequest.post(
       `jawwal_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&amount=${data.jawwalCredit.price}&pci=${data.jawwalCredit.id}`
     );
     promises.push(promise);
   }
 
-  if (data.jawwal3g !== null && data.jawwal3g !== undefined) {
-    Notiflix.Notify.info("Jawwal 3G Charging is in progress");
+  if (!isNil(data.jawwal3g)) {
     const promise = ApiRequest.post(
-      `jawwal_topup?number=${number}&cardtype=3g&language=${lang}&amount=0&pci=${data.jawwal3g.id}`
+      `jawwal_3g?number=${number}&cardtype=3g&language=${lang}&amount=0&pci=${data.jawwal3g.id}`
     );
     promises.push(promise);
   }
 
-  if (data.jawwalRom !== null && data.jawwalRom !== undefined) {
-    Notiflix.Notify.info("Jawwal Roaming Charging is in progress");
-
+  if (!isNil(data.jawwalRom)) {
     const promise = ApiRequest.post(
-      `jawwal_topup?number=${number}&cardtype=rom&language=${lang}&amount=0&pci=${data.jawwalRom.id}`
+      `jawwal_3g?number=${number}&cardtype=rom&language=${lang}&amount=0&pci=${data.jawwalRom.id}`
     );
     promises.push(promise);
   }
 
-  if (data.jawwalMin !== null && data.jawwalMin !== undefined) {
-    Notiflix.Notify.info("Jawwal Min Charging is in progress");
-
+  if (!isNil(data.jawwalMin)) {
     const promise = ApiRequest.post(
       `jawwal_topup?number=${number}&cardtype=min&language=${lang}&amount=0&pci=${data.jawwalMin.id}`
     );
     promises.push(promise);
   }
-  return Promise.all(promises).then((res) => {
-    const isAuthFailed = res.some((result) => result.data == "failed, token error");
 
+  return Promise.all(promises)
+  .then((res) => {
+    const isAuthFailed = res.some((result) => result.data == "failed, token error");
     if (isAuthFailed) {
+      Toast.fire({
+        title: "يجب تسجيل دخول مرة اخرى",
+        icon: "error",
+      });
       return logoutUser(pushHistory)
     }
+    
+    const noBalance = res.some((result) => result.data.reason == "seller no balance");
+    if (noBalance) {
+      Toast.fire({
+        title: "لا يوجد رصيد متوفر",
+        icon: "warning",
+      });
+      return;
+    }
 
-    localStorage.removeItem("JawwalMin");
-    localStorage.removeItem("Jawwal3g");
-    localStorage.removeItem("JawwalCredit");
-    localStorage.removeItem("JawwalRom");
+    const isFailed = res.some((result) => result.data.status == "failed");
+    if (isFailed) {
+      const erros = [];
+      res.forEach((result) => {
+        if (result.data.status === "failed") {
+          erros.push(result.data.reason);
+        }
+      });
+      if (!isEmpty(erros)) {
+        Toast.fire({
+          title: erros.join("\n"),
+          icon: "warning",
+        });  
+      }
+      return;
+    }
+
+    Toast.fire({
+      title: "طلبك قيد التنفيذ",
+      icon: "succuss",
+    });
+
+    clearSelected();
     pushHistory.push("/");
+  }).finally(() => {
+    clearSelected();
   });
 };
+
+const clearSelected = () => {
+  localStorage.removeItem("JawwalMin");
+  localStorage.removeItem("Jawwal3g");
+  localStorage.removeItem("JawwalCredit");
+  localStorage.removeItem("JawwalRom");
+}
 
 export const addChargeJawwal = (data) => (dispatch) => {
   dispatch(clearErrors());

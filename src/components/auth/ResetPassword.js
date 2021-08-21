@@ -4,18 +4,20 @@ import TextFieldGroup from "../common/TextFieldGroup";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { resetPassword } from "./../../actions/userAction";
+import { resetPassword, callResendCode } from "./../../actions/userAction";
 import Message from "./../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
 import validateResetPasswordInput from "../../validation/validateResetPasswordInput";
+import Countdown from 'react-countdown';
+import humanizeDuration from "humanize-duration";
+import { Button } from "react-bootstrap";
+import classnames from "classnames";
 
-const ResetPassword = ({ resetPassword, isAuthenticated, massage, mobile }) => {
+const ResetPassword = ({ resetPassword, callResendCode, isAuthenticated, massage, mobile }) => {
   const history = useHistory();
   const [trialNo, setTrialNo] = useState(0);
   const intl = useIntl();
-
-  console.log("State", history.location.state);
 
   const [virefyForm, setVirefyForm] = useState({
     random_number: "",
@@ -26,6 +28,7 @@ const ResetPassword = ({ resetPassword, isAuthenticated, massage, mobile }) => {
   });
   const [errors1, setErrors1] = useState({});
   const [loading, isLoading] = useState(false);
+  const [timer, setTimer] = useState(180000);
 
   useEffect(() => {
     console.log(history.state);
@@ -52,6 +55,16 @@ const ResetPassword = ({ resetPassword, isAuthenticated, massage, mobile }) => {
       });
     }
   };
+
+  const _updateTimer = (props) => {
+    setTimer(props.total);
+  }
+  const _resendCode = () => {
+    if (timer == 0) {
+      setTimer(180000);
+      callResendCode(virefyForm.seller_id);
+    }
+  }
   return (
     <section class="auth reset-password">
       <div class="container">
@@ -66,6 +79,22 @@ const ResetPassword = ({ resetPassword, isAuthenticated, massage, mobile }) => {
                   {translate('We sent you a confirmation code to your mobile number')}<br/>
                   <span className="mobile-number">(xxx)-xxx-{virefyForm?.last_4_digit}</span>
                 </h4>
+
+                <h6 class="card-subtitle text-center text-muted pb-0">
+                  <Button variant="link" className="py-0 px-1" onClick={_resendCode} disabled={timer != 0}>
+                    {translate("Resend code")}
+                  </Button>
+                  <Countdown
+                    date={Date.now() + timer}
+                    onTick={_updateTimer}
+                    onComplete={_updateTimer}
+                    renderer={props => (
+                      <span className={classnames({"hidden": timer == 0})}>
+                        ({humanizeDuration(props.total, {language: intl.locale, units: ['m', 's']})})
+                      </span>
+                    )}
+                  />
+                </h6>
 
                 {massage !== null && massage !== "" && massage !== undefined && <Message msg={massage} />}
 
@@ -132,4 +161,4 @@ const mapStateToProps = (state) => ({
   massage: state.error.massage,
 });
 
-export default connect(mapStateToProps, { resetPassword })(ResetPassword);
+export default connect(mapStateToProps, { resetPassword, callResendCode })(ResetPassword);

@@ -7,6 +7,7 @@ import SubNav from "./SubNav";
 import { getJawwalRom } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
 import Selected from "./Selected";
+import { isArray } from "lodash";
 
 const JawwalRom = ({ getJawwalRom, loading, jawwalRom }) => {
   const history = useHistory().location.pathname;
@@ -175,7 +176,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom }) => {
                 {loading && (
                   <Spinner/>
                 )}
-                {jawwalRom.filter(({ country }) => country === typeRoming).length === 0 && !loading ? (
+                {!isArray(jawwalRom.filter(({ country }) => country === typeRoming)) && !loading ? (
                   <div className="d-flex justify-content-center mt-3">
                     <h1 className="warning-text">No available bundles</h1>
                   </div>

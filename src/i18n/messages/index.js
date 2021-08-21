@@ -5,5 +5,5 @@ import he from "./he.json";
 export default {
   en: en,
   ar: ar,
-  is: he,
+  he: he,
 };

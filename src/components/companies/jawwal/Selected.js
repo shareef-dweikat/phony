@@ -1,10 +1,11 @@
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import translate from "../../../i18n/translate";
 import { chargeJawwal } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
+import { isEmpty, isNil } from "lodash";
 
 const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, chargeJawwal }) => {
   const history = useHistory().location.pathname;
@@ -47,15 +48,27 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, char
       pushHistory
     )
     .finally(() => {
+      clearSelected();
       isLoading(false);
     });
   };
+
+  const clearSelected = () => {
+    setCredit(getValue(localStorage.JawwalCredit));
+    setMin(getValue(localStorage.JawwalMin));
+    setg3(getValue(localStorage.Jawwal3g));
+    setRom(getValue(localStorage.JawwalRom));
+  }
+  const getValue = (value) => {
+    return isNil(value) || isEmpty(value) ? null : JSON.parse(value);
+  }
+
   return (
     <div className="row">
       <div className="col-10">
         <div className="card m-4s fixed-top1 position-sticky mt-2">
           <div className="row mt-1 fixed-topx px-3">
-            {credit !== {} && credit.price && (
+            {!isNil(credit) && !isEmpty(credit) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -76,7 +89,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, char
                 </div>
               </div>
             )}
-            {min !== "" && (
+            {!isNil(min) && !isEmpty(min) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -91,7 +104,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, char
                 </div>
               </div>
             )}
-            {g3 !== "" && (
+            {!isNil(g3) && !isEmpty(g3) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -106,7 +119,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, char
                 </div>
               </div>
             )}
-            {rom !== "" && (
+            {!isNil(rom) && !isEmpty(rom) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -125,18 +138,18 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, char
         <div class="card total-balance-card mt-2">
           <div class="card-body p-2">
             <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
-            <h3 class="text-info mt-2">₪ {(credit.price ? parseFloat(credit.price) : 0) +
-              (rom.price ? parseFloat(rom.price) : 0) +
-              (g3.price ? parseFloat(g3.price) : 0) +
-              (min.price ? parseFloat(min.price) : 0)}
+            <h3 class="text-info mt-2">₪ {(credit?.price ? parseFloat(credit?.price) : 0) +
+              (rom?.price ? parseFloat(rom?.price) : 0) +
+              (g3?.price ? parseFloat(g3?.price) : 0) +
+              (min?.price ? parseFloat(min?.price) : 0)}
             </h3>
             <button
               type="submit"
               class={`btn btn-success ${
-                (credit.price ? parseFloat(credit.price) : 0) +
-                  (rom.price ? parseFloat(rom.price) : 0) +
-                  (g3.price ? parseFloat(g3.price) : 0) +
-                  (min.price ? parseFloat(min.price) : 0) ===
+                (credit?.price ? parseFloat(credit?.price) : 0) +
+                  (rom?.price ? parseFloat(rom?.price) : 0) +
+                  (g3?.price ? parseFloat(g3?.price) : 0) +
+                  (min?.price ? parseFloat(min?.price) : 0) ===
                   0 && "disabled"
               }`}
               style={{margin: "auto", display: "block"}}

@@ -21,7 +21,7 @@ const Routes = ({ user }) => {
       <Route exact path="/forgot-password" component={ForgotPassword} />
       <Route exact path="/reset-password" component={ResetPassword} />
       <Route exact path="/verification/:id" component={Verification} />
-      <Route exact path="/signup-verification/" component={SignUpVerification} />
+      <Route exact path="/signup-verification" component={SignUpVerification} />
 
       <Route component={AuthenticatedRoutes} />
     </Switch>
