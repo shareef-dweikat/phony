@@ -285,7 +285,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     });
 
     clearJawwalSelected();
-    pushHistory.push("/");
+    pushHistory.push("/?refresh=true");
   });
 };
 
@@ -599,7 +599,7 @@ export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
     });
 
     clearOoredooSelected();
-    pushHistory.push("/");
+    pushHistory.push("/?refresh=true");
   });
 };
 

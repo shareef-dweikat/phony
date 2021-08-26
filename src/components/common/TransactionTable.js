@@ -7,17 +7,21 @@ import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import Toast from "./Toast";
 import { useIntl } from "react-intl";
+import { useHistory } from "react-router-dom";
 
 const TransactionTable = ({ getLastTransaction, last }) => {
+    const history = useHistory();
     const [loading, isLoading] = useState(false);
     const intl = useIntl();
-    
+    const url = new URLSearchParams(history.location.search)
+
     useEffect(() => {
-        isLoading(true);
-        getLastTransaction()
-        .finally(() => {
-            isLoading(false);
-        });
+        updateTransactions();
+        if (url.get("refresh") == "true") {
+            setTimeout(() => {
+                updateTransactions();
+            }, 10000);
+        }
     }, []);
 
     const updateTransactions = () => {
