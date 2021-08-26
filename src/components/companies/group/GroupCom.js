@@ -139,7 +139,7 @@ const GroupCom = ({ getGroupesData, groupCompaneis, loading, chargeGrpupCompany 
 
                     <div
                       id={item.SPID}
-                      className="collapse hidden"
+                      className="collapse"
                       aria-labelledby="headingOne"
                       data-parent="#accordion"
                     >

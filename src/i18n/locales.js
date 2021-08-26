@@ -9,3 +9,9 @@ export const LOCALES_COUNTRIES = {
   ar: "PS",
   he: "IL",
 };
+
+export const AVALIABLE_LANGUAGES = {
+  ar: "arabic",
+  en: "english",
+  he: "israel",
+}

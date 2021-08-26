@@ -220,7 +220,7 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
                           </h5>
                         </div>
 
-                        <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id={index} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                           <div class="card-body">
                             {item.bundle_description}
                             <br/>

@@ -31,22 +31,14 @@ import {
   GET_AZY,
   GET_HOT,
 } from "./types";
-import Notiflix from "notiflix";
 import { logoutUser } from "./userAction";
 import ApiRequest from "./ApiRequest";
 import Toast from "../components/common/Toast";
 import { isEmpty, isNil } from "lodash";
+import { intl } from "../i18n/provider";
+import { AVALIABLE_LANGUAGES } from "../i18n/locales";
 
-var lang = "arabic";
-if (localStorage.langCity === "en") {
-  lang = "english";
-} else if (localStorage.langCity === "ar") {
-  lang = "arabic";
-} else if (localStorage.langCity === "he") {
-  lang = "israel";
-}
-//jawwal Actions
-
+const lang = AVALIABLE_LANGUAGES[intl.locale];
 const BASE_API_URL = process.env.REACT_APP_BASE_API;
 
 export const getJawwal3g = (mobileNo, refresh) => (dispatch) => {
@@ -102,7 +94,7 @@ export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
       payload: jawwalRom,
     });
   } else {
-    ApiRequest.post(`JAB?number=${mobileNo.split("-").join("")}&bundle=rom&language=arabic&refresh=${refresh}`)
+    ApiRequest.post(`JAB?number=${mobileNo.split("-").join("")}&bundle=rom&language=${lang}&refresh=${refresh}`)
     .then((res) => {
       dispatch({
         type: GET_JAWWAL_ROM,
@@ -214,8 +206,9 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
   
   if (!isNil(data.jawwalCredit)) {
     if (data.jawwalCredit.price < 10 ) {
-      Notiflix.Notify.warning("اقل حد للشحن هو 10 شيكل", {
-        className: "notiflix-notify pp-notiflix",
+      Toast.fire({
+        title: intl.formatMessage({id: "The minimum credit is 10 NIS"}),
+        icon: "warning",
       });
       return new Promise((resolve, reject) => {
         reject();
@@ -244,7 +237,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
 
   if (!isNil(data.jawwalMin)) {
     const promise = ApiRequest.post(
-      `jawwal_topup?number=${number}&cardtype=min&language=${lang}&amount=0&pci=${data.jawwalMin.id}`
+      `jawwal_3g?number=${number}&cardtype=min&language=${lang}&amount=0&pci=${data.jawwalMin.id}`
     );
     promises.push(promise);
   }
@@ -254,7 +247,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     const isAuthFailed = res.some((result) => result.data == "failed, token error");
     if (isAuthFailed) {
       Toast.fire({
-        title: "يجب تسجيل دخول مرة اخرى",
+        title: intl.formatMessage({id: "You must log in again!"}),
         icon: "error",
       });
       return logoutUser(pushHistory)
@@ -263,7 +256,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     const noBalance = res.some((result) => result.data.reason == "seller no balance");
     if (noBalance) {
       Toast.fire({
-        title: "لا يوجد رصيد متوفر",
+        title: intl.formatMessage({id: "No balance available"}),
         icon: "warning",
       });
       return;
@@ -287,18 +280,16 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
     }
 
     Toast.fire({
-      title: "طلبك قيد التنفيذ",
+      title: intl.formatMessage({id: "Your request is in progress"}),
       icon: "succuss",
     });
 
-    clearSelected();
+    clearJawwalSelected();
     pushHistory.push("/");
-  }).finally(() => {
-    clearSelected();
   });
 };
 
-const clearSelected = () => {
+const clearJawwalSelected = () => {
   localStorage.removeItem("JawwalMin");
   localStorage.removeItem("Jawwal3g");
   localStorage.removeItem("JawwalCredit");
@@ -328,7 +319,7 @@ export const clearErrors = () => {
 };
 
 //OOREDOO
-export const getOoredooMin = (mobileNo, refresh = false) => (dispatch) => {
+export const getOoredooMin = (refresh = false) => (dispatch) => {
   dispatch(clearErrors());
   dispatch({
     type: GET_OOREDOO_MIN,
@@ -338,7 +329,7 @@ export const getOoredooMin = (mobileNo, refresh = false) => (dispatch) => {
     type: LOADING_TRUE,
   });
 
-  const storageHash = sha256(`N${mobileNo}TooredooMin`).toString();
+  const storageHash = sha256(`NallTooredooMin`).toString();
   const ooredooMin = JSON.parse(localStorage.getItem(storageHash));
   if (!refresh && ooredooMin) {
     dispatch({
@@ -347,7 +338,7 @@ export const getOoredooMin = (mobileNo, refresh = false) => (dispatch) => {
     });
   } else {
     ApiRequest
-    .post(`ooredoo_get_bundles?bundle=MIN&language=arabic`)
+    .post(`ooredoo_get_bundles?bundle=MIN&language=${lang}`)
     .then((res) => {
       dispatch({
         type: GET_OOREDOO_MIN,
@@ -395,7 +386,7 @@ export const getOoredoo3g = (refresh = false) => (dispatch) => {
     });
   } else {
     ApiRequest
-    .post(`ooredoo_get_bundles?bundle=3G&language=arabic`)
+    .post(`ooredoo_get_bundles?bundle=3G&language=${lang}`)
     .then((res) =>{
       dispatch({
         type: GET_OOREDOO_3G,
@@ -443,7 +434,7 @@ export const getOoredooRom = (refresh = false) => (dispatch) => {
     });
   } else {
     ApiRequest
-    .post(`ooredoo_get_bundles?bundle=ROM&language=arabic`)
+    .post(`ooredoo_get_bundles?bundle=ROM&language=${lang}`)
     .then((res) => {
       dispatch({
         type: GET_OOREDOO_ROM,
@@ -491,7 +482,7 @@ export const getOoredooSuper = (refresh = false) => (dispatch) => {
     });
   } else {
     ApiRequest
-    .post(`ooredoo_get_bundles?bundle=YOUTH&language=arabic`)
+    .post(`ooredoo_get_bundles?bundle=YOUTH&language=${lang}`)
     .then((res) => {
       dispatch({
         type: GET_OOREDOO_SUPER,
@@ -524,60 +515,101 @@ export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
   dispatch(clearErrors());
   const number = history.split("/")[4];
   const promises = [];
-  
-  if (data.ooredoo3g !== null && data.ooredoo3g !== undefined) {
-    Notiflix.Notify.info("ooredoo 3G Charging is in progress");
-    const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=3g&language=${lang}&amount=0&pci=${data.ooredoo3g.bundleid}`
-    );
-    promises.push(promise);
-  }
-  if (data.ooredooRom !== null && data.ooredooRom !== undefined) {
-    Notiflix.Notify.info("ooredoo Roaming Charging is in progress");
 
-    const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=rom&language=${lang}&amount=0&pci=${data.ooredooRom.bundleid}`
-    );
-    promises.push(promise);
-  }
-  if (data.ooredooCredit !== null && data.ooredooCredit !== undefined) {
-    Notiflix.Notify.info("Charging is in progress");
-
+  if (!isNil(data.ooredooCredit)) {
+    if (data.ooredooCredit.price < 10 ) {
+      Toast.fire({
+        title: intl.formatMessage({id: "The minimum credit is 10 NIS"}),
+        icon: "warning",
+      });
+      return new Promise((resolve, reject) => {
+        reject();
+      });
+    }
     const promise = ApiRequest.post(
       `ooredoo_topup?number=${number}&pci=0&cardtype=topup&language=${lang}&amount=${data.ooredooCredit.price}&pci=${data.ooredooCredit.id}`
     );
     promises.push(promise);
   }
-  if (data.ooredooMin !== null && data.ooredooMin !== undefined) {
-    Notiflix.Notify.info("ooredoo Min Charging is in progress");
+  if (!isNil(data.ooredoo3g)) {
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=min&language=${lang}&amount=0&pci=${data.ooredooMin.bundleid}`
+      `ooredoo_3g?number=${number}&cardtype=3g&language=${lang}&amount=0&pci=${data.ooredoo3g.bundleid}`
     );
     promises.push(promise);
   }
-  if (data.ooredooSuper !== null && data.ooredooSuper !== undefined) {
-    Notiflix.Notify.info("Jawwal ooredooSuper Charging is in progress");
+  if (!isNil(data.ooredooRom)) {
     const promise = ApiRequest.post(
-      `ooredoo_topup?number=${number}&cardtype=super&language=${lang}&amount=0&pci=${data.ooredooRom.bundleid}`
+      `ooredoo_3g?number=${number}&cardtype=rom&language=${lang}&amount=0&pci=${data.ooredooRom.bundleid}`
+    );
+    promises.push(promise);
+  }
+  if (!isNil(data.ooredooMin)) {
+    const promise = ApiRequest.post(
+      `ooredoo_3g?number=${number}&cardtype=min&language=${lang}&amount=0&pci=${data.ooredooMin.bundleid}`
+    );
+    promises.push(promise);
+  }
+  if (!isNil(data.ooredooSuper)) {
+    const promise = ApiRequest.post(
+      `ooredoo_3g?number=${number}&cardtype=super&language=${lang}&amount=0&pci=${data.ooredooSuper.bundleid}`
     );
     promises.push(promise);
   }
   
-  return Promise.all(promises).then((res) => {
+  return Promise.all(promises)
+  .then((res) => {
     const isAuthFailed = res.some((result) => result.data == "failed, token error");
-
     if (isAuthFailed) {
+      Toast.fire({
+        title: intl.formatMessage({id: "You must log in again!"}),
+        icon: "error",
+      });
       return logoutUser(pushHistory)
     }
+    
+    const noBalance = res.some((result) => result.data.reason == "seller no balance");
+    if (noBalance) {
+      Toast.fire({
+        title: intl.formatMessage({id: "No balance available"}),
+        icon: "warning",
+      });
+      return;
+    }
 
-    localStorage.removeItem("ooredooMin");
-    localStorage.removeItem("ooredoo3g");
-    localStorage.removeItem("ooredooCredit");
-    localStorage.removeItem("ooredooRom");
-    localStorage.removeItem("ooredooSuper");
+    const isFailed = res.some((result) => result.data.status == "failed");
+    if (isFailed) {
+      const erros = [];
+      res.forEach((result) => {
+        if (result.data.status === "failed") {
+          erros.push(result.data.reason);
+        }
+      });
+      if (!isEmpty(erros)) {
+        Toast.fire({
+          title: erros.join("\n"),
+          icon: "warning",
+        });  
+      }
+      return;
+    }
+
+    Toast.fire({
+      title: intl.formatMessage({id: "Your request is in progress"}),
+      icon: "succuss",
+    });
+
+    clearOoredooSelected();
     pushHistory.push("/");
   });
 };
+
+const clearOoredooSelected = () => {
+  localStorage.removeItem("ooredooMin");
+  localStorage.removeItem("ooredoo3g");
+  localStorage.removeItem("ooredooCredit");
+  localStorage.removeItem("ooredooRom");
+  localStorage.removeItem("ooredooSuper");
+}
 
 // Group Companies
 export const getGroupesData = (type) => (dispatch) => {

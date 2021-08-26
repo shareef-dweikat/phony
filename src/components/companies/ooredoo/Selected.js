@@ -1,20 +1,15 @@
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import translate from "../../../i18n/translate";
 import { chargeOoredoo } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
 import Badge from "../../ui/Badge/Badge";
+import { isEmpty, isNil } from "lodash";
 
 const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab, setRom, rom, chargeOoredoo }) => {
   const history = useHistory().location.pathname;
   const pushHistory = useHistory();
-  const [inputForm, setInputForm] = useState({
-    dis: "",
-    price: null,
-    url: null,
-    ID: "",
-  });
   const [loadingSpinner, isLoading] = useState(false);
 
   const onCreditRemove = () => {
@@ -37,12 +32,6 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
     localStorage.removeItem("ooredooSuper");
     setShabab("");
   };
-  const onChange = (e) => {
-    console.log(e.target.value);
-    setInputForm({ ...inputForm, [e.target.name]: e.target.value });
-    setCredit({ price: e.target.value });
-    localStorage.ooredooCredit = JSON.stringify({ price: e.target.value });
-  };
   const onClickTypeCredit = (e) => {
     e.preventDefault();
     isLoading(true);
@@ -58,15 +47,23 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
       pushHistory
     )
     .finally(() => {
+      clearSelected();
       isLoading(false);
     });
   };
+  const clearSelected = () => {
+    onCreditRemove();
+    remove3g();
+    removeMin();
+    removeRom();
+    removeShabab();
+  }
   return (
     <div className="row">
       <div className="col-10">
         <div className="card m-4s fixed-top1 position-sticky mt-2">
           <div className="row mt-1 fixed-topx px-3">
-            {credit !== {} && credit.price && (
+            {!isNil(credit) && !isEmpty(credit) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -87,7 +84,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 </div>
               </div>
             )}
-            {min !== "" && (
+            {!isNil(min) && !isEmpty(min) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -102,7 +99,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 </div>
               </div>
             )}
-            {g3 !== "" && (
+            {!isNil(g3) && !isEmpty(g3) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -117,7 +114,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 </div>
               </div>
             )}
-            {rom !== "" && (
+            {!isNil(rom) && !isEmpty(rom) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -132,7 +129,7 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
                 </div>
               </div>
             )}
-            {shabab !== "" && (
+            {!isNil(shabab) && !isEmpty(shabab) && (
               <div className="col-lg-3 col-md-4 col-sm-4 mt-3">
                 <div className="card outer-wrapper">
                   <div className="frame1">
@@ -154,18 +151,18 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, shabab, setShabab
         <div class="card total-balance-card mt-2">
           <div class="card-body p-2">
             <h5 class="text-muted mt-1 mb-2" title="Balance" style={{fontSize: "1.2rem" }}>{translate("total")}</h5>
-            <h3 class="text-info mt-2">₪ {(credit.price ? parseFloat(credit.price) : 0) +
-              (rom.price ? parseFloat(rom.price) : 0) +
-              (g3.price ? parseFloat(g3.price) : 0) +
-              (min.price ? parseFloat(min.price) : 0)}
+            <h3 class="text-info mt-2">₪ {(credit?.price ? parseFloat(credit?.price) : 0) +
+              (rom?.price ? parseFloat(rom?.price) : 0) +
+              (g3?.price ? parseFloat(g3?.price) : 0) +
+              (min?.price ? parseFloat(min?.price) : 0)}
             </h3>
             <button
               type="submit"
               class={`btn btn-success ${
-                (credit.price ? parseFloat(credit.price) : 0) +
-                  (rom.price ? parseFloat(rom.price) : 0) +
-                  (g3.price ? parseFloat(g3.price) : 0) +
-                  (min.price ? parseFloat(min.price) : 0) ===
+                (credit?.price ? parseFloat(credit?.price) : 0) +
+                  (rom?.price ? parseFloat(rom?.price) : 0) +
+                  (g3?.price ? parseFloat(g3?.price) : 0) +
+                  (min?.price ? parseFloat(min?.price) : 0) ===
                   0 && "disabled"
               }`}
               style={{margin: "auto", display: "block"}}

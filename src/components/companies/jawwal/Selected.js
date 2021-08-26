@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import translate from "../../../i18n/translate";
 import { chargeJawwal } from "../../../actions/companiesAction";
 import Spinner from "../../ui/spinner/Spinner";
@@ -52,15 +52,11 @@ const Selected = ({ min, setMin, g3, setg3, credit, setCredit, setRom, rom, char
       isLoading(false);
     });
   };
-
   const clearSelected = () => {
-    setCredit(getValue(localStorage.JawwalCredit));
-    setMin(getValue(localStorage.JawwalMin));
-    setg3(getValue(localStorage.Jawwal3g));
-    setRom(getValue(localStorage.JawwalRom));
-  }
-  const getValue = (value) => {
-    return isNil(value) || isEmpty(value) ? null : JSON.parse(value);
+    onCreditRemove();
+    removeMin();
+    remove3g();
+    removeRom();
   }
 
   return (

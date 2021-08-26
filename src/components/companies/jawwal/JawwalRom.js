@@ -219,7 +219,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom }) => {
                           </div>
                           <div
                             id={index}
-                            class="collapse hidden"
+                            class="collapse"
                             aria-labelledby="headingOne"
                             data-parent="#accordion"
                           >

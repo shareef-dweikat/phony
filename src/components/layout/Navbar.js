@@ -11,7 +11,7 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   const history = useHistory();
   useEffect(() => {
     if (isAuthenticated) {
-      setTimeout(()=>   userData() ,1000)
+      setTimeout(()=>   userData(history), 500)
     }
   }, []);
   const onLogoutClick = () => {

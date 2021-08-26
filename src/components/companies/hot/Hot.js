@@ -132,7 +132,7 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
 
                       <div
                         id={item.bundleid}
-                        className="collapse hidden"
+                        className="collapse"
                         aria-labelledby="headingOne"
                         data-parent="#accordion"
                       >

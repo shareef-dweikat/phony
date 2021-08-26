@@ -236,5 +236,10 @@
   "This field is required": "This field is required",
 
   "Resend code": "Resend code",
-  "Something went wrong!": "Something went wrong!"
+  "Something went wrong!": "Something went wrong!",
+  "The minimum credit is 10 NIS": "The minimum credit is 10 NIS",
+  "You must log in again": "You must log in again",
+  "No balance available": "No balance available",
+  "Your request is in progress": "Your request is in progress",
+  "You will be logged out because your account is disabled, for more information please contact our support team.": "You will be logged out because your account is disabled, for more information please contact our support team."
 }

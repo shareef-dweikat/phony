@@ -129,7 +129,7 @@ const Azy = ({ getAzy, loading, azy, ChargeAzy }) => {
 
                       <div
                         id={item.bundleid}
-                        className="collapse hidden"
+                        className="collapse"
                         aria-labelledby="headingOne"
                         data-parent="#accordion"
                       >

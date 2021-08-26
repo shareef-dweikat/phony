@@ -28,7 +28,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
 
   useEffect(() => {
     document.title = "Ooredoo  Minutes | Phone Play";
-    getOoredooMin(mobileNo, false);
+    getOoredooMin(false);
 
     if (localStorage.ooredoo3g) {
       setG3(JSON.parse(localStorage.ooredoo3g));
@@ -75,7 +75,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
   };
   const getOoredooPackages = () => {
     if (!isRenew && !isNotRenew) {
-      getOoredooMin(mobileNo, false);
+      getOoredooMin(false);
     } else if (isRenew) {
       getOoredooMinRenew();
     } else if (isNotRenew) {
@@ -83,7 +83,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
     }
   }
   const refreshClick = () => {
-    getOoredooMin(mobileNo, true);
+    getOoredooMin(true);
   };
 
   const refreshColumnStyle = () => {
@@ -220,7 +220,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
                           </h5>
                         </div>
 
-                        <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id={index} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                           <div class="card-body">
                             {item.bundle_description}
                             <br/>

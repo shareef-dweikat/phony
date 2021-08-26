@@ -193,7 +193,7 @@ const JawwalMin = ({
                   </div>
                 ) : (
                   jawwalMin.map((item, index) => (
-                    <div className={`${columnStyle} mt-3`}>
+                    <div className={`${index} ${columnStyle} mt-3`}>
                       <div className="card charge-card">
                         <a
                           style={{ cursor: "pointer" }}
@@ -203,7 +203,7 @@ const JawwalMin = ({
                         >
                           <div className="frame-card position-relative">
                             <img
-                              alt={item.id || item.ID}
+                              alt={item.id}
                               src={item.url}
                             ></img>
                             {(item.renew === "True" || item.renew === "true") && (
@@ -228,7 +228,7 @@ const JawwalMin = ({
                           </h5>
                         </div>
 
-                        <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id={index} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                           <div class="card-body">
                             {item.des}
                             <br/>

@@ -215,7 +215,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNo
                           </h5>
                         </div>
 
-                        <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id={index} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                           <div class="card-body">
                             {item.des}
                             <br/>

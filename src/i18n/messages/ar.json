@@ -266,6 +266,11 @@
   "xBox": "إكس بوكس",
 
   "Resend code": "إعادة إرسال الرمز",
-  "Something went wrong!": "هناك خطأ ما!"
+  "Something went wrong!": "هناك خطأ ما!",
+  "The minimum credit is 10 NIS": "الحد الأدنى للرصيد 10 شيكل",
+  "You must log in again": "يجب تسجيل الدخول مرة اخرى",
+  "No balance available": "لا يوجد رصيد متوفر",
+  "Your request is in progress": "طلبك قيد التنفيذ",
+  "You will be logged out because your account is disabled, for more information please contact our support team.": "سيتم تسجيل خروجك لأن حسابك معطل ، لمزيد من المعلومات يرجى الاتصال بفريق الدعم الخاص بنا."
 
 }

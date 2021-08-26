@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import translate from "../../i18n/translate";
 import { connect } from "react-redux";
-import { useIntl } from 'react-intl';
 import "./sidebar.css";
 import { currentRates } from "../../actions/currencyAction";
-import setRequestHeader from "../../components/common/setRequestHeader";
 import _ from "lodash";
 import Spinner from "../ui/spinner/Spinner";
 
@@ -24,7 +22,6 @@ const SideBar = ({ user }) => {
   const updateEngagespot = () => {
     if (!engagespotInit && currentUser?.sellerid) {
       window.Engagespot?.identifyUser(currentUser?.sellerid);
-      setRequestHeader("X-Identifier", currentUser?.sellerid);
       isEngagespotInit(true);
     }
   }

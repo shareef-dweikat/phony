@@ -220,7 +220,7 @@ const RomOoredoo = ({ getOoredooRom, ooredooRom, loading, getOoredooRomRenew, ge
                           </h5>
                         </div>
 
-                        <div id={index} class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div id={index} class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                           <div class="card-body">
                             {item.bundle_description}
                             <br/>

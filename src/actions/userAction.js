@@ -2,8 +2,10 @@ import axios from "axios";
 import { SET_CURRENT_USER, GET_ERRORS, CLEAR_ERRORS, GET_USER_DATA } from "./types";
 import Notiflix from "notiflix";
 import IPData from 'ipdata';
-import { isObject, isString } from "lodash";
+import { isNil, isObject, isString } from "lodash";
 import ApiRequest from "./ApiRequest";
+import Toast from "../components/common/Toast";
+import { intl } from "../i18n/provider";
 
 const BASE_API_URL = process.env.REACT_APP_BASE_API;
 const ipdata = new IPData(process.env.REACT_APP_IPDATA_KEY);
@@ -268,17 +270,30 @@ export const getAdvertise = (lang = "ar") => {
   return ApiRequest.post(`advertise?lang=${lang}`);
 }
 
-export const userData = () => (dispatch) => {
+export const userData = (history) => (dispatch) => {
   dispatch(clearErrors());
   const sallerId = JSON.parse(localStorage.companies).sellerid;
   axios
     .post(`${BASE_API_URL}/check_balance?sellerid=${sallerId}`)
     .then((res) => {
+      const currentUserData = res.data;
+      // Log out the user if the account is disabled.
+      if (currentUserData.enabled !== "true") {
+        Toast.fire({
+          title: intl.formatMessage({id: "You will be logged out because your account is disabled, for more information please contact our support team."}),
+          icon: "warning",
+          timer: 10000,
+        }).then((result) => {
+          logoutUser(history)(dispatch);
+        })
+        return;
+      }
+
       dispatch({
         type: GET_USER_DATA,
         payload: res.data,
       });
-      localStorage.setItem("currentUser", JSON.stringify(res.data));
+      localStorage.setItem("currentUser", JSON.stringify(currentUserData));
     })
     .catch((err) => {
       console.log(err);
@@ -302,7 +317,6 @@ export const logoutUser = (router) => async (dispatch) => {
   localStorage.removeItem("companies");
 
   dispatch(setCurrentUser({}));
-  setTimeout(router.push("/signin"), 1000);
-
   window.Engagespot?.clearUser();
+  router.push("/signin");
 };
