@@ -149,7 +149,7 @@ const Home = ({ user }) => {
               )}
               {user.azy === "true" && (
                 <div className={`${columnStyle} mt-4`}>
-                  <Link to="/company/azy">
+                  <Link to="/company/group/mobile012">
                     <div className="card outer-wrapper">
                       <div className="frame">
                         <img

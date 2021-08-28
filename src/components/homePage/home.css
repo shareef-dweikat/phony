@@ -16,4 +16,5 @@
 }
 .style1 .nav-layout > h5 {
     font-size: 1rem;
+    direction: ltr;
 }

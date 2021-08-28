@@ -15,3 +15,7 @@
   justify-content: center;
   flex-direction: row;
 }
+
+.card.azy .nav-layout h5 span {
+  direction: ltr;
+}

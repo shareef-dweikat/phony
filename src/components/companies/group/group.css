@@ -43,8 +43,8 @@
 .card.golan-back {
   background-image: url(/src/assests/images/bundles/golan/banner.png);
 }
-.card.mobile019-back {
-  background-image: url(/src/assests/images/bundles/mobile019/banner.jpg);
+.card.mobile012-back {
+  background-image: url(/src/assests/images/bundles/mobile012/banner.jpg);
 }
 
 .no-layout {
@@ -85,4 +85,8 @@
 }
 .list-cards .charge-card {
   margin-bottom: 10px;
+}
+.card.mobile012 .nav-layout span {
+  direction: ltr;
+  display: inline-block;
 }

@@ -621,8 +621,10 @@ export const getGroupesData = (type) => (dispatch) => {
     type: LOADING_TRUE,
   });
   dispatch(clearErrors());
-  axios
-    .post(`${BASE_API_URL}/peletalk_get_products?company=${type}&language=${lang}`)
+  const company = type === "mobile012" ? "012mobile" : type;
+
+  return axios
+    .post(`${BASE_API_URL}/peletalk_get_products?company=${company}&language=${lang}`)
     .then((res) =>
       dispatch({
         type: GET_GROUP_COMPANIES,
@@ -640,7 +642,9 @@ export const getGroupesData = (type) => (dispatch) => {
 export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
-  return ApiRequest.post(`${type}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`)
+  const company = type === "mobile012" ? "012mobile" : type;
+
+  return ApiRequest.post(`${company}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`)
   .then((res) => {
     if (res.data == "failed, token error" || res.data.reason == "token expired") {
       Toast.fire({

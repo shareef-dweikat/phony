@@ -39,7 +39,7 @@ const InputAzy = () => {
                   <button className="mx-3 btn back-btn " onClick={backClick}>
                     {translate("Back")}
                   </button>
-                  {translate("mobile12")}
+                  <span>{translate("mobile12")}</span>
                 </h5>
               </div>
             </div>
