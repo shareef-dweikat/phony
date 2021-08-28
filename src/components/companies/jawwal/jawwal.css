@@ -1,12 +1,12 @@
 .jawwal-back {
   width: 100%;
   height: 100%;
-  background: url(https://res.cloudinary.com/dtu4lltbk/image/upload/v1619567348/0b27ce4c-eb43-4fbc-b49e-f39e2486cd3f_awhjg5.jpg) no-repeat center center;
+  background: url(/src/assests/images/bundles/jawwal/banner.jpg) no-repeat center center;
   background-size: 100% 100%;
   margin-bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-direction: row;
 }
 .jawwal-text {

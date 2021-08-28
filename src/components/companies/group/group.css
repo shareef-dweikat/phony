@@ -10,16 +10,43 @@
 .golan-back {
   background-color: #ee1b24;
 }
-
-.mobile12-back {
+.mobile019-back {
   background-color: #742e6d;
 }
-
 .group-text {
   color: #ffffff;
   font-size: 2.8rem;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
+.group-back {
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: #25ace3;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.card.cellcom-back {
+  background-image: url(/src/assests/images/bundles/cellcom/banner.png);
+}
+.card.pelephone-back {
+  background-image: url(/src/assests/images/bundles/pelephone/banner.png);
+}
+.card.partner-back {
+  background-image: url(/src/assests/images/bundles/partner/banner.png);
+}
+.card.golan-back {
+  background-image: url(/src/assests/images/bundles/golan/banner.png);
+}
+.card.mobile019-back {
+  background-image: url(/src/assests/images/bundles/mobile019/banner.jpg);
+}
+
 .no-layout {
   background: #fff;
   border: 1px solid #25ace3;
@@ -42,9 +69,20 @@
 .card.golan .nav-layout {
   background-color: #ee1b24;
 }
-.card.mobile012 .nav-layout {
+.card.mobile019 .nav-layout {
   background-color: #e51b38;
 }
 .card.partner .nav-layout {
   background-color: #29d6c5;
+}
+
+.list-cards .frame-card {
+  width: 100%;
+  height: 100%;
+}
+.list-cards .frame-card img {
+  height: 130px;
+}
+.list-cards .charge-card {
+  margin-bottom: 10px;
 }

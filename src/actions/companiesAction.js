@@ -244,7 +244,7 @@ export const chargeJawwal = (data, history, pushHistory) => (dispatch) => {
 
   return Promise.all(promises)
   .then((res) => {
-    const isAuthFailed = res.some((result) => result.data == "failed, token error");
+    const isAuthFailed = res.some((result) => result.data == "failed, token error" || result.data.reason == "token expired");
     if (isAuthFailed) {
       Toast.fire({
         title: intl.formatMessage({id: "You must log in again!"}),
@@ -558,7 +558,7 @@ export const chargeOoredoo = (data, history, pushHistory) => (dispatch) => {
   
   return Promise.all(promises)
   .then((res) => {
-    const isAuthFailed = res.some((result) => result.data == "failed, token error");
+    const isAuthFailed = res.some((result) => result.data == "failed, token error" || result.data.reason == "token expired");
     if (isAuthFailed) {
       Toast.fire({
         title: intl.formatMessage({id: "You must log in again!"}),
@@ -638,32 +638,58 @@ export const getGroupesData = (type) => (dispatch) => {
 };
 
 export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) => {
-  const token = localStorage.jwtUserToken;
-
   dispatch(clearErrors());
-  axios
-    .post(
-      `${BASE_API_URL}/${type}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`
-    )
-    .then((res) =>
-      dispatch({
-        type: GET_GROUP_COMPANIES,
-        payload: res.data,
-      })
-    )
-    .catch((err) =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err,
-      })
-    );
+  const token = localStorage.jwtUserToken;
+  return ApiRequest.post(`${type}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`)
+  .then((res) => {
+    if (res.data == "failed, token error" || res.data.reason == "token expired") {
+      Toast.fire({
+        title: intl.formatMessage({id: "You must log in again!"}),
+        icon: "error",
+      });
+      return logoutUser(history)
+    }
+    
+    if (res.data.reason == "seller no balance") {
+      Toast.fire({
+        title: intl.formatMessage({id: "No balance available"}),
+        icon: "warning",
+      });
+      return;
+    }
+
+    if (res.data.status == "failed") {
+      Toast.fire({
+        title: res.data.reason,
+        icon: "warning",
+      });
+      return;
+    }
+
+    Toast.fire({
+      title: intl.formatMessage({id: "Your request is in progress"}),
+      icon: "succuss",
+    });
+  })
+  .catch((err) =>
+    dispatch({
+      type: GET_ERRORS,
+      payload: err,
+    })
+  );
 };
 
 //Hot && azy
 export const getAzy = (mobile) => (dispatch) => {
+  dispatch({
+    type: GET_AZY,
+    payload: [],
+  });
+  dispatch({
+    type: LOADING_TRUE,
+  });
   dispatch(clearErrors());
-  axios
-    .post(`${BASE_API_URL}/azy_get_products?language=${lang}`)
+  ApiRequest.post(`azy_get_products?language=${lang}`)
     .then((res) =>
       dispatch({
         type: GET_AZY,
@@ -677,10 +703,9 @@ export const getAzy = (mobile) => (dispatch) => {
       })
     );
 };
-export const ChargeAzy = (mobile, history) => (dispatch) => {
+export const ChargeAzy = (mobile, selected, history) => (dispatch) => {
   dispatch(clearErrors());
-  axios
-    .post(`${BASE_API_URL}/peletalk_get_products?company=&language=${lang}`)
+  return ApiRequest.post(`peletalk_get_products?company=&language=${lang}`)
     .then((res) => {
       console.log(res);
     })
@@ -693,6 +718,13 @@ export const ChargeAzy = (mobile, history) => (dispatch) => {
 };
 
 export const getHot = (mobile, history) => (dispatch) => {
+  dispatch({
+    type: GET_HOT,
+    payload: [],
+  });
+  dispatch({
+    type: LOADING_TRUE,
+  });
   dispatch(clearErrors());
   axios
     .post(`${BASE_API_URL}/hot_get_products?language=${lang}`)
@@ -712,7 +744,7 @@ export const getHot = (mobile, history) => (dispatch) => {
 
 export const ChargeHot = (mobile, history) => (dispatch) => {
   dispatch(clearErrors());
-  axios
+  return axios
     .post(`${BASE_API_URL}/peletalk_get_products?company=&language=${lang}`)
     .then((res) => {
       console.log(res);

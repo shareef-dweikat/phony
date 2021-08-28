@@ -20,7 +20,7 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light " style={{ backgroundColor: "#25ace3" }}>
       <div className="container">
-        <Link className="navbar-brand my-0 p-0" to="/">
+        <a className="navbar-brand my-0 p-0" href="/">
           <div className="nav-imsg">
             <img
               width="auto"
@@ -31,7 +31,7 @@ const Navbar = ({ isAuthenticated, logoutUser, userData }) => {
               alt=""
             />
           </div>
-        </Link>
+        </a>
         <button
           className="navbar-toggler"
           type="button"

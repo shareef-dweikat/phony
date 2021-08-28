@@ -24,53 +24,52 @@ const InputHot = () => {
       history.push(`/company/hot/${value}`);
     }
   };
+  const backClick = () => history.push("/");
   return (
-    <>
-      <div className="container">
-        <div className="row mt-5">
-          <div className="col-lg-3 col-md-4 col-sm-6">
-            <SideBar />
-          </div>
-          <div className="col-lg-9 col-md-8 col-sm-6">
-            <div className="card card-home hot">
-                          <div className="card img-back" style={
-                sessionStorage.getItem("main_picture") ? {backgroundImage: `url("${sessionStorage.getItem("main_picture")}")` } : {}
-              }>
-                <div className="m-3">
-                  <h1 className="header-text mt-5">{translate("newProduct")}</h1>
-                </div>
-              </div>
-              <div className="mt-2">
-                <div className=" card nav-layout   ">
-                  <h5 className="m-3  ">
-                    <button onClick={() => history.push("/")} className="btn btn-back mx-3 ">
-                      {translate("Back")}
-                    </button>
-                    {translate("hotMobile")}
-                  </h5>
-                </div>
+    <div className="container">
+      <div className="row mt-5">
+        <div className="col-lg-3 col-md-4 col-sm-6">
+          <SideBar />
+        </div>
+        <div className="col-lg-9 col-md-8 col-sm-6">
+          <div className="card card-home hot">
+            <div className="mt-2">
+              <div className="card nav-layout">
+                <h5 className="m-3">
+                  <button className="mx-3 btn back-btn " onClick={backClick}>
+                    {translate("Back")}
+                  </button>
+                  {translate("hotMobile")}
+                </h5>
               </div>
             </div>
-            <form className="m-5" onSubmit={onSubmit}>
-              {isEmpty && <Message msg="Enter valid number" />}
-              <div className="form-group row">
-                <div className="col-12 col-md-7 d-flex">
-                  <label for="inputEmail3" className="col-3 col-form-label" style={{fontSize: "1.6rem", minWidth: 160}}>
-                    {translate("jawwalNo")}
-                  </label>
-                  <TextFieldGroup value={value} onChange={(e) => setValue(e.target.value)} type="number" autoFocus={true} />
-                </div>
-                <div className="col-3 col-md-2">
-                  <button style={{ width: "110%" }} type="submit" className="btn sign-but p-2 w-30" onSubmit={onSubmit}>
-                    {translate("next")}{" "}
-                  </button>
+          </div>
+          <form className="my-5" onSubmit={onSubmit}>
+            {isEmpty && <Message msg="Enter valid number" />}
+            <div className="form-group row">
+              <div className="col-12 col-md-7 d-flex">
+                <label for="inputEmail3" className="col-3 col-form-label" style={{fontSize: "1.6rem", width: "40%"}}>
+                  {translate("Mobile Number")}
+                </label>
+                <div className="input-container" style={{width: "60%"}}>
+                  <TextFieldGroup
+                    type="number"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    autoFocus={true}
+                  />
                 </div>
               </div>
-            </form>
-          </div>
+              <div className="col-3 col-md-2">
+                <button style={{ width: "110%" }} type="submit" className="btn sign-but p-2 w-30" onSubmit={onSubmit}>
+                  {translate("next")}{" "}
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

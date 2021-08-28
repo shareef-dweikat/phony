@@ -132,7 +132,7 @@ const Home = ({ user }) => {
               )}
               {user.mobile012 === "true" && (
                 <div className={`${columnStyle} mt-4`}>
-                  <Link to="/company/group/mobile012">
+                  <Link to="/company/group/mobile019">
                     <div className="card outer-wrapper">
                       <div className="frame">
                         <img

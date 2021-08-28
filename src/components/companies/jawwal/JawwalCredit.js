@@ -83,7 +83,7 @@ const JawwalCredit = ({auth, loading}) => {
             <div className="row mt-2">
               <div className="col-3">
                 <div className="card jawwal-back">
-                  <h1 className="jawwal-text">{translate("jawwalCredit")}</h1>
+                  <h1 className="jawwal-text">{translate("jawwal")}</h1>
                 </div>
               </div>
               <div className="col-9">

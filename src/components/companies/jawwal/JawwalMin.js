@@ -124,7 +124,7 @@ const JawwalMin = ({
             <div className="row mt-2">
               <div className="col-3">
                 <div className="card jawwal-back">
-                  <h1 className="jawwal-text">{translate("jawwalMin")}</h1>
+                  <h1 className="jawwal-text">{translate("jawwal")}</h1>
                 </div>
               </div>
               <div className="col-9">
@@ -193,7 +193,7 @@ const JawwalMin = ({
                   </div>
                 ) : (
                   jawwalMin.map((item, index) => (
-                    <div className={`${index} ${columnStyle} mt-3`}>
+                    <div className={`${columnStyle} mt-3`}>
                       <div className="card charge-card">
                         <a
                           style={{ cursor: "pointer" }}

@@ -87,22 +87,22 @@ export default function (state = initialState, action) {
     case GET_RENEW_JAWWAL_MIN:
       return {
         ...state,
-        jawwalMin: state.jawwalMinFilteer.filter(({ renew }) => renew === "True"),
+        jawwalMin: state.jawwalMinFilteer.filter(({ renew }) => renew === "True" || renew === "true"),
       };
     case GET_NOT_RENEW_JAWWAL_MIN:
       return {
         ...state,
-        jawwalMin: state.jawwalMinFilteer.filter(({ renew }) => renew === "False"),
+        jawwalMin: state.jawwalMinFilteer.filter(({ renew }) => renew === "False" || renew === "false"),
       };
     case GET_RENEW_JAWWAL_3G:
       return {
         ...state,
-        jawwal3g: state.jawwal3gFilteer.filter(({ renew }) => renew === "True"),
+        jawwal3g: state.jawwal3gFilteer.filter(({ renew }) => renew === "True" || renew === "true"),
       };
     case GET_NOT_RENEW_JAWWAL_3G:
       return {
         ...state,
-        jawwal3g: state.jawwal3gFilteer.filter(({ renew }) => renew === "False"),
+        jawwal3g: state.jawwal3gFilteer.filter(({ renew }) => renew === "False" || renew === "false"),
       };
     case GET_JAWWAL_ROM:
       return {
@@ -127,12 +127,12 @@ export default function (state = initialState, action) {
     case GET_OOREDOO_RENEW_3G:
       return {
         ...state,
-        ooredoo3g: state.ooredoo3gFilter.filter(({ auto_renew }) => auto_renew === "true"),
+        ooredoo3g: state.ooredoo3gFilter.filter(({ auto_renew }) => auto_renew === "True" || auto_renew === "true"),
       };
     case GET_OOREDOO_NOT_RENEW_3G:
       return {
         ...state,
-        ooredoo3g: state.ooredoo3gFilter.filter(({ auto_renew }) => auto_renew === "false"),
+        ooredoo3g: state.ooredoo3gFilter.filter(({ auto_renew }) => auto_renew === "False" || auto_renew === "false"),
       };
     case GET_OOREDOO_MIN:
       return {
@@ -144,12 +144,12 @@ export default function (state = initialState, action) {
     case GET_OOREDOO_RENEW_MIN:
       return {
         ...state,
-        ooredooMin: state.ooredooMinFilter.filter(({ auto_renew }) => auto_renew === "true"),
+        ooredooMin: state.ooredooMinFilter.filter(({ auto_renew }) => auto_renew === "True" || auto_renew === "true"),
       };
     case GET_OOREDOO_NOT_RENEW_MIN:
       return {
         ...state,
-        ooredooMin: state.ooredooMinFilter.filter(({ auto_renew }) => auto_renew === "false"),
+        ooredooMin: state.ooredooMinFilter.filter(({ auto_renew }) => auto_renew === "False" || auto_renew === "false"),
       };
     case GET_OOREDOO_ROM:
       return {
@@ -161,12 +161,12 @@ export default function (state = initialState, action) {
     case GET_OOREDOO_RENEW_ROM:
       return {
         ...state,
-        ooredooRom: state.ooredooRomFilter.filter(({ auto_renew }) => auto_renew === "true"),
+        ooredooRom: state.ooredooRomFilter.filter(({ auto_renew }) => auto_renew === "True" || auto_renew === "true"),
       };
     case GET_OOREDOO_NOT_RENEW_ROM:
       return {
         ...state,
-        ooredooRom: state.ooredooRomFilter.filter(({ auto_renew }) => auto_renew === "false"),
+        ooredooRom: state.ooredooRomFilter.filter(({ auto_renew }) => auto_renew === "False" || auto_renew === "false"),
       };
     case GET_OOREDOO_SUPER:
       return {
@@ -178,12 +178,12 @@ export default function (state = initialState, action) {
     case GET_RENEW_OOREDOO_SUPER:
       return {
         ...state,
-        ooredooSuper: state.ooredooSuperFilter.filter(({ auto_renew }) => auto_renew === "true"),
+        ooredooSuper: state.ooredooSuperFilter.filter(({ auto_renew }) => auto_renew === "True" || auto_renew === "true"),
       };
     case GET_NOR_RENEW_OOREDOO_SUPER:
       return {
         ...state,
-        ooredooSuper: state.ooredooSuperFilter.filter(({ auto_renew }) => auto_renew === "false"),
+        ooredooSuper: state.ooredooSuperFilter.filter(({ auto_renew }) => auto_renew === "False" || auto_renew === "false"),
       };
     case GET_GROUP_COMPANIES:
       return {
