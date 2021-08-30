@@ -46,15 +46,14 @@ const TransactionTable = ({ getLastTransaction, last }) => {
         });
     }
 
-    const cancelTransaction = (tranId) => {
+    const cancelTransaction = (tranId,cnumber) => {
         isLoading(true);
-        cancelTransction(tranId).then((res) => {
+        cancelTransction(tranId,cnumber).then((res) => {
             updateTransactions();
         }).finally(() => {
             isLoading(false);
         });
     }
-
     return (
         <div className="transactions">
             <div className="mt-5 d-flex flex-row-reverse">
@@ -87,15 +86,15 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 <td>{item.number}</td>
                                 <td>₪ {item.cardamount || 0}</td>
                                 <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
-                                <td>{translate(item.status)}</td>
+                                <td>{item.status?translate(item?.status):''}</td>
                                 <td>
                                     {item.status == "failed" && (
                                         <Button size="sm" onClick={() => showReason(item.transid)} disabled={loading}>
                                             {translate("Show Reason")}
                                         </Button>
                                     )}
-                                    {item.status == "succuss" && (
-                                        <Button size="sm" onClick={() => cancelTransaction(item.transid)} disabled={loading}>
+                                    {item.status == "success" && item.cancelrequest == false &&(
+                                        <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
                                             {translate("Cancel")}
                                         </Button>
                                     )}

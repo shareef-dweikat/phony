@@ -35,9 +35,9 @@ export const showTransctionDetails = (tran_id, lang) => {
   });
 };
 
-export const cancelTransction = (tran_id) => {
+export const cancelTransction = (tran_id, cnumber) => {
   return new Promise((resolve, reject) => {
-    ApiRequest.post(`cancel_tranaction?trand_no=${tran_id}`)
+    ApiRequest.post(`peletalk_cancelation?transid=${tran_id}&cnumber=${cnumber}&language=ar`)
     .then((res) => {
       resolve(res.data);
     })
