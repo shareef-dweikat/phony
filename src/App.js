@@ -44,7 +44,6 @@ function App() {
   return (
     <Provider store={store}>
       <I18Provider locale={locale}>
-        <Settings />
         <Router>
           <Fragment>
             <Switch>
