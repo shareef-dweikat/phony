@@ -10,6 +10,8 @@ import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
 import ReCAPTCHA from 'reaptcha';
+import LanguageChooser from "../ui/Settings/Language/LanguageChooser";
+
 const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
@@ -116,8 +118,10 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
                       onVerify={verfiy}
                     />
                   </div>}
+                  <LanguageChooser />
                 </form>
               </div>
+             
             </div>
             <div class="mt-4 text-center">
               {translate("Don't have an account?")} <a href="/signup">{translate("Sign Up")}</a>
