@@ -9,7 +9,8 @@ import validateLoginInput from "../../validation/validateLoginInput";
 import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from 'reaptcha';
 const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
@@ -32,6 +33,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
     password: "",
   });
   const [errors1, setErrors1] = useState({});
+  const [errorCount, setErrorCount] = useState(0);
   const [loading, isLoading] = useState(false);
   const [passwordChanged, isPasswordChanged] = useState(history.location?.state?.password_changed);
 
@@ -48,11 +50,15 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
     } else {
       loginUser(loginForm, ip, history)
       .finally(() => {
+        setErrorCount(errorCount + 1)
         isLoading(false);
       });
     }
   };
-
+  function verfiy() {
+   setErrorCount(0)
+  }
+  console.log(errorCount, "errorrrrr")
   return (
     <section class="auth signin">
       <div class="container">
@@ -98,17 +104,20 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
                     }}
                     required={true}
                   />
-
+                 {errorCount < 3 &&
+                    <div class="form-group mb-0 mt-4 actions">
+                      <button type="submit" class="btn btn-primary btn-block" disabled={loading}>
+                      {translate("Sign in")}
+                      </button>
+                    </div>
+                  }
+                  {errorCount >= 3 &&
                   <div class="form-group mb-0 mt-4 actions">
-                    <button type="submit" class="btn btn-primary btn-block" disabled={loading}>
-                    {translate("Sign in")}
-                    </button>
-                  </div>
-                  <ReCAPTCHA
-                    sitekey='6Lc3pTQcAAAAAFNk2I_TtP0YpP747ssgI1fvGey5'
-                    // onloadCallback={loaded}
-                    // verifyCallback={callback}
-                   />
+                    <ReCAPTCHA
+                      sitekey='6Lc3pTQcAAAAAFNk2I_TtP0YpP747ssgI1fvGey5'
+                      onVerify={verfiy}
+                    />
+                  </div>}
                 </form>
               </div>
             </div>

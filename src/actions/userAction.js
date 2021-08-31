@@ -56,7 +56,6 @@ export const loginUser = (userData, ip, history) => (dispatch) => {
       }
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: "Something went wrong!",
