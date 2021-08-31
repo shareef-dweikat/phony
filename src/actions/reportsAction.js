@@ -1,5 +1,6 @@
 import { GET_LAST_TRANSACTION, CLEAR_ERRORS, GET_ERRORS } from "./types";
 import ApiRequest from "./ApiRequest";
+import { LOCALES_COUNTRIES } from "../i18n";
 
 export const getLastTransaction = () => (dispatch) => {
   dispatch(clearErrors());
@@ -36,8 +37,10 @@ export const showTransctionDetails = (tran_id, lang) => {
 };
 
 export const cancelTransction = (tran_id, cnumber) => {
+ 
+  const language = localStorage.langCity || LOCALES_COUNTRIES[process.env.REACT_APP_DEFAULT_LANG]
   return new Promise((resolve, reject) => {
-    ApiRequest.post(`peletalk_cancelation?transid=${tran_id}&cnumber=${cnumber}&language=ar`)
+    ApiRequest.post(`peletalk_cancelation?transid=${tran_id}&cnumber=${cnumber}&language=${language}`)
     .then((res) => {
       resolve(res.data);
     })
