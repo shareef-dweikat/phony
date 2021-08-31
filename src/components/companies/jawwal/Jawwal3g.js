@@ -188,7 +188,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNo
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id || item.ID}
                               src={item.url}

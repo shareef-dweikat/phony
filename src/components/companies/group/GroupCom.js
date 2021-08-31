@@ -157,7 +157,7 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
                             data-placement="top"
                             onClick={() => onTypeClick(item)}
                           >
-                            <div className="frame-card position-relative">
+                            <div className="position-relative">
                               <img
                                 alt={item.title}
                                 src={item.url}

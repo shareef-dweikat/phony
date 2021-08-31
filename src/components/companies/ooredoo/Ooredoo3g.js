@@ -193,7 +193,7 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id || item.ID}
                               src={item.url}

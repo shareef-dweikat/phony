@@ -193,7 +193,7 @@ const ShababOoredoo = ({ getOoredooSuper, ooredooSuper, getOoredooSuperNotRenew,
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id || item.ID}
                               src={item.url}

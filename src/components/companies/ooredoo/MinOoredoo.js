@@ -193,11 +193,11 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
-                            ></img>
+                            />
                             {(item.auto_renew === "True" || item.auto_renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>
                             )}

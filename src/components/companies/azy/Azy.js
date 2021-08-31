@@ -156,7 +156,7 @@ const Azy = ({ getAzy, loading, azy, ChargeAzy }) => {
                             data-placement="top"
                             onClick={() => onTypeClick(item)}
                           >
-                            <div className="frame-card position-relative">
+                            <div className="position-relative">
                               <img src={item.url}></img>
                               {(item.auto_renew === "True" || item.auto_renew === "true") && (
                                 <Badge text={translate("Renewable")}></Badge>
