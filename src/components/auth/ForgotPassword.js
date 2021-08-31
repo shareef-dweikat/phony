@@ -9,6 +9,7 @@ import validateForgotPasswordInput from "../../validation/validateForgotPassword
 import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
+import ReCAPTCHA from 'reaptcha';
 
 const ForgotPassword = ({ forgotPassword, isAuthenticated, massage }) => {
   const history = useHistory();
@@ -25,6 +26,7 @@ const ForgotPassword = ({ forgotPassword, isAuthenticated, massage }) => {
   });
   const [errors1, setErrors1] = useState({});
   const [loading, isLoading] = useState(false);
+  const [errorCount, setErrorCount] = useState(0);
 
   const onChange = (e) => {
     setForgotPasswordForm({ ...forgotPassowrdForm, [e.target.name]: e.target.value });
@@ -39,10 +41,14 @@ const ForgotPassword = ({ forgotPassword, isAuthenticated, massage }) => {
     } else {
       forgotPassword(forgotPassowrdForm, history)
       .finally(() => {
+        setErrorCount(errorCount + 1)
         isLoading(false);
       });
     }
   };
+  function verfiy() {
+    setErrorCount(0)
+   }
   return (
     <section class="auth signin">
       <div class="container">
@@ -86,16 +92,23 @@ const ForgotPassword = ({ forgotPassword, isAuthenticated, massage }) => {
                     label={translate("Last 4 digits")}
                     required={true}
                   />
-
+                {errorCount < 3 &&
                   <div class="form-group mb-0 mt-4 actions">
                     <button type="submit" class="btn btn-primary btn-block" disabled={loading}>
                       {translate("Send Code")}
                     </button>
                   </div>
-
+                }
                   <div class="mt-4 text-center">
                     <a href="/signin"> {translate("Return to Sign in")}</a>
                   </div>
+                  {errorCount >= 3 &&
+                  <div class="form-group mb-0 mt-4 actions">
+                    <ReCAPTCHA
+                      sitekey='6Lc3pTQcAAAAAFNk2I_TtP0YpP747ssgI1fvGey5'
+                      onVerify={verfiy}
+                    />
+                  </div>}
                 </form>
               </div>
             </div>

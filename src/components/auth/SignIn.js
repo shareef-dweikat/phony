@@ -9,7 +9,6 @@ import validateLoginInput from "../../validation/validateLoginInput";
 import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
-// import ReCAPTCHA from "react-google-recaptcha";
 import ReCAPTCHA from 'reaptcha';
 const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
@@ -58,7 +57,6 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   function verfiy() {
    setErrorCount(0)
   }
-  console.log(errorCount, "errorrrrr")
   return (
     <section class="auth signin">
       <div class="container">
