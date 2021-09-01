@@ -1,0 +1,11 @@
+.insurance .card.outer-wrapper {
+    height: auto;
+}
+
+.insurance .card.outer-wrapper .frame > img {
+    height: 150px;
+}
+
+.insurance .card-sm .card.outer-wrapper .nav-layout {
+    min-height: 110px;
+}

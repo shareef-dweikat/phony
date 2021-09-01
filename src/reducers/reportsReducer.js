@@ -1,7 +1,6 @@
 import {
-  CLEAR_ERRORS,
-  GET_ERRORS,
   GET_LAST_TRANSACTION,
+  GET_SELLER_POINTS
 } from "../actions/types";
 const initialState = {
   lastTransaction: [],
@@ -16,7 +15,12 @@ export default function (state = initialState, action) {
         lastTransaction: action.payload,
         loading: false,
       };
-
+      case GET_SELLER_POINTS:
+      return {
+        ...state,
+        sellerPoints: action.payload,
+        loading: false,
+      };
     default:
       return state;
   }

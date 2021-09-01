@@ -1,6 +1,29 @@
-import { GET_LAST_TRANSACTION, CLEAR_ERRORS, GET_ERRORS } from "./types";
+import { GET_LAST_TRANSACTION, GET_SELLER_POINTS, CLEAR_ERRORS, GET_ERRORS } from "./types";
 import ApiRequest from "./ApiRequest";
 import { LOCALES_COUNTRIES } from "../i18n";
+
+export const getSellerPoints = () => (dispatch) => {
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token}}
+  return  ApiRequest
+    .post(
+      `seller_points`, null, config
+    )
+    .then((res) => {
+      dispatch({
+        type: GET_SELLER_POINTS,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
 
 export const getLastTransaction = () => (dispatch) => {
   dispatch(clearErrors());

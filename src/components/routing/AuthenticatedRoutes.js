@@ -34,9 +34,8 @@ import { useIntl } from 'react-intl';
 import Navar from "../layout/Navbar";
 import SubNavbar from "../layout/SubNavbar";
 import Home from "../../components/homePage/Home";
-
-const AuthenticatedRoutes = ({ user }) => {
-  const intl = useIntl();
+import Points from '../pages/Points/Points'
+const AuthenticatedRoutes = () => {
 
   return (
     <>
@@ -53,7 +52,7 @@ const AuthenticatedRoutes = ({ user }) => {
               <Route exact path="/gaming" component={Gaming} />
               <Route exact path="/internet" component={Internet} />
               <Route exact path="/insurance" component={Insurance} />
-              
+
               {/* //COPMANY */}
 
               {/* JAWWAL COMPANY ROUTES */}
@@ -85,6 +84,8 @@ const AuthenticatedRoutes = ({ user }) => {
               {/* Cards      */}
               <Route exact path="/cards" component={Cards} />
               <Route exact path="/cards/:id" component={CompanyCards} />
+              <Route exact path="/points" component={Points} />
+
             </section>
           </Switch>
         </Fragment>
