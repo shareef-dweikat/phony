@@ -61,6 +61,7 @@ const ShababOoredoo = ({ getOoredooSuper, ooredooSuper, getOoredooSuperNotRenew,
 
   const onTypeClick = (item) => {
     setShabab(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     localStorage.ooredooSuper = JSON.stringify(item);
   };
 
@@ -103,8 +104,10 @@ const ShababOoredoo = ({ getOoredooSuper, ooredooSuper, getOoredooSuperNotRenew,
       break;
     }
   }
+  let topDiv = null;
+
   return (
-    <div className="container ooredoo-container">
+    <div className="container ooredoo-container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />

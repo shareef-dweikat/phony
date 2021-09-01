@@ -24,6 +24,7 @@ const Azy = ({ getAzy, loading, azy, ChargeAzy }) => {
 
   const onTypeClick = (item) => {
     setSelected(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
   };
   const onChargeClick = (e) => {
     e.preventDefault();
@@ -58,9 +59,10 @@ const Azy = ({ getAzy, loading, azy, ChargeAzy }) => {
   const refreshClick = () => {
     getAzy(mobileNo);
   };
+  let topDiv = null;
 
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />

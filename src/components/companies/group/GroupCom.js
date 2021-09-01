@@ -24,6 +24,7 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
     refreshColumnStyle();
   }, []);
   const onTypeClick = (item) => {
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setSelected(item);
   };
   const onChargeClick = (e) => {
@@ -58,8 +59,10 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
   const refreshClick = () => {
     getGroupesData(typeCompany);
   };
+  let topDiv = null;
+
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />

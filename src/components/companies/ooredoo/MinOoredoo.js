@@ -60,6 +60,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
 
   const onTypeClick = (item) => {
     localStorage.ooredooMin = JSON.stringify(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setMin(item);
   };
 
@@ -103,8 +104,9 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
     }
   }
 
+  let topDiv = null;
   return (
-    <div className="container ooredoo-container">
+    <div className="container ooredoo-container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />

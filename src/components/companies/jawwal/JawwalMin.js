@@ -71,6 +71,7 @@ const JawwalMin = ({
 
   const onTypeClick = (item) => {
     localStorage.JawwalMin = JSON.stringify(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setSelected(item);
   };
   const onRenewClick = () => {
@@ -112,9 +113,10 @@ const JawwalMin = ({
       break;
     }
   }
+  let topDiv = null;
 
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -201,7 +203,7 @@ const JawwalMin = ({
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id}
                               src={item.url}
