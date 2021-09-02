@@ -53,7 +53,7 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom }) => {
     setSelected(item);
   };
   const refreshClick = () => {
-    getJawwalRom(mobileNo, false);
+    getJawwalRom(mobileNo, true);
   };
   const refreshColumnStyle = () => {
     switch(localStorage.size) {
