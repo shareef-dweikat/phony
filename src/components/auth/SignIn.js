@@ -127,7 +127,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
               {translate("Don't have an account?")} <a href="/signup">{translate("Sign Up")}</a>
             </div>
               <div style={{textAlign: 'center'}}>
-              1.0.0 V
+              0.0.1 V
              </div>
           </div>
          
