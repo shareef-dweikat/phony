@@ -164,6 +164,7 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
                               <img
                                 alt={item.title}
                                 src={item.url}
+                                width={190}
                               ></img>
                               {(item.renew === "True" || item.renew === "true") && (
                                 <Badge text={translate("Renewable")}></Badge>

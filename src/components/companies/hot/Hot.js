@@ -157,7 +157,7 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
                             onClick={() => onTypeClick(item)}
                           >
                             <div className="frame-card position-relative">
-                              <img src={item.url}></img>
+                              <img src={item.url}width={190}></img>
                               {(item.auto_renew === "True" || item.auto_renew === "true") && (
                                 <Badge text={translate("Renewable")}></Badge>
                               )}

@@ -200,6 +200,7 @@ const RomOoredoo = ({ getOoredooRom, ooredooRom, loading, getOoredooRomRenew, ge
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
+                              width={190}
                             ></img>
                             {(item.auto_renew === "True" || item.auto_renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>

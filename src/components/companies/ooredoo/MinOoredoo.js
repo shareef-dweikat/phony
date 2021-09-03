@@ -199,6 +199,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
+                              width={190}
                             />
                             {(item.auto_renew === "True" || item.auto_renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>

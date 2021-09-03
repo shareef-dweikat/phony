@@ -207,6 +207,7 @@ const JawwalMin = ({
                             <img
                               alt={item.id}
                               src={item.url}
+                              width={190}
                             ></img>
                             {(item.renew === "True" || item.renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>

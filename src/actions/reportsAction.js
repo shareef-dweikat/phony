@@ -2,19 +2,24 @@ import { GET_LAST_TRANSACTION, GET_SELLER_POINTS, CLEAR_ERRORS, GET_ERRORS } fro
 import ApiRequest from "./ApiRequest";
 import { LOCALES_COUNTRIES } from "../i18n";
 
-export const getSellerPoints = () => (dispatch) => {
+export const getSellerPoints = (lang, from_date, to_date) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
-  const config = {headers: {"token": token}}
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
+  const sellerId = JSON.parse(localStorage.companies).sellerid
+  
   return  ApiRequest
     .post(
-      `seller_points`, null, config
+      `seller_points?from_date=${from_date}&to_date=${to_date}&sellerid=${sellerId}`, null, config
     )
     .then((res) => {
+      console.log(res, 'errorrrr');
+
       dispatch({
         type: GET_SELLER_POINTS,
         payload: res.data,
       });
+      // return res
     })
     .catch((err) => {
       console.log(err, 'errorrrr');

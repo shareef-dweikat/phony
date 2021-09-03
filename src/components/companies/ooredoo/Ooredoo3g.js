@@ -200,6 +200,7 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
+                              width={190}
                             ></img>
                             {(item.auto_renew === "True" || item.auto_renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>

@@ -195,6 +195,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNo
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
+                              width={190}
                             ></img>
                             {(item.renew === "True" || item.renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>
