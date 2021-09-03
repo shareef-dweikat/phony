@@ -35,6 +35,7 @@ import Navar from "../layout/Navbar";
 import SubNavbar from "../layout/SubNavbar";
 import Home from "../../components/homePage/Home";
 import Points from '../pages/Points/Points'
+import Profit from "../report/Profit";
 const AuthenticatedRoutes = () => {
 
   return (
@@ -49,6 +50,7 @@ const AuthenticatedRoutes = () => {
               <PrivateRoute exact path="/" component={Home} />
               
               <Route exact path="/report" component={Report} />
+              <Route exact path="/profit" component={Profit} />
               <Route exact path="/gaming" component={Gaming} />
               <Route exact path="/internet" component={Internet} />
               <Route exact path="/insurance" component={Insurance} />

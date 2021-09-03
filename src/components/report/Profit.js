@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import SideBar from "../homePage/SideBar";
 import { Link, useHistory } from "react-router-dom";
 import translate from "../../i18n/translate";
-import {getSellerReports} from '../../actions/reportsAction'
+import {getSellerProfit} from '../../actions/reportsAction'
 import "./report.css";
 import { connect } from "react-redux";
 import moment from 'moment'
 import Dropdown from 'react-dropdown';
 
-const Report = ({sellerReports, getSellerReports}) => {
+const Profit = ({sellerProfit, getSellerProfit}) => {
   const history = useHistory().location.pathname;
   const options = [
     'topup', 'cancelation', 'add credits'
@@ -36,9 +36,9 @@ const Report = ({sellerReports, getSellerReports}) => {
     setDateForm({ ...dateForm, [e.target.name]: e.target.value });
     console.log(e.target.value);
   };
-  const handleSearch = (pNumber) => {
+  const handleSearch = () => {
     console.log(transStatus.value, "transTypeeee")
-    getSellerReports(dateForm.from, dateForm.to, pNumber, transType.value, transStatus.value)
+    getSellerProfit(dateForm.from, dateForm.to)
   }
   return (
     <div>
@@ -63,6 +63,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                   className="col-sm-2 col-form-label m-1"
                 >
                   <Link
+                    to="report"
                     className={`semi-nav ${
                       history === "/report" && "active-semi"
                     } m-4`}
@@ -119,51 +120,14 @@ const Report = ({sellerReports, getSellerReports}) => {
                     />
                   </div>
                   <div className="col-sm-2">
-                    <button onClick={()=>handleSearch(phone)} className="btn sign-but">
+                    <button onClick={()=>handleSearch()} className="btn sign-but">
                       {translate("search")}
                     </button>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="row mt-5">
-              <div className="form-group row">
-                <label className="col-sm-1 col-form-label">
-                  {translate("number")}
-                </label>
-                <div className="col-sm-4">
-                  <input onChang={(element)=>setPhone(element.target.value)} type="number" className="form-control" />
-                </div>
-                <label className="col-sm-1 col-form-label">
-                  {translate("trans type")}
-                </label>
-                <div className="col-sm-4">
-                <Dropdown 
-                   options={options}
-                   onChange={(value)=>setTransType(value)}
-                  value={defaultOption} 
-                  placeholder="Select an option"
-                   />
-                </div>
-              </div>
-              
-            </div>
-            <div className="row mt-5">
-              <div className="form-group row">
-                <label className="col-sm-1 col-form-label">
-                  {translate("trans status")}
-                </label>
-                <div className="col-sm-4">
-                <Dropdown 
-                   options={transStatusOptions}
-                   onChange={(value)=>setTransStatus(value)}
-                  value={defaultTransStatusOptions} 
-                  placeholder="Select an option"
-                   />
-                </div>
-              </div>
-              
-            </div>
+           
             <div className="mt-3">
               <table className="table table-striped">
                 <thead>
@@ -175,12 +139,26 @@ const Report = ({sellerReports, getSellerReports}) => {
                       ></i>
                       {translate("movmentNo")}
                     </th>
+                    <th scope="col text-center" style={{ width: "170px" }}>
+                      <i
+                        className="fa fa-arrow-down m-1"
+                        aria-hidden="true"
+                      ></i>
+                      {translate("date")}
+                    </th>
+                    <th scope="col text-center" style={{ width: "170px" }}>
+                      <i
+                        className="fa fa-arrow-down m-1"
+                        aria-hidden="true"
+                      ></i>
+                      {translate("number")}
+                    </th>
                     <th scope="col text-center">
                       <i
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("Mobile No.")}
+                      {translate("profit")}
                     </th>
                     <th scope="col text-center">
                       <i
@@ -194,28 +172,20 @@ const Report = ({sellerReports, getSellerReports}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("status")}
+                      {translate("seller cost")}
                     </th>
-                    <th scope="col text-center">
-                      <i
-                        className="fa fa-arrow-down m-1"
-                        aria-hidden="true"
-                      ></i>
-                      {translate("Time & Date")}
-                    </th>
-                    <th scope="col text-center">{translate("restoration")}</th>
                   </tr>
                 </thead>
                 <tbody>
                   {
-                    sellerReports?.map((report)=> {
+                    sellerProfit?.map((report)=> {
                       return <tr>
-                      <th scope="row">1</th>
+                      <th scope="row">{report.transidd}</th>
+                      <td className="text-center">{moment(report.date).format('YYYY-MM-DD')}</td>
                       <td className="text-center">{report.number}</td>
-                      <td className="text-center">{report.cardamount}</td>
-                      <td className="text-center">{report.status}</td>
-                      <td className="text-center">{moment(report.datetime).format('YYYY-MM-DD HH:mm')}</td>
-                      <td className="text-center">@mdo</td>
+                      <td className="text-center">{report.profit}</td>
+                      <td className="text-center">{report.amount}</td>
+                      <td className="text-center">{report.sellercost}</td>
                     </tr>
                     })
                   }
@@ -230,7 +200,7 @@ const Report = ({sellerReports, getSellerReports}) => {
 };
 
 const mapStateToProps = (state) => ({
-  sellerReports: state.reports.sellerReports,
+  sellerProfit: state.reports.sellerProfit,
 });
 
-export default connect(mapStateToProps, { getSellerReports })(Report);
+export default connect(mapStateToProps, { getSellerProfit })(Profit);

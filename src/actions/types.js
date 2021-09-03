@@ -6,6 +6,8 @@ export const GET_ERRORS = "GET_ERRORS";
 
 export const GET_LAST_TRANSACTION = "GET_LAST_TRANSACTION";
 export const GET_SELLER_POINTS = "GET_SELLER_POINTS";
+export const GET_SELLER_REPORTS = "GET_SELLER_REPORTS";
+export const GET_SELLER_PROFIT = "GET_SELLER_PROFIT";
 
 //Companies Types
 //jawwal

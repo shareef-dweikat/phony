@@ -1,4 +1,11 @@
-import { GET_LAST_TRANSACTION, GET_SELLER_POINTS, CLEAR_ERRORS, GET_ERRORS } from "./types";
+import { 
+  GET_SELLER_REPORTS,
+  GET_LAST_TRANSACTION,
+  GET_SELLER_POINTS, 
+  CLEAR_ERRORS,
+  GET_ERRORS,
+  GET_SELLER_PROFIT
+   } from "./types";
 import ApiRequest from "./ApiRequest";
 import { LOCALES_COUNTRIES } from "../i18n";
 
@@ -30,6 +37,57 @@ export const getSellerPoints = (lang, from_date, to_date) => (dispatch) => {
     });
 };
 
+export const getSellerReports = (from_date, to_date, phone, transType, transStatus) => (dispatch) => {
+  console.log(transType, 'dacccc')
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
+  const sellerId = JSON.parse(localStorage.companies).sellerid
+  return  ApiRequest
+    .post(
+      `get_seller_report?from_date=${from_date}&to_date=${to_date}&sellerid=${sellerId}&trans_status=${transStatus}&trans_type=${transType}&number=${phone}`, null, config
+    )
+    .then((res) => {
+      console.log(res, 'GET_SELLER_REPORTS');
+      dispatch({
+        type: GET_SELLER_REPORTS,
+        payload: res.data,
+      });
+      // return res
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
+export const getSellerProfit = (from_date, to_date) => (dispatch) => {
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
+  const sellerId = JSON.parse(localStorage.companies).sellerid
+  return  ApiRequest
+    .post(
+      `get_seller_profit_report?from_date=${from_date}&to_date=${to_date}&sellerid=${sellerId}`, null, config
+    )
+    .then((res) => {
+      console.log(res, 'get_seller_profit_report');
+      dispatch({
+        type: GET_SELLER_PROFIT,
+        payload: res.data,
+      });
+      // return res
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
 export const getLastTransaction = () => (dispatch) => {
   dispatch(clearErrors());
   const sallerId = JSON.parse(localStorage.companies).sellerid;

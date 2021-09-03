@@ -21,28 +21,28 @@ const Languages = {
 const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
   const intl = useIntl()
   const [loading, isLoading] = useState(false);
-  const [fromDate, setFromDate] = useState(new Date('2021-08-18'))
-  const [toDate, setToDate] = useState(new Date('2021-08-18'))
+  const [dateForm, setDateForm] = useState({
+    from: "",
+    to: "",
+  });
   const [currentPageContent, setCurrentPageContent] = useState([]);
   const [buttons, setButtons] = useState([]);
 
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 card-md");
   useEffect(() => {
     document.title = "Seller Points | PhonePlay ";
-    // if (Array.isArray(insurances) && isEmpty(insurances)) {
-      // initSellerPoints();
-//    }
+
       getPageContent(1)
       getPagesNumbers()
     refreshColumnStyle();
   }, [sellerPoints]);
-
+  const onChangeDate = (e) => {
+    setDateForm({ ...dateForm, [e.target.name]: e.target.value });
+  };
   const initSellerPoints = () => {
     isLoading(true);
-    const FROM_DATE = `${fromDate.getFullYear()}-${fromDate.getMonth() + 1}-${fromDate.getDay() + 1}`
-    const TO_DATE = `${toDate.getFullYear()}-${toDate.getMonth() + 1}-${toDate.getDay() + 1}`
 
-    getSellerPoints(Languages[intl.locale], FROM_DATE, TO_DATE)
+    getSellerPoints(Languages[intl.locale], dateForm.from, dateForm.to)
     .then((res) => {
         isLoading(false)
     })
@@ -89,43 +89,44 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
             <div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-
-               <div style={{display: 'flex', flexDirection: 'row',marginBottom: 16}}>
-               {translate('from')}:
-               <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  id="date-picker-inline"
-                  value={fromDate}
-                  onChange={(date)=>setFromDate(date)}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
-
-                 <div style={{width: 16}}/>
-                  {translate('to')}:
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="date-picker-inline"
-                    // label="Date picker inline"
-                    value={toDate}
-                    onChange={(date)=>setToDate(date)}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                />
-                  <button style={{marginRight: 16}} onClick={initSellerPoints}>{translate('search')}</button>
-              </div> 
-              </MuiPickersUtilsProvider>
-
-              <div className="row mb-5">
+            <div className="mt-5">
+              <div className="row">
+                <div className="form-group row">
+                  <label className="col-sm-1 col-form-label">
+                    {translate("from")}
+                  </label>
+                  <div className="col-sm-4">
+                    <input
+                      name="from"
+                      value={dateForm.from}
+                      type="date"
+                      className="form-control"
+                      onChange={(e) => onChangeDate(e)}
+                    />
+                  </div>
+                  <label className="col-sm-1 col-form-label">
+                    {translate("to")}
+                  </label>
+                  <div className="col-sm-4">
+                    <input
+                      name="to"
+                      value={dateForm.to}
+                      type="date"
+                      className="form-control"
+                      onChange={(e) => onChangeDate(e)}
+                    />
+                  </div>
+                  <div className="col-sm-2">
+                    <button onClick={initSellerPoints} className="btn sign-but">
+                      {translate("search")}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+              <div style={{marginTop: 16}} />
+              <div className="row mb-5 mt-10">
               <table>
                   <tr>
                     <th>{translate('transatction')}</th>

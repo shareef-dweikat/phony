@@ -14,7 +14,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
     const [loading, isLoading] = useState(false);
     const intl = useIntl();
     const url = new URLSearchParams(history.location.search)
-    console.log(localStorage.jwtUserToken, 'token')
+
     useEffect(() => {
         updateTransactions();
         if (url.get("refresh") == "true") {
@@ -78,7 +78,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                         {last.map((item) => (
                             <tr
                             className={`${item.status === "proccessing" && "table-active"} ${
-                                item.status === "success" && "table-success"
+                                item.status === "Success" && "table-green"
                             } ${item.status === "failed" && "table-danger"}`}
                             >
                                 <td scope="row ">{item.transid}</td>
@@ -93,7 +93,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             {translate("Show Reason")}
                                         </Button>
                                     )}
-                                    {item.status == "success" && !item.cancelrequest &&(
+                                    {item.status == "Success" && !item.cancelrequest &&(
                                         <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
                                             {translate("Cancel")}
                                         </Button>
