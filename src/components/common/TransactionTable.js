@@ -93,7 +93,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             {translate("Show Reason")}
                                         </Button>
                                     )}
-                                    {item.status == "success" && item.cancelrequest == false &&(
+                                    {item.status == "success" && !item.cancelrequest &&(
                                         <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
                                             {translate("Cancel")}
                                         </Button>
