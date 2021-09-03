@@ -14,7 +14,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
     const [loading, isLoading] = useState(false);
     const intl = useIntl();
     const url = new URLSearchParams(history.location.search)
-
+    console.log(localStorage.jwtUserToken, 'token')
     useEffect(() => {
         updateTransactions();
         if (url.get("refresh") == "true") {
