@@ -126,7 +126,11 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
             <div class="mt-4 text-center">
               {translate("Don't have an account?")} <a href="/signup">{translate("Sign Up")}</a>
             </div>
+              <div style={{textAlign: 'center'}}>
+              1.0.0 V
+             </div>
           </div>
+         
         </div>
       </div>
       {loading && (<Spinner/>)}
