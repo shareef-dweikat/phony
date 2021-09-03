@@ -5,15 +5,13 @@ import SideBar from "../../homePage/SideBar";
 import { useIntl } from 'react-intl';
 import "./style.css";
 import { getSellerPoints } from "../../../actions/reportsAction";
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DateFnsUtils from '@date-io/date-fns';
+// import DateFnsUtils from '@date-io/date-fns';
 import Spinner from "../../ui/spinner/Spinner";
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
+// import {
+//   MuiPickersUtilsProvider,
+//   KeyboardDatePicker,
+// } from '@material-ui/pickers';
 const Languages = {
   "en": "english",
   "ar": "arabic",
@@ -91,7 +89,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
             <div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            {/* <MuiPickersUtilsProvider utils={DateFnsUtils}>
 
                <div style={{display: 'flex', flexDirection: 'row',marginBottom: 16}}>
                {translate('from')}:
@@ -125,7 +123,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                 />
                   <button style={{marginRight: 16}} onClick={initSellerPoints}>{translate('search')}</button>
               </div> 
-              </MuiPickersUtilsProvider>
+              </MuiPickersUtilsProvider> */}
 
               <div className="row mb-5">
               <table>
