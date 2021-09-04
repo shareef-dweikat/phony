@@ -14,11 +14,11 @@ const Report = ({sellerReports, getSellerReports}) => {
   const options = [
     'topup', 'cancelation', 'add credits'
   ];
-  const defaultOption = options[0];
+  const defaultOption = '';
   const transStatusOptions = [
     'success', 'failed', 'pending'
   ];
-  const defaultTransStatusOptions = transStatusOptions[0];
+  const defaultTransStatusOptions = '';
 
   const [dateForm, setDateForm] = useState({
     from: "",
@@ -26,8 +26,8 @@ const Report = ({sellerReports, getSellerReports}) => {
   });
   
   const [phone, setPhone] = useState('');
-  const [transType, setTransType] = useState('topup');
-  const [transStatus, setTransStatus] = useState('success');
+  const [transType, setTransType] = useState('');
+  const [transStatus, setTransStatus] = useState('');
   const [loading, isLoading] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ const Report = ({sellerReports, getSellerReports}) => {
   const handleSearch = () => {
     isLoading(true);
       console.log(phone, "phooooo")
-    getSellerReports(dateForm.from, dateForm.to, phone, transType, transStatus).then(()=>{
+    getSellerReports(dateForm.from, dateForm.to, phone, transType.value, transStatus.value).then(()=>{
       isLoading(false)
     })
   }
@@ -110,7 +110,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                       onChange={(e) => onChangeDate(e)}
                     />
                   </div>
-                  <label className="col-sm-1 col-form-label">
+                  <label className="col-sm-1 col-form-label"  style={{width: 100}}>
                     {translate("to")}
                   </label>
                   <div className="col-sm-4">
@@ -122,7 +122,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                       onChange={(e) => onChangeDate(e)}
                     />
                   </div>
-                  <div className="col-sm-2">
+                  <div className="col-sm-1">
                     <button onClick={()=>handleSearch(phone)} className="btn sign-but">
                       {translate("search")}
                     </button>
@@ -136,18 +136,21 @@ const Report = ({sellerReports, getSellerReports}) => {
                   {translate("number")}
                 </label>
                 <div className="col-sm-4">
-                  <input onChange={(element)=>setPhone(element.target.value)} type="number" className="form-control" />
+                  <input 
+                    onChange={(element)=>setPhone(element.target.value)} 
+                    className="form-control" 
+                  />
                 </div>
-                <label className="col-sm-1 col-form-label">
+                <label className="col-sm-1 col-form-label"  style={{width: 100}}>
                   {translate("trans type")}
                 </label>
                 <div className="col-sm-4">
                 <Dropdown 
                    options={options}
                    onChange={(value)=>setTransType(value)}
-                  value={defaultOption} 
-                  placeholder="Select an option"
-                   />
+                   value={defaultOption} 
+                   placeholder="Select an option"
+                />
                 </div>
               </div>
               
