@@ -28,3 +28,9 @@ td {
   font-size: 3rem;
   margin: 0;
 }
+.no-data-to-show {
+  font-size: 18px;
+  margin-top: 16px;
+  margin-right: 32px;
+  width: 100%;
+}

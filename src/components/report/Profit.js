@@ -6,7 +6,7 @@ import {getSellerProfit} from '../../actions/reportsAction'
 import "./report.css";
 import { connect } from "react-redux";
 import moment from 'moment'
-import Dropdown from 'react-dropdown';
+import Spinner from "../ui/spinner/Spinner";
 
 const Profit = ({sellerProfit, getSellerProfit}) => {
   const history = useHistory().location.pathname;
@@ -27,6 +27,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
   const [phone, setPhone] = useState('');
   const [transType, setTransType] = useState('topup');
   const [transStatus, setTransStatus] = useState('success');
+  const [loading, isLoading] = useState(false);
 
   useEffect(() => {
     document.title = "Report | Phone Play";
@@ -37,8 +38,11 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
     console.log(e.target.value);
   };
   const handleSearch = () => {
-    console.log(transStatus.value, "transTypeeee")
-    getSellerProfit(dateForm.from, dateForm.to)
+    isLoading(true);
+
+    getSellerProfit(dateForm.from, dateForm.to).then(()=>{
+      isLoading(false)
+    })
   }
   return (
     <div>
@@ -192,9 +196,11 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                 </tbody>
               </table>
             </div>
+            {!sellerProfit?.length && <div className="no-data-to-show">{translate('No data to show')}</div>}
           </div>
         </div>
       </div>
+      {loading && (<Spinner />)}
     </div>
   );
 };

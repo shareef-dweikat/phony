@@ -7,6 +7,7 @@ import "./report.css";
 import { connect } from "react-redux";
 import moment from 'moment'
 import Dropdown from 'react-dropdown';
+import Spinner from "../ui/spinner/Spinner";
 
 const Report = ({sellerReports, getSellerReports}) => {
   const history = useHistory().location.pathname;
@@ -27,6 +28,7 @@ const Report = ({sellerReports, getSellerReports}) => {
   const [phone, setPhone] = useState('');
   const [transType, setTransType] = useState('topup');
   const [transStatus, setTransStatus] = useState('success');
+  const [loading, isLoading] = useState(false);
 
   useEffect(() => {
     document.title = "Report | Phone Play";
@@ -34,11 +36,13 @@ const Report = ({sellerReports, getSellerReports}) => {
   }, []);
   const onChangeDate = (e) => {
     setDateForm({ ...dateForm, [e.target.name]: e.target.value });
-    console.log(e.target.value);
   };
-  const handleSearch = (pNumber) => {
-    console.log(transStatus.value, "transTypeeee")
-    getSellerReports(dateForm.from, dateForm.to, pNumber, transType.value, transStatus.value)
+  const handleSearch = () => {
+    isLoading(true);
+      console.log(phone, "phooooo")
+    getSellerReports(dateForm.from, dateForm.to, phone, transType, transStatus).then(()=>{
+      isLoading(false)
+    })
   }
   return (
     <div>
@@ -126,13 +130,13 @@ const Report = ({sellerReports, getSellerReports}) => {
                 </div>
               </div>
             </div>
-            <div className="row mt-5">
+            <div className="row mt-1">
               <div className="form-group row">
                 <label className="col-sm-1 col-form-label">
                   {translate("number")}
                 </label>
                 <div className="col-sm-4">
-                  <input onChang={(element)=>setPhone(element.target.value)} type="number" className="form-control" />
+                  <input onChange={(element)=>setPhone(element.target.value)} type="number" className="form-control" />
                 </div>
                 <label className="col-sm-1 col-form-label">
                   {translate("trans type")}
@@ -148,7 +152,7 @@ const Report = ({sellerReports, getSellerReports}) => {
               </div>
               
             </div>
-            <div className="row mt-5">
+            <div className="row mt-1">
               <div className="form-group row">
                 <label className="col-sm-1 col-form-label">
                   {translate("trans status")}
@@ -222,9 +226,11 @@ const Report = ({sellerReports, getSellerReports}) => {
                 </tbody>
               </table>
             </div>
+            {!sellerReports?.length && <div className="no-data-to-show">{translate('No data to show')}</div>}
           </div>
         </div>
       </div>
+      {loading && (<Spinner />)}
     </div>
   );
 };

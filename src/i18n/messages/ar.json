@@ -288,5 +288,6 @@
   "failed trans": "فاشلة",
   "pending":"قيد التنفيذ",
   "success": "ناجحة",
-  "seller cost": "التكلفة"
+  "seller cost": "التكلفة",
+  "No data to show":"لا يوجد بيانات للعرض"
 }

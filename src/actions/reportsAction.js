@@ -37,8 +37,8 @@ export const getSellerPoints = (lang, from_date, to_date) => (dispatch) => {
     });
 };
 
-export const getSellerReports = (from_date, to_date, phone, transType, transStatus) => (dispatch) => {
-  console.log(transType, 'dacccc')
+export const getSellerReports = (from_date, to_date, phone = '', transType = '', transStatus = '') => (dispatch) => {
+  console.log(from_date, to_date, phone, transType, transStatus, 'dacccc')
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
