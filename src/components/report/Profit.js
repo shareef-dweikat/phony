@@ -143,7 +143,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                       ></i>
                       {translate("movmentNo")}
                     </th>
-                    <th scope="col text-center" style={{ width: "170px" }}>
+                    <th scope="col text-center" style={{ width: "170px", textTransform: 'capitalize' }}>
                       <i
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"

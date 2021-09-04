@@ -14,7 +14,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
     const [loading, isLoading] = useState(false);
     const intl = useIntl();
     const url = new URLSearchParams(history.location.search)
-
+    const [isDetailsButtonClicked, setIsDetailsButtonClicked] = useState({flag: false, index: null})
     useEffect(() => {
         updateTransactions();
         if (url.get("refresh") == "true") {
@@ -75,13 +75,16 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {last.map((item) => (
+                        {last.map((item, index) => (
+                            <>
                             <tr
                             className={`${item.status === "proccessing" && "table-active"} ${
                                 item.status === "Success" && "table-green"
                             } ${item.status === "failed" && "table-danger"}`}
                             >
-                                <td scope="row ">{item.transid}</td>
+                                <td scope="row ">
+                                    {item.transid}
+                                </td>
                                 <td className="table-dadnger">{item.provider}</td>
                                 <td>{item.number}</td>
                                 <td>₪ {item.cardamount || 0}</td>
@@ -89,17 +92,34 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
                                     {item.status == "failed" && (
-                                        <Button size="sm" onClick={() => showReason(item.transid)} disabled={loading}>
-                                            {translate("Show Reason")}
+                                        <Button size="sm" 
+                                        // onClick={() => showReason(item.transid)} 
+                                        onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})}
+                                        disabled={loading}>
+                                            {/* {translate("Show Reason")} */}
+                                            التفاصيل
                                         </Button>
                                     )}
-                                    {item.status == "Success" && !item.cancelrequest &&(
+                                    {item.status == "Success" && !item.cancelrequest && (
                                         <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
                                             {translate("Cancel")}
                                         </Button>
                                     )}
                                 </td>
                             </tr>
+                            {
+                               isDetailsButtonClicked.flag && isDetailsButtonClicked.index === index && (
+                                    <tr style={{backgroundColor: 'white'}}>
+                                        <td colspan="7" style={{textAlign: 'right'}}>
+                                            <div>{item.carddescription}</div>
+                                            <div>{translate('Renewable')}: {item.autorenew?'نعم':'لا'}</div>
+                                            <div>{translate('Reason')}: {item.reason}</div>
+                                        </td>
+                                    </tr>
+                                )
+                                
+                            }
+                            </>
                         ))}
                     </tbody>
                 </table>
