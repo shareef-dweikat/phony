@@ -6,6 +6,7 @@ import errorReducer from "./errorReducer";
 import reportReducer from "./reportsReducer";
 import insuranceReducer from "./insuranceReducer";
 import internetReducer from "./internetReducer"
+import discountsReducer from "./discountsReducer"
 import cardReducer from "./cards";
 export default combineReducers({
   auth: authReducer,
@@ -15,4 +16,5 @@ export default combineReducers({
   cards: cardReducer,
   insurances: insuranceReducer,
   internets: internetReducer,
+  discounts: discountsReducer
 });

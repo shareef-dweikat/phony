@@ -257,11 +257,11 @@ export const callIpApi = () => {
 export const getMainPicture = () => {
   return ApiRequest.post("get_main_picture")
   .then((res) => {
-    if (res.data.status !== "success") {
-      return null;
-    } else {
-      return res.data.main_image_url;
-    }
+    // if (res.data.status !== "success") {
+    //   return null;
+    // } else {
+    //   return res.data.main_image_url;
+    // }
   });
 }
 

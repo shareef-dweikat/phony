@@ -21,8 +21,8 @@ const Report = ({sellerReports, getSellerReports}) => {
   const defaultTransStatusOptions = '';
 
   const [dateForm, setDateForm] = useState({
-    from: "",
-    to: "",
+    from: moment().format('YYYY-MM-DD'),
+    to: moment().format('YYYY-MM-DD'),
   });
   
   const [phone, setPhone] = useState('');

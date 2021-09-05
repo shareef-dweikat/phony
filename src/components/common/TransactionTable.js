@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 import Toast from "./Toast";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
-
+import DownArrow from '../../assests/images/icons/down-circular-button.png'
 const TransactionTable = ({ getLastTransaction, last }) => {
     const history = useHistory();
     const [loading, isLoading] = useState(false);
@@ -69,6 +69,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             <th scope="col">{translate("Provider")}</th>
                             <th scope="col">{translate("Mobile No.")}</th>
                             <th scope="col">{translate("Amount")}</th>
+                            <th scope="col">{translate("seller cost")}</th>
                             <th scope="col">{translate("Date & Time")}</th>
                             <th scope="col">{translate("Status")}</th>
                             <th scope="col">{translate("Actions")}</th>
@@ -79,15 +80,25 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             <>
                             <tr
                             className={`${item.status === "proccessing" && "table-active"} ${
-                                item.status === "Success" && "table-green"
-                            } ${item.status === "failed" && "table-danger"}`}
+                                item.status === "success" && "table-green"
+                            } ${item.status === "failed" && "table-danger"}  ${item.cancelrequest && "table-canceled"}`}
                             >
-                                <td scope="row ">
-                                    {item.transid}
-                                </td>
+                                 {item.status === 'success'?
+                                        <td style={{display: 'flex', flexDirection: 'row'}}>
+                                            <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
+                                                <img style={{display: 'inline', marginLeft: 10}} src={DownArrow} width={25} height={25}/>
+                                            </div>
+                                              {item.transid}
+                                        </td> 
+                                        :
+                                        <td scope="row ">
+                                            {item.transid}
+                                        </td>
+                                    }
                                 <td className="table-dadnger">{item.provider}</td>
                                 <td>{item.number}</td>
                                 <td>₪ {item.cardamount || 0}</td>
+                                <td>{item.dealercost === 'N/A'?'':'₪'} {item.dealercost || 0}</td>
                                 <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
@@ -100,7 +111,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             التفاصيل
                                         </Button>
                                     )}
-                                    {item.status == "Success" && !item.cancelrequest && (
+                                    {item.status == "success" && !item.cancelrequest && (
                                         <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
                                             {translate("Cancel")}
                                         </Button>
@@ -113,7 +124,9 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                         <td colspan="7" style={{textAlign: 'right'}}>
                                             <div>{item.carddescription}</div>
                                             <div>{translate('Renewable')}: {item.autorenew?'نعم':'لا'}</div>
-                                            <div>{translate('Reason')}: {item.reason}</div>
+                                            <div>{translate('Provider')}: {item.provider}</div>
+                                            <div>{translate('trans type')}: {item.transtype}</div>
+                                            {item.status !== 'success' && <div>{translate('Reason')}: {item.reason}</div>}
                                         </td>
                                     </tr>
                                 )

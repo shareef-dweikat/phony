@@ -3,8 +3,8 @@ import translate from "../../i18n/translate";
 import TextFieldGroup from "../common/TextFieldGroup";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
-import { loginUser, callIpApi } from "../../actions/userAction";
+import { connect, useDispatch } from "react-redux";
+import { loginUser, callIpApi, logoutUser } from "../../actions/userAction";
 import validateLoginInput from "../../validation/validateLoginInput";
 import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
@@ -16,11 +16,13 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
   const [ip, setIp] = useState(null);
-
+  const dispatch = useDispatch()
   useEffect(() => {
     document.title = "Sign In | Phone Play";
-    if (isAuthenticated) {
+    if (isAuthenticated && history.location.search !== '?token-expired') {
       history.push("/");
+    } else if( history.location.search == '?token-expired') {
+          dispatch(logoutUser(history))
     }
     if (!ip) {
       callIpApi()

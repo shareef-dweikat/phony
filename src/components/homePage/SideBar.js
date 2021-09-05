@@ -167,6 +167,21 @@ const SideBar = ({ user }) => {
           </div>
           <div
             className={`sidebar__link ${
+              history === "/messages" && "active-link"
+            } m-4`}
+          >
+            <a className="link-main " href="/discounts">
+              <span>
+                <i
+                  className="icon-main fa fa-tags  m-2"
+                  aria-hidden="true"
+                ></i>
+                {translate("discounts")}
+              </span>
+            </a>
+          </div>
+          <div
+            className={`sidebar__link ${
               history === "/report" && "active-link"
             } m-4`}
           >

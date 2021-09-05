@@ -36,6 +36,7 @@ import SubNavbar from "../layout/SubNavbar";
 import Home from "../../components/homePage/Home";
 import Points from '../pages/Points/Points'
 import Profit from "../report/Profit";
+import Discounts from '../pages/Discounts/Discounts'
 const AuthenticatedRoutes = () => {
 
   return (
@@ -54,6 +55,7 @@ const AuthenticatedRoutes = () => {
               <Route exact path="/gaming" component={Gaming} />
               <Route exact path="/internet" component={Internet} />
               <Route exact path="/insurance" component={Insurance} />
+              <Route exact path="/discounts" component={Discounts} />
 
               {/* //COPMANY */}
 

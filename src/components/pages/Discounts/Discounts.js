@@ -4,23 +4,26 @@ import translate from "../../../i18n/translate";
 import SideBar from "../../homePage/SideBar";
 import { useIntl } from 'react-intl';
 import "./style.css";
-import { getSellerPoints } from "../../../actions/reportsAction";
+import { getDiscounts } from "../../../actions/discountsAction";
 import DateFnsUtils from '@date-io/date-fns';
 import Spinner from "../../ui/spinner/Spinner";
-import moment from 'moment'
 
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
 const Languages = {
   "en": "english",
   "ar": "arabic",
   "il": "israel",
 };
 
-const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
+const Discounts = ({ discounts, getDiscounts}) => {
   const intl = useIntl()
   const [loading, isLoading] = useState(false);
   const [dateForm, setDateForm] = useState({
-    from: moment().format('YYYY-MM-DD'),
-    to: moment().format('YYYY-MM-DD'),
+    from: "",
+    to: "",
   });
   const [currentPageContent, setCurrentPageContent] = useState([]);
   const [buttons, setButtons] = useState([]);
@@ -28,29 +31,29 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 card-md");
   useEffect(() => {
     document.title = "Seller Points | PhonePlay ";
-
+    isLoading(true);
+    getDiscounts()
+      .then((res) => {
+        console.log(res, "ressssss")
+          isLoading(false)
+      })
       getPageContent(1)
       getPagesNumbers()
     refreshColumnStyle();
-  }, [sellerPoints]);
+  }, []);
   const onChangeDate = (e) => {
     setDateForm({ ...dateForm, [e.target.name]: e.target.value });
   };
-  const initSellerPoints = () => {
-    isLoading(true);
 
-    getSellerPoints(Languages[intl.locale], dateForm.from, dateForm.to)
-    .then((res) => {
-        isLoading(false)
-    })
-  }
+
   const getPageContent = (pageNumber)=> {
-    const temp = sellerPoints?[...sellerPoints]:[]
+    const temp = discounts?[...discounts]:[]
     let currentContent = temp?.splice(pageNumber * 10 - 10, pageNumber * 10 - 1)
     setCurrentPageContent(currentContent)
   }
+  console.log(discounts,  "discountsssss")
   const getPagesNumbers = (sellerPointss)=> {
-    let pagesCount = Math.ceil(sellerPoints?.length / 10);
+    let pagesCount = Math.ceil(discounts?.length / 10);
 
       let buttons = []
       for(let i = 1; i <= pagesCount ;i++){
@@ -76,7 +79,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
   currentPageContent?.map((item)=> {
     total = total + parseFloat(item.points)
   })
-  console.log(sellerPoints, "ddddd")
+  console.log(discounts, "ddddd")
   return (
     <div>
       <div className="container insurance style1">
@@ -86,7 +89,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
             <div>
-            <div className="mt-5">
+            {/* <div className="mt-5">
               <div className="row">
                 <div className="form-group row">
                   <label className="col-sm-1 col-form-label">
@@ -120,7 +123,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
          
               <div style={{marginTop: 16}} />
               <div className="row mb-5 mt-10">
@@ -167,8 +170,8 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
 };
 
 const mapStateToProps = (state) => ({
-  sellerPoints: state.reports.sellerPoints,
+  discounts: state.discounts.discounts,
 });
 
-export default connect(mapStateToProps, { getSellerPoints })(Points);
+export default connect(mapStateToProps, { getDiscounts })(Discounts);
 

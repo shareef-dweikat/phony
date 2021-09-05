@@ -54,3 +54,8 @@ export const GET_INSURANCES = "GET_INSURANCES";
 
 // Internet
 export const GET_INTERNETS= "GET_INTERNETS";
+
+//Discounts
+export const GET_SELLER_DISCOUNTS= "GET_SELLER_DISCOUNTS";
+
+

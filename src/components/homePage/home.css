@@ -20,5 +20,9 @@
 }
 
 .table-green{
-    background-color: #c3e1ef;
+    /* background-color: #c3efd2; */
+    background-color: #c3efd2;
+}
+.table-canceled{
+    background-color: #c4df50;
 }
