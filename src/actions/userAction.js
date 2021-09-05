@@ -19,7 +19,7 @@ export const setCurrentUser = (decode) => {
 
 // login user
 
-export const loginUser = (userData, ip, history) => (dispatch) => {
+export const loginUser = (userData, ip, history, errorCount) => (dispatch) => {
   dispatch(clearErrors());
   
   const config = {headers: {"X-Real-IP": ip, "X-Identifier": userData.username }}
@@ -28,6 +28,8 @@ export const loginUser = (userData, ip, history) => (dispatch) => {
     .then((res) => {
       //save to local storage
       if (res.data.status === "failed") {
+        localStorage.setItem('errorCount', errorCount + 1)
+        console.log('Errorrr')
         dispatch({
           type: GET_ERRORS,
           payload: "Invalid username or password",
@@ -40,6 +42,8 @@ export const loginUser = (userData, ip, history) => (dispatch) => {
           localStorage.setItem("companies", JSON.stringify(res.data));
           //set current user
           dispatch(setCurrentUser(res.data));
+          localStorage.setItem('errorCount', 0)
+
           history.push("/");
         } else {
           axios

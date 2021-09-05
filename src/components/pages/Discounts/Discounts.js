@@ -5,13 +5,8 @@ import SideBar from "../../homePage/SideBar";
 import { useIntl } from 'react-intl';
 import "./style.css";
 import { getDiscounts } from "../../../actions/discountsAction";
-import DateFnsUtils from '@date-io/date-fns';
 import Spinner from "../../ui/spinner/Spinner";
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 const Languages = {
   "en": "english",
   "ar": "arabic",
@@ -34,25 +29,19 @@ const Discounts = ({ discounts, getDiscounts}) => {
     isLoading(true);
     getDiscounts()
       .then((res) => {
-        console.log(res, "ressssss")
           isLoading(false)
       })
       getPageContent(1)
       getPagesNumbers()
     refreshColumnStyle();
   }, []);
-  const onChangeDate = (e) => {
-    setDateForm({ ...dateForm, [e.target.name]: e.target.value });
-  };
-
-
+ 
   const getPageContent = (pageNumber)=> {
     const temp = discounts?[...discounts]:[]
     let currentContent = temp?.splice(pageNumber * 10 - 10, pageNumber * 10 - 1)
     setCurrentPageContent(currentContent)
   }
-  console.log(discounts,  "discountsssss")
-  const getPagesNumbers = (sellerPointss)=> {
+  const getPagesNumbers = ()=> {
     let pagesCount = Math.ceil(discounts?.length / 10);
 
       let buttons = []
@@ -75,11 +64,7 @@ const Discounts = ({ discounts, getDiscounts}) => {
         break;
     }
   }
-  let total = 0
-  currentPageContent?.map((item)=> {
-    total = total + parseFloat(item.points)
-  })
-  console.log(discounts, "ddddd")
+ console.log(currentPageContent, "currentPageContent")
   return (
     <div>
       <div className="container insurance style1">
@@ -89,70 +74,29 @@ const Discounts = ({ discounts, getDiscounts}) => {
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
             <div>
-            {/* <div className="mt-5">
-              <div className="row">
-                <div className="form-group row">
-                  <label className="col-sm-1 col-form-label">
-                    {translate("from")}
-                  </label>
-                  <div className="col-sm-4">
-                    <input
-                      name="from"
-                      value={dateForm.from}
-                      type="date"
-                      className="form-control"
-                      onChange={(e) => onChangeDate(e)}
-                    />
-                  </div>
-                  <label className="col-sm-1 col-form-label">
-                    {translate("to")}
-                  </label>
-                  <div className="col-sm-4">
-                    <input
-                      name="to"
-                      value={dateForm.to}
-                      type="date"
-                      className="form-control"
-                      onChange={(e) => onChangeDate(e)}
-                    />
-                  </div>
-                  <div className="col-sm-2">
-                    <button onClick={initSellerPoints} className="btn sign-but">
-                      {translate("search")}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-         
               <div style={{marginTop: 16}} />
               <div className="row mb-5 mt-10">
               <table>
                   <tr>
-                    <th>{translate('transatction')}</th>
-                    <th>{translate('date')}</th>
-                    <th>{translate('seller')}</th>
-                    <th>{translate('points')}</th>
-                    <th>{translate('running_balance')}</th>
+                    <th>{translate('Provider')}</th>
+                    <th>{translate('discount')}</th>            
                   </tr>
                     {
                       currentPageContent?.map((item)=>{
-                        return (  <tr>
-                          <td>{item.trand_id}</td>
-                          <td>{item.date}</td>
-                          <td>{item.seller}</td>
-                          <td>{item.points}</td>
-                          <td>{item.total_points}</td>
+                        var keys = Object.keys( item )
+                        if(!item[keys[1]]) {
+                          return null
+                        }
+                        return (
+                          <tr>
+                              <td>{keys[0]}</td>
+                              <td>{item[keys[1]]}</td>
                           </tr>
                         )
                       })
                     }
-                      <td></td>
-                      <td></td>
-                      <td></td>
-                      <td>{translate('the_sum')} {total?.toFixed(4)}</td>
-                      <td></td>
                 </table>
+                {currentPageContent.length == 0 && <div style={{marginRight: 32, paddingTop: 32}}>{translate('No data to show')}</div>}
                 {buttons?.map((page, index)=>
                    <button onClick={()=>getPageContent(index + 1)} id="page-number">{index + 1}</button>
                   )}

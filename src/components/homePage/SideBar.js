@@ -6,7 +6,7 @@ import "./sidebar.css";
 import { currentRates } from "../../actions/currencyAction";
 import _ from "lodash";
 import Spinner from "../ui/spinner/Spinner";
-
+import { Blink } from "@bdchauvette/react-blink";
 const SideBar = ({ user }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -196,25 +196,33 @@ const SideBar = ({ user }) => {
 
         <div className="card card-currency">
           <div className="card-body">
-            <h6>{translate("Currency exchange rates")}</h6>
-            <hr class="divider my-2"></hr>
-            <table className="currecy-rates">
-              <thead>
-                <tr>
-                  <th>{translate("Currency")}</th>
-                  <th>{translate("Price")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rates.map((rate) => (
-                  <tr>
-                    <td>{translate(_.trim(rate.currency) + " / ILS")}</td>
-                    <td>{rate.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {loading && (<Spinner type="inner"/>)}
+            {!loading && 
+                <>
+                      <h6>{translate("Currency exchange rates")}</h6>
+                  <hr class="divider my-2"></hr>
+                  <table className="currecy-rates">
+                    <thead>
+                      <tr>
+                        <th>{translate("Currency")}</th>
+                        <th>{translate("Price")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rates.map((rate) => (
+                        <tr>
+                          <td>{translate(_.trim(rate.currency) + " / ILS")}</td>
+                          <td>{rate.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+            }
+            {loading && <div > 
+              <Blink>
+                <div style={{height: 5,width: 5,borderWidth:1, borderRadius: 50, borderColor: 'red', backgroundColor: 'red', borderStyle: 'solid',}}/>
+            </Blink>  
+            </div>}
           </div>
         </div>
       </div>

@@ -65,7 +65,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col ">{translate("Transaction")}</th>
+                            <th scope="col ">{translate("movmentNo")}</th>
                             <th scope="col">{translate("Provider")}</th>
                             <th scope="col">{translate("Mobile No.")}</th>
                             <th scope="col">{translate("Amount")}</th>

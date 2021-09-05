@@ -17,6 +17,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const intl = useIntl();
   const [ip, setIp] = useState(null);
   const dispatch = useDispatch()
+
   useEffect(() => {
     document.title = "Sign In | Phone Play";
     if (isAuthenticated && history.location.search !== '?token-expired') {
@@ -29,6 +30,22 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
       .then((info) => {
         setIp(info.ip);
       });
+    }
+    // window.addEventListener("popstate", e => {
+    //   // Nope, go back to your page
+    //   this.props.history.go(1);
+    // });
+    window.onpopstate = () => setTimeout(()=>{
+     history.go(1);
+    }, 0);
+
+    // window.addEventListener("load", function(event) { 
+    //   //console.log("The page is redirecting")  
+    //  alert('The page is redirecting')         
+     
+    // });
+    if(parseInt(localStorage.getItem('errorCount')) && parseInt(localStorage.getItem('errorCount')) != errorCount) {
+      setErrorCount(parseInt(localStorage.getItem('errorCount')))
     }
   }, []);
   const [loginForm, setLoginForm] = useState({
@@ -51,16 +68,19 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
       setErrors1(errors);
       isLoading(false);
     } else {
-      loginUser(loginForm, ip, history)
+      loginUser(loginForm, ip, history, errorCount)
       .finally(() => {
         setErrorCount(errorCount + 1)
+        // localStorage.setItem('errorCount', errorCount + 1)
         isLoading(false);
       });
     }
   };
   function verfiy() {
    setErrorCount(0)
+   localStorage.setItem('errorCount', 0)
   }
+  console.log(errorCount, "errrorr")
   return (
     <section class="auth signin">
       <div class="container">

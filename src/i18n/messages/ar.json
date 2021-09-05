@@ -288,7 +288,9 @@
   "failed trans": "فاشلة",
   "pending":"قيد التنفيذ",
   "success": "ناجحة",
+  "The_Summation": "المجموع",
   "seller cost": "التكلفة",
   "discounts":"الخصومات",
+  "discount":"الخصم",
   "No data to show":"لا يوجد بيانات للعرض"
 }

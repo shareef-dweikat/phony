@@ -76,7 +76,6 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
   currentPageContent?.map((item)=> {
     total = total + parseFloat(item.points)
   })
-  console.log(sellerPoints, "ddddd")
   return (
     <div>
       <div className="container insurance style1">
@@ -146,8 +145,8 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                     }
                       <td></td>
                       <td></td>
-                      <td></td>
-                      <td>{translate('the_sum')} {total?.toFixed(4)}</td>
+                      <td>{translate('the_sum')}</td>
+                      <td>{total?.toFixed(4)}</td>
                       <td></td>
                 </table>
                 {buttons?.map((page, index)=>

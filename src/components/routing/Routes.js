@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import SignIn from "../auth/SignIn";
 import SignUp from "../auth/SignUp";
 import ForgotPassword from "../auth/ForgotPassword";
@@ -13,6 +13,7 @@ import Settings from "../../components/ui/Settings/Settings";
 
 const Routes = ({ user }) => {
   const location = useLocation()
+ 
   return (
    <div>
      {location.pathname != '/signin' && <Settings />}

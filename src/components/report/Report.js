@@ -12,11 +12,11 @@ import Spinner from "../ui/spinner/Spinner";
 const Report = ({sellerReports, getSellerReports}) => {
   const history = useHistory().location.pathname;
   const options = [
-    'topup', 'cancelation', 'add credits'
+    'All','topup', 'cancelation', 'add credits'
   ];
   const defaultOption = '';
   const transStatusOptions = [
-    'success', 'failed', 'pending'
+    'All','success', 'failed', 'pending'
   ];
   const defaultTransStatusOptions = '';
 
@@ -26,8 +26,8 @@ const Report = ({sellerReports, getSellerReports}) => {
   });
   
   const [phone, setPhone] = useState('');
-  const [transType, setTransType] = useState('');
-  const [transStatus, setTransStatus] = useState('');
+  const [transType, setTransType] = useState('All');
+  const [transStatus, setTransStatus] = useState('All');
   const [loading, isLoading] = useState(false);
 
   useEffect(() => {
@@ -39,7 +39,6 @@ const Report = ({sellerReports, getSellerReports}) => {
   };
   const handleSearch = () => {
     isLoading(true);
-      console.log(phone, "phooooo")
     getSellerReports(dateForm.from, dateForm.to, phone, transType.value, transStatus.value).then(()=>{
       isLoading(false)
     })
@@ -106,6 +105,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                       name="from"
                       value={dateForm.from}
                       type="date"
+                      format="YYY-MM-DD"
                       className="form-control"
                       onChange={(e) => onChangeDate(e)}
                     />
@@ -118,6 +118,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                       name="to"
                       value={dateForm.to}
                       type="date"
+                      format="YYY-MM-DD"
                       className="form-control"
                       onChange={(e) => onChangeDate(e)}
                     />
@@ -187,6 +188,20 @@ const Report = ({sellerReports, getSellerReports}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
+                      {translate("Time & Date")}
+                    </th>
+                    <th scope="col text-center">
+                      <i
+                        className="fa fa-arrow-down m-1"
+                        aria-hidden="true"
+                      ></i>
+                      {translate("Provider")}
+                    </th>
+                    <th scope="col text-center">
+                      <i
+                        className="fa fa-arrow-down m-1"
+                        aria-hidden="true"
+                      ></i>
                       {translate("Mobile No.")}
                     </th>
                     <th scope="col text-center">
@@ -203,13 +218,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                       ></i>
                       {translate("status")}
                     </th>
-                    <th scope="col text-center">
-                      <i
-                        className="fa fa-arrow-down m-1"
-                        aria-hidden="true"
-                      ></i>
-                      {translate("Time & Date")}
-                    </th>
+                    
                     <th scope="col text-center">{translate("restoration")}</th>
                   </tr>
                 </thead>
@@ -217,15 +226,17 @@ const Report = ({sellerReports, getSellerReports}) => {
                   {
                     sellerReports?.map((report)=> {
                       return <tr>
-                      <th scope="row">1</th>
+                      <th scope="row">{report.transid}</th>
+                      <td className="text-center">{moment(report.datetime).format('YYYY-MM-DD HH:mm')}</td>
+                      <td className="text-center">{report.provider}</td>
                       <td className="text-center">{report.number}</td>
                       <td className="text-center">{report.cardamount}</td>
                       <td className="text-center">{report.status}</td>
-                      <td className="text-center">{moment(report.datetime).format('YYYY-MM-DD HH:mm')}</td>
                       <td className="text-center">@mdo</td>
                     </tr>
                     })
                   }
+               
                 </tbody>
               </table>
             </div>

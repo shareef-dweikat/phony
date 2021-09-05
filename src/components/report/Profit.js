@@ -44,6 +44,15 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
       isLoading(false)
     })
   }
+  let totalProfit = 0
+  let totalValue = 0
+  let totalSellerCost = 0
+  sellerProfit?.map((sellerProfit)=>{
+    totalProfit = totalProfit + parseFloat(sellerProfit.profit)
+    totalValue = totalValue + parseFloat(sellerProfit.value)
+    totalSellerCost = totalSellerCost + parseFloat(sellerProfit.sellercost)
+
+  })
   return (
     <div>
       <div className="container">
@@ -193,6 +202,14 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                     </tr>
                     })
                   }
+                     <tr>
+                       <td></td>
+                       <td></td>
+                      <td>{translate('The_Summation')}</td>
+                      <td>{totalProfit}</td>
+                      <td>{totalValue}</td>
+                      <td>{totalSellerCost}</td>
+                    </tr>
                 </tbody>
               </table>
             </div>
