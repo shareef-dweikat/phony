@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import SideBar from "../homePage/SideBar";
 import { Link, useHistory } from "react-router-dom";
 import translate from "../../i18n/translate";
-import {getSellerReports} from '../../actions/reportsAction'
+import {getSellerCancelationReports} from '../../actions/reportsAction'
 import "./report.css";
 import { connect } from "react-redux";
 import moment from 'moment'
 import Dropdown from 'react-dropdown';
 import Spinner from "../ui/spinner/Spinner";
 
-const Report = ({sellerReports, getSellerReports}) => {
+const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) => {
   const history = useHistory().location.pathname;
   const options = [
     'All','topup', 'cancelation', 'add credits'
@@ -24,7 +24,7 @@ const Report = ({sellerReports, getSellerReports}) => {
     from: moment().format('YYYY-MM-DD'),
     to: moment().format('YYYY-MM-DD'),
   });
-  
+  console.log(sellerCancelationReports, 'sellerCancelationReportsss')
   const [phone, setPhone] = useState('');
   const [transType, setTransType] = useState('All');
   const [transStatus, setTransStatus] = useState('All');
@@ -39,7 +39,7 @@ const Report = ({sellerReports, getSellerReports}) => {
   };
   const handleSearch = () => {
     isLoading(true);
-    getSellerReports(dateForm.from, dateForm.to, phone, transType.value, transStatus.value).then(()=>{
+    getSellerCancelationReports(dateForm.from, dateForm.to, phone, transType.value, transStatus.value).then(()=>{
       isLoading(false)
     })
   }
@@ -66,6 +66,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                   className="col-sm-2 col-form-label m-1"
                 >
                   <Link
+                    to="report"
                     className={`semi-nav ${
                       history === "/report" && "active-semi"
                     } m-4`}
@@ -84,7 +85,11 @@ const Report = ({sellerReports, getSellerReports}) => {
                 </Link>
                 </label>
                 <label for="inputEmail3" className="col-sm-2 col-form-label">
-                  <Link to="cancelation"  className="semi-nav">{translate("refund")}</Link>
+                  <Link className={`semi-nav ${
+                      history === "/cancelation" && "active-semi"
+                    }`}>
+                      {translate("refund")}
+                  </Link>
                 </label>
                 <label for="inputEmail3" className="col-sm-3 col-form-label">
                   <Link to="running" className={`semi-nav ${
@@ -228,7 +233,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                 </thead>
                 <tbody>
                   {
-                    sellerReports?.map((report)=> {
+                    sellerCancelationReports?.map((report)=> {
                       return <tr>
                       <th scope="row">{report.transid}</th>
                       <td className="text-center">{moment(report.datetime).format('YYYY-MM-DD HH:mm')}</td>
@@ -244,7 +249,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                 </tbody>
               </table>
             </div>
-            {!sellerReports?.length && <div className="no-data-to-show">{translate('No data to show')}</div>}
+            {!sellerCancelationReports?.length && <div className="no-data-to-show">{translate('No data to show')}</div>}
           </div>
         </div>
       </div>
@@ -254,7 +259,7 @@ const Report = ({sellerReports, getSellerReports}) => {
 };
 
 const mapStateToProps = (state) => ({
-  sellerReports: state.reports.sellerReports,
+  sellerCancelationReports: state.reports.sellerCancelationReports,
 });
 
-export default connect(mapStateToProps, { getSellerReports })(Report);
+export default connect(mapStateToProps, { getSellerCancelationReports })(Cancelation);

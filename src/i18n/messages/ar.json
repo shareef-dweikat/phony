@@ -271,6 +271,7 @@
   "transatction": "العملية",
   "date": "التاريخ",
   "seller": "البائع",
+  "action": "تنفيذ",
   "running_balance":"مجموع النقاط التراكمي",
   "Resend code": "إعادة إرسال الرمز",
   "Something went wrong!": "هناك خطأ ما!",

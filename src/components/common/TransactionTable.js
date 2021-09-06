@@ -65,12 +65,12 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col ">{translate("movmentNo")}</th>
-                            <th scope="col">{translate("Provider")}</th>
+                            <th scope="col ">{translate("transactionNo")}</th>
+                            <th scope="col">{translate("Date & Time")}</th>
                             <th scope="col">{translate("Mobile No.")}</th>
+                            <th scope="col">{translate("Provider")}</th>
                             <th scope="col">{translate("Amount")}</th>
                             <th scope="col">{translate("seller cost")}</th>
-                            <th scope="col">{translate("Date & Time")}</th>
                             <th scope="col">{translate("Status")}</th>
                             <th scope="col">{translate("Actions")}</th>
                         </tr>
@@ -86,20 +86,22 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                  {item.status === 'success'?
                                         <td style={{display: 'flex', flexDirection: 'row'}}>
                                             <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
-                                                <img style={{display: 'inline', marginLeft: 10}} src={DownArrow} width={25} height={25}/>
+                                                <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
                                             </div>
+                                            <span style={{ marginLeft: 8, marginRight: 8, fontWeight: 600}}>
                                               {item.transid}
+                                            </span>
                                         </td> 
                                         :
                                         <td scope="row ">
                                             {item.transid}
                                         </td>
                                     }
-                                <td className="table-dadnger">{item.provider}</td>
+                                <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
                                 <td>{item.number}</td>
+                                <td className="table-dadnger">{item.provider}</td>
                                 <td>₪ {item.cardamount || 0}</td>
                                 <td>{item.dealercost === 'N/A'?'':'₪'} {item.dealercost || 0}</td>
-                                <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
                                     {item.status == "failed" && (
@@ -107,8 +109,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                         // onClick={() => showReason(item.transid)} 
                                         onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})}
                                         disabled={loading}>
-                                            {/* {translate("Show Reason")} */}
-                                            التفاصيل
+                                            {translate("Details")}
                                         </Button>
                                     )}
                                     {item.status == "success" && !item.cancelrequest && (

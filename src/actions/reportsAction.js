@@ -3,12 +3,43 @@ import {
   GET_LAST_TRANSACTION,
   GET_SELLER_POINTS, 
   CLEAR_ERRORS,
+  GET_SELLER_CANCELATION_REPORTS,
   GET_ERRORS,
-  GET_SELLER_PROFIT
+  GET_SELLER_PROFIT,
+  GET_SELLER_RUNNING_REPORTS
    } from "./types";
 import ApiRequest from "./ApiRequest";
 import { LOCALES_COUNTRIES } from "../i18n";
 
+
+export const getSellerRunningReports = (from_date, to_date, phone = '', transType = '', transStatus = '') => (dispatch) => {
+  transStatus = transStatus === 'All'?'':transStatus
+  transType = transType === 'All'?'':transType
+
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
+  const sellerId = JSON.parse(localStorage.companies).sellerid
+  return  ApiRequest
+    .post(
+      `get_seller_report?from_date=${from_date}&to_date=${to_date}&sellerid=${sellerId}&trans_status=${transStatus}&trans_type=${transType}&number=${phone}`, null, config
+    )
+    .then((res) => {
+      console.log(res, 'GET_SELLER_RUNNING_REPORTS');
+      dispatch({
+        type: GET_SELLER_RUNNING_REPORTS,
+        payload: res.data,
+      });
+      // return res
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
 export const getSellerPoints = (lang, from_date, to_date) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
@@ -24,6 +55,35 @@ export const getSellerPoints = (lang, from_date, to_date) => (dispatch) => {
 
       dispatch({
         type: GET_SELLER_POINTS,
+        payload: res.data,
+      });
+      // return res
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
+export const getSellerCancelationReports = (from_date, to_date, phone = '', transType = '', transStatus = '') => (dispatch) => {
+  transStatus = transStatus === 'All'?'':transStatus
+  transType = transType === 'All'?'':transType
+
+  console.log(from_date, to_date, phone, transType, transStatus, "Params")
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
+  const sellerId = JSON.parse(localStorage.companies).sellerid
+  return  ApiRequest
+    .post(
+      `get_seller_report?from_date=${from_date}&to_date=${to_date}&sellerid=${sellerId}&trans_status=${transStatus}&trans_type=${transType}&number=${phone}&&canceled=true`, null, config
+    )
+    .then((res) => {
+      console.log(res, 'GET_SELLER_CANCELATION_REPORTS');
+      dispatch({
+        type: GET_SELLER_CANCELATION_REPORTS,
         payload: res.data,
       });
       // return res
@@ -66,6 +126,7 @@ export const getSellerReports = (from_date, to_date, phone = '', transType = '',
       // });
     });
 };
+
 export const getSellerProfit = (from_date, to_date) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;

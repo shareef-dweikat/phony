@@ -21,7 +21,7 @@ table {
     text-align: center;
   }
   
-  tr:nth-child(even) {
+  .discounts-page tr:nth-child(even) {
     background-color: #dddddd;
   }
 

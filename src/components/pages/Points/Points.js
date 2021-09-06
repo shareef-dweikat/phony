@@ -77,7 +77,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
     total = total + parseFloat(item.points)
   })
   return (
-    <div>
+    <div className="points-page">
       <div className="container insurance style1">
         <div className="row mt-5">
           <div className="col-3">
@@ -125,7 +125,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
               <div className="row mb-5 mt-10">
               <table>
                   <tr>
-                    <th>{translate('transatction')}</th>
+                    <th>{translate('transactionNo')}</th>
                     <th>{translate('date')}</th>
                     <th>{translate('seller')}</th>
                     <th>{translate('points')}</th>

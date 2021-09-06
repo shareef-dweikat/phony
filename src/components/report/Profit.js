@@ -95,12 +95,13 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                 </Link>
                 </label>
                 <label for="inputEmail3" className="col-sm-2 col-form-label">
-                  <Link className="semi-nav">{translate("refund")}</Link>
+                  <Link to="cancelation"  className="semi-nav">{translate("refund")}</Link>
                 </label>
                 <label for="inputEmail3" className="col-sm-3 col-form-label">
-                  <Link className="semi-nav">
-                    {" "}
-                    {translate("runingBalance")}
+                  <Link to="running" className={`semi-nav ${
+                      history === "/running" && "active-semi"
+                    }`}>
+                    {translate("running_balance")}
                   </Link>
                 </label>
               </div>
@@ -150,7 +151,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("movmentNo")}
+                      {translate("transactionNo")}
                     </th>
                     <th scope="col text-center" style={{ width: "170px", textTransform: 'capitalize' }}>
                       <i

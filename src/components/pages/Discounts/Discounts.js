@@ -66,7 +66,7 @@ const Discounts = ({ discounts, getDiscounts}) => {
   }
  console.log(currentPageContent, "currentPageContent")
   return (
-    <div>
+    <div className="discounts-page">
       <div className="container insurance style1">
         <div className="row mt-5">
           <div className="col-3">
