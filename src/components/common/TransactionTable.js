@@ -128,6 +128,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             <div>{translate('Provider')}: {item.provider}</div>
                                             <div>{translate('trans type')}: {item.transtype}</div>
                                             {item.status !== 'success' && <div>{translate('Reason')}: {item.reason}</div>}
+                                            <img src={item.url}  style={{width: 150,}}/>
                                         </td>
                                     </tr>
                                 )

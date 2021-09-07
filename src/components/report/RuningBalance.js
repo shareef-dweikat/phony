@@ -31,13 +31,11 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
       isLoading(false)
     })
   }
-  let totalProfit = 0
   let totalValue = 0
   let totalSellerCost = 0
   sellerRunning?.map((sellerProfit)=>{
-    totalProfit = totalProfit + parseFloat(sellerProfit.profit)
-    totalValue = totalValue + parseFloat(sellerProfit.value)
-    totalSellerCost = totalSellerCost + parseFloat(sellerProfit.sellercost)
+    totalValue = totalValue + sellerProfit.cardamount
+    totalSellerCost = totalSellerCost + sellerProfit.dealercost
 
   })
   console.log(sellerRunning, "sellerRunning")

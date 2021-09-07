@@ -8,7 +8,8 @@ import { connect } from "react-redux";
 import moment from 'moment'
 import Dropdown from 'react-dropdown';
 import Spinner from "../ui/spinner/Spinner";
-
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 const Report = ({sellerReports, getSellerReports}) => {
   const history = useHistory().location.pathname;
   const options = [
@@ -20,11 +21,9 @@ const Report = ({sellerReports, getSellerReports}) => {
   ];
   const defaultTransStatusOptions = '';
 
-  const [dateForm, setDateForm] = useState({
-    from: moment().format('YYYY-MM-DD'),
-    to: moment().format('YYYY-MM-DD'),
-  });
-  
+  const [dateTo, setDateTo] = useState(new Date());
+  const [dateFrom, setDateFrom] = useState(new Date());
+
   const [phone, setPhone] = useState('');
   const [transType, setTransType] = useState('All');
   const [transStatus, setTransStatus] = useState('All');
@@ -32,14 +31,11 @@ const Report = ({sellerReports, getSellerReports}) => {
 
   useEffect(() => {
     document.title = "Report | Phone Play";
-    //getSellerReports(dateForm.from, dateForm.to)
   }, []);
-  const onChangeDate = (e) => {
-    setDateForm({ ...dateForm, [e.target.name]: e.target.value });
-  };
+ 
   const handleSearch = () => {
     isLoading(true);
-    getSellerReports(dateForm.from, dateForm.to, phone, transType.value, transStatus.value).then(()=>{
+    getSellerReports(moment(dateFrom).format('YYYY-MM-DD'), moment(dateTo).format('YYYY-MM-DD'), phone, transType.value, transStatus.value).then(()=>{
       isLoading(false)
     })
   }
@@ -80,7 +76,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                       history === "/profit" && "active-semi"
                     } m-4`}
                   >
-                    {translate("profit")}
+                    {translate("profit_calculation")}
                 </Link>
                 </label>
                 <label for="inputEmail3" className="col-sm-2 col-form-label">
@@ -101,29 +97,34 @@ const Report = ({sellerReports, getSellerReports}) => {
                   <label className="col-sm-1 col-form-label" style={{width: 150}}>
                     {translate("from")}
                   </label>
-                  <div className="col-sm-3">
-                    <input
+                  <div className="col-sm-3" style={{width: 170}}>
+                  <DatePicker
+                      selected={dateFrom}
+                      type="date"
+                      dateFormat="dd-MM-yyyy"
+                      className="form-control"
+                      onChange={(e)=> setDateFrom(e)}
+                  />
+                    {/* <input
                       name="from"
                       value={dateForm.from}
                       type="date"
-                      format="YYY-MM-DD"
+                      placeholder="dd-mm-yyyy" 
                       className="form-control"
                       style={{width: 150}}
                       onChange={(e) => onChangeDate(e)}
-                    />
+                    /> */}
                   </div>
                   <label className="col-sm-1 col-form-label" style={{width: 120}}>
                     {translate("to")}
                   </label>
-                  <div className="col-sm-4">
-                    <input
-                      name="to"
-                      value={dateForm.to}
+                  <div className="col-sm-4" style={{width: 170}}>
+                    <DatePicker
+                       selected={dateTo}
                       type="date"
-                      format="YYY-MM-DD"
-                      style={{width: 150}}
+                      dateFormat="dd-MM-yyyy"
                       className="form-control"
-                      onChange={(e) => onChangeDate(e)}
+                      onChange={(e)=> setDateTo(e)}
                     />
                   </div>
                   <div className="col-sm-1">
@@ -185,7 +186,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("transactionNo")}
+                      {translate("movmentNo")}
                     </th>
                     <th scope="col text-center">
                       <i

@@ -14,12 +14,8 @@ const Languages = {
 };
 
 const Discounts = ({ discounts, getDiscounts}) => {
-  const intl = useIntl()
   const [loading, isLoading] = useState(false);
-  const [dateForm, setDateForm] = useState({
-    from: "",
-    to: "",
-  });
+  
   const [currentPageContent, setCurrentPageContent] = useState([]);
   const [buttons, setButtons] = useState([]);
 
@@ -29,17 +25,22 @@ const Discounts = ({ discounts, getDiscounts}) => {
     isLoading(true);
     getDiscounts()
       .then((res) => {
-          isLoading(false)
+        isLoading(false)
+       
       })
-      getPageContent(1)
-      getPagesNumbers()
-    refreshColumnStyle();
+      refreshColumnStyle();
   }, []);
- 
+  
+  useEffect(()=>{
+    getPageContent(1)
+       getPagesNumbers()
+  
+  },[discounts])
   const getPageContent = (pageNumber)=> {
-    const temp = discounts?[...discounts]:[]
+
+    const temp = discounts.length > 0?[...discounts]:[]
     let currentContent = temp?.splice(pageNumber * 10 - 10, pageNumber * 10 - 1)
-    setCurrentPageContent(currentContent)
+    setCurrentPageContent([...currentContent])
   }
   const getPagesNumbers = ()=> {
     let pagesCount = Math.ceil(discounts?.length / 10);

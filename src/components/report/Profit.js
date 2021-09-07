@@ -48,9 +48,9 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
   let totalValue = 0
   let totalSellerCost = 0
   sellerProfit?.map((sellerProfit)=>{
-    totalProfit = totalProfit + parseFloat(sellerProfit.profit)
-    totalValue = totalValue + parseFloat(sellerProfit.value)
-    totalSellerCost = totalSellerCost + parseFloat(sellerProfit.sellercost)
+    totalProfit = totalProfit + sellerProfit.profit
+    totalValue = totalValue + sellerProfit.amount
+    totalSellerCost = totalSellerCost + sellerProfit.sellercost
 
   })
   return (
@@ -207,9 +207,9 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                        <td></td>
                        <td></td>
                       <td>{translate('The_Summation')}</td>
-                      <td>{totalProfit}</td>
-                      <td>{totalValue}</td>
-                      <td>{totalSellerCost}</td>
+                      <td>{totalProfit?.toFixed(2)}</td>
+                      <td>{totalValue?.toFixed(2)}</td>
+                      <td>{totalSellerCost?.toFixed(2)}</td>
                     </tr>
                 </tbody>
               </table>
