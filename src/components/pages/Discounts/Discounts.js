@@ -39,7 +39,8 @@ const Discounts = ({ discounts, getDiscounts}) => {
   const getPageContent = (pageNumber)=> {
 
     const temp = discounts.length > 0?[...discounts]:[]
-    let currentContent = temp?.splice(pageNumber * 10 - 10, pageNumber * 10 - 1)
+    let currentContent = temp?.slice(pageNumber * 10 - 10, pageNumber * 10)
+    console.log(currentContent, "currentContentttt")
     setCurrentPageContent([...currentContent])
   }
   const getPagesNumbers = ()=> {
@@ -91,7 +92,7 @@ const Discounts = ({ discounts, getDiscounts}) => {
                         return (
                           <tr>
                               <td>{keys[0]}</td>
-                              <td>{item[keys[1]]}</td>
+                              <td>%{item[keys[1]]}</td>
                           </tr>
                         )
                       })

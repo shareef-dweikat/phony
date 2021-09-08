@@ -5,6 +5,9 @@ import { connect } from "react-redux";
 import "./sidebar.css";
 import { currentRates } from "../../actions/currencyAction";
 import _ from "lodash";
+import lock from '../../assests/images/icons/locked.png'
+import Toolbar from '@material-ui/core/Toolbar';   
+
 import Spinner from "../ui/spinner/Spinner";
 import { Blink } from "@bdchauvette/react-blink";
 const SideBar = ({ user }) => {
@@ -50,14 +53,19 @@ const SideBar = ({ user }) => {
 
             <hr className="divider my-2"></hr>
 
-            <h5 class="text-muted mt-0" title="Points" style={{fontSize: "1rem"}}>{translate("Points")}</h5>
-            <h3 class="text-success my-2">₪ {currentUser && currentUser.points}</h3>
-
-            <p class="user-info mb-0 px-2 text-muted">
-              <span class="username text-nowrap ms-1">{(user?.sellername || currentUser?.sellername)}</span>
-              <span class="text-nowrap mx-2">|</span>
-              <span class="text-nowrap me-1">{(user?.sellerid || currentUser.sellerid)}</span>
-            </p>
+             <h5 class="text-muted mt-0" title="Points" style={{fontSize: "1rem"}}>{translate("Points")}</h5>
+              
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+              <h3 class="text-success my-2">₪ {currentUser && currentUser.points}</h3>
+              <Toolbar title="Edit">
+                <img src={lock} style={{height: 50}} />
+              </Toolbar>
+            </div>
+              <p class="user-info mb-0 px-2 text-muted">
+                <span class="username text-nowrap ms-1">{(user?.sellername || currentUser?.sellername)}</span>
+                <span class="text-nowrap mx-2">|</span>
+                <span class="text-nowrap me-1">{(user?.sellerid || currentUser.sellerid)}</span>
+              </p>
           </div>
         </div>
       

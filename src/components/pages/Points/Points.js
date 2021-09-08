@@ -5,9 +5,9 @@ import SideBar from "../../homePage/SideBar";
 import { useIntl } from 'react-intl';
 import "./style.css";
 import { getSellerPoints } from "../../../actions/reportsAction";
-import DateFnsUtils from '@date-io/date-fns';
 import Spinner from "../../ui/spinner/Spinner";
 import moment from 'moment'
+import DatePicker from "react-datepicker";
 
 const Languages = {
   "en": "english",
@@ -25,6 +25,9 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
   const [currentPageContent, setCurrentPageContent] = useState([]);
   const [buttons, setButtons] = useState([]);
 
+  const [dateTo, setDateTo] = useState(new Date());
+  const [dateFrom, setDateFrom] = useState(new Date());
+
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 card-md");
   useEffect(() => {
     document.title = "Seller Points | PhonePlay ";
@@ -33,20 +36,17 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
       getPagesNumbers()
     refreshColumnStyle();
   }, [sellerPoints]);
-  const onChangeDate = (e) => {
-    setDateForm({ ...dateForm, [e.target.name]: e.target.value });
-  };
+ 
   const initSellerPoints = () => {
     isLoading(true);
-
-    getSellerPoints(Languages[intl.locale], dateForm.from, dateForm.to)
+    getSellerPoints(Languages[intl.locale], moment(dateFrom).format('YYYY-MM-DD'), moment(dateTo).format('YYYY-MM-DD'))
     .then((res) => {
         isLoading(false)
     })
   }
   const getPageContent = (pageNumber)=> {
     const temp = sellerPoints?[...sellerPoints]:[]
-    let currentContent = temp?.splice(pageNumber * 10 - 10, pageNumber * 10 - 1)
+    let currentContent = temp?.slice(pageNumber * 10 - 10, pageNumber * 10 - 1)
     setCurrentPageContent(currentContent)
   }
   const getPagesNumbers = (sellerPointss)=> {
@@ -92,24 +92,24 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                     {translate("from")}
                   </label>
                   <div className="col-sm-4">
-                    <input
-                      name="from"
-                      value={dateForm.from}
+                     <DatePicker
+                      selected={dateFrom}
                       type="date"
+                      dateFormat="dd-MM-yyyy"
                       className="form-control"
-                      onChange={(e) => onChangeDate(e)}
-                    />
+                      onChange={(e)=> setDateFrom(e)}
+                  />
                   </div>
                   <label className="col-sm-1 col-form-label">
                     {translate("to")}
                   </label>
                   <div className="col-sm-4">
-                    <input
-                      name="to"
-                      value={dateForm.to}
+                  <DatePicker
+                       selected={dateTo}
                       type="date"
+                      dateFormat="dd-MM-yyyy"
                       className="form-control"
-                      onChange={(e) => onChangeDate(e)}
+                      onChange={(e)=> setDateTo(e)}
                     />
                   </div>
                   <div className="col-sm-2">
@@ -125,7 +125,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
               <div className="row mb-5 mt-10">
               <table>
                   <tr>
-                    <th>{translate('transactionNo')}</th>
+                    <th>{translate('movmentNo')}</th>
                     <th>{translate('date')}</th>
                     <th>{translate('seller')}</th>
                     <th>{translate('points')}</th>
@@ -153,7 +153,6 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                    <button onClick={()=>getPageContent(index + 1)} id="page-number">{index + 1}</button>
                   )}
                 <div>
-                 {/* {sellerPoints[0].sellerPoints} مجموع النقاط */}
                 </div>
               </div>
             </div>

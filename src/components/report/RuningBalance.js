@@ -7,27 +7,24 @@ import "./report.css";
 import { connect } from "react-redux";
 import moment from 'moment'
 import Spinner from "../ui/spinner/Spinner";
+import DatePicker from "react-datepicker";
 
 const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
   const history = useHistory().location.pathname;
 
-  const [dateForm, setDateForm] = useState({
-    from: moment().format('YYYY-MM-DD'),
-    to: moment().format('YYYY-MM-DD'),
-  });
+ 
+  const [dateTo, setDateTo] = useState(new Date());
+  const [dateFrom, setDateFrom] = useState(new Date());
 
   const [loading, isLoading] = useState(false);
 
   useEffect(() => {
     document.title = "Report | Phone Play";
   }, []);
-  const onChangeDate = (e) => {
-    setDateForm({ ...dateForm, [e.target.name]: e.target.value });
-    console.log(e.target.value);
-  };
+ 
   const handleSearch = () => {
     isLoading(true);
-    getSellerRunningReports(dateForm.from, dateForm.to).then(()=>{
+    getSellerRunningReports(moment(dateFrom).format('YYYY-MM-DD'), moment(dateTo).format('YYYY-MM-DD')).then(()=>{
       isLoading(false)
     })
   }
@@ -80,9 +77,9 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                     {translate("profit")}
                 </Link>
                 </label>
-                <label for="inputEmail3" className="col-sm-2 col-form-label">
+                {/* <label for="inputEmail3" className="col-sm-2 col-form-label">
                   <Link to="cancelation"  className="semi-nav">{translate("refund")}</Link>
-                </label>
+                </label> */}
                 <label for="inputEmail3" className="col-sm-3 col-form-label">
                   <Link  className={`semi-nav ${
                       history === "/running" && "active-semi"
@@ -99,25 +96,39 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                     {translate("from")}
                   </label>
                   <div className="col-sm-4">
-                    <input
+                  <DatePicker
+                      selected={dateFrom}
+                      type="date"
+                      dateFormat="dd-MM-yyyy"
+                      className="form-control"
+                      onChange={(e)=> setDateFrom(e)}
+                  />
+                    {/* <input
                       name="from"
                       value={dateForm.from}
                       type="date"
                       className="form-control"
                       onChange={(e) => onChangeDate(e)}
-                    />
+                    /> */}
                   </div>
                   <label className="col-sm-1 col-form-label">
                     {translate("to")}
                   </label>
                   <div className="col-sm-4">
-                    <input
+                  <DatePicker
+                       selected={dateTo}
+                      type="date"
+                      dateFormat="dd-MM-yyyy"
+                      className="form-control"
+                      onChange={(e)=> setDateTo(e)}
+                    />
+                    {/* <input
                       name="to"
                       value={dateForm.to}
                       type="date"
                       className="form-control"
                       onChange={(e) => onChangeDate(e)}
-                    />
+                    /> */}
                   </div>
                   <div className="col-sm-2">
                     <button onClick={()=>handleSearch()} className="btn sign-but">
@@ -137,7 +148,7 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("transactionNo")}
+                      {translate("movmentNo")}
                     </th>
                     <th scope="col text-center" style={{ width: "170px", textTransform: 'capitalize' }}>
                       <i
@@ -174,6 +185,13 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                       ></i>
                       {translate("seller cost")}
                     </th>
+                    <th scope="col text-center">
+                      <i
+                        className="fa fa-arrow-down m-1"
+                        aria-hidden="true"
+                      ></i>
+                      {translate("add credits")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -186,6 +204,7 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                       {/* <td className="text-center">{report.profit}</td> */}
                       <td className="text-center">{report.cardamount}</td>
                       <td className="text-center">{report.dealercost}</td>
+                      <td className="text-center">{report.newsellerbalance}</td>
                     </tr>
                     })
                   }
@@ -194,8 +213,8 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                        <td></td>
                       <td>{translate('The_Summation')}</td>
                       {/* <td>{totalProfit}</td> */}
-                      <td>{totalValue}</td>
-                      <td>{totalSellerCost}</td>
+                      <td>{totalValue.toFixed(2)}</td>
+                      <td>{totalSellerCost?.toFixed(2)}</td>
                     </tr>
                 </tbody>
               </table>

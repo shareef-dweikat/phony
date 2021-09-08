@@ -29,7 +29,6 @@ export const loginUser = (userData, ip, history, errorCount) => (dispatch) => {
       //save to local storage
       if (res.data.status === "failed") {
         localStorage.setItem('errorCount', errorCount + 1)
-        console.log('Errorrr')
         dispatch({
           type: GET_ERRORS,
           payload: "Invalid username or password",

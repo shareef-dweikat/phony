@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import moment from 'moment'
 import Dropdown from 'react-dropdown';
 import Spinner from "../ui/spinner/Spinner";
+import DatePicker from "react-datepicker";
 
 const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) => {
   const history = useHistory().location.pathname;
@@ -20,26 +21,23 @@ const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) =
   ];
   const defaultTransStatusOptions = '';
 
-  const [dateForm, setDateForm] = useState({
-    from: moment().format('YYYY-MM-DD'),
-    to: moment().format('YYYY-MM-DD'),
-  });
+ 
   console.log(sellerCancelationReports, 'sellerCancelationReportsss')
   const [phone, setPhone] = useState('');
   const [transType, setTransType] = useState('All');
   const [transStatus, setTransStatus] = useState('All');
   const [loading, isLoading] = useState(false);
 
+  const [dateTo, setDateTo] = useState(new Date());
+  const [dateFrom, setDateFrom] = useState(new Date());
   useEffect(() => {
     document.title = "Report | Phone Play";
     //getSellerReports(dateForm.from, dateForm.to)
   }, []);
-  const onChangeDate = (e) => {
-    setDateForm({ ...dateForm, [e.target.name]: e.target.value });
-  };
+ 
   const handleSearch = () => {
     isLoading(true);
-    getSellerCancelationReports(dateForm.from, dateForm.to, phone, transType.value, transStatus.value).then(()=>{
+    getSellerCancelationReports(moment(dateFrom).format('YYYY-MM-DD'), moment(dateTo).format('YYYY-MM-DD'), transType.value, transStatus.value).then(()=>{
       isLoading(false)
     })
   }
@@ -103,32 +101,29 @@ const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) =
             <div className="mt-5">
               <div className="row">
                 <div className="form-group row">
-                  <label className="col-sm-1 col-form-label" style={{width: 150}}>
+                  <label className="col-sm-1 col-form-label" style={{width: 130}}>
                     {translate("from")}
                   </label>
                   <div className="col-sm-3">
-                    <input
-                      name="from"
-                      value={dateForm.from}
+                  <DatePicker
+                      selected={dateFrom}
                       type="date"
-                      format="YYY-MM-DD"
+                      dateFormat="dd-MM-yyyy"
                       className="form-control"
-                      style={{width: 150}}
-                      onChange={(e) => onChangeDate(e)}
-                    />
+                      onChange={(e)=> setDateFrom(e)}
+                  />
+                 
                   </div>
                   <label className="col-sm-1 col-form-label" style={{width: 120}}>
                     {translate("to")}
                   </label>
                   <div className="col-sm-4">
-                    <input
-                      name="to"
-                      value={dateForm.to}
+                    <DatePicker
+                       selected={dateTo}
                       type="date"
-                      format="YYY-MM-DD"
-                      style={{width: 150}}
+                      dateFormat="dd-MM-yyyy"
                       className="form-control"
-                      onChange={(e) => onChangeDate(e)}
+                      onChange={(e)=> setDateTo(e)}
                     />
                   </div>
                   <div className="col-sm-1">
@@ -141,20 +136,20 @@ const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) =
             </div>
             <div className="row mt-1">
               <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 150}}>
+                <label className="col-sm-1 col-form-label"  style={{width: 130}}>
                   {translate("number")}
                 </label>
                 <div className="col-sm-3">
                   <input 
-                   style={{width: 150}}
+                  //  style={{width: 150}}
                     onChange={(element)=>setPhone(element.target.value)} 
                     className="form-control" 
                   />
                 </div>
-                <label className="col-sm-1 col-form-label" style={{width: 120}}>
+                <label className="col-sm-1 col-form-label" style={{width: 120}} >
                   {translate("trans type")}
                 </label>
-                <div className="col-sm-4" style={{width: 170.5}}>
+                <div className="col-sm-4">
                 <Dropdown 
                    options={options}
                    onChange={(value)=>setTransType(value)}
@@ -167,10 +162,10 @@ const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) =
             </div>
             <div className="row mt-1">
               <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 150}}>
+                <label className="col-sm-1 col-form-label" style={{width: 130}}>
                   {translate("trans status")}
                 </label>
-                <div className="col-sm-4" style={{width: 170.5}}>
+                <div className="col-sm-4" style={{width: 240}}>
                 <Dropdown 
                    options={transStatusOptions}
                    onChange={(value)=>setTransStatus(value)}
@@ -190,7 +185,7 @@ const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) =
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("transactionNo")}
+                      {translate("movmentNo")}
                     </th>
                     <th scope="col text-center">
                       <i

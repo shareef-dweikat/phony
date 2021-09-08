@@ -15,7 +15,7 @@ import { LOCALES_COUNTRIES } from "../i18n";
 export const getSellerRunningReports = (from_date, to_date, phone = '', transType = '', transStatus = '') => (dispatch) => {
   transStatus = transStatus === 'All'?'':transStatus
   transType = transType === 'All'?'':transType
-
+  console.log(from_date, to_date)
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
@@ -45,7 +45,7 @@ export const getSellerPoints = (lang, from_date, to_date) => (dispatch) => {
   const token = localStorage.jwtUserToken;
   const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
   const sellerId = JSON.parse(localStorage.companies).sellerid
-  
+  console.log(from_date, to_date)
   return  ApiRequest
     .post(
       `seller_points?from_date=${from_date}&to_date=${to_date}&sellerid=${sellerId}`, null, config
@@ -97,11 +97,38 @@ export const getSellerCancelationReports = (from_date, to_date, phone = '', tran
     });
 };
 
-export const getSellerReports = (from_date, to_date, phone = '', transType = '', transStatus = '') => (dispatch) => {
+export const getSellerReports = (
+    from_date, 
+    to_date, phone = '',
+    transType = '', 
+    transStatus = '',
+    transId= '',
+    cardId= '',
+    cancelRequest= '',
+    canceled= '',
+    amount= '',
+    renew= '',
+    provider= '',
+  ) => (dispatch) => {
   transStatus = transStatus === 'All'?'':transStatus
   transType = transType === 'All'?'':transType
 
-  console.log(from_date, to_date, phone, transType, transStatus, "Params")
+  console.log(
+      from_date, 
+      to_date, 
+      phone, 
+      transType, 
+      transStatus,
+      transId,
+      cardId,
+      cancelRequest,
+      canceled,
+      amount,
+      renew,
+      provider,
+      "Params"
+    )
+
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}
@@ -128,6 +155,7 @@ export const getSellerReports = (from_date, to_date, phone = '', transType = '',
 };
 
 export const getSellerProfit = (from_date, to_date) => (dispatch) => {
+  console.log(from_date, to_date, "ddddreeee")
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}

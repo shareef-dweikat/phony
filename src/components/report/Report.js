@@ -13,11 +13,17 @@ import DatePicker from "react-datepicker";
 const Report = ({sellerReports, getSellerReports}) => {
   const history = useHistory().location.pathname;
   const options = [
-    'All','topup', 'cancelation', 'add credits'
+    translate('All'), 
+    translate('topup'), 
+    translate('cancelation'), 
+    translate('add credits')
   ];
   const defaultOption = '';
   const transStatusOptions = [
-    'All','success', 'failed', 'pending'
+     translate('All'), 
+     translate('success'), 
+     translate('failed'), 
+     translate('pending')
   ];
   const defaultTransStatusOptions = '';
 
@@ -27,15 +33,48 @@ const Report = ({sellerReports, getSellerReports}) => {
   const [phone, setPhone] = useState('');
   const [transType, setTransType] = useState('All');
   const [transStatus, setTransStatus] = useState('All');
+  const [transId, setTransId] = useState('');
+  const [cardId, setCardId] = useState('');
+  const [amount, setAmount] = useState('');
+  const [renew, setAutoRenew] = useState('');
+  const [provider, setProvider] = useState('');
+  const [companies, setCompanies] = useState('');
+
+  
+  
+  const [cancelRequest, setCancelRequests] = useState('');
+  const [canceled, setCanceled] = useState('');
+
   const [loading, isLoading] = useState(false);
 
   useEffect(() => {
     document.title = "Report | Phone Play";
+    const companiesTemp = Object.keys(JSON.parse(localStorage.getItem("companies"))).map((item)=> {
+      console.log(item, "ittttm")
+      if(item === 'jawwal' || item === 'ooredoo' || item === 'cellcom' || item === 'pelephone' || item === 'golan' || item === 'mobile012'  || item === 'azy'  || item === 'hot' || item === 'partner')
+         return {value: item, label: item}
+    })
+    console.log(companiesTemp, "companiesssss")
+    setCompanies(companiesTemp)
   }, []);
  
   const handleSearch = () => {
     isLoading(true);
-    getSellerReports(moment(dateFrom).format('YYYY-MM-DD'), moment(dateTo).format('YYYY-MM-DD'), phone, transType.value, transStatus.value).then(()=>{
+    getSellerReports(
+      moment(dateFrom).format('YYYY-MM-DD'),
+      moment(dateTo).format('YYYY-MM-DD'),
+      phone,
+      transType.value,
+      transStatus.value,
+      transId,
+      cardId,
+      cancelRequest.value,
+      canceled.value,
+      amount,
+      renew.value,
+      provider.value
+    ).then(()=>{
+
       isLoading(false)
     })
   }
@@ -79,9 +118,9 @@ const Report = ({sellerReports, getSellerReports}) => {
                     {translate("profit_calculation")}
                 </Link>
                 </label>
-                <label for="inputEmail3" className="col-sm-2 col-form-label">
+                {/* <label for="inputEmail3" className="col-sm-2 col-form-label">
                   <Link to="cancelation"  className="semi-nav">{translate("refund")}</Link>
-                </label>
+                </label> */}
                 <label for="inputEmail3" className="col-sm-3 col-form-label">
                   <Link to="running" className={`semi-nav ${
                       history === "/running" && "active-semi"
@@ -94,10 +133,10 @@ const Report = ({sellerReports, getSellerReports}) => {
             <div className="mt-5">
               <div className="row">
                 <div className="form-group row">
-                  <label className="col-sm-1 col-form-label" style={{width: 150}}>
+                  <label className="col-sm-1 col-form-label" style={{width: 130}}>
                     {translate("from")}
                   </label>
-                  <div className="col-sm-3" style={{width: 170}}>
+                  <div className="col-sm-3">
                   <DatePicker
                       selected={dateFrom}
                       type="date"
@@ -105,20 +144,12 @@ const Report = ({sellerReports, getSellerReports}) => {
                       className="form-control"
                       onChange={(e)=> setDateFrom(e)}
                   />
-                    {/* <input
-                      name="from"
-                      value={dateForm.from}
-                      type="date"
-                      placeholder="dd-mm-yyyy" 
-                      className="form-control"
-                      style={{width: 150}}
-                      onChange={(e) => onChangeDate(e)}
-                    /> */}
+                 
                   </div>
                   <label className="col-sm-1 col-form-label" style={{width: 120}}>
                     {translate("to")}
                   </label>
-                  <div className="col-sm-4" style={{width: 170}}>
+                  <div className="col-sm-4"  style={{width: 250}}>
                     <DatePicker
                        selected={dateTo}
                       type="date"
@@ -137,25 +168,25 @@ const Report = ({sellerReports, getSellerReports}) => {
             </div>
             <div className="row mt-1">
               <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 150}}>
+                <label className="col-sm-1 col-form-label"  style={{width: 130}}>
                   {translate("number")}
                 </label>
                 <div className="col-sm-3">
                   <input 
-                   style={{width: 150}}
+                  //  style={{width: 150}}
                     onChange={(element)=>setPhone(element.target.value)} 
                     className="form-control" 
                   />
                 </div>
-                <label className="col-sm-1 col-form-label" style={{width: 120}}>
+                <label className="col-sm-1 col-form-label" style={{width: 120}} >
                   {translate("trans type")}
                 </label>
-                <div className="col-sm-4" style={{width: 170.5}}>
+                <div className="col-sm-4" style={{width: 250}}>
                 <Dropdown 
                    options={options}
                    onChange={(value)=>setTransType(value)}
                    value={defaultOption} 
-                   placeholder="Select"
+                   placeholder={translate('All')}
                 />
                 </div>
               </div>
@@ -163,16 +194,102 @@ const Report = ({sellerReports, getSellerReports}) => {
             </div>
             <div className="row mt-1">
               <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 150}}>
+                <label className="col-sm-1 col-form-label" style={{width: 130}}>
                   {translate("trans status")}
                 </label>
-                <div className="col-sm-4" style={{width: 170.5}}>
-                <Dropdown 
+                <div className="col-sm-4" style={{width: 240}}>
+                 <Dropdown 
                    options={transStatusOptions}
                    onChange={(value)=>setTransStatus(value)}
                     value={defaultTransStatusOptions} 
-                    placeholder="Select"
-                   />
+                    placeholder={translate('All')}
+                    />
+                 </div>
+                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
+                  {translate("cancel request")}
+                </label>
+                <div className="col-sm-4" style={{width: 250}}>
+                <Dropdown 
+                   options={[translate('Yes'), translate('No')]}
+                   onChange={(value)=>setCancelRequests(value)}
+                   placeholder={translate('All')}
+                />
+                </div>
+              </div>
+            </div>
+
+            <div className="row mt-1">
+              <div className="form-group row">
+                <label className="col-sm-1 col-form-label" style={{width: 130}}>
+                  {translate("movmentNo")}
+                </label>
+                <div className="col-sm-4" style={{width: 240}}>
+                  <input 
+                    //  style={{width: 150}}
+                      onChange={(element)=>setTransId(element.target.value)} 
+                      className="form-control" 
+                  />
+                 </div>
+                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
+                  {translate("canceled")}
+                </label>
+                <div className="col-sm-4" style={{width: 250}}>
+                <Dropdown 
+                   options={[translate('Yes'), translate('No')]}
+                   onChange={(value)=>setCanceled(value)}
+                   placeholder={translate('All')}
+                />
+                </div>
+              </div>
+              
+            </div>
+            
+            
+            <div className="row mt-1">
+              <div className="form-group row">
+                <label className="col-sm-1 col-form-label" style={{width: 130}}>
+                  {translate("card_id")}
+                </label>
+                <div className="col-sm-4" style={{width: 240}}>
+                  <input 
+                      onChange={(element)=>setCardId(element.target.value)} 
+                      className="form-control" 
+                  />
+                 </div>
+                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
+                  {translate("Provider")}
+                </label>
+                <div className="col-sm-4" style={{width: 250}}>
+                <Dropdown 
+                   options={[translate('Yes'), translate('No')]}
+                   onChange={(value)=>setProvider(value)}
+                   placeholder={translate('All')}
+                />
+                </div>
+              </div>
+            </div>
+
+                
+            <div className="row mt-1">
+              <div className="form-group row">
+                <label className="col-sm-1 col-form-label" style={{width: 130}}>
+                  {translate("amount")}
+                </label>
+                <div className="col-sm-4" style={{width: 240}}>
+                  <input 
+                      onChange={(element)=>setAmount(element.target.value)} 
+                      className="form-control" 
+                  />
+                 </div>
+                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
+                  {translate("autorenew")}
+                </label>
+                <div className="col-sm-4" style={{width: 250}}>
+                <Dropdown 
+                   options={[translate('Yes'), translate('No')]}
+                   onChange={(value)=>setAutoRenew(value)}
+                   placeholder={translate('All')}
+                />
                 </div>
               </div>
               

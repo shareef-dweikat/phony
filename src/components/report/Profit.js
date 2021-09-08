@@ -7,40 +7,25 @@ import "./report.css";
 import { connect } from "react-redux";
 import moment from 'moment'
 import Spinner from "../ui/spinner/Spinner";
+import DatePicker from "react-datepicker";
 
 const Profit = ({sellerProfit, getSellerProfit}) => {
   const history = useHistory().location.pathname;
-  const options = [
-    'topup', 'cancelation', 'add credits'
-  ];
-  const defaultOption = options[0];
-  const transStatusOptions = [
-    'success', 'failed', 'pending'
-  ];
-  const defaultTransStatusOptions = transStatusOptions[0];
 
-  const [dateForm, setDateForm] = useState({
-    from: moment().format('YYYY-MM-DD'),
-    to: moment().format('YYYY-MM-DD'),
-  });
-  
-  const [phone, setPhone] = useState('');
-  const [transType, setTransType] = useState('topup');
-  const [transStatus, setTransStatus] = useState('success');
   const [loading, isLoading] = useState(false);
+
+  const [dateTo, setDateTo] = useState(new Date());
+  const [dateFrom, setDateFrom] = useState(new Date());
 
   useEffect(() => {
     document.title = "Report | Phone Play";
     //getSellerReports(dateForm.from, dateForm.to)
   }, []);
-  const onChangeDate = (e) => {
-    setDateForm({ ...dateForm, [e.target.name]: e.target.value });
-    console.log(e.target.value);
-  };
+ 
   const handleSearch = () => {
     isLoading(true);
 
-    getSellerProfit(dateForm.from, dateForm.to).then(()=>{
+    getSellerProfit(moment(dateFrom).format('YYYY-MM-DD'), moment(dateTo).format('YYYY-MM-DD')).then(()=>{
       isLoading(false)
     })
   }
@@ -94,9 +79,9 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                     {translate("profit")}
                 </Link>
                 </label>
-                <label for="inputEmail3" className="col-sm-2 col-form-label">
+                {/* <label for="inputEmail3" className="col-sm-2 col-form-label">
                   <Link to="cancelation"  className="semi-nav">{translate("refund")}</Link>
-                </label>
+                </label> */}
                 <label for="inputEmail3" className="col-sm-3 col-form-label">
                   <Link to="running" className={`semi-nav ${
                       history === "/running" && "active-semi"
@@ -113,25 +98,39 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                     {translate("from")}
                   </label>
                   <div className="col-sm-4">
-                    <input
+                    {/* <input
                       name="from"
                       value={dateForm.from}
                       type="date"
                       className="form-control"
                       onChange={(e) => onChangeDate(e)}
+                    /> */}
+                     <DatePicker
+                       selected={dateTo}
+                      type="date"
+                      dateFormat="dd-MM-yyyy"
+                      className="form-control"
+                      onChange={(e)=> setDateTo(e)}
                     />
                   </div>
                   <label className="col-sm-1 col-form-label">
                     {translate("to")}
                   </label>
                   <div className="col-sm-4">
-                    <input
+                  <DatePicker
+                      selected={dateFrom}
+                      type="date"
+                      dateFormat="dd-MM-yyyy"
+                      className="form-control"
+                      onChange={(e)=> setDateFrom(e)}
+                  />
+                    {/* <input
                       name="to"
                       value={dateForm.to}
                       type="date"
                       className="form-control"
                       onChange={(e) => onChangeDate(e)}
-                    />
+                    /> */}
                   </div>
                   <div className="col-sm-2">
                     <button onClick={()=>handleSearch()} className="btn sign-but">
@@ -151,7 +150,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("transactionNo")}
+                      {translate("movmentNo")}
                     </th>
                     <th scope="col text-center" style={{ width: "170px", textTransform: 'capitalize' }}>
                       <i
