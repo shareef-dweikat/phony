@@ -8,6 +8,7 @@ import { Button } from "react-bootstrap";
 import Toast from "./Toast";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
+import Img from '../../assests/images/bundles/jawwal/jawwal-20.png'
 import DownArrow from '../../assests/images/icons/down-circular-button.png'
 const TransactionTable = ({ getLastTransaction, last }) => {
     const history = useHistory();
@@ -65,7 +66,8 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col ">{translate("movmentNo")}</th>
+                            <th scope="col"></th>
+                            <th scope="col ">{translate("serial.no")}</th>
                             <th scope="col">{translate("date")}</th>
                             <th scope="col">{translate("Mobile No.")}</th>
                             <th scope="col">{translate("Provider")}</th>
@@ -83,20 +85,12 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 item.status === "success" && "table-green"
                             } ${item.status === "failed" && "table-danger"}  ${item.cancelrequest && "table-canceled"}`}
                             >
-                                 {item.status === 'success'?
-                                        <td style={{display: 'flex', flexDirection: 'row'}}>
-                                            <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
+                               <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
                                                 <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
-                                            </div>
-                                            <span style={{ marginLeft: 8, marginRight: 8, fontWeight: 600}}>
-                                              {item.transid}
-                                            </span>
-                                        </td> 
-                                        :
-                                        <td scope="row ">
-                                            {item.transid}
-                                        </td>
-                                    }
+                                </div>
+                                <td scope="row ">
+                                    {item.transid}
+                                </td>
                                 <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
                                 <td>{item.number}</td>
                                 <td className="table-dadnger">{item.provider}</td>
@@ -104,14 +98,14 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 <td>{item.dealercost === 'N/A'?'':'₪'} {item.dealercost || 0}</td>
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
-                                    {item.status == "failed" && (
+                                    {/* {item.status == "failed" && (
                                         <Button size="sm" 
                                         // onClick={() => showReason(item.transid)} 
                                         onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})}
                                         disabled={loading}>
                                             {translate("Details")}
                                         </Button>
-                                    )}
+                                    )} */}
                                     {item.status == "success" && !item.cancelrequest && (
                                         <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
                                             {translate("Cancel")}
@@ -122,17 +116,26 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             {
                                isDetailsButtonClicked.flag && isDetailsButtonClicked.index === index && (
                                     <tr style={{backgroundColor: 'white'}}>
-                                        <td colspan="7" style={{textAlign: 'right'}}>
-                                            <div>{item.carddescription}</div>
-                                            <div>{translate('Renewable')}: {item.autorenew?'نعم':'لا'}</div>
-                                            <div>{translate('Provider')}: {item.provider}</div>
-                                            <div>{translate('trans type')}: {item.transtype}</div>
-                                            {item.status !== 'success' && <div>{translate('Reason')}: {item.reason}</div>}
-                                            <img src={item.url}  style={{width: 150,}}/>
+                                        <td colspan="8" style={{textAlign: 'right'}}>
+                                            <div>
+                                                <div>{item.carddescription}</div>
+                                                <div>{translate('Renewable')}: {item.autorenew?translate('Yes'):translate('No')}</div>
+                                                <div>{translate('Provider')}: {translate(item.provider)}</div>
+                                                <div>{translate('trans type')}: {translate(item.transtype)}</div>
+                                                {item.status !== 'success' && <div>{translate('Reason')}: {item.reason}</div>}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <img 
+                                            src={
+                                                item.url === "N/A"? 
+                                                require(`../../assests/images/bundles/${item.provider}/${item.provider}-${item.cardamount}.png`).default:item.url} 
+                                                style={{width: 150}}
+                                            />
                                         </td>
                                     </tr>
                                 )
-                                
+                            
                             }
                             </>
                         ))}

@@ -19,7 +19,7 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
   const [loadingSpinner, isLoading] = useState(false);
 
   useEffect(() => {
-    getGroupesData(typeCompany);
+   getGroupesData(typeCompany);
     document.title = history.location.pathname.split("/")[3] + " | Phone Play";
     refreshColumnStyle();
   }, []);

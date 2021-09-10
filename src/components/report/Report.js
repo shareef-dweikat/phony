@@ -3,14 +3,16 @@ import SideBar from "../homePage/SideBar";
 import { Link, useHistory } from "react-router-dom";
 import translate from "../../i18n/translate";
 import {getSellerReports} from '../../actions/reportsAction'
+import {getDiscounts} from '../../actions/discountsAction'
 import "./report.css";
 import { connect } from "react-redux";
 import moment from 'moment'
+import Checkbox from '@material-ui/core/Checkbox';
 import Dropdown from 'react-dropdown';
 import Spinner from "../ui/spinner/Spinner";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-const Report = ({sellerReports, getSellerReports}) => {
+const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
   const history = useHistory().location.pathname;
   const options = [
     translate('All'), 
@@ -54,10 +56,21 @@ const Report = ({sellerReports, getSellerReports}) => {
       if(item === 'jawwal' || item === 'ooredoo' || item === 'cellcom' || item === 'pelephone' || item === 'golan' || item === 'mobile012'  || item === 'azy'  || item === 'hot' || item === 'partner')
          return {value: item, label: item}
     })
-    console.log(companiesTemp, "companiesssss")
     setCompanies(companiesTemp)
   }, []);
- 
+  
+  useEffect(()=>{
+    getDiscounts()
+  }, [])
+
+  useEffect(()=> {
+    let providers = []
+    providers = discounts?.map((provider)=>{
+      console.log(provider, "pppppp")
+      return {value: Object.keys(provider)[0], label: translate(Object.keys(provider)[0])}
+    })
+    setCompanies(providers)
+  }, [discounts])
   const handleSearch = () => {
     isLoading(true);
     getSellerReports(
@@ -68,10 +81,10 @@ const Report = ({sellerReports, getSellerReports}) => {
       transStatus.value,
       transId,
       cardId,
-      cancelRequest.value,
-      canceled.value,
+      cancelRequest,
+      canceled,
       amount,
-      renew.value,
+      renew,
       provider.value
     ).then(()=>{
 
@@ -189,6 +202,7 @@ const Report = ({sellerReports, getSellerReports}) => {
                    placeholder={translate('All')}
                 />
                 </div>
+                
               </div>
               
             </div>
@@ -205,16 +219,17 @@ const Report = ({sellerReports, getSellerReports}) => {
                     placeholder={translate('All')}
                     />
                  </div>
-                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
-                  {translate("cancel request")}
+                 <label className="col-sm-1 col-form-label" style={{width: 122}}>
+                  {translate("Provider")}
                 </label>
                 <div className="col-sm-4" style={{width: 250}}>
                 <Dropdown 
-                   options={[translate('Yes'), translate('No')]}
-                   onChange={(value)=>setCancelRequests(value)}
+                   options={companies}
+                   onChange={(value)=>setProvider(value)}
                    placeholder={translate('All')}
                 />
                 </div>
+
               </div>
             </div>
 
@@ -230,16 +245,16 @@ const Report = ({sellerReports, getSellerReports}) => {
                       className="form-control" 
                   />
                  </div>
-                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
-                  {translate("canceled")}
+                
+                 <label className="col-sm-1 col-form-label" style={{width: 122}}>
+                  {translate("amount")}
                 </label>
-                <div className="col-sm-4" style={{width: 250}}>
-                <Dropdown 
-                   options={[translate('Yes'), translate('No')]}
-                   onChange={(value)=>setCanceled(value)}
-                   placeholder={translate('All')}
-                />
-                </div>
+                <div className="col-sm-3" style={{width: 250}}>
+                  <input 
+                      onChange={(element)=>setAmount(element.target.value)} 
+                      className="form-control" 
+                  />
+                 </div> 
               </div>
               
             </div>
@@ -256,44 +271,45 @@ const Report = ({sellerReports, getSellerReports}) => {
                       className="form-control" 
                   />
                  </div>
-                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
-                  {translate("Provider")}
-                </label>
-                <div className="col-sm-4" style={{width: 250}}>
-                <Dropdown 
-                   options={[translate('Yes'), translate('No')]}
-                   onChange={(value)=>setProvider(value)}
-                   placeholder={translate('All')}
-                />
-                </div>
+               
               </div>
             </div>
 
                 
-            <div className="row mt-1">
-              <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 130}}>
-                  {translate("amount")}
-                </label>
-                <div className="col-sm-4" style={{width: 240}}>
-                  <input 
-                      onChange={(element)=>setAmount(element.target.value)} 
-                      className="form-control" 
-                  />
-                 </div>
-                 <label className="col-sm-1 col-form-label" style={{width: 122}} >
-                  {translate("autorenew")}
-                </label>
-                <div className="col-sm-4" style={{width: 250}}>
-                <Dropdown 
-                   options={[translate('Yes'), translate('No')]}
-                   onChange={(value)=>setAutoRenew(value)}
-                   placeholder={translate('All')}
-                />
+
+              <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
+                <div>
+                  <label  >
+                    {translate("autorenew")}
+                  </label>
+                    <Checkbox
+                      onChange={(value)=>setAutoRenew(value.target.checked)}
+                      color="primary"
+                      inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    />
                 </div>
-              </div>
-              
+                <div>
+                  <label>
+                    {translate("cancel request")}
+                  </label>
+                  <Checkbox
+                    onChange={(value)=>setCancelRequests(value.target.checked)}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  />
+                </div>
+                  <div>
+                  <label >
+                          {translate("canceled")}
+                      </label>
+                      <Checkbox
+                        onChange={(value)=>setCanceled(value.target.checked)}
+                        color="primary"
+                        inputProps={{ 'aria-label': 'secondary checkbox' }}
+                      />
+                  </div>
             </div>
+
             <div className="mt-3">
               <table className="table table-striped">
                 <thead>
@@ -373,6 +389,7 @@ const Report = ({sellerReports, getSellerReports}) => {
 
 const mapStateToProps = (state) => ({
   sellerReports: state.reports.sellerReports,
+  discounts: state.discounts.discounts
 });
 
-export default connect(mapStateToProps, { getSellerReports })(Report);
+export default connect(mapStateToProps, { getSellerReports, getDiscounts })(Report);

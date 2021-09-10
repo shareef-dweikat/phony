@@ -22,6 +22,7 @@
     "mdb-react-ui-kit": "^1.2.0",
     "moment": "^2.29.1",
     "notiflix": "^3.0.1",
+    "primereact": "^6.5.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",
     "react-countdown": "^2.3.2",

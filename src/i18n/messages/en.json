@@ -32,6 +32,7 @@
   "Gift Cards": "Gift Cards",
   "jawwal": "Jawwal",
   "ooredoo": "Ooredoo",
+  "days": "Days",
   "cellcom": "Cellcom",
   "pelephone": "Pelephone",
   "golan": "Golan",
@@ -244,6 +245,7 @@
   "Something went wrong": "Something went wrong",
   "This field is required": "This field is required",
   "movmentNo":"Trans. No",
+  "serial.no":"Serial No",
   "Resend code": "Resend code",
   "Something went wrong!": "Something went wrong!",
   "The minimum credit is 10 NIS": "The minimum credit is 10 NIS",
@@ -252,6 +254,7 @@
   "the_sum": "Total",
   "seller cost": "Cost",
   "The_Summation": "Total",
+  "seller balance": "Seller Balance",
   "Your request is in progress": "Your request is in progress",
   "You will be logged out because your account is disabled, for more information please contact our support team.": "You will be logged out because your account is disabled, for more information please contact our support team."
 }

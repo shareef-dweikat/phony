@@ -190,7 +190,7 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("add credits")}
+                      {translate("seller balance")}
                     </th>
                   </tr>
                 </thead>

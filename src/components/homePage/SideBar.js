@@ -37,7 +37,8 @@ const SideBar = ({ user }) => {
       isLoading(false)
     });
   }
-
+  const isLocked = JSON.parse(localStorage.getItem('currentUser'))
+  console.log(isLocked, 'gggggg')
   return (
     <div>
       <div className="sidebar">
@@ -55,10 +56,14 @@ const SideBar = ({ user }) => {
 
              <h5 class="text-muted mt-0" title="Points" style={{fontSize: "1rem"}}>{translate("Points")}</h5>
               
-            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
               <h3 class="text-success my-2">₪ {currentUser && currentUser.points}</h3>
-              <Toolbar title="Edit">
-                <img src={lock} style={{height: 50}} />
+              <Toolbar title={isLocked.days_remaining + ' Days'}>
+                {
+                  isLocked.locked?
+                    <i class="fas fa-lock"  style={{fontSize: 25}}></i>
+                    : <i class="fas fa-lock-open" style={{fontSize: 25}}></i>
+                 }
               </Toolbar>
             </div>
               <p class="user-info mb-0 px-2 text-muted">
