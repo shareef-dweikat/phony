@@ -76,7 +76,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                       history === "/profit" && "active-semi"
                     } m-4`}
                   >
-                    {translate("profit")}
+                    {translate("profit_calculation")}
                 </Link>
                 </label>
                 {/* <label for="inputEmail3" className="col-sm-2 col-form-label">
@@ -157,7 +157,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("date")}
+                      {translate("Time")}
                     </th>
                     <th scope="col text-center" style={{ width: "170px" }}>
                       <i

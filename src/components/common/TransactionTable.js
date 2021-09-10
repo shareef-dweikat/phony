@@ -80,6 +80,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                     <tbody>
                         {last.map((item, index) => (
                             <>
+                            {console.log( item.status,item.cancelrequest, "dddddddd")}
                             <tr
                             className={`${item.status === "proccessing" && "table-active"} ${
                                 item.status === "success" && "table-green"

@@ -24,7 +24,7 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
   const transStatusOptions = [
      translate('All'), 
      translate('success'), 
-     translate('failed'), 
+     translate('failed trans'), 
      translate('pending')
   ];
   const defaultTransStatusOptions = '';
@@ -146,23 +146,22 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
             <div className="mt-5">
               <div className="row">
                 <div className="form-group row">
-                  <label className="col-sm-1 col-form-label" style={{width: 130}}>
+                  <label className="col-sm-1 col-form-label" style={{width: 60}}>
                     {translate("from")}
                   </label>
-                  <div className="col-sm-3">
-                  <DatePicker
-                      selected={dateFrom}
-                      type="date"
-                      dateFormat="dd-MM-yyyy"
-                      className="form-control"
-                      onChange={(e)=> setDateFrom(e)}
-                  />
-                 
+                  <div className="col-sm-2" style={{width: 135}}>
+                    <DatePicker
+                        selected={dateFrom}
+                        type="date"
+                        dateFormat="dd-MM-yyyy"
+                        className="form-control"
+                        onChange={(e)=> setDateFrom(e)}
+                    />
                   </div>
-                  <label className="col-sm-1 col-form-label" style={{width: 120}}>
+                  <label className="col-sm-1 col-form-label" style={{width: 70}}>
                     {translate("to")}
                   </label>
-                  <div className="col-sm-4"  style={{width: 250}}>
+                  <div className="col-sm-2"  style={{width: 135}}>
                     <DatePicker
                        selected={dateTo}
                       type="date"
@@ -171,30 +170,25 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                       onChange={(e)=> setDateTo(e)}
                     />
                   </div>
-                  <div className="col-sm-1">
+                  {/* <div className="col-sm-1">
                     <button onClick={()=>handleSearch(phone)} className="btn sign-but">
                       {translate("search")}
                     </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row mt-1">
-              <div className="form-group row">
-                <label className="col-sm-1 col-form-label"  style={{width: 130}}>
+                  </div> */}
+                <label className="col-sm-1 col-form-label" style={{width: 100}}>
                   {translate("number")}
                 </label>
-                <div className="col-sm-3">
+                <div className="col-sm-2"  style={{width: 135}}>
                   <input 
                   //  style={{width: 150}}
                     onChange={(element)=>setPhone(element.target.value)} 
                     className="form-control" 
                   />
                 </div>
-                <label className="col-sm-1 col-form-label" style={{width: 120}} >
+                <label className="col-sm-1 col-form-label" style={{width: 70}}>
                   {translate("trans type")}
                 </label>
-                <div className="col-sm-4" style={{width: 250}}>
+                <div className="col-sm-2">
                 <Dropdown 
                    options={options}
                    onChange={(value)=>setTransType(value)}
@@ -202,16 +196,16 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                    placeholder={translate('All')}
                 />
                 </div>
-                
+                </div>
               </div>
-              
             </div>
+            
             <div className="row mt-1">
               <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 130}}>
+                <label className="col-sm-1 col-form-label" style={{width: 60}}>
                   {translate("trans status")}
                 </label>
-                <div className="col-sm-4" style={{width: 240}}>
+                <div className="col-sm-2" style={{width: 135}}>
                  <Dropdown 
                    options={transStatusOptions}
                    onChange={(value)=>setTransStatus(value)}
@@ -219,10 +213,10 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                     placeholder={translate('All')}
                     />
                  </div>
-                 <label className="col-sm-1 col-form-label" style={{width: 122}}>
+                 <label className="col-sm-1 col-form-label" style={{width: 70}}>
                   {translate("Provider")}
                 </label>
-                <div className="col-sm-4" style={{width: 250}}>
+                <div className="col-sm-2"  style={{width: 135}}>
                 <Dropdown 
                    options={companies}
                    onChange={(value)=>setProvider(value)}
@@ -230,15 +224,10 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                 />
                 </div>
 
-              </div>
-            </div>
-
-            <div className="row mt-1">
-              <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 130}}>
+                <label className="col-sm-1 col-form-label"  style={{width: 100}}>
                   {translate("movmentNo")}
                 </label>
-                <div className="col-sm-4" style={{width: 240}}>
+                <div className="col-sm-2" style={{width: 135}}>
                   <input 
                     //  style={{width: 150}}
                       onChange={(element)=>setTransId(element.target.value)} 
@@ -246,74 +235,79 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                   />
                  </div>
                 
-                 <label className="col-sm-1 col-form-label" style={{width: 122}}>
+                 <label className="col-sm-1 col-form-label" style={{width: 70}}>
                   {translate("amount")}
                 </label>
-                <div className="col-sm-3" style={{width: 250}}>
+                <div className="col-sm-2">
                   <input 
                       onChange={(element)=>setAmount(element.target.value)} 
                       className="form-control" 
                   />
                  </div> 
               </div>
-              
             </div>
-            
-            
+
+    
             <div className="row mt-1">
               <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 130}}>
+                <label className="col-sm-1 col-form-label" style={{width: 60}}>
                   {translate("card_id")}
                 </label>
-                <div className="col-sm-4" style={{width: 240}}>
+                <div className="col-sm-1" style={{width: 135}}>
                   <input 
                       onChange={(element)=>setCardId(element.target.value)} 
                       className="form-control" 
                   />
                  </div>
-               
+                 <div className="col-sm-7" style={{display: 'flex', alignItems: 'center'}}>
+                      <div>
+                        <Checkbox
+                            onChange={(value)=>setAutoRenew(value.target.checked)}
+                            color="primary"
+                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                          />
+                        <label  >
+                          {translate("autorenew")}
+                        </label>
+                        
+                      </div>
+                      <div>
+                        <Checkbox
+                            onChange={(value)=>setCancelRequests(value.target.checked)}
+                            color="primary"
+                            inputProps={{ 'aria-label': 'secondary checkbox' }}
+                          />
+                          <label>
+                            {translate("cancel request")}
+                          </label>
+                          
+                      </div>
+                        <div  className="col-sm-3" >
+                          <Checkbox
+                              onChange={(value)=>setCanceled(value.target.checked)}
+                              color="primary"
+                              inputProps={{ 'aria-label': 'secondary checkbox' }}
+                            />
+                            <label>
+                                {translate("canceled")}
+                            </label>
+                           
+                        </div>
+                      
+                  </div>
+                  <div style={{width: 150}}>
+                        <button style={{width: 82}} onClick={()=>handleSearch(phone)} className="btn sign-but">
+                                    {translate("search")}
+                          </button>
+                        </div>
               </div>
             </div>
 
-                
-
-              <div style={{display: 'flex', justifyContent: 'space-evenly', alignItems: 'center'}}>
-                <div>
-                  <label  >
-                    {translate("autorenew")}
-                  </label>
-                    <Checkbox
-                      onChange={(value)=>setAutoRenew(value.target.checked)}
-                      color="primary"
-                      inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    />
-                </div>
-                <div>
-                  <label>
-                    {translate("cancel request")}
-                  </label>
-                  <Checkbox
-                    onChange={(value)=>setCancelRequests(value.target.checked)}
-                    color="primary"
-                    inputProps={{ 'aria-label': 'secondary checkbox' }}
-                  />
-                </div>
-                  <div>
-                  <label >
-                          {translate("canceled")}
-                      </label>
-                      <Checkbox
-                        onChange={(value)=>setCanceled(value.target.checked)}
-                        color="primary"
-                        inputProps={{ 'aria-label': 'secondary checkbox' }}
-                      />
-                  </div>
-            </div>
-
+   
             <div className="mt-3">
               <table className="table table-striped">
                 <thead>
-                  <tr>
+                  <tr style={{backgroundColor: '#eff0f1'}}>
                     <th scope="col text-center">
                       <i
                         className="fa fa-arrow-down m-1"
@@ -326,7 +320,7 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
-                      {translate("Time & Date")}
+                      {translate("Time")}
                     </th>
                     <th scope="col text-center">
                       <i
@@ -364,13 +358,13 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                   {
                     sellerReports?.map((report)=> {
                       return <tr>
-                      <th scope="row">{report.transid}</th>
-                      <td className="text-center">{moment(report.datetime).format('YYYY-MM-DD HH:mm')}</td>
-                      <td className="text-center">{report.provider}</td>
-                      <td className="text-center">{report.number}</td>
-                      <td className="text-center">{report.cardamount}</td>
-                      <td className="text-center">{report.status}</td>
-                      <td className="text-center">@mdo</td>
+                      <td scope="row" style={{fontWeight: 300}}>{report.transid}</td>
+                      <td className="text-center" style={{fontWeight: 300}}>{moment(report.datetime).format('YYYY-MM-DD HH:mm')}</td>
+                      <td className="text-center" style={{fontWeight: 300}}>{report.provider}</td>
+                      <td className="text-center" style={{fontWeight: 300}}>{report.number}</td>
+                      <td className="text-center" style={{fontWeight: 300}}>{report.cardamount}</td>
+                      <td className="text-center" style={{fontWeight: 300}}>{report.status}</td>
+                      <td className="text-center" style={{fontWeight: 300}}>@mdo</td>
                     </tr>
                     })
                   }

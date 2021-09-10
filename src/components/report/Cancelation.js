@@ -79,7 +79,7 @@ const Cancelation  = ({sellerCancelationReports, getSellerCancelationReports}) =
                       history === "/profit" && "active-semi"
                     } m-4`}
                   >
-                    {translate("profit")}
+                    {translate("profit_calculation")}
                 </Link>
                 </label>
                 <label for="inputEmail3" className="col-sm-2 col-form-label">
