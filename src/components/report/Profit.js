@@ -91,7 +91,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
                 </label>
               </div>
             </div>
-            <div className="mt-5">
+            <div className="mt-2">
               <div className="row">
                 <div className="form-group row">
                   <label className="col-sm-1 col-form-label">

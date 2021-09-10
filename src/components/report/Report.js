@@ -14,18 +14,27 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
   const history = useHistory().location.pathname;
+  // translate('All'), 
+  // translate('topup'), 
+  // translate('cancelation'), 
+  // translate('add credits')
   const options = [
-    translate('All'), 
-    translate('topup'), 
-    translate('cancelation'), 
-    translate('add credits')
+    'All', 
+    'topup', 
+  'cancelation', 
+  'add credits'
   ];
   const defaultOption = '';
+  // const All =  translate('All')
+  // const success =  translate('success')
+  // const faild =  translate('failed trans')
+  // const pending =  translate('pending')
+  
   const transStatusOptions = [
-     translate('All'), 
-     translate('success'), 
-     translate('failed trans'), 
-     translate('pending')
+    'All',
+    "success",
+    'failed trans',
+     'pending'
   ];
   const defaultTransStatusOptions = '';
 
@@ -52,7 +61,6 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
   useEffect(() => {
     document.title = "Report | Phone Play";
     const companiesTemp = Object.keys(JSON.parse(localStorage.getItem("companies"))).map((item)=> {
-      console.log(item, "ittttm")
       if(item === 'jawwal' || item === 'ooredoo' || item === 'cellcom' || item === 'pelephone' || item === 'golan' || item === 'mobile012'  || item === 'azy'  || item === 'hot' || item === 'partner')
          return {value: item, label: item}
     })
@@ -65,8 +73,8 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
 
   useEffect(()=> {
     let providers = []
+    providers.push( {value: '', label: 'All'})
     providers = discounts?.map((provider)=>{
-      console.log(provider, "pppppp")
       return {value: Object.keys(provider)[0], label: translate(Object.keys(provider)[0])}
     })
     setCompanies(providers)
@@ -143,7 +151,7 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                 </label>
               </div>
             </div>
-            <div className="mt-5">
+            <div className="mt-2">
               <div className="row">
                 <div className="form-group row">
                   <label className="col-sm-1 col-form-label" style={{width: 60}}>
@@ -178,7 +186,7 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                 <label className="col-sm-1 col-form-label" style={{width: 100}}>
                   {translate("number")}
                 </label>
-                <div className="col-sm-2"  style={{width: 135}}>
+                <div className="col-sm-2"  style={{width: 140}}>
                   <input 
                   //  style={{width: 150}}
                     onChange={(element)=>setPhone(element.target.value)} 
@@ -227,7 +235,7 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                 <label className="col-sm-1 col-form-label"  style={{width: 100}}>
                   {translate("movmentNo")}
                 </label>
-                <div className="col-sm-2" style={{width: 135}}>
+                <div className="col-sm-2"  style={{width: 140}}>
                   <input 
                     //  style={{width: 150}}
                       onChange={(element)=>setTransId(element.target.value)} 
@@ -259,7 +267,7 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                       className="form-control" 
                   />
                  </div>
-                 <div className="col-sm-7" style={{display: 'flex', alignItems: 'center'}}>
+                 <div className="col-sm-7" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                       <div>
                         <Checkbox
                             onChange={(value)=>setAutoRenew(value.target.checked)}
@@ -296,10 +304,10 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                       
                   </div>
                   <div style={{width: 150}}>
-                        <button style={{width: 82}} onClick={()=>handleSearch(phone)} className="btn sign-but">
-                                    {translate("search")}
+                        <button style={{width: 88}} onClick={()=>handleSearch(phone)} className="btn sign-but">
+                              {translate("search")}
                           </button>
-                        </div>
+                  </div>
               </div>
             </div>
 
@@ -357,7 +365,9 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                 <tbody>
                   {
                     sellerReports?.map((report)=> {
-                      return <tr>
+                      return <tr  className={`${report.status === "proccessing" && "table-active"} ${
+                        report.status === "success" && "table-green"
+                    } ${report.status === "failed" && "table-danger"}`}>
                       <td scope="row" style={{fontWeight: 300}}>{report.transid}</td>
                       <td className="text-center" style={{fontWeight: 300}}>{moment(report.datetime).format('YYYY-MM-DD HH:mm')}</td>
                       <td className="text-center" style={{fontWeight: 300}}>{report.provider}</td>

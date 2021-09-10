@@ -89,7 +89,7 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                 </label>
               </div>
             </div>
-            <div className="mt-5">
+            <div className="mt-2">
               <div className="row">
                 <div className="form-group row">
                   <label className="col-sm-1 col-form-label">
@@ -190,6 +190,13 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                         className="fa fa-arrow-down m-1"
                         aria-hidden="true"
                       ></i>
+                      {translate("status")}
+                    </th>
+                    <th scope="col text-center">
+                      <i
+                        className="fa fa-arrow-down m-1"
+                        aria-hidden="true"
+                      ></i>
                       {translate("seller balance")}
                     </th>
                   </tr>
@@ -204,6 +211,7 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                       {/* <td className="text-center">{report.profit}</td> */}
                       <td className="text-center">{report.cardamount}</td>
                       <td className="text-center">{report.dealercost}</td>
+                      <td className="text-center">{report.status}</td>
                       <td className="text-center">{report.newsellerbalance}</td>
                     </tr>
                     })
