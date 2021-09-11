@@ -21,7 +21,7 @@ table {
     text-align: center;
   }
   
-  .points-page tr:nth-child(even) {
+  .discounts-page tr:nth-child(even) {
     background-color: #dddddd;
   }
 

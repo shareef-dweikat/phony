@@ -8,13 +8,14 @@ import { Button } from "react-bootstrap";
 import Toast from "./Toast";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
-
+import Img from '../../assests/images/bundles/jawwal/jawwal-20.png'
+import DownArrow from '../../assests/images/icons/down-circular-button.png'
 const TransactionTable = ({ getLastTransaction, last }) => {
     const history = useHistory();
     const [loading, isLoading] = useState(false);
     const intl = useIntl();
     const url = new URLSearchParams(history.location.search)
-
+    const [isDetailsButtonClicked, setIsDetailsButtonClicked] = useState({flag: false, index: null})
     useEffect(() => {
         updateTransactions();
         if (url.get("refresh") == "true") {
@@ -65,41 +66,79 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                 <table class="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col ">{translate("Transaction")}</th>
-                            <th scope="col">{translate("Provider")}</th>
+                            <th scope="col"></th>
+                            <th scope="col ">{translate("serial.no")}</th>
+                            <th scope="col">{translate("date")}</th>
                             <th scope="col">{translate("Mobile No.")}</th>
+                            <th scope="col">{translate("Provider")}</th>
                             <th scope="col">{translate("Amount")}</th>
-                            <th scope="col">{translate("Date & Time")}</th>
+                            <th scope="col">{translate("seller cost")}</th>
                             <th scope="col">{translate("Status")}</th>
-                            <th scope="col">{translate("Actions")}</th>
+                            <th scope="col">{translate("Action")}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {last.map((item) => (
+                        {last.map((item, index) => (
+                            <>
+                            {console.log( item.status,item.cancelrequest, "dddddddd")}
                             <tr
                             className={`${item.status === "proccessing" && "table-active"} ${
-                                item.status === "success" && "table-success"
-                            } ${item.status === "failed" && "table-danger"}`}
+                                item.status === "success" && "table-green"
+                            } ${item.status === "failed" && "table-danger"}  ${item.cancelrequest && "table-canceled"}`}
                             >
-                                <td scope="row ">{item.transid}</td>
-                                <td className="table-dadnger">{item.provider}</td>
-                                <td>{item.number}</td>
-                                <td>₪ {item.cardamount || 0}</td>
+                               <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
+                                                <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
+                                </div>
+                                <td scope="row ">
+                                    {item.transid}
+                                </td>
                                 <td>{moment(item.datetime).format("YYYY-MM-DD / HH:mm:ss")}</td>
+                                <td>{item.number}</td>
+                                <td className="table-dadnger">{item.provider}</td>
+                                <td>₪ {item.cardamount || 0}</td>
+                                <td>{item.dealercost === 'N/A'?'':'₪'} {item.dealercost || 0}</td>
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
-                                    {item.status == "failed" && (
-                                        <Button size="sm" onClick={() => showReason(item.transid)} disabled={loading}>
-                                            {translate("Show Reason")}
+                                    {/* {item.status == "failed" && (
+                                        <Button size="sm" 
+                                        // onClick={() => showReason(item.transid)} 
+                                        onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})}
+                                        disabled={loading}>
+                                            {translate("Details")}
                                         </Button>
-                                    )}
-                                    {item.status == "success" && !item.cancelrequest &&(
+                                    )} */}
+                                    {item.status == "success" && !item.cancelrequest && (
                                         <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
                                             {translate("Cancel")}
                                         </Button>
                                     )}
                                 </td>
                             </tr>
+                            {
+                               isDetailsButtonClicked.flag && isDetailsButtonClicked.index === index && (
+                                    <tr style={{backgroundColor: 'white'}}>
+                                        <td colspan="8" style={{textAlign: 'right'}}>
+                                            <div>
+                                                <div>{item.carddescription}</div>
+                                                <div>{translate('Renewable')}: {item.autorenew?translate('Yes'):translate('No')}</div>
+                                                <div>{translate('Provider')}: {translate(item.provider)}</div>
+                                                <div>{translate('trans type')}: {translate(item.transtype)}</div>
+                                                {item.status !== 'success' && <div>{translate('Reason')}: {item.reason}</div>}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <img 
+                                            src={
+                                                item.url === "N/A"? 
+                                                require(`../../assests/images/bundles/${item.provider}/${item.provider}-${item.cardamount}.png`).default:item.url} 
+                                                style={{width: 150}}
+                                            />
+                                        </td>
+                                    </tr>
+                                )
+                            
+                            }
+                            </>
                         ))}
                     </tbody>
                 </table>

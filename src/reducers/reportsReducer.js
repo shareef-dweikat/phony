@@ -1,10 +1,16 @@
 import {
   GET_LAST_TRANSACTION,
-  GET_SELLER_POINTS
+  GET_SELLER_POINTS,
+  GET_SELLER_REPORTS,
+  GET_SELLER_PROFIT,
+  GET_SELLER_RUNNING_REPORTS,
+  GET_SELLER_CANCELATION_REPORTS
 } from "../actions/types";
 const initialState = {
   lastTransaction: [],
   loading: true,
+  sellerRunning: [],
+  sellerCancelationReports: []
 };
 
 export default function (state = initialState, action) {
@@ -21,6 +27,30 @@ export default function (state = initialState, action) {
         sellerPoints: action.payload,
         loading: false,
       };
+      case GET_SELLER_REPORTS:
+        return {
+          ...state,
+          sellerReports: action.payload,
+          loading: false,
+        };
+        case GET_SELLER_PROFIT:
+          return {
+            ...state,
+            sellerProfit: action.payload,
+            loading: false,
+          };
+          case GET_SELLER_RUNNING_REPORTS:
+            return {
+              ...state,
+              sellerRunning: action.payload,
+              loading: false,
+            };
+          case GET_SELLER_CANCELATION_REPORTS:
+            return {
+              ...state,
+              sellerCancelationReports: action.payload,
+              loading: false,
+            };
     default:
       return state;
   }

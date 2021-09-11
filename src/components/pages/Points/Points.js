@@ -5,15 +5,10 @@ import SideBar from "../../homePage/SideBar";
 import { useIntl } from 'react-intl';
 import "./style.css";
 import { getSellerPoints } from "../../../actions/reportsAction";
-import 'react-modern-calendar-datepicker/lib/DatePicker.css';
-import DateFnsUtils from '@date-io/date-fns';
 import Spinner from "../../ui/spinner/Spinner";
+import moment from 'moment'
+import DatePicker from "react-datepicker";
 
-import {
-  MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-} from '@material-ui/pickers';
 const Languages = {
   "en": "english",
   "ar": "arabic",
@@ -23,35 +18,35 @@ const Languages = {
 const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
   const intl = useIntl()
   const [loading, isLoading] = useState(false);
-  const [fromDate, setFromDate] = useState(new Date('2021-08-18'))
-  const [toDate, setToDate] = useState(new Date('2021-08-18'))
+  const [dateForm, setDateForm] = useState({
+    from: moment().format('YYYY-MM-DD'),
+    to: moment().format('YYYY-MM-DD'),
+  });
   const [currentPageContent, setCurrentPageContent] = useState([]);
   const [buttons, setButtons] = useState([]);
+
+  const [dateTo, setDateTo] = useState(new Date());
+  const [dateFrom, setDateFrom] = useState(new Date());
 
   const [columnStyle, setColumnStyle] = useState("col-lg-3 col-md-4 col-sm-6 card-md");
   useEffect(() => {
     document.title = "Seller Points | PhonePlay ";
-    // if (Array.isArray(insurances) && isEmpty(insurances)) {
-      // initSellerPoints();
-//    }
+
       getPageContent(1)
       getPagesNumbers()
     refreshColumnStyle();
   }, [sellerPoints]);
-
+ 
   const initSellerPoints = () => {
     isLoading(true);
-    const FROM_DATE = `${fromDate.getFullYear()}-${fromDate.getMonth() + 1}-${fromDate.getDay() + 1}`
-    const TO_DATE = `${toDate.getFullYear()}-${toDate.getMonth() + 1}-${toDate.getDay() + 1}`
-
-    getSellerPoints(Languages[intl.locale], FROM_DATE, TO_DATE)
+    getSellerPoints(Languages[intl.locale], moment(dateFrom).format('YYYY-MM-DD'), moment(dateTo).format('YYYY-MM-DD'))
     .then((res) => {
         isLoading(false)
     })
   }
   const getPageContent = (pageNumber)=> {
     const temp = sellerPoints?[...sellerPoints]:[]
-    let currentContent = temp?.splice(pageNumber * 10 - 10, pageNumber * 10 - 1)
+    let currentContent = temp?.slice(pageNumber * 10 - 10, pageNumber * 10 - 1)
     setCurrentPageContent(currentContent)
   }
   const getPagesNumbers = (sellerPointss)=> {
@@ -81,9 +76,8 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
   currentPageContent?.map((item)=> {
     total = total + parseFloat(item.points)
   })
-  console.log(sellerPoints, "ddddd")
   return (
-    <div>
+    <div className="points-page">
       <div className="container insurance style1">
         <div className="row mt-5">
           <div className="col-3">
@@ -91,46 +85,47 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
             <div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-
-               <div style={{display: 'flex', flexDirection: 'row',marginBottom: 16}}>
-               {translate('from')}:
-               <KeyboardDatePicker
-                  disableToolbar
-                  variant="inline"
-                  format="MM/dd/yyyy"
-                  margin="normal"
-                  id="date-picker-inline"
-                  value={fromDate}
-                  onChange={(date)=>setFromDate(date)}
-                  KeyboardButtonProps={{
-                    'aria-label': 'change date',
-                  }}
-                />
-
-                 <div style={{width: 16}}/>
-                  {translate('to')}:
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    id="date-picker-inline"
-                    // label="Date picker inline"
-                    value={toDate}
-                    onChange={(date)=>setToDate(date)}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                />
-                  <button style={{marginRight: 16}} onClick={initSellerPoints}>{translate('search')}</button>
-              </div> 
-              </MuiPickersUtilsProvider>
-
-              <div className="row mb-5">
+            <div className="mt-5">
+              <div className="row">
+                <div className="form-group row">
+                  <label className="col-sm-1 col-form-label">
+                    {translate("from")}
+                  </label>
+                  <div className="col-sm-4">
+                     <DatePicker
+                      selected={dateFrom}
+                      type="date"
+                      dateFormat="dd-MM-yyyy"
+                      className="form-control"
+                      onChange={(e)=> setDateFrom(e)}
+                  />
+                  </div>
+                  <label className="col-sm-1 col-form-label">
+                    {translate("to")}
+                  </label>
+                  <div className="col-sm-4">
+                  <DatePicker
+                       selected={dateTo}
+                      type="date"
+                      dateFormat="dd-MM-yyyy"
+                      className="form-control"
+                      onChange={(e)=> setDateTo(e)}
+                    />
+                  </div>
+                  <div className="col-sm-2">
+                    <button onClick={initSellerPoints} className="btn sign-but">
+                      {translate("search")}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         
+              <div style={{marginTop: 16}} />
+              <div className="row mb-5 mt-10">
               <table>
                   <tr>
-                    <th>{translate('transatction')}</th>
+                    <th>{translate('movmentNo')}</th>
                     <th>{translate('date')}</th>
                     <th>{translate('seller')}</th>
                     <th>{translate('points')}</th>
@@ -150,15 +145,14 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                     }
                       <td></td>
                       <td></td>
-                      <td></td>
-                      <td>{translate('the_sum')} {total?.toFixed(4)}</td>
+                      <td>{translate('the_sum')}</td>
+                      <td>{total?.toFixed(4)}</td>
                       <td></td>
                 </table>
                 {buttons?.map((page, index)=>
                    <button onClick={()=>getPageContent(index + 1)} id="page-number">{index + 1}</button>
                   )}
                 <div>
-                 {/* {sellerPoints[0].sellerPoints} مجموع النقاط */}
                 </div>
               </div>
             </div>

@@ -3,8 +3,8 @@ import translate from "../../i18n/translate";
 import TextFieldGroup from "../common/TextFieldGroup";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
-import { connect } from "react-redux";
-import { loginUser, callIpApi } from "../../actions/userAction";
+import { connect, useDispatch } from "react-redux";
+import { loginUser, callIpApi, logoutUser } from "../../actions/userAction";
 import validateLoginInput from "../../validation/validateLoginInput";
 import Message from "../common/Message";
 import Spinner from "../ui/spinner/Spinner";
@@ -16,17 +16,36 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
   const history = useHistory();
   const intl = useIntl();
   const [ip, setIp] = useState(null);
+  const dispatch = useDispatch()
 
   useEffect(() => {
     document.title = "Sign In | Phone Play";
-    if (isAuthenticated) {
+    if (isAuthenticated && history.location.search !== '?token-expired') {
       history.push("/");
+    } else if( history.location.search == '?token-expired') {
+          dispatch(logoutUser(history))
     }
     if (!ip) {
       callIpApi()
       .then((info) => {
         setIp(info.ip);
       });
+    }
+    // window.addEventListener("popstate", e => {
+    //   // Nope, go back to your page
+    //   this.props.history.go(1);
+    // });
+    window.onpopstate = () => setTimeout(()=>{
+     history.go(1);
+    }, 0);
+
+    // window.addEventListener("load", function(event) { 
+    //   //console.log("The page is redirecting")  
+    //  alert('The page is redirecting')         
+     
+    // });
+    if(parseInt(localStorage.getItem('errorCount')) && parseInt(localStorage.getItem('errorCount')) != errorCount) {
+      setErrorCount(parseInt(localStorage.getItem('errorCount')))
     }
   }, []);
   const [loginForm, setLoginForm] = useState({
@@ -49,16 +68,19 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
       setErrors1(errors);
       isLoading(false);
     } else {
-      loginUser(loginForm, ip, history)
+      loginUser(loginForm, ip, history, errorCount)
       .finally(() => {
         setErrorCount(errorCount + 1)
+        // localStorage.setItem('errorCount', errorCount + 1)
         isLoading(false);
       });
     }
   };
   function verfiy() {
    setErrorCount(0)
+   localStorage.setItem('errorCount', 0)
   }
+  console.log(errorCount, "errrorr")
   return (
     <section class="auth signin">
       <div class="container">
@@ -127,7 +149,7 @@ const SignIn = ({ loginUser, isAuthenticated, massage }) => {
               {translate("Don't have an account?")} <a href="/signup">{translate("Sign Up")}</a>
             </div>
               <div style={{textAlign: 'center'}}>
-              0.0.1 V
+              0.0.3 V
              </div>
           </div>
          

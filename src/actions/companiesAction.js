@@ -647,8 +647,8 @@ export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) =>
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const company = type === "mobile012" ? "012mobile" : type;
-
-  return ApiRequest.post(`${company}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`)
+  const amount = company ==='partner'?data.amount:''
+  return ApiRequest.post(`${company}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}&amount=${amount}`)
   .then((res) => {
     if (res.data == "failed, token error" || res.data.reason == "token expired") {
       Toast.fire({
