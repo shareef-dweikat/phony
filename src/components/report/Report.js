@@ -14,27 +14,21 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
   const history = useHistory().location.pathname;
-  // translate('All'), 
-  // translate('topup'), 
-  // translate('cancelation'), 
-  // translate('add credits')
+  console.log(sellerReports, "sellerReportsssss")
   const options = [
-    'All', 
-    'topup', 
-  'cancelation', 
-  'add credits'
+    translate('All'), 
+    translate('topup'), 
+    translate('cancelation'), 
+    translate('add credits'), 
   ];
   const defaultOption = '';
-  // const All =  translate('All')
-  // const success =  translate('success')
-  // const faild =  translate('failed trans')
-  // const pending =  translate('pending')
+
   
   const transStatusOptions = [
-    'All',
-    "success",
-    'failed trans',
-     'pending'
+    translate('All'), 
+    translate('success'), 
+    translate('failed trans'), 
+    translate('pending'), 
   ];
   const defaultTransStatusOptions = '';
 
@@ -60,11 +54,12 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
 
   useEffect(() => {
     document.title = "Report | Phone Play";
-    const companiesTemp = Object.keys(JSON.parse(localStorage.getItem("companies"))).map((item)=> {
-      if(item === 'jawwal' || item === 'ooredoo' || item === 'cellcom' || item === 'pelephone' || item === 'golan' || item === 'mobile012'  || item === 'azy'  || item === 'hot' || item === 'partner')
-         return {value: item, label: item}
-    })
-    setCompanies(companiesTemp)
+    // const companiesTemp = Object.keys(JSON.parse(localStorage.getItem("companies"))).map((item)=> {
+    //   if(item === 'jawwal' || item === 'ooredoo' || item === 'cellcom' || item === 'pelephone' || item === 'golan' || item === 'mobile012'  || item === 'azy'  || item === 'hot' || item === 'partner')
+    //      return {value: item, label: item}
+    // })
+    // companiesTemp.push({value: 'ddddddddd', label: 'itedddddddddddddddddddddm'})
+    // setCompanies(companiesTemp)
   }, []);
   
   useEffect(()=>{
@@ -73,10 +68,11 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
 
   useEffect(()=> {
     let providers = []
-    providers.push( {value: '', label: 'All'})
     providers = discounts?.map((provider)=>{
       return {value: Object.keys(provider)[0], label: translate(Object.keys(provider)[0])}
     })
+    providers = [ {value: '', label:translate('All')}, ...providers]
+    
     setCompanies(providers)
   }, [discounts])
   const handleSearch = () => {
@@ -101,7 +97,7 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
   }
   return (
     <div>
-      <div className="container">
+      <div className="container-report">
         <div className="row mt-5">
           <div className="col-3">
             <SideBar />
@@ -151,136 +147,158 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                 </label>
               </div>
             </div>
-            <div className="mt-2">
-              <div className="row">
-                <div className="form-group row">
-                  <label className="col-sm-1 col-form-label" style={{width: 60}}>
-                    {translate("from")}
-                  </label>
-                  <div className="col-sm-2" style={{width: 135}}>
-                    <DatePicker
-                        selected={dateFrom}
-                        type="date"
-                        dateFormat="dd-MM-yyyy"
-                        className="form-control"
-                        onChange={(e)=> setDateFrom(e)}
-                    />
-                  </div>
-                  <label className="col-sm-1 col-form-label" style={{width: 70}}>
-                    {translate("to")}
-                  </label>
-                  <div className="col-sm-2"  style={{width: 135}}>
-                    <DatePicker
-                       selected={dateTo}
-                      type="date"
-                      dateFormat="dd-MM-yyyy"
-                      className="form-control"
-                      onChange={(e)=> setDateTo(e)}
-                    />
-                  </div>
-                  {/* <div className="col-sm-1">
-                    <button onClick={()=>handleSearch(phone)} className="btn sign-but">
-                      {translate("search")}
-                    </button>
-                  </div> */}
-                <label className="col-sm-1 col-form-label" style={{width: 100}}>
-                  {translate("number")}
-                </label>
-                <div className="col-sm-2"  style={{width: 140}}>
-                  <input 
-                  //  style={{width: 150}}
-                    onChange={(element)=>setPhone(element.target.value)} 
-                    className="form-control" 
-                  />
-                </div>
-                <label className="col-sm-1 col-form-label" style={{width: 70}}>
-                  {translate("trans type")}
-                </label>
-                <div className="col-sm-2">
-                <Dropdown 
-                   options={options}
-                   onChange={(value)=>setTransType(value)}
-                   value={defaultOption} 
-                   placeholder={translate('All')}
-                />
-                </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="row mt-1">
-              <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 60}}>
-                  {translate("trans status")}
-                </label>
-                <div className="col-sm-2" style={{width: 135}}>
-                 <Dropdown 
-                   options={transStatusOptions}
-                   onChange={(value)=>setTransStatus(value)}
-                    value={defaultTransStatusOptions} 
-                    placeholder={translate('All')}
-                    />
-                 </div>
-                 <label className="col-sm-1 col-form-label" style={{width: 70}}>
-                  {translate("Provider")}
-                </label>
-                <div className="col-sm-2"  style={{width: 135}}>
-                <Dropdown 
-                   options={companies}
-                   onChange={(value)=>setProvider(value)}
-                   placeholder={translate('All')}
-                />
-                </div>
 
-                <label className="col-sm-1 col-form-label"  style={{width: 100}}>
-                  {translate("movmentNo")}
-                </label>
-                <div className="col-sm-2"  style={{width: 140}}>
-                  <input 
-                    //  style={{width: 150}}
-                      onChange={(element)=>setTransId(element.target.value)} 
-                      className="form-control" 
-                  />
-                 </div>
-                
-                 <label className="col-sm-1 col-form-label" style={{width: 70}}>
-                  {translate("amount")}
-                </label>
-                <div className="col-sm-2">
-                  <input 
-                      onChange={(element)=>setAmount(element.target.value)} 
-                      className="form-control" 
-                  />
-                 </div> 
-              </div>
-            </div>
-
-    
-            <div className="row mt-1">
-              <div className="form-group row">
-                <label className="col-sm-1 col-form-label" style={{width: 60}}>
-                  {translate("card_id")}
-                </label>
-                <div className="col-sm-1" style={{width: 135}}>
-                  <input 
-                      onChange={(element)=>setCardId(element.target.value)} 
-                      className="form-control" 
-                  />
-                 </div>
-                 <div className="col-sm-7" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                      <div>
-                        <Checkbox
-                            onChange={(value)=>setAutoRenew(value.target.checked)}
-                            color="primary"
-                            inputProps={{ 'aria-label': 'secondary checkbox' }}
-                          />
-                        <label  >
-                          {translate("autorenew")}
-                        </label>
-                        
+            <div className="report-row">
+                  <div className="report-column">
+                      <div className="report-filter-item">
+                          <label className="report-label">
+                              {translate("from")}
+                          </label>
+                          <div className="report-dropdown">
+                            <DatePicker
+                                selected={dateFrom}
+                                type="date"
+                                dateFormat="dd-MM-yyyy"
+                                className="form-control  report-form-control-date-picker"
+                                onChange={(e)=> setDateFrom(e)}
+                            />
+                          </div>
                       </div>
-                      <div>
+                      <div className="report-filter-item">
+                          <label className="report-label">       
+                              {translate("to")}
+                          </label>
+                          <div className="report-dropdown report-form-control-date-picker">
+                              <DatePicker
+                                selected={dateTo}
+                                type="date"
+                                dateFormat="dd-MM-yyyy"
+                                className="form-control  report-form-control-date-picker"
+                                onChange={(e)=> setDateTo(e)}
+                              />
+                          </div>
+                      </div>
+
+                      <div className="report-filter-item">
+                          <label className="report-label">   
+                            {translate("No.")}
+                          </label>
+                          <div >
+                            <input 
+                                
+                                onChange={(element)=>setPhone(element.target.value)} 
+                                className="form-control" 
+                              />
+                                 <div className="report-checkbox-container">
+                                    <Checkbox
+                                        className="report-checkbox"
+                                        onChange={(value)=>setAutoRenew(value.target.checked)}
+                                        color="primary"
+                                        inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                      />
+                                    <label  >
+                                      {translate("autorenew")}
+                                    </label>
+                                  </div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <div className="report-column">
+                    <div className="report-filter-item">
+                      <label className="report-label">   
+                        {translate("trans status")}
+                      </label>
+                      <div className="report-dropdown-container">
+                          <Dropdown 
+                            className="report-dropdown"
+                            options={transStatusOptions}
+                            onChange={(value)=>setTransStatus(value)}
+                            value={defaultTransStatusOptions} 
+                            placeholder={translate('All')}
+                          />
+                      </div>
+                    </div>
+                    <div className="report-filter-item">
+                        <label className="report-label"> 
+                          {translate("trans type")}
+                        </label>
+                        <div className="report-dropdown-container">
+                          <Dropdown 
+                            className="report-dropdown"
+                            options={options}
+                            onChange={(value)=>setTransType(value)}
+                            value={defaultOption} 
+                            placeholder={translate('All')}
+                          />
+                         </div>
+                    </div>
+                    <div className="report-filter-item">
+                        <label className="report-label"> 
+                          {translate("Provider")}
+                        </label>
+                        <div className="report-dropdown-container">
+                          <Dropdown 
+                            className="report-dropdown"
+                            options={companies}
+                            onChange={(value)=>setProvider(value)}
+                            placeholder={translate('All')}
+                          />
+                            <div className="report-checkbox-container">
+
+                                <Checkbox
+                                    className="report-checkbox"
+                                  onChange={(value)=>setCanceled(value.target.checked)}
+                                    color="primary"
+                                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                />
+                                <label>
+                                    {translate("canceled")}
+                                </label>      
+                                </div>
+                        </div>
+                      </div> 
+                   
+                  </div>
+
+                  <div className="report-column">
+                     <div className="report-filter-item">
+                        <label className="report-label"> 
+                        {translate("movmentNo")}
+                       </label>
+                        <div className="report-input">
+                          <input 
+                            //  style={{width: 150}}
+                              onChange={(element)=>setTransId(element.target.value)} 
+                              className="form-control report-form-control" 
+                          />
+                        </div>
+                      </div>
+                
+
+                  <div className="report-filter-item">
+                        <label className="report-label"> 
+                          {translate("amount")}
+                        </label>
+                        <div className="report-input">
+                          <input 
+                              onChange={(element)=>setAmount(element.target.value)} 
+                              className="form-control report-form-control" 
+                          />
+                        </div> 
+                  </div>
+                  <div className="report-filter-item">
+                      <label className="report-label"> 
+                        {translate("card_id")}
+                     </label>
+                     <div className="report-input">
+                        <input 
+                            onChange={(element)=>setCardId(element.target.value)} 
+                            className="form-control report-form-control" 
+                        />
+                      <div className="report-checkbox-container">
                         <Checkbox
+                            className="report-checkbox"
                             onChange={(value)=>setCancelRequests(value.target.checked)}
                             color="primary"
                             inputProps={{ 'aria-label': 'secondary checkbox' }}
@@ -288,30 +306,17 @@ const Report = ({sellerReports, getSellerReports, discounts, getDiscounts}) => {
                           <label>
                             {translate("cancel request")}
                           </label>
-                          
                       </div>
-                        <div  className="col-sm-3" >
-                          <Checkbox
-                              onChange={(value)=>setCanceled(value.target.checked)}
-                              color="primary"
-                              inputProps={{ 'aria-label': 'secondary checkbox' }}
-                            />
-                            <label>
-                                {translate("canceled")}
-                            </label>
-                           
-                        </div>
-                      
-                  </div>
-                  <div style={{width: 150}}>
-                        <button style={{width: 88}} onClick={()=>handleSearch(phone)} className="btn sign-but">
+                     </div>
+                    </div>
+                    
+                </div>
+                <div className="report-column">
+                <button style={{width: 100, height: 90, marginTop: 24}} onClick={()=>handleSearch(phone)} className="btn sign-but">
                               {translate("search")}
-                          </button>
-                  </div>
-              </div>
+                </button>
+                </div>
             </div>
-
-   
             <div className="mt-3">
               <table className="table table-striped">
                 <thead>

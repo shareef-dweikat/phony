@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { IntlProvider, createIntl, createIntlCache } from "react-intl";
+import { IntlProvider, createIntl, createIntlCache, } from "react-intl";
 
 import { LOCALES } from "./locales";
 import messages from "./messages";

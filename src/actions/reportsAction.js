@@ -110,9 +110,9 @@ export const getSellerReports = (
     renew= '',
     provider= '',
   ) => (dispatch) => {
-  transStatus = transStatus === 'All'?'':transStatus
-  transType = transType === 'All'?'':transType
-
+  transStatus = transStatus?.props?.id === 'All' || transStatus?.props?.id === undefined?'':transStatus?.props?.id
+  transType = transType?.props?.id === 'All'  || transType?.props?.id === undefined?'':transType?.props?.id
+  provider = provider === 'All' || provider === undefined? '':provider
   console.log(
       from_date, 
       to_date, 
@@ -135,7 +135,7 @@ export const getSellerReports = (
   const sellerId = JSON.parse(localStorage.companies).sellerid
   return  ApiRequest
     .post(
-      `get_seller_report?from_date=${from_date}&to_date=${to_date}&sellerid=${sellerId}&trans_status=${transStatus}&trans_type=${transType}&number=${phone}`, null, config
+      `get_seller_report?from_date=${from_date}&to_date=${to_date}&cancelRequest=${cancelRequest}&sellerid=${sellerId}&cardId=${cardId}&amount=${amount}&canceled=${canceled}&trans_id=${transId}&autorenew=${renew}&trans_status=${transStatus}&trans_type=${transType}&number=${phone}&provider=${provider}`, null, config
     )
     .then((res) => {
       console.log(res, 'GET_SELLER_REPORTS');

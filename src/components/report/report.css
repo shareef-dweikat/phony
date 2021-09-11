@@ -34,3 +34,49 @@ td {
   margin-right: 32px;
   width: 100%;
 }
+.container-report {
+  padding: 0 64px 0 64px;
+}
+
+.report-filter-item{
+  width: 280px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.report-label {
+  margin-top: 8px
+}
+
+
+.report-input {
+  width: 200px;
+}
+.report-form-control {
+  height: 40px;
+}
+.report-form-control-date-picker {
+  height: 43px;
+}
+.report-dropdown {
+
+}
+.report-dropdown-container {
+  width: 200px;
+}
+.report-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.report-column {
+  margin: 0 16px 0 8px;
+}
+
+.report-checkbox-container {
+  margin-top: 16px;
+}
+.report-checkbox {
+  padding: 0px !important;
+}
