@@ -38,17 +38,23 @@ td {
   padding: 0 64px 0 64px;
 }
 
-.report-filter-item{
-  width: 280px;
+.report-filter-item {
+  width: auto;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 4px;
 }
 .report-label {
-  margin-top: 8px
+  font-size: 14px;
+  margin-top: 8px;
+  width: 25%;
 }
-
+.report-filter-item > div:nth-child(2) {
+  width: 75%;
+  margin-left: 4px;
+  margin-right: 4px;
+}
 
 .report-input {
   width: 200px;
@@ -68,15 +74,22 @@ td {
 .report-row {
   display: flex;
   flex-direction: row;
+  margin-top: 8px;
 }
 
 .report-column {
-  margin: 0 16px 0 8px;
+  margin: 0 8px 0 8px;
 }
 
-.report-checkbox-container {
+.report-filter-item .report-checkbox-container {
+  width: 100%;
   margin-top: 16px;
 }
+.report-checkbox-container label{
+  cursor: pointer;
+  margin: 0 8px;
+}
+
 .report-checkbox {
   padding: 0px !important;
 }
