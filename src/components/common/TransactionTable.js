@@ -99,16 +99,12 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 <td>{item.dealercost === 'N/A'?'':'₪'} {item.dealercost || 0}</td>
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
-                                    {/* {item.status == "failed" && (
-                                        <Button size="sm" 
-                                        // onClick={() => showReason(item.transid)} 
-                                        onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})}
-                                        disabled={loading}>
-                                            {translate("Details")}
-                                        </Button>
-                                    )} */}
                                     {item.status == "success" && !item.cancelrequest && (
-                                        <Button size="sm" onClick={() => cancelTransaction(item.transid, item.number)} disabled={loading}>
+                                        <Button
+                                             size="sm" 
+                                             onClick={() => cancelTransaction(item.transid, item.number)}
+                                             disabled={loading}
+                                        >
                                             {translate("Cancel")}
                                         </Button>
                                     )}

@@ -93,3 +93,9 @@ td {
 .report-checkbox {
   padding: 0px !important;
 }
+
+.report-search-btn {
+   width: 100px;
+   height: 90px;
+   margin-top: 24px
+}

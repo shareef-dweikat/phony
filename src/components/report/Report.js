@@ -8,8 +8,10 @@ import "./report.css";
 import { connect } from "react-redux";
 import moment from "moment";
 import Checkbox from "@material-ui/core/Checkbox";
-// import Dropdown from "react-dropdown";
+import {  cancelTransction } from "../../actions/reportsAction";
+
 import Dropdown from 'react-select';
+import { Button } from "react-bootstrap";
 
 import Spinner from "../ui/spinner/Spinner";
 import "react-datepicker/dist/react-datepicker.css";
@@ -108,6 +110,16 @@ const Report = ({
       isLoading(false);
     });
   };
+
+  
+  const cancelTransaction = (tranId,cnumber) => {
+    isLoading(true);
+    cancelTransction(tranId,cnumber).then((res) => {
+        // updateTransactions();
+    }).finally(() => {
+        isLoading(false);
+    });
+}
   return (
     <div>
       <div className="container">
@@ -146,9 +158,6 @@ const Report = ({
                     {translate("profit_calculation")}
                   </Link>
                 </label>
-                {/* <label for="inputEmail3" className="col-sm-2 col-form-label">
-                  <Link to="cancelation"  className="semi-nav">{translate("refund")}</Link>
-                </label> */}
                 <label for="inputEmail3" className="col-sm-3 col-form-label">
                   <Link
                     to="running"
@@ -227,6 +236,7 @@ const Report = ({
                           options={transStatusOptions}
                           onChange={(value) => setTransStatus(value)}
                           value={transStatus}
+                          key={transStatus.value}
                           placeholder={translate("All")}
                         />
                       </div>
@@ -241,6 +251,7 @@ const Report = ({
                           options={options}
                           onChange={(value) => setTransType(value)}
                           value={transType}
+                          key={transType.value}
                           placeholder={translate("All")}
                         />
                       </div>
@@ -254,6 +265,7 @@ const Report = ({
                           className="report-dropdown"
                           options={companies}
                           value={provider}
+                          key={provider.value}
                           onChange={(value) => setProvider(value)}
                           placeholder={translate("All")}
                         />
@@ -280,7 +292,6 @@ const Report = ({
                       </label>
                       <div className="report-input">
                         <input
-                          //  style={{width: 150}}
                           onChange={(element) =>
                             setTransId(element.target.value)
                           }
@@ -332,10 +343,8 @@ const Report = ({
               </div>
               <div className="col-1">
                 <button
-                 className="btn sign-but"
-                  style={{width: 100, height: 90, marginTop: 24}}
+                  className="btn sign-but report-search-btn"
                   onClick={() => handleSearch(phone)}
-                  // className="btn sign-but"
                 >
                   {translate("search")}
                 </button>
@@ -420,9 +429,20 @@ const Report = ({
                         <td className="text-center" style={{ fontWeight: 300 }}>
                           {report.status}
                         </td>
-                        <td className="text-center" style={{ fontWeight: 300 }}>
-                          @mdo
+                        <td>
+                            {report.status == "success" && !report.cancelrequest && (
+                                <Button
+                                    size="sm" 
+                                    onClick={() => cancelTransaction(report.transid, report.number)}
+                                    disabled={loading}
+                                >
+                                      {translate("Cancel")}
+                                        </Button>
+                                    )}
                         </td>
+                        {/* <td className="text-center" style={{ fontWeight: 300 }}>
+                          @mdo
+                        </td> */}
                       </tr>
                     );
                   })}
