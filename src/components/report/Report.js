@@ -8,7 +8,9 @@ import "./report.css";
 import { connect } from "react-redux";
 import moment from "moment";
 import Checkbox from "@material-ui/core/Checkbox";
-import Dropdown from "react-dropdown";
+// import Dropdown from "react-dropdown";
+import Dropdown from 'react-select';
+
 import Spinner from "../ui/spinner/Spinner";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
@@ -21,18 +23,18 @@ const Report = ({
   const history = useHistory().location.pathname;
   console.log(sellerReports, "sellerReportsssss");
   const options = [
-    translate("All"),
-    translate("topup"),
-    translate("cancelation"),
-    translate("add credits"),
+    { value: '', label: translate("All")},
+    { value: 'topup', label: translate("topup") },
+    { value: 'cancelation', label: translate("cancelation") },
+    { value: 'add credits', label: translate("add credits") },
   ];
   const defaultOption = "";
 
   const transStatusOptions = [
-    translate("All"),
-    translate("success"),
-    translate("failed trans"),
-    translate("pending"),
+    { value: '', label: translate("All")},
+    { value: 'success', label: translate("success") },
+    { value: 'failed', label: translate("failed") },
+    { value: 'pending', label: translate("pending") },
   ];
   const defaultTransStatusOptions = "";
 
@@ -81,6 +83,13 @@ const Report = ({
     setCompanies(providers);
   }, [discounts]);
   const handleSearch = () => {
+    console.log(
+      'PPPP',
+      transType.value,
+      transStatus.value,
+      provider.value
+    )
+
     isLoading(true);
     getSellerReports(
       moment(dateFrom).format("YYYY-MM-DD"),
@@ -217,7 +226,7 @@ const Report = ({
                           className="report-dropdown"
                           options={transStatusOptions}
                           onChange={(value) => setTransStatus(value)}
-                          value={defaultTransStatusOptions}
+                          value={transStatus}
                           placeholder={translate("All")}
                         />
                       </div>
@@ -231,7 +240,7 @@ const Report = ({
                           className="report-dropdown"
                           options={options}
                           onChange={(value) => setTransType(value)}
-                          value={defaultOption}
+                          value={transType}
                           placeholder={translate("All")}
                         />
                       </div>
@@ -244,6 +253,7 @@ const Report = ({
                         <Dropdown
                           className="report-dropdown"
                           options={companies}
+                          value={provider}
                           onChange={(value) => setProvider(value)}
                           placeholder={translate("All")}
                         />

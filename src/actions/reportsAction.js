@@ -110,8 +110,8 @@ export const getSellerReports = (
     renew= '',
     provider= '',
   ) => (dispatch) => {
-  transStatus = transStatus?.props?.id === 'All' || transStatus?.props?.id === undefined?'':transStatus?.props?.id
-  transType = transType?.props?.id === 'All'  || transType?.props?.id === undefined?'':transType?.props?.id
+  transStatus = transStatus === 'All' || transStatus === undefined?'':transStatus
+  transType = transType === 'All'  || transType === undefined?'':transType
   provider = provider === 'All' || provider === undefined? '':provider
   console.log(
       from_date, 
