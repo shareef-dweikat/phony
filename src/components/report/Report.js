@@ -332,9 +332,10 @@ const Report = ({
               </div>
               <div className="col-1">
                 <button
-                  style={{ marginTop: 50 }}
+                 className="btn sign-but"
+                  style={{width: 100, height: 90, marginTop: 24}}
                   onClick={() => handleSearch(phone)}
-                  className="btn sign-but"
+                  // className="btn sign-but"
                 >
                   {translate("search")}
                 </button>
