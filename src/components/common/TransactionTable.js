@@ -87,7 +87,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             } ${item.status === "failed" && "table-danger"}  ${item.cancelrequest && "table-canceled"}`}
                             >
                                <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
-                                                <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
+                                   <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
                                 </div>
                                 <td scope="row ">
                                     {item.transid}

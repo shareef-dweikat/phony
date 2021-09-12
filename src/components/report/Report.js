@@ -9,10 +9,11 @@ import { connect } from "react-redux";
 import moment from "moment";
 import Checkbox from "@material-ui/core/Checkbox";
 import {  cancelTransction } from "../../actions/reportsAction";
-
-import Dropdown from 'react-select';
+import Dropdown from 'react-dropdown'
+//import Dropdown from 'react-select';
 import { Button } from "react-bootstrap";
-
+import DownArrow from '../../assests/images/icons/down-circular-button.png'
+import refund from '../../assests/images/icons/cancel.jpeg'
 import Spinner from "../ui/spinner/Spinner";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
@@ -44,14 +45,15 @@ const Report = ({
   const [dateFrom, setDateFrom] = useState(new Date());
 
   const [phone, setPhone] = useState("");
-  const [transType, setTransType] = useState("All");
-  const [transStatus, setTransStatus] = useState("All");
+  const [transType, setTransType] = useState({ value: "", label: translate("All") });
+  const [transStatus, setTransStatus] = useState({ value: "", label: translate("All") });
   const [transId, setTransId] = useState("");
   const [cardId, setCardId] = useState("");
   const [amount, setAmount] = useState("");
   const [renew, setAutoRenew] = useState("");
-  const [provider, setProvider] = useState("");
+  const [provider, setProvider] = useState({ value: "", label: translate("All") });
   const [companies, setCompanies] = useState("");
+  const [isDetailsButtonClicked, setIsDetailsButtonClicked] = useState({flag: false, index: null})
 
   const [cancelRequest, setCancelRequests] = useState("");
   const [canceled, setCanceled] = useState("");
@@ -237,7 +239,7 @@ const Report = ({
                           onChange={(value) => setTransStatus(value)}
                           value={transStatus}
                           key={transStatus.value}
-                          placeholder={translate("All")}
+                          // placeholder={'dddd'}
                         />
                       </div>
                     </div>
@@ -252,7 +254,7 @@ const Report = ({
                           onChange={(value) => setTransType(value)}
                           value={transType}
                           key={transType.value}
-                          placeholder={translate("All")}
+                          // placeholder={translate("All")}
                         />
                       </div>
                     </div>
@@ -262,12 +264,12 @@ const Report = ({
                       </label>
                       <div className="report-dropdown-container">
                         <Dropdown
-                          className="report-dropdown"
                           options={companies}
                           value={provider}
                           key={provider.value}
+                          className="report-dropdown"
                           onChange={(value) => setProvider(value)}
-                          placeholder={translate("All")}
+                          // placeholder={translate("All")}
                         />
                         <div className="report-checkbox-container">
                           <Checkbox
@@ -402,8 +404,9 @@ const Report = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {sellerReports?.map((report) => {
+                  {sellerReports?.map((report, index) => {
                     return (
+                      <>
                       <tr
                         className={`${
                           report.status === "proccessing" && "table-active"
@@ -411,6 +414,9 @@ const Report = ({
                           report.status === "failed" && "table-danger"
                         }`}
                       >
+                        <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
+                           <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
+                        </div>
                         <td scope="row" style={{ fontWeight: 300 }}>
                           {report.transid}
                         </td>
@@ -429,21 +435,48 @@ const Report = ({
                         <td className="text-center" style={{ fontWeight: 300 }}>
                           {report.status}
                         </td>
-                        <td>
-                            {report.status == "success" && !report.cancelrequest && (
-                                <Button
+                   
+                        {report.status == "success" && !report.cancelrequest && (
+                            <td>
+                              {/* <img  
+                              style={{width: 25}}
+                              src={refund} /> */}
+                               <Button
                                     size="sm" 
                                     onClick={() => cancelTransaction(report.transid, report.number)}
                                     disabled={loading}
                                 >
                                       {translate("Cancel")}
-                                        </Button>
-                                    )}
-                        </td>
-                        {/* <td className="text-center" style={{ fontWeight: 300 }}>
-                          @mdo
-                        </td> */}
+                                        </Button> 
+                            </td>
+                          )}
+       
                       </tr>
+                        {
+                          isDetailsButtonClicked.flag && isDetailsButtonClicked.index === index && (
+                               <tr style={{backgroundColor: 'white'}}>
+                                   <td colspan="5" style={{textAlign: 'right'}}>
+                                       <div>
+                                           <div>{report.carddescription}</div>
+                                           <div>{translate('Renewable')}: {report.autorenew?translate('Yes'):translate('No')}</div>
+                                           <div>{translate('Provider')}: {translate(report.provider)}</div>
+                                           <div>{translate('trans type')}: {translate(report.transtype)}</div>
+                                           {report.status !== 'success' && <div>{translate('Reason')}: {report.reason}</div>}
+                                       </div>
+                                   </td>
+                                   <td>
+                                       <img 
+                                       src={
+                                           report.url === "N/A"? 
+                                           require(`../../assests/images/bundles/${report.provider}/${report.provider}-${report.cardamount}.png`).default:report.url} 
+                                           style={{width: 150}}
+                                       />
+                                   </td>
+                               </tr>
+                           )
+                       
+                       }
+                       </>
                     );
                   })}
                 </tbody>
