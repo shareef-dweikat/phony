@@ -16,7 +16,7 @@ const SideBar = ({ user }) => {
   const [engagespotInit, isEngagespotInit] = useState(false);
   const [rates, setRates] = useState([]);
   const [loading, isLoading] = useState(false);
-
+  const userType = localStorage.getItem('companies').type
   useEffect(() => {
     updateCurrencyRate();
     updateEngagespot();
@@ -191,6 +191,24 @@ const SideBar = ({ user }) => {
               </span>
             </a>
           </div>
+            {
+              userType === 'admin' &&
+              <div
+              className={`sidebar__link ${
+                history === "/add_credits" && "active-link"
+              } m-4`}
+            >
+              <a className="link-main " href="/add_credits">
+                <span>
+                  <i
+                    className="icon-main fa fa-tags  m-2"
+                    aria-hidden="true"
+                  ></i>
+                  {translate("add credits")}
+                </span>
+              </a>
+            </div>
+            }
           <div
             className={`sidebar__link ${
               history === "/report" && "active-link"

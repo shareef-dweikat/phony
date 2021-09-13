@@ -72,7 +72,7 @@ const RuningBalance = ({sellerRunning, getSellerRunningReports}) => {
                     to="profit"
                     className={`semi-nav ${
                       history === "/profit" && "active-semi"
-                    } m-4`}
+                    } m-0`}
                   >
                     {translate("profit_calculation")}
                 </Link>

@@ -13,7 +13,7 @@ import Dropdown from 'react-dropdown'
 //import Dropdown from 'react-select';
 import { Button } from "react-bootstrap";
 import DownArrow from '../../assests/images/icons/down-circular-button.png'
-import refund from '../../assests/images/icons/cancel.jpeg'
+import refund from '../../assests/images/icons/cancel.png'
 import Spinner from "../ui/spinner/Spinner";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
@@ -155,7 +155,7 @@ const Report = ({
                     to="profit"
                     className={`semi-nav ${
                       history === "/profit" && "active-semi"
-                    } m-4`}
+                    } m-0`}
                   >
                     {translate("profit_calculation")}
                   </Link>
@@ -401,6 +401,8 @@ const Report = ({
                     </th>
 
                     <th scope="col text-center">{translate("action")}</th>
+                    <th scope="col text-center"></th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -435,22 +437,23 @@ const Report = ({
                         <td className="text-center" style={{ fontWeight: 300 }}>
                           {report.status}
                         </td>
-                   
+                        <td>
                         {report.status == "success" && !report.cancelrequest && (
-                            <td>
-                              {/* <img  
+                            <>
+                           <img  
+                               onClick={() => cancelTransaction(report.transid, report.number)}
                               style={{width: 25}}
-                              src={refund} /> */}
-                               <Button
+                              src={refund} /> 
+                               {/* <Button
                                     size="sm" 
                                     onClick={() => cancelTransaction(report.transid, report.number)}
                                     disabled={loading}
                                 >
                                       {translate("Cancel")}
-                                        </Button> 
-                            </td>
+                                        </Button>  */}
+                            </>
                           )}
-       
+                      </td>
                       </tr>
                         {
                           isDetailsButtonClicked.flag && isDetailsButtonClicked.index === index && (
