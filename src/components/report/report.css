@@ -35,10 +35,15 @@ td {
   width: 100%;
 }
 .container-report {
-  padding: 0 64px 0 64px;
+  padding: 0 32px 0 32px;
 }
 
-.report-filter-item{
+.report-search-btn {
+  height: 80px;
+  width: 80px;
+  margin-top: 24px;
+}
+.report-filter-item {
   width: 280px;
   display: flex;
   flex-direction: row;
@@ -49,18 +54,29 @@ td {
   margin-top: 8px
 }
 
-
+.left-column {
+  height: 2160px;
+}
 .report-input {
   width: 200px;
+  height: 40px;
+}
+.col-11 {
+  width: 870px;
 }
 .report-form-control {
   height: 40px;
 }
+.report-input-left-column{
+  height: 40px;
+ 
+}
 .report-form-control-date-picker {
-  height: 43px;
+  height: 40px;
+  width: 200px;
 }
 .report-dropdown {
-
+  height: 39px  !important;
 }
 .report-dropdown-container {
   width: 200px;
@@ -75,7 +91,7 @@ td {
 }
 
 .report-checkbox-container {
-  margin-top: 16px;
+  margin-top: 20px;
 }
 .report-checkbox {
   padding: 0px !important;

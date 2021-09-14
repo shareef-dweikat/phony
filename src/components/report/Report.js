@@ -124,7 +124,7 @@ const Report = ({
 }
   return (
     <div>
-      <div className="container">
+      <div className="container-report">
         <div className="row mt-5">
           <div className="col-3">
             <SideBar />
@@ -181,7 +181,7 @@ const Report = ({
                       <label className="report-label">
                         {translate("from")}
                       </label>
-                      <div className="report-dropdown">
+                      <div>
                         <DatePicker
                           selected={dateFrom}
                           type="date"
@@ -193,7 +193,7 @@ const Report = ({
                     </div>
                     <div className="report-filter-item">
                       <label className="report-label">{translate("to")}</label>
-                      <div className="report-dropdown report-form-control-date-picker">
+                      <div className="report-form-control-date-picker">
                         <DatePicker
                           selected={dateTo}
                           type="date"
@@ -209,7 +209,7 @@ const Report = ({
                       <div>
                         <input
                           onChange={(element) => setPhone(element.target.value)}
-                          className="form-control"
+                          className="form-control report-input"
                         />
                         <div className="report-checkbox-container">
                           <Checkbox
@@ -271,7 +271,7 @@ const Report = ({
                           onChange={(value) => setProvider(value)}
                           // placeholder={translate("All")}
                         />
-                        <div className="report-checkbox-container">
+                        <div className="report-checkbox-container mt-4">
                           <Checkbox
                             className="report-checkbox"
                             onChange={(value) =>
@@ -297,7 +297,8 @@ const Report = ({
                           onChange={(element) =>
                             setTransId(element.target.value)
                           }
-                          className="form-control report-form-control"
+                          style={{marginTop:0}}
+                          className="form-control report-input-left-column"
                         />
                       </div>
                     </div>
@@ -311,7 +312,7 @@ const Report = ({
                           onChange={(element) =>
                             setAmount(element.target.value)
                           }
-                          className="form-control report-form-control"
+                          className="form-control report-input-left-column"
                         />
                       </div>
                     </div>
@@ -324,7 +325,7 @@ const Report = ({
                           onChange={(element) =>
                             setCardId(element.target.value)
                           }
-                          className="form-control report-form-control"
+                          className="form-control report-input-left-column"
                         />
                         <div className="report-checkbox-container">
                           <Checkbox
@@ -357,6 +358,12 @@ const Report = ({
               <table className="table table-striped">
                 <thead>
                   <tr style={{ backgroundColor: "#eff0f1" }}>
+                  <th scope="col text-center">
+                      <i
+                        className="m-1"
+                        aria-hidden="true"
+                      ></i>
+                    </th>
                     <th scope="col text-center">
                       <i
                         className="fa fa-arrow-down m-1"
@@ -401,7 +408,7 @@ const Report = ({
                     </th>
 
                     <th scope="col text-center">{translate("action")}</th>
-                    <th scope="col text-center"></th>
+                    {/* <th scope="col text-center"></th> */}
 
                   </tr>
                 </thead>
@@ -416,9 +423,9 @@ const Report = ({
                           report.status === "failed" && "table-danger"
                         }`}
                       >
-                        <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
+                        <td onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
                            <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
-                        </div>
+                        </td>
                         <td scope="row" style={{ fontWeight: 300 }}>
                           {report.transid}
                         </td>
@@ -444,13 +451,6 @@ const Report = ({
                                onClick={() => cancelTransaction(report.transid, report.number)}
                               style={{width: 25}}
                               src={refund} /> 
-                               {/* <Button
-                                    size="sm" 
-                                    onClick={() => cancelTransaction(report.transid, report.number)}
-                                    disabled={loading}
-                                >
-                                      {translate("Cancel")}
-                                        </Button>  */}
                             </>
                           )}
                       </td>
