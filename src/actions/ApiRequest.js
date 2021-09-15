@@ -3,8 +3,8 @@ import axios from "axios";
 axios.interceptors.response.use(function (config) {
 
   if (config.data?.reason  === "token expired") {
+           // getIP()
             window.location.href = '/signin?token-expired'
-
     }
   return config;
 }, function (error) {

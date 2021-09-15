@@ -4,7 +4,8 @@ import { getLastTransaction, showTransctionDetails, cancelTransction } from "../
 import moment from "moment";
 import Spinner from "../ui/spinner/Spinner";
 import { connect } from "react-redux";
-import { Button } from "react-bootstrap";
+import refund from '../../assests/images/icons/cancel.png'
+
 import Toast from "./Toast";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
@@ -80,7 +81,6 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                     <tbody>
                         {last.map((item, index) => (
                             <>
-                            {console.log( item.status,item.cancelrequest, "dddddddd")}
                             <tr
                             className={`${item.status === "proccessing" && "table-active"} ${
                                 item.status === "success" && "table-green"
@@ -99,14 +99,12 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 <td>{item.dealercost === 'N/A'?'':'₪'} {item.dealercost || 0}</td>
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
-                                    {item.status == "success" && !item.cancelrequest && (
-                                        <Button
-                                             size="sm" 
-                                             onClick={() => cancelTransaction(item.transid, item.number)}
-                                             disabled={loading}
-                                        >
-                                            {translate("Cancel")}
-                                        </Button>
+                                    {item.status == "success" && !item.cancelrequest && item.type !='topup' &&(
+                                        <img  
+                                            onClick={() => cancelTransaction(item.transid, item.number)}
+                                            style={{width: 25}}
+                                            src={refund} 
+                                        /> 
                                     )}
                                 </td>
                             </tr>

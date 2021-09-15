@@ -42,7 +42,7 @@ const Profit = ({sellerProfit, getSellerProfit}) => {
     <div>
       <div className="container">
         <div className="row mt-5">
-          <div className="col-3">
+        <div className="col-3" style={{width: 270}}>
             <SideBar />
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">

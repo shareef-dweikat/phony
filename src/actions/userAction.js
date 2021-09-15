@@ -21,15 +21,11 @@ export const setCurrentUser = (decode) => {
 
 export const loginUser = (userData, ip, history, errorCount) => async(dispatch) => {
   dispatch(clearErrors());
- 
-  
   const config = {headers: {"X-Real-IP": ip, "X-Identifier": userData.username }}
-
-  const res = await axios.get('https://geolocation-db.com/json/')
-  const myIp = res.data.IPv4
-  localStorage.setItem ('ip',myIp)
+  const myIP= localStorage.getItem('ip')
+  console.log(myIP, "ippppp")
   return axios
-    .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}&ip=${myIp}`, null, config)
+    .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}&ip=${myIP}`, null, config)
     .then((res) => {
       
       //save to local storage

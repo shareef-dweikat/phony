@@ -12,6 +12,7 @@ import Spinner from "../ui/spinner/Spinner";
 import Logo from "../../assests/images/logo/black-logo.svg";
 import { CITIES } from "./cities";
 import { isNil } from "lodash";
+import axios from "axios";
 
 const countries = [
   {value: "palestine", label: "Palestine"},
@@ -28,13 +29,18 @@ const SignUp = ({ isAuthenticated, signUpUser }) => {
     if (isAuthenticated) {
       history.push("/");
     }
-    if (!ip) {
-      callIpApi()
-      .then((info) => {
-        setIp(info.ip);
-      });
+    // if (!ip) {
+    //   callIpApi()
+    //   .then((info) => {
+    //     setIp(info.ip);
+    //   });
+    // }
+    const getIP = async()=> {
+      const res = await axios.get('https://geolocation-db.com/json/', null)
+      const myIp = res.data.IPv4
+      localStorage.setItem ('ip',myIp)
     }
-
+    getIP()
     callGetSellerNumber().then((res) => {
       setSignUpForm({ ...signUpForm, username: res.data });
     });

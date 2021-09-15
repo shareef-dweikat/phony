@@ -4,33 +4,32 @@ import translate from "../../../i18n/translate";
 import SideBar from "../../homePage/SideBar";
 import { useIntl } from 'react-intl';
 import "./style.css";
-import { addSellerCredit, getSellerBalance } from "../../../actions/sellerCreditsAction";
+import { addSellerCredit, getSellerBalance, getSellers } from "../../../actions/sellerCreditsAction";
 import Spinner from "../../ui/spinner/Spinner";
 import Select from 'react-select';
 
 
-const SellerCredits = ({ credits, addSellerCredit}) => {
+const SellerCredits = ({ credits, sellers, addSellerCredit, getSellers}) => {
   const [loading, isLoading] = useState(false);
   const dispatch = useDispatch()
-    console.log(credits, 'creditsssss')
   const [input, setInput] = useState();
+  const [seller, setSeller] = useState({balance: 0});
 
   useEffect(() => {
     document.title = "Seller Credits | PhonePlay ";
-    // isLoading(true);
-    // getDiscounts()
-    //   .then((res) => {
-    //     isLoading(false)
+    isLoading(true);
+    getSellers()
+      .then((res) => {
+        isLoading(false)
        
-    //   })
+      })
   }, []);
   
-  const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ]
-
+  const options = sellers?.map((item)=>{
+    return  { value: item.seller_id, label: item.name + " " +item.seller_id, balance: item.balance }
+  })
+    
+  
   const handleInputChanged = (value) => {
     if(value <= 0){
       setInput(0)
@@ -40,12 +39,12 @@ const SellerCredits = ({ credits, addSellerCredit}) => {
   }
 
   const handleAddCredit = () => {
-    addSellerCredit(input)
+    addSellerCredit(input, seller.value)
   }
 
   const handleSellerChosen = (seller) => {
-    const sellerId = seller
-    getSellerBalance(sellerId)
+    setSeller(seller)
+   // getSellerBalance(sellerId)
   }
   return (
     <div className="discounts-page">
@@ -62,23 +61,24 @@ const SellerCredits = ({ credits, addSellerCredit}) => {
                 <div id="credits-select">
                   <Select
                     // defaultValue={colourOptions[2]}
-                    placeholder="اختر تاجراً"
+                    placeholder={translate('select_seller')}
                     options={options}
-                    onChange={(e)=> handleSellerChosen(e.value)}
+                    onChange={(e)=> handleSellerChosen(e)}
                   />
                 </div>
-                <div>رصيد التاجر:</div>
+                <div>{translate('seller credits')}:</div>
                 <input
                     disabled
-                    value={100 + '₪'}
-                    style={{width: 80}}
+                    value={seller.balance + '₪'}
+                    style={{width: 90}}
                     className="form-control credit-input"
                   />
+              <div>{translate('addCreadit')}:</div>
                 <input
                     onChange={(e)=>handleInputChanged(e.target.value)}
                     type='number'
                     value={input}
-                    placeholder="ادخل الرصيد الجديد"
+                    // placeholder={translate('addCreadit')}
                     className="form-control credit-input"
                   />
                   <button
@@ -98,7 +98,8 @@ const SellerCredits = ({ credits, addSellerCredit}) => {
 
 const mapStateToProps = (state) => ({
   credits: state.credits.credits,
+  sellers:state.credits.sellers,
 });
 
-export default connect(mapStateToProps, { addSellerCredit })(SellerCredits);
+export default connect(mapStateToProps, { addSellerCredit, getSellers })(SellerCredits);
 

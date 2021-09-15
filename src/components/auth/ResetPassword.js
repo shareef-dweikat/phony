@@ -13,6 +13,7 @@ import Countdown from 'react-countdown';
 import humanizeDuration from "humanize-duration";
 import { Button } from "react-bootstrap";
 import classnames from "classnames";
+import axios from "axios";
 
 const ResetPassword = ({ resetPassword, callResendCode, isAuthenticated, massage, mobile }) => {
   const history = useHistory();
@@ -36,6 +37,13 @@ const ResetPassword = ({ resetPassword, callResendCode, isAuthenticated, massage
     if (isAuthenticated) {
       history.push("/");
     }
+
+    const getIP = async()=> {
+      const res = await axios.get('https://geolocation-db.com/json/', null)
+      const myIp = res.data.IPv4
+      localStorage.setItem ('ip',myIp)
+    }
+    getIP()
   }, []);
   const onChange = (e) => {
     setVirefyForm({ ...virefyForm, [e.target.name]: e.target.value } );

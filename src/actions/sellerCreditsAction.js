@@ -2,10 +2,13 @@ import {
   GET_SELLER_CREDITS,
   CLEAR_ERRORS,
   ADD_SELLER_CREDITS,
+  GET_SELLERS
    } from "./types";
 import ApiRequest from "./ApiRequest";
+import { intl } from "../i18n/provider";
+import Toast from "../components/common/Toast";
 
-export const addSellerCredit = (amount) => (dispatch) => {
+export const addSellerCredit = (amount, sellerId) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const sellerId = JSON.parse(localStorage.companies).sellerid
@@ -16,6 +19,12 @@ export const addSellerCredit = (amount) => (dispatch) => {
     )
     .then((res) => {
       const credits = res.data 
+      if(credits === 'false') {
+        Toast.fire({
+          title: intl.formatMessage({id: "Something went wrong"}),
+          icon: "error",
+        });
+      }
       dispatch({
         type: ADD_SELLER_CREDITS,
         payload: credits,
@@ -54,6 +63,29 @@ export const getSellerBalance = (sellerId) => (dispatch) => {
     });
 };
 
+export const getSellers = () => (dispatch) => {
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}  
+  return ApiRequest
+    .post(
+      `get_allseller`, null, config
+    )
+    .then((res) => {
+      const sellers = res.data 
+      dispatch({
+        type: GET_SELLERS,
+        payload: sellers,
+      });
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
 export const clearErrors = () => {
   return {
     type: CLEAR_ERRORS,

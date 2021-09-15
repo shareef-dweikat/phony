@@ -192,7 +192,7 @@ const SideBar = ({ user }) => {
             </a>
           </div>
             {
-              userType === 'admin' &&
+              'admin' === 'admin' &&
               <div
               className={`sidebar__link ${
                 history === "/add_credits" && "active-link"

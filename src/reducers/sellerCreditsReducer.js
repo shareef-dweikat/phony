@@ -1,5 +1,6 @@
 import {
   ADD_SELLER_CREDITS,
+  GET_SELLERS,
   GET_SELLER_CREDITS
 } from "../actions/types";
 const initialState = {
@@ -23,6 +24,13 @@ export default function (state = initialState, action) {
           credits: action.payload,
           loading: false,
         };
+        case GET_SELLERS:
+          console.log('GET_SELLERS', action.payload)
+          return {
+            ...state,
+            sellers: action.payload,
+            loading: false,
+          };
     default:
       return state;
   }
