@@ -124,7 +124,7 @@ const Report = ({
 }
   return (
     <div>
-      <div className="container   container-report">
+      <div className="container   ">
         <div className="row mt-5">
           <div className="col-3">
             <SideBar />
