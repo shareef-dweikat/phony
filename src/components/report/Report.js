@@ -126,16 +126,14 @@ const Report = ({
     <div>
       <div className="container-report">
         <div className="row mt-5">
-          <div className="col-3" style={{width: 270}}>
+          <div className="col-3">
             <SideBar />
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
-            <div className="card card-home">
-              <div>
+            <div className="card card-home" style={{marginLeft: 34}}>
                 <h1 className="header-text">{translate("Report")}</h1>
-              </div>
             </div>
-            <div className="card mt-2">
+            <div className="card mt-2" style={{marginLeft: 34}}>
               <div className="row mb-2 mt-2">
                 <div className="col-sm-1"></div>
                 <label
@@ -175,7 +173,7 @@ const Report = ({
 
             <div className="row mt-1">
               <div className="col-11">
-                <div className="row">
+                <div className="row d-flex justify-content-start">
                   <div className="col-4">
                     <div className="report-filter-item">
                       <label className="report-label">
@@ -342,9 +340,7 @@ const Report = ({
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div className="col-1">
+                  <div className="col-1 ">
                 <button
                   className="btn sign-but report-search-btn"
                   onClick={() => handleSearch(phone)}
@@ -352,9 +348,12 @@ const Report = ({
                   {translate("search")}
                 </button>
               </div>
+                </div>
+              </div>
+              
             </div>
 
-            <div className="mt-3">
+            <div className="mt-3 col-11">
               <table className="table table-striped">
                 <thead>
                   <tr style={{ backgroundColor: "#eff0f1" }}>
@@ -424,7 +423,7 @@ const Report = ({
                         }`}
                       >
                         <td onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
-                           <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
+                           <img  style={{width: 25, cursor: 'pointer', display: 'inline'}} src={DownArrow} width={25} height={25}/>
                         </td>
                         <td scope="row" style={{ fontWeight: 300 }}>
                           {report.transid}
@@ -449,7 +448,7 @@ const Report = ({
                             <>
                            <img  
                                onClick={() => cancelTransaction(report.transid, report.number)}
-                              style={{width: 25}}
+                               style={{width: 25, cursor: 'pointer'}}
                               src={refund} /> 
                             </>
                           )}
@@ -462,7 +461,7 @@ const Report = ({
                                        <div>
                                            <div>{report.carddescription}</div>
                                            <div>{translate('Renewable')}: {report.autorenew?translate('Yes'):translate('No')}</div>
-                                           <div>{translate('Provider')}: {translate(report.provider)}</div>
+                                           {/* <div>{translate('Provider')}: {translate(report.provider)}</div> */}
                                            <div>{translate('trans type')}: {translate(report.transtype)}</div>
                                            {report.status !== 'success' && <div>{translate('Reason')}: {report.reason}</div>}
                                        </div>

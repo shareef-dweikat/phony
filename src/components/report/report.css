@@ -35,7 +35,7 @@ td {
   width: 100%;
 }
 .container-report {
-  padding: 0 32px 0 32px;
+  padding: 0 64px 0 64px;
 }
 
 .report-search-btn {
@@ -44,7 +44,7 @@ td {
   margin-top: 24px;
 }
 .report-filter-item {
-  width: 280px;
+  width: 240px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -58,7 +58,7 @@ td {
   height: 2160px;
 }
 .report-input {
-  width: 200px;
+  width: 160px;
   height: 40px;
 }
 .col-11 {
@@ -73,13 +73,13 @@ td {
 }
 .report-form-control-date-picker {
   height: 40px;
-  width: 200px;
+  width: 160px;
 }
 .report-dropdown {
   height: 39px  !important;
 }
 .report-dropdown-container {
-  width: 200px;
+  width: 160px;
 }
 .report-row {
   display: flex;
@@ -96,3 +96,11 @@ td {
 .report-checkbox {
   padding: 0px !important;
 }
+
+.col-4 {
+  width: 250px;
+}
+
+/* .col-1 {
+  width: 100px;
+} */

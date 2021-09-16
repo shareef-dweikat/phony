@@ -6,15 +6,28 @@
 }
 
 #credits-select{
-    width: 200px;
+    width: 280px;
     margin: 0 8px 0 8px;
+    font-size: 12px;
 }
 
 .credits-row{
+    margin-top: 32px;
     display: flex;
     align-items: center;
+    width: 1000px;
+  
 }
 
 .credits-btn {
     margin: 0 8px 0 8px;
+    font-size: 12px;
+}
+
+table td {
+    font-size: 12px;
+}
+
+.credits-label {
+    font-size: 12px;
 }

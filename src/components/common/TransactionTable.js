@@ -87,7 +87,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             } ${item.status === "failed" && "table-danger"}  ${item.cancelrequest && "table-canceled"}`}
                             >
                                <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
-                                   <img style={{display: 'inline'}} src={DownArrow} width={25} height={25}/>
+                                   <img style={{display: 'inline', cursor: 'pointer'}}  src={DownArrow} width={25} height={25}/>
                                 </div>
                                 <td scope="row ">
                                     {item.transid}
@@ -102,7 +102,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                     {item.status == "success" && !item.cancelrequest && item.type !='topup' &&(
                                         <img  
                                             onClick={() => cancelTransaction(item.transid, item.number)}
-                                            style={{width: 25}}
+                                            style={{width: 25, cursor: 'pointer'}}
                                             src={refund} 
                                         /> 
                                     )}
@@ -115,7 +115,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             <div>
                                                 <div>{item.carddescription}</div>
                                                 <div>{translate('Renewable')}: {item.autorenew?translate('Yes'):translate('No')}</div>
-                                                <div>{translate('Provider')}: {translate(item.provider)}</div>
+                                                {/* <div>{translate('Provider')}: {translate(item.provider)}</div> */}
                                                 <div>{translate('trans type')}: {translate(item.transtype)}</div>
                                                 {item.status !== 'success' && <div>{translate('Reason')}: {item.reason}</div>}
                                             </div>
