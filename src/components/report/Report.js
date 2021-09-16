@@ -124,7 +124,7 @@ const Report = ({
 }
   return (
     <div>
-      <div className="container-report">
+      <div className="container   container-report">
         <div className="row mt-5">
           <div className="col-3">
             <SideBar />
@@ -466,12 +466,14 @@ const Report = ({
                                            {report.status !== 'success' && <div>{translate('Reason')}: {report.reason}</div>}
                                        </div>
                                    </td>
+                                   <td></td>
+                                   <td></td>
                                    <td>
                                        <img 
                                        src={
                                            report.url === "N/A"? 
                                            require(`../../assests/images/bundles/${report.provider}/${report.provider}-${report.cardamount}.png`).default:report.url} 
-                                           style={{width: 150}}
+                                           style={{width: 120}}
                                        />
                                    </td>
                                </tr>

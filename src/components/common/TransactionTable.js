@@ -125,7 +125,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             src={
                                                 item.url === "N/A"? 
                                                 require(`../../assests/images/bundles/${item.provider}/${item.provider}-${item.cardamount}.png`).default:item.url} 
-                                                style={{width: 150}}
+                                                style={{width: 120}}
                                             />
                                         </td>
                                     </tr>
