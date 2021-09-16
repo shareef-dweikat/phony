@@ -473,7 +473,7 @@ const Report = ({
                                        src={
                                            report.url === "N/A"? 
                                            require(`../../assests/images/bundles/${report.provider}/${report.provider}-${report.cardamount}.png`).default:report.url} 
-                                           style={{width: 120}}
+                                           style={{width: 100}}
                                        />
                                    </td>
                                </tr>

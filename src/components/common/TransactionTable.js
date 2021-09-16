@@ -115,7 +115,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             <div>
                                                 <div>{item.carddescription}</div>
                                                 <div>{translate('Renewable')}: {item.autorenew?translate('Yes'):translate('No')}</div>
-                                                {/* <div>{translate('Provider')}: {translate(item.provider)}</div> */}
+                                                {/* <div>{translate('Provider')}: {translate(item.subprovider)}</div> */}
                                                 <div>{translate('trans type')}: {translate(item.transtype)}</div>
                                                 {item.status !== 'success' && <div>{translate('Reason')}: {item.reason}</div>}
                                             </div>
@@ -125,7 +125,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                             src={
                                                 item.url === "N/A"? 
                                                 require(`../../assests/images/bundles/${item.provider}/${item.provider}-${item.cardamount}.png`).default:item.url} 
-                                                style={{width: 120}}
+                                                style={{width: 100}}
                                             />
                                         </td>
                                     </tr>
