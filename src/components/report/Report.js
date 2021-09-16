@@ -130,10 +130,10 @@ const Report = ({
             <SideBar />
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
-            <div className="card card-home" style={{marginLeft: 34}}>
+            <div className="card card-home">
                 <h1 className="header-text">{translate("Report")}</h1>
             </div>
-            <div className="card mt-2" style={{marginLeft: 34}}>
+            <div className="card mt-2">
               <div className="row mb-2 mt-2">
                 <div className="col-sm-1"></div>
                 <label

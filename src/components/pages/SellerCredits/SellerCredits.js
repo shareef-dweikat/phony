@@ -102,10 +102,10 @@ const SellerCredits = ({ credits, sellers, addSellerCredit, getSellers}) => {
                       {translate('name')}
                     </td>
                     <td style={{ backgroundColor: "#eff0f1" }}>
-                      {translate('mobile')}
+                      {translate('Mobile No.')}
                     </td>
                     <td style={{ backgroundColor: "#eff0f1" }}>
-                      {translate('balance')}
+                      {translate('Balance')}
                     </td>
                     <td style={{ backgroundColor: "#eff0f1" }}>
                       {translate('Debt')}
