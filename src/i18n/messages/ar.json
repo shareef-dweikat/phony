@@ -304,6 +304,8 @@
   "user id": "رقم المستخدم",
   "type": "النوع",
   "name":"الاسم",
+  "Operation add credit failed": "فشلت عملية اضافة الرصيد",
+  "Operation add credit was successfully performed": "عملية إضافة الرصيد تمت بنجاح",
   "trans type": "النوع",
   "trans status": "الحالة",
   "topup": "بيع بطاقة رصيد",

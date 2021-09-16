@@ -19,10 +19,15 @@ export const addSellerCredit = (amount, sellerId) => (dispatch) => {
     )
     .then((res) => {
       const credits = res.data 
-      if(credits === 'false') {
+      if(credits.status === 'false') {
         Toast.fire({
-          title: intl.formatMessage({id: "Something went wrong"}),
+          title: intl.formatMessage({id: "Operation add credit failed"}),
           icon: "error",
+        });
+      } else {
+        Toast.fire({
+          title: intl.formatMessage({id: "Operation add credit was successfully performed"}),
+          icon: "succuss",
         });
       }
       dispatch({
