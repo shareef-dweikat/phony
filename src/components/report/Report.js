@@ -441,7 +441,7 @@ const Report = ({
                           {report.cardamount}
                         </td>
                         <td className="text-center" style={{ fontWeight: 300 }}>
-                          {report.status}
+                          {translate(report.status)}
                         </td>
                         <td>
                         {report.status == "success" && !report.cancelrequest && (

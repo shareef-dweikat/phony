@@ -8,7 +8,6 @@ import { getSellerPoints } from "../../../actions/reportsAction";
 import Spinner from "../../ui/spinner/Spinner";
 import moment from 'moment'
 import DatePicker from "react-datepicker";
-
 const Languages = {
   "en": "english",
   "ar": "arabic",
@@ -130,7 +129,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                   <tr>
                     <th>{translate('movmentNo')}</th>
                     <th>{translate('date')}</th>
-                    <th>{translate('seller')}</th>
+                    <th>{translate('theseller')}</th>
                     <th>{translate('points')}</th>
                     <th>{translate('running_balance')}</th>
                   </tr>

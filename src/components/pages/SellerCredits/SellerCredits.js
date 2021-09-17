@@ -72,7 +72,7 @@ const SellerCredits = ({ credits, sellers, addSellerCredit, getSellers}) => {
                 <input
                     disabled
                     value={seller.balance + '₪'}
-                    style={{width: 90}}
+                    style={{width: 120}}
                     className="form-control credit-input"
                   />
               <div className="credits-label">{translate('addCreadit')}:</div>
@@ -164,7 +164,7 @@ const SellerCredits = ({ credits, sellers, addSellerCredit, getSellers}) => {
                         {seller.commission_code}
                        </td> 
                        <td className="text-center" style={{ fontWeight: 300 }}>
-                        {seller.enabled}
+                        {seller.enabled === 'true'?translate('Yes'):translate('No')}
                        </td> 
                         <td className="text-center" style={{ fontWeight: 300 }}>
                         {seller.failed_login_attempt}
@@ -176,7 +176,7 @@ const SellerCredits = ({ credits, sellers, addSellerCredit, getSellers}) => {
                         {seller.points}
                        </td> 
                         <td className="text-center" style={{ fontWeight: 300 }}>
-                        {seller.type}
+                        {seller.type === 'N/A'? translate('Not available'):translate(seller.type)}
                        </td> 
                      </tr>
                     )} 

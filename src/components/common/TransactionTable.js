@@ -9,7 +9,7 @@ import refund from '../../assests/images/icons/cancel.png'
 import Toast from "./Toast";
 import { useIntl } from "react-intl";
 import { useHistory } from "react-router-dom";
-import Img from '../../assests/images/bundles/jawwal/jawwal-20.png'
+import DotLoader from './DotLoader'
 import DownArrow from '../../assests/images/icons/down-circular-button.png'
 const TransactionTable = ({ getLastTransaction, last }) => {
     const history = useHistory();
@@ -75,7 +75,10 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             <th scope="col">{translate("Amount")}</th>
                             <th scope="col">{translate("seller cost")}</th>
                             <th scope="col">{translate("Status")}</th>
-                            <th scope="col">{translate("Action")}</th>
+                            <th scope="col">
+                            {loading && ( <DotLoader />)}
+                            {translate("Action")}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -99,7 +102,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 <td>{item.dealercost === 'N/A'?'':'₪'} {item.dealercost || 0}</td>
                                 <td>{item.status?translate(item?.status):''}</td>
                                 <td>
-                                    {item.status == "success" && !item.cancelrequest && item.type !='topup' &&(
+                                    {item.status == "success" && !item.cancelrequest && item.type !='topup' && (
                                         <img  
                                             onClick={() => cancelTransaction(item.transid, item.number)}
                                             style={{width: 25, cursor: 'pointer'}}
@@ -136,7 +139,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                         ))}
                     </tbody>
                 </table>
-                {loading && (<Spinner type="inner"/>)}
+                {/* {loading && (<Spinner type="inner"/>)} */}
             </div>
         </div>
     );
