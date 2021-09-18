@@ -193,12 +193,11 @@ const SideBar = ({ user }) => {
           </div>
             {
               'admin' === 'admin' &&
+             <div>
               <div
-              className={`sidebar__link ${
-                history === "/add_credits" && "active-link"
-              } m-4`}
-            >
-              <a className="link-main " href="/add_credits">
+                className={`sidebar__link m-4`}
+               >
+              <a className="link-main">
                 <span>
                   <i
                     className="icon-main fa fa-tags  m-2"
@@ -207,7 +206,30 @@ const SideBar = ({ user }) => {
                   {translate("add credits")}
                 </span>
               </a>
-            </div>
+              </div>
+              <div className={`sidebar__link ${
+                  history === "/add_credits" && "active-link"
+                } m-4`}>
+                <a className="link-main " href="/add_credits">
+                  <span>
+                    <ul>
+                      <li>{translate('Points report')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div>
+                <div className={`sidebar__link ${
+                  history === "/convert_points" && "active-link"
+                } m-4`}>
+                <a className="link-main " href="/convert_points">
+                  <span>
+                    <ul>
+                      <li>{translate('Convert points')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div>
+              </div>
             }
           <div
             className={`sidebar__link ${

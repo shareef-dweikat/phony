@@ -40,7 +40,7 @@ import Discounts from '../pages/Discounts/Discounts'
 import Cancelation from '../report/Cancelation'
 import RuningBalance from '../report/RuningBalance'
 import SellerCredits from '../pages/SellerCredits/SellerCredits'
-
+import ConvertPoints from '../pages/SellerCredits/ConvertPoints'
 const AuthenticatedRoutes = () => {
 
   return (
@@ -63,6 +63,7 @@ const AuthenticatedRoutes = () => {
               <Route exact path="/discounts" component={Discounts} />
               <Route exact path="/running" component={RuningBalance} />
               <Route exact path="/add_credits" component={SellerCredits} />
+              <Route exact path="/convert_points" component={ConvertPoints} />
 
               
               {/* //COPMANY */}

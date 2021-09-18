@@ -89,7 +89,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                 item.status === "success" && "table-green"
                             } ${item.status === "failed" && "table-danger"}  ${item.cancelrequest && "table-canceled"}`}
                             >
-                               <div onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
+                               <div  onClick={()=> setIsDetailsButtonClicked({flag: !isDetailsButtonClicked.flag, index: index})} >
                                    <img style={{display: 'inline', cursor: 'pointer'}}  src={DownArrow} width={25} height={25}/>
                                 </div>
                                 <td scope="row ">
@@ -115,7 +115,7 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                                isDetailsButtonClicked.flag && isDetailsButtonClicked.index === index && (
                                     <tr style={{backgroundColor: 'white'}}>
                                         <td colspan="8" style={{textAlign: 'right'}}>
-                                            <div>
+                                            <div style={{fontWeight: 300}}>
                                                 <div>{item.carddescription}</div>
                                                 <div>{translate('Renewable')}: {item.autorenew?translate('Yes'):translate('No')}</div>
                                                 {/* <div>{translate('Provider')}: {translate(item.subprovider)}</div> */}
@@ -138,7 +138,11 @@ const TransactionTable = ({ getLastTransaction, last }) => {
                             </>
                         ))}
                     </tbody>
+               
                 </table>
+                <div className="no-data-to-show">
+                      {last?.length == 0 && translate("No data to show")}
+                    </div>
                 {/* {loading && (<Spinner type="inner"/>)} */}
             </div>
         </div>

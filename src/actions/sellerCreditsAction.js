@@ -2,7 +2,9 @@ import {
   GET_SELLER_CREDITS,
   CLEAR_ERRORS,
   ADD_SELLER_CREDITS,
-  GET_SELLERS
+  GET_SELLERS,
+  GET_REWARDS,
+  CONVERT_POINTS
    } from "./types";
 import ApiRequest from "./ApiRequest";
 import { intl } from "../i18n/provider";
@@ -80,6 +82,53 @@ export const getSellers = () => (dispatch) => {
       const sellers = res.data 
       dispatch({
         type: GET_SELLERS,
+        payload: sellers,
+      });
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
+
+export const getRewards = () => (dispatch) => {
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}  
+  return ApiRequest
+    .post(
+      `get_rewards`, null, config
+    )
+    .then((res) => {
+      const sellers = res.data 
+      dispatch({
+        type: GET_REWARDS,
+        payload: sellers,
+      });
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
+export const convertPoints = (id) => (dispatch) => {
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}  
+  return ApiRequest
+    .post(
+      `convert_points?reward_id=${id}`, null, config
+    )
+    .then((res) => {
+      const sellers = res.data 
+      dispatch({
+        type: CONVERT_POINTS,
         payload: sellers,
       });
     })
