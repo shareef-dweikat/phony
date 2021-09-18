@@ -40,6 +40,8 @@ const SellerCredits = ({ credits, sellers, addSellerCredit, getSellers}) => {
 
   const handleAddCredit = () => {
     addSellerCredit(input, seller.value)
+    setSeller({balance: 0})
+    setInput(0)
   }
 
   const handleSellerChosen = (seller) => {
