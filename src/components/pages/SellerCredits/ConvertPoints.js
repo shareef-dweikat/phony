@@ -9,16 +9,40 @@ import Spinner from "../../ui/spinner/Spinner";
 import Select from 'react-select';
 import Toast from "./ConfirmToast";
 import { intl } from "../../../i18n/provider";
-import Swal from "sweetalert2";
+import Modal from 'react-modal';
+import Dropdown from 'react-dropdown'
 
-
-
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 400,
+ 
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+};
 const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
   const [loading, isLoading] = useState(false);
   const dispatch = useDispatch()
   const [input, setInput] = useState();
   const [seller, setSeller] = useState({balance: 0});
- 
+  const [modalIsOpen, setIsOpen] =useState(false);
+  const transStatusOptions = [
+    { value: translate("islamicPalestineBank"), label: translate("islamicPalestineBank") },
+    { value: translate("islamicArabicBank"), label: translate("islamicArabicBank") },
+    { value: translate("arabBank"), label: translate("arabBank") },
+    { value: translate("egybtBank"), label: translate("egybtBank") },
+    { value: translate("nationalBank"), label: translate("nationalBank") },
+    { value: translate("housingBank"), label: translate("housingBank") },
+    { value: translate("jerusalembank"), label: translate("jerusalembank") },
+    { value: translate("ciroAmmanBank"), label: translate("ciroAmmanBank") },
+    { value: translate("jordeninAhliBank"), label: translate("jordeninAhliBank") },
+    { value: translate("safaBank"), label: translate("safaBank") },
+    { value: translate("jordenBank"), label: translate("jordenBank") },
+    { value: translate("palestineInvestmentBank"), label: translate("palestineInvestmentBank") },
+    { value: translate("bankOfPalestine"), label: translate("bankOfPalestine") },
+  ]
   useEffect(() => {
     document.title = "Seller Credits | PhonePlay ";
     isLoading(true);
@@ -29,18 +53,41 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
       })
   }, []);
   
-  const handleRewardClicked = (id)=>{
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    //subtitle.style.color = '#f00';
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+  const handleRewardClicked = (id,price)=>{
+    if(parseFloat(currentUser.points) < parseFloat(price)) {
+      Toast.fire({
+        title: intl.formatMessage({id: "insufficient points"}),
+        icon: "alert",
+        showConfirmButton: true,
+      })
+    } else 
     Toast.fire({
-      title: intl.formatMessage({id: "The minimum credit is 10 NIS"}),
+      title: intl.formatMessage({id: "Are you sure?"}),
       icon: "alert",
       reward_id: id,
       showConfirmButton: true,
       confirmButtonText: intl.formatMessage({id: "Confirm"})
-    }).then(()=> {
+    }).then((results)=> {
+      if(results.isConfirmed)
       convertPoints(id)
     })
    //convertPoints(id)
   }
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  console.log(currentUser, "currentuser")
   return (
     <div>
       <div className="container insurance style1">
@@ -55,16 +102,44 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
               </div>
             </div>
             <div style={{marginTop: 16}}/>
+            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+              <span>
+                {translate('user id')}: 
+                {currentUser.sellerid}
+              </span>
+              <span>
+                 {translate('theseller')}: 
+                {currentUser.name}
+              </span>
+              <span>
+                 {translate('balance')}: 
+                {currentUser.balance}
+              </span>
+              <span>
+                 {translate('remaining_days')}: 
+                {currentUser.days_remaining}
+              </span>
+              
+            </div>
+            {/* <Toolbar title={currentUser?.days_remaining + ' Days'}>
+                { currentUser?.locked?
+                  <i class="fas fa-lock"  style={{fontSize: 25}}></i>
+                  : <i class="fas fa-lock-open" style={{fontSize: 25}}></i>
+                }
+              </Toolbar> */}
+              <div style={{marginTop: 16}}/>
             <div className="row">
               {rewards?.map((reward)=>
-                <div style={{width: 100}}>
-                  <img 
+                <div className={
+                  parseFloat(currentUser.points) < parseFloat(reward.price)?'convert-points-card grayed-out': 'convert-points-card'}
+                >
+                <img 
                     src={`http://${reward.url}`}
-                    style={{width: 100, cursor: 'pointer'}}
-                    onClick={()=>handleRewardClicked(reward.id)}
-                  />
-                  <span style={{fontSize: 12}}>{reward.name}</span>
-                  <span style={{fontSize: 12}}>{reward.price}</span>
+                    style={{cursor: 'pointer', height: 150}}
+                    onClick={()=>handleRewardClicked(reward.id, reward.price)}
+                />
+                  <div style={{fontSize: 12, textAlign: 'center', marginTop: 8}}>{reward.name}</div>
+                  <div style={{fontSize: 12, textAlign: 'center'}}>{reward.price}</div>
                 </div>
               )}
             </div>
@@ -72,6 +147,26 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
             {loading && (<Spinner />)}
           </div>
         </div>
+        {/* <button onClick={openModal}>Open Modal</button> */}
+      <Modal
+        // isOpen={modalIsOpen}
+       // isOpen={true}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <div className="convert-points-dropdown-container">
+            <Dropdown
+              // className="report-dropdown"
+                options={transStatusOptions}
+              // onChange={(value) => setTransStatus(value)}
+              // value={transStatus}
+              //key={transStatus.value}
+                          // placeholder={'dddd'}
+              />
+         </div>
+      </Modal>
       </div>
   );
 };

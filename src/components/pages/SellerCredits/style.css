@@ -31,3 +31,17 @@ table td {
 .credits-label {
     font-size: 12px;
 }
+
+.convert-points-card {
+    width: 150px;
+    cursor: pointer;
+}
+
+.grayed-out{
+    opacity: 0.5;
+    /* pointer-events: none;
+    cursor: not-allowed; */
+}
+.convert-points-dropdown-container {
+    
+}
