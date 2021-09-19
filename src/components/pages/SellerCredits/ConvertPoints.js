@@ -4,7 +4,7 @@ import translate from "../../../i18n/translate";
 import SideBar from "../../homePage/SideBar";
 import { useIntl } from 'react-intl';
 import "./style.css";
-import { convertPoints, getRewards } from "../../../actions/sellerCreditsAction";
+import { convertPoints, getRewards, convertPointsToCash } from "../../../actions/sellerCreditsAction";
 import Spinner from "../../ui/spinner/Spinner";
 import Select from 'react-select';
 import Toast from "./ConfirmToast";
@@ -22,13 +22,19 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
   },
 };
-const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
+const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash}) => {
   const [loading, isLoading] = useState(false);
   const dispatch = useDispatch()
   const [input, setInput] = useState();
   const [seller, setSeller] = useState({balance: 0});
   const [modalIsOpen, setIsOpen] =useState(false);
-  const transStatusOptions = [
+  const [isCashModal, setIsCashModal] =useState(false);
+  const [accountNumber, setAccountNumber] = useState('')
+  const [bankName, setBankName] = useState('')
+  const [amount, setAmount] = useState(0)
+
+  
+  const banks = [
     { value: translate("islamicPalestineBank"), label: translate("islamicPalestineBank") },
     { value: translate("islamicArabicBank"), label: translate("islamicArabicBank") },
     { value: translate("arabBank"), label: translate("arabBank") },
@@ -39,7 +45,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
     { value: translate("ciroAmmanBank"), label: translate("ciroAmmanBank") },
     { value: translate("jordeninAhliBank"), label: translate("jordeninAhliBank") },
     { value: translate("safaBank"), label: translate("safaBank") },
-    { value: translate("jordenBank"), label: translate("jordenBank") },
+    { value: translate("bankofjordan"), label: translate("bankofjordan") },
     { value: translate("palestineInvestmentBank"), label: translate("palestineInvestmentBank") },
     { value: translate("bankOfPalestine"), label: translate("bankOfPalestine") },
   ]
@@ -66,7 +72,32 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
   function closeModal() {
     setIsOpen(false);
   }
-  const handleRewardClicked = (id,price)=>{
+  const handleConvertToCash = () => {
+    if(bankName === '' || accountNumber ==='' || amount === '') {
+      Toast.fire({
+        title: intl.formatMessage({id: "All fields are required"}),
+        icon: "alert",
+        showConfirmButton: true,
+      })
+      return
+    }
+    isLoading(true);
+    convertPointsToCash(bankName, accountNumber, amount).then(() => {
+      setIsCashModal(false)
+      setAccountNumber('')
+      setAmount(0)
+      setBankName('')
+      isLoading(false)
+    })
+  }
+  const handleRewardClicked = (id,price, type)=>{
+    if(type === 'balance') {
+      return
+    }
+    if(type === 'cash') {
+      setIsCashModal(true)
+      return
+    }
     if(parseFloat(currentUser.points) < parseFloat(price)) {
       Toast.fire({
         title: intl.formatMessage({id: "insufficient points"}),
@@ -136,10 +167,12 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
                 <img 
                     src={`http://${reward.url}`}
                     style={{cursor: 'pointer', height: 150}}
-                    onClick={()=>handleRewardClicked(reward.id, reward.price)}
+                    onClick={()=>handleRewardClicked(reward.id, reward.price, reward.type)}
                 />
                   <div style={{fontSize: 12, textAlign: 'center', marginTop: 8}}>{reward.name}</div>
-                  <div style={{fontSize: 12, textAlign: 'center'}}>{reward.price}</div>
+                  <div style={{fontSize: 12, textAlign: 'center', direction: 'ltr'}}>
+                  {reward.price + ' ' +intl.formatMessage({id: 'Points'})}
+                  </div>
                 </div>
               )}
             </div>
@@ -147,25 +180,43 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards}) => {
             {loading && (<Spinner />)}
           </div>
         </div>
-        {/* <button onClick={openModal}>Open Modal</button> */}
       <Modal
         // isOpen={modalIsOpen}
-       // isOpen={true}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
+        isOpen={isCashModal}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={()=>setIsCashModal(false)}
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <div className="convert-points-dropdown-container">
-            <Dropdown
-              // className="report-dropdown"
-                options={transStatusOptions}
-              // onChange={(value) => setTransStatus(value)}
-              // value={transStatus}
-              //key={transStatus.value}
-                          // placeholder={'dddd'}
-              />
-         </div>
+        <div style={{display: 'flex'}}>
+          <div className="convert-points-input">
+              <Dropdown
+                // className="report-dropdown"
+                  options={banks}
+                 onChange={(e) => setBankName(intl.formatMessage({id: e.value.props.id}))}
+                // value={transStatus}
+                //key={transStatus.value}
+                placeholder={intl.formatMessage({id: "Select a bank"})}
+                />
+          </div>
+          <input
+                onChange={(element) => setAccountNumber(element.target.value)}
+                className="form-control convert-points-input"
+                placeholder={intl.formatMessage({id: "Enter account number"})}
+          />
+          <input
+                onChange={(element) => setAmount(element.target.value)}
+                className="form-control convert-points-input"
+                placeholder={intl.formatMessage({id: "Enter the amount"})}
+          />
+          <div style={{width: 16}}/>
+          <button
+           onClick={handleConvertToCash}
+            className="btn sign-but"
+          >
+            {translate('submit')}
+          </button>
+        </div>
       </Modal>
       </div>
   );
@@ -176,5 +227,5 @@ const mapStateToProps = (state) => ({
   // sellers:state.credits.sellers,
 });
 
-export default connect(mapStateToProps, { convertPoints, getRewards })(ConvertPoints);
+export default connect(mapStateToProps, { convertPoints, getRewards, convertPointsToCash })(ConvertPoints);
 

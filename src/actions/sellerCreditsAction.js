@@ -117,6 +117,7 @@ export const getRewards = () => (dispatch) => {
       // });
     });
 };
+
 export const convertPoints = (id) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
@@ -131,6 +132,36 @@ export const convertPoints = (id) => (dispatch) => {
         type: CONVERT_POINTS,
         payload: sellers,
       });
+    })
+    .catch((err) => {
+      console.log(err, 'errorrrr');
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: "Somthing went Wrong !!",
+      // });
+    });
+};
+export const convertPointsToCash = (bank, accountNumber, amount) => (dispatch) => {
+  dispatch(clearErrors());
+  const token = localStorage.jwtUserToken;
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}  
+  const sellerId = JSON.parse(localStorage.companies).sellerid
+  return ApiRequest
+    .post(
+      `bank_transfer_details?bank_name=${bank}&account_no=${accountNumber}&seller_id=${sellerId}&amount=${amount}`, null, config
+    )
+    .then((res) => {
+    //  const sellers = res.data 
+      // dispatch({
+      //   type: CONVERT_POINTS,
+      //   payload: sellers,
+      // });
+      if(res.data.status=="success")
+        Toast.fire({
+          title: intl.formatMessage({id: "Operation was successfully performed"}),
+          icon: "alert",
+          showConfirmButton: true,
+        })
     })
     .catch((err) => {
       console.log(err, 'errorrrr');
