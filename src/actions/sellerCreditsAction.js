@@ -118,13 +118,27 @@ export const getRewards = () => (dispatch) => {
     });
 };
 
-export const convertPoints = (id) => (dispatch) => {
+export const convertPoints = (id, bank, accountNumber, amount) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
-  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}}  
+  const config = {headers: {"token": token, "Access-Control-Allow-Origin": "http://localhost:8080"}} 
+  const sellerId = JSON.parse(localStorage.companies).sellerid
+
+   //bank_name=${bank}&account_no=${accountNumber}&seller_id=${sellerId}&amount=${amount}
+  //    `convert_points?reward_id=${id}&amount=${amount}`, null, config
+
+  //`convert_points?reward_id=${id}bank_name=${bank}&account_no=${accountNumber}&seller_id=${sellerId}&amount=${amount}`
+
+  //bank_name=${bank}&account_no=${accountNumber}&seller_id=${sellerId}&amount=${amount}
+  //    `convert_points?reward_id=${id}&amount=${amount}`, null, config
+  
+  //bank_name=${bank}&account_no=${accountNumber}&seller_id=${sellerId}&amount=${amount}
+  amount = amount?amount:''
+  accountNumber = accountNumber?accountNumber: ''
+  bank = bank? bank:''
   return ApiRequest
     .post(
-      `convert_points?reward_id=${id}`, null, config
+      `convert_points?reward_id=${id}&bank_name=${bank}&account_no=${accountNumber}&seller_id=${sellerId}&amount=${amount}`, null, config
     )
     .then((res) => {
       const sellers = res.data 
@@ -132,6 +146,7 @@ export const convertPoints = (id) => (dispatch) => {
         type: CONVERT_POINTS,
         payload: sellers,
       });
+      return res
     })
     .catch((err) => {
       console.log(err, 'errorrrr');
@@ -141,6 +156,7 @@ export const convertPoints = (id) => (dispatch) => {
       // });
     });
 };
+
 export const convertPointsToCash = (bank, accountNumber, amount) => (dispatch) => {
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
@@ -171,6 +187,7 @@ export const convertPointsToCash = (bank, accountNumber, amount) => (dispatch) =
       // });
     });
 };
+
 export const clearErrors = () => {
   return {
     type: CLEAR_ERRORS,

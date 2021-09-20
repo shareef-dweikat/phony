@@ -132,6 +132,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                     <th>{translate('theseller')}</th>
                     <th>{translate('points')}</th>
                     <th>{translate('running_balance')}</th>
+                    <th>{translate('The type')}</th>
                   </tr>
                     {
                       currentPageContent?.map((item)=>{
@@ -141,6 +142,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
                           <td>{item.seller}</td>
                           <td>{item.points}</td>
                           <td>{item.total_points}</td>
+                          <td>{translate(item?.type)}</td>
                           </tr>
                         )
                       })

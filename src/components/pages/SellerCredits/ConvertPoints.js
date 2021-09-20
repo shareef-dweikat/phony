@@ -28,11 +28,15 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
   const [input, setInput] = useState();
   const [seller, setSeller] = useState({balance: 0});
   const [modalIsOpen, setIsOpen] =useState(false);
+  const [isBalanceModalVisible, setIsBalanceModalVisible] =useState(false);
   const [isCashModal, setIsCashModal] =useState(false);
+
   const [accountNumber, setAccountNumber] = useState('')
   const [bankName, setBankName] = useState('')
   const [amount, setAmount] = useState(0)
+  const [amountBalance, setAmountBalance] = useState(0)
 
+  const [rewardId, setRewardId] = useState('')
   
   const banks = [
     { value: translate("islamicPalestineBank"), label: translate("islamicPalestineBank") },
@@ -73,7 +77,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
     setIsOpen(false);
   }
   const handleConvertToCash = () => {
-    if(bankName === '' || accountNumber ==='' || amount === '') {
+    if(bankName === '' || accountNumber ==='' || amount === 0) {
       Toast.fire({
         title: intl.formatMessage({id: "All fields are required"}),
         icon: "alert",
@@ -82,20 +86,46 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
       return
     }
     isLoading(true);
-    convertPointsToCash(bankName, accountNumber, amount).then(() => {
+    const myAmount = amount?amount:amountBalance
+    convertPoints(rewardId,bankName, accountNumber, myAmount).then(() => {
       setIsCashModal(false)
       setAccountNumber('')
       setAmount(0)
+      setAmountBalance(0)
       setBankName('')
+      isLoading(false)
+    })
+  }
+  const handleConvertToBalance = () => {
+    if( amountBalance === 0) {
+      Toast.fire({
+        title: intl.formatMessage({id: "All fields are required"}),
+        icon: "alert",
+        showConfirmButton: true,
+      })
+      return
+    }
+    isLoading(true);
+    const myAmount = amount?amount:amountBalance
+    convertPoints(rewardId,'', '', myAmount).then(() => {
+      setIsBalanceModalVisible(false)
+      setAmountBalance(0)
       isLoading(false)
     })
   }
   const handleRewardClicked = (id,price, type)=>{
     if(type === 'balance') {
+      setIsBalanceModalVisible(true)
+      setRewardId(id)
       return
     }
-    if(type === 'cash') {
-      setIsCashModal(true)
+    if(type === 'bank') {
+        setIsCashModal(true)
+        setRewardId(id)
+      // convertPoints(id, price).then((res)=>{
+      //   console.log(res, "reeesss")
+      //   setIsCashModal(true)
+      // })
       return
     }
     if(parseFloat(currentUser.points) < parseFloat(price)) {
@@ -212,6 +242,30 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
           <div style={{width: 16}}/>
           <button
            onClick={handleConvertToCash}
+            className="btn sign-but"
+          >
+            {translate('submit')}
+          </button>
+        </div>
+      </Modal>
+      <Modal
+        // isOpen={modalIsOpen}
+        isOpen={isBalanceModalVisible}
+        // onAfterOpen={afterOpenModal}
+        onRequestClose={()=>setIsBalanceModalVisible(false)}
+        style={customStyles}
+        contentLabel="Example Modal"
+      >
+        <div style={{display: 'flex'}}>
+        
+          <input
+                onChange={(element) => setAmountBalance(element.target.value)}
+                className="form-control convert-points-input"
+                placeholder={intl.formatMessage({id: "Enter the amount"})}
+          />
+          <div style={{width: 16}}/>
+          <button
+           onClick={handleConvertToBalance}
             className="btn sign-but"
           >
             {translate('submit')}
