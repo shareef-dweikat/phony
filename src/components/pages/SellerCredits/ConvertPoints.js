@@ -17,7 +17,7 @@ const customStyles = {
     top: '50%',
     left: '50%',
     right: '30%',
-    height: 100,
+    height: 300,
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
   },
@@ -233,11 +233,9 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <div className="convert-points-input">
               <Dropdown
-                // className="report-dropdown"
-                  options={banks}
-                 onChange={(e) => setBankName(intl.formatMessage({id: e.value.props.id}))}
-                // value={transStatus}
-                //key={transStatus.value}
+                options={banks}
+                onChange={(e) => setBankName(intl.formatMessage({id: e.value.props.id}))}
+                key={bankName}
                 placeholder={intl.formatMessage({id: "Select a bank"})}
                 />
           </div>
@@ -261,9 +259,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
         </div>
       </Modal>
       <Modal
-        // isOpen={modalIsOpen}
         isOpen={isBalanceModalVisible}
-        // onAfterOpen={afterOpenModal}
         onRequestClose={()=>setIsBalanceModalVisible(false)}
         style={customStylesBalanceModal}
         contentLabel="Example Modal"
