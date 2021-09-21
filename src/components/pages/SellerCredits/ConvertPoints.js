@@ -16,10 +16,22 @@ const customStyles = {
   content: {
     top: '50%',
     left: '50%',
-    right: 400,
- 
+    right: '30%',
+    height: 100,
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+  },
+};
+
+const customStylesBalanceModal = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: '50%',
+    height: 100,
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  
   },
 };
 const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash}) => {
@@ -218,7 +230,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <div style={{display: 'flex'}}>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
           <div className="convert-points-input">
               <Dropdown
                 // className="report-dropdown"
@@ -253,24 +265,24 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
         isOpen={isBalanceModalVisible}
         // onAfterOpen={afterOpenModal}
         onRequestClose={()=>setIsBalanceModalVisible(false)}
-        style={customStyles}
+        style={customStylesBalanceModal}
         contentLabel="Example Modal"
       >
-        <div style={{display: 'flex'}}>
-        
-          <input
-                onChange={(element) => setAmountBalance(element.target.value)}
-                className="form-control convert-points-input"
-                placeholder={intl.formatMessage({id: "Enter the amount"})}
-          />
-          <div style={{width: 16}}/>
-          <button
-           onClick={handleConvertToBalance}
-            className="btn sign-but"
-          >
-            {translate('submit')}
-          </button>
-        </div>
+            <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+            
+            <input
+                  onChange={(element) => setAmountBalance(element.target.value)}
+                  className="form-control convert-points-input"
+                  placeholder={intl.formatMessage({id: "Enter the amount"})}
+            />
+            <div style={{width: 16}}/>
+            <button
+            onClick={handleConvertToBalance}
+              className="btn sign-but"
+            >
+              {translate('submit')}
+            </button>
+          </div>
       </Modal>
       </div>
   );

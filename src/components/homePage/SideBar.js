@@ -146,9 +146,7 @@ const SideBar = ({ user }) => {
             </a>
           </div>
           <div
-            className={`sidebar__link ${
-              history === "/points" && "active-link"
-            } m-4`}
+            className={`sidebar__link  m-4`}
           >
             <a className="link-main " href="/points">
               <span>
@@ -160,6 +158,28 @@ const SideBar = ({ user }) => {
               </span>
             </a>
           </div>
+           <div  className={`sidebar__link ${
+              history === "/points" && "active-link"
+            } m-4`}>
+                <a className="link-main " href="/points">
+                  <span>
+                    <ul>
+                      <li>{translate('Points report')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div>
+                <div className={`sidebar__link ${
+                  history === "/convert_points" && "active-link"
+                } m-4`}>
+                <a className="link-main " href="/convert_points">
+                  <span>
+                    <ul>
+                      <li>{translate('Convert points')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div> 
 
           <div
             className={`sidebar__link ${
@@ -195,9 +215,11 @@ const SideBar = ({ user }) => {
               'admin' === 'admin' &&
              <div>
               <div
-                className={`sidebar__link m-4`}
+                className={`sidebar__link ${
+                  history === "/add_credits" && "active-link"
+                } m-4`}
                >
-              <a className="link-main">
+              <a className="link-main" href="/add_credits">
                 <span>
                   <i
                     className="icon-main fa fa-tags  m-2"
@@ -207,7 +229,7 @@ const SideBar = ({ user }) => {
                 </span>
               </a>
               </div>
-              <div className={`sidebar__link ${
+              {/* <div className={`sidebar__link ${
                   history === "/add_credits" && "active-link"
                 } m-4`}>
                 <a className="link-main " href="/add_credits">
@@ -228,7 +250,7 @@ const SideBar = ({ user }) => {
                     </ul>
                   </span>
                 </a>
-                </div>
+                </div> */}
               </div>
             }
           <div

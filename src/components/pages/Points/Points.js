@@ -84,7 +84,7 @@ const Points = ({ insurances, getSellerPoints, sellerPoints }) => {
           </div>
           <div className="col-9 col-lg-9 col-md-8 col-sm-6">
             <div className="card card-home">
-                <h1 className="header-text">{translate("Points")}</h1>
+                <h1 className="header-text">{translate("Points report")}</h1>
             </div>
             <div>
             <div className="mt-5">
