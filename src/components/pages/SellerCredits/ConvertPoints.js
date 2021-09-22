@@ -76,18 +76,6 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
   }, []);
   
 
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    //subtitle.style.color = '#f00';
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
   const handleConvertToCash = () => {
     if(bankName === '' || accountNumber ==='' || amount === 0) {
       Toast.fire({
@@ -106,6 +94,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
       setAmountBalance(0)
       setBankName('')
       isLoading(false)
+      
     })
   }
   const handleConvertToBalance = () => {
@@ -125,7 +114,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
       isLoading(false)
     })
   }
-  const handleRewardClicked = (id,price, type)=>{
+  const handleRewardClicked = (id,price, type, name)=>{
     if(type === 'balance') {
       setIsBalanceModalVisible(true)
       setRewardId(id)
@@ -148,7 +137,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
       })
     } else 
     Toast.fire({
-      title: intl.formatMessage({id: "Are you sure?"}),
+      title: intl.formatMessage({id: "Are you sure you want to transfer?"}) + price + intl.formatMessage({id: "points to"}) + name + "?",
       icon: "alert",
       reward_id: id,
       showConfirmButton: true,
@@ -202,14 +191,14 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
               </Toolbar> */}
               <div style={{marginTop: 16}}/>
             <div className="row">
-              {rewards?.map((reward)=>
+              {!isCashModal && !isBalanceModalVisible && rewards?.map((reward)=>
                 <div className={
                   parseFloat(currentUser.points) < parseFloat(reward.price)?'convert-points-card grayed-out': 'convert-points-card'}
                 >
                 <img 
                     src={`http://${reward.url}`}
                     style={{cursor: 'pointer', height: 150}}
-                    onClick={()=>handleRewardClicked(reward.id, reward.price, reward.type)}
+                    onClick={()=>handleRewardClicked(reward.id, reward.price, reward.type, reward.name)}
                 />
                   <div style={{fontSize: 12, textAlign: 'center', marginTop: 8}}>{reward.name}</div>
                   <div style={{fontSize: 12, textAlign: 'center', direction: 'ltr'}}>
@@ -217,12 +206,60 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
                   </div>
                 </div>
               )}
+
+              {
+                isCashModal && !isBalanceModalVisible && 
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                  <div className="convert-points-input">
+                      <Dropdown
+                        options={banks}
+                        onChange={(e) => setBankName(intl.formatMessage({id: e.value.props.id}))}
+                        key={bankName}
+                        placeholder={intl.formatMessage({id: "Select a bank"})}
+                        />
+                  </div>
+                  <input
+                        onChange={(element) => setAccountNumber(element.target.value)}
+                        className="form-control convert-points-input"
+                        placeholder={intl.formatMessage({id: "Enter account number"})}
+                  />
+                  <input
+                        onChange={(element) => setAmount(element.target.value)}
+                        className="form-control convert-points-input"
+                        placeholder={intl.formatMessage({id: "Enter the amount"})}
+                  />
+                  <div style={{width: 16}}/>
+                  <button
+                  onClick={handleConvertToCash}
+                    className="btn sign-but"
+                  >
+                    {translate('submit')}
+                  </button>
+                </div>
+                }
+                {
+                  isBalanceModalVisible && !isCashModal &&
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                      <input
+                            onChange={(element) => setAmountBalance(element.target.value)}
+                            className="form-control convert-points-input"
+                            placeholder={intl.formatMessage({id: "Enter the amount"})}
+                      />
+                      <div style={{width: 16}}/>
+                      <button
+                      onClick={handleConvertToBalance}
+                        className="btn sign-but"
+                      >
+                        {translate('submit')}
+                      </button>
+                  </div>
+              }
             </div>
            </div>
             {loading && (<Spinner />)}
           </div>
         </div>
-      <Modal
+      {/* <Modal
         // isOpen={modalIsOpen}
         isOpen={isCashModal}
         // onAfterOpen={afterOpenModal}
@@ -257,8 +294,8 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
             {translate('submit')}
           </button>
         </div>
-      </Modal>
-      <Modal
+      </Modal> */}
+      {/* <Modal
         isOpen={isBalanceModalVisible}
         onRequestClose={()=>setIsBalanceModalVisible(false)}
         style={customStylesBalanceModal}
@@ -279,7 +316,7 @@ const ConvertPoints = ({ rewards, convertPoints, getRewards, convertPointsToCash
               {translate('submit')}
             </button>
           </div>
-      </Modal>
+      </Modal> */}
       </div>
   );
 };

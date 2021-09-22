@@ -146,6 +146,12 @@ export const convertPoints = (id, bank, accountNumber, amount) => (dispatch) => 
         type: CONVERT_POINTS,
         payload: sellers,
       });
+      if(res.data.status === "success")
+        Toast.fire({
+          title: intl.formatMessage({id: "success"}),
+          icon: "success",
+          showConfirmButton: true,
+        })
       return res
     })
     .catch((err) => {
