@@ -18,3 +18,11 @@
     font-size: 1rem;
     direction: ltr;
 }
+
+.table-green{
+    /* background-color: #c3efd2; */
+    background-color: #c3efd2;
+}
+.table-canceled{
+    background-color: #c4df50;
+}

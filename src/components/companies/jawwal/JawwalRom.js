@@ -49,10 +49,11 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom }) => {
   };
   const onTypeClick = (item) => {
     localStorage.JawwalRom = JSON.stringify(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setSelected(item);
   };
   const refreshClick = () => {
-    getJawwalRom(mobileNo, false);
+    getJawwalRom(mobileNo, true);
   };
   const refreshColumnStyle = () => {
     switch(localStorage.size) {
@@ -70,8 +71,10 @@ const JawwalRom = ({ getJawwalRom, loading, jawwalRom }) => {
       break;
     }
   }
+
+  let topDiv = null;
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />

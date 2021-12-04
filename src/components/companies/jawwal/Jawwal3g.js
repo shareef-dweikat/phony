@@ -60,6 +60,7 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNo
   
   const onTypeClick = (item) => {
     localStorage.Jawwal3g = JSON.stringify(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setSelected(item);
   };
   const onRenewClick = () => {
@@ -100,8 +101,10 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNo
       break;
     }
   }
+  let topDiv = null;
+
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -188,10 +191,11 @@ const Jawwal3g = ({ getJawwal3g, auth, jawwal3g, loading, getRnewJawwal3g, getNo
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
+                              width={190}
                             ></img>
                             {(item.renew === "True" || item.renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>

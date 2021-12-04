@@ -19,11 +19,12 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
   const [loadingSpinner, isLoading] = useState(false);
 
   useEffect(() => {
-    getGroupesData(typeCompany);
+   getGroupesData(typeCompany);
     document.title = history.location.pathname.split("/")[3] + " | Phone Play";
     refreshColumnStyle();
   }, []);
   const onTypeClick = (item) => {
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setSelected(item);
   };
   const onChargeClick = (e) => {
@@ -58,8 +59,10 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
   const refreshClick = () => {
     getGroupesData(typeCompany);
   };
+  let topDiv = null;
+
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -157,10 +160,11 @@ const GroupCom = ({ getGroupesData, companies, loading, chargeGrpupCompany }) =>
                             data-placement="top"
                             onClick={() => onTypeClick(item)}
                           >
-                            <div className="frame-card position-relative">
+                            <div className="position-relative">
                               <img
                                 alt={item.title}
                                 src={item.url}
+                                width={190}
                               ></img>
                               {(item.renew === "True" || item.renew === "true") && (
                                 <Badge text={translate("Renewable")}></Badge>

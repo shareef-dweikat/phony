@@ -22,6 +22,7 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
     refreshColumnStyle();
   }, []);
   const onTypeClick = (item) => {
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setSelected(item);
   };
   const onChargeClick = (e) => {
@@ -56,8 +57,10 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
   const refreshClick = () => {
     getHot(mobileNo);
   };
+  let topDiv = null;
+
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -154,7 +157,7 @@ const Hot = ({ getHot, ChargeHot, hot, loading }) => {
                             onClick={() => onTypeClick(item)}
                           >
                             <div className="frame-card position-relative">
-                              <img src={item.url}></img>
+                              <img src={item.url}width={190}></img>
                               {(item.auto_renew === "True" || item.auto_renew === "true") && (
                                 <Badge text={translate("Renewable")}></Badge>
                               )}

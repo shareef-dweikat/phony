@@ -60,6 +60,7 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
 
   const onTypeClick = (item) => {
     localStorage.ooredooMin = JSON.stringify(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setMin(item);
   };
 
@@ -103,8 +104,9 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
     }
   }
 
+  let topDiv = null;
   return (
-    <div className="container ooredoo-container">
+    <div className="container ooredoo-container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -193,11 +195,12 @@ const MinOoredoo = ({ getOoredooMin, ooredooMin, loading, getOoredooMinRenew, ge
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
-                            ></img>
+                              width={190}
+                            />
                             {(item.auto_renew === "True" || item.auto_renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>
                             )}

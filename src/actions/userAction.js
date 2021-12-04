@@ -19,32 +19,41 @@ export const setCurrentUser = (decode) => {
 
 // login user
 
-export const loginUser = (userData, ip, history) => (dispatch) => {
+export const loginUser = (userData, ip, history, errorCount) => async(dispatch) => {
   dispatch(clearErrors());
-  
   const config = {headers: {"X-Real-IP": ip, "X-Identifier": userData.username }}
+  const myIP= localStorage.getItem('ip')
+  console.log(myIP, "ippppp")
   return axios
-    .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}`, null, config)
+    .post(`${BASE_API_URL}/signin?sellerid=${userData.userName}&pass=${userData.password}&ip=${myIP}`, null, config)
     .then((res) => {
+      
       //save to local storage
       if (res.data.status === "failed") {
+        localStorage.setItem('errorCount', errorCount + 1)
         dispatch({
           type: GET_ERRORS,
           payload: "Invalid username or password",
         });
       } else {
-        if (localStorage.cityCell) {
+      
+        if (localStorage.cityCell && localStorage.getItem(res.data.sellerid)) {
           const { token } = res.data;
+          //res.data.sellerid,
+          localStorage.setItem(res.data.sellerid,res.data.sellerid)
           //set token to local storage
           localStorage.setItem("jwtUserToken", token);
           localStorage.setItem("companies", JSON.stringify(res.data));
           //set current user
           dispatch(setCurrentUser(res.data));
+          localStorage.setItem('errorCount', 0)
+         
           history.push("/");
         } else {
           axios
             .post(`${BASE_API_URL}/verification?sellerid=${res.data.sellerid}`)
             .then((res) => {});
+           
           history.push({
             pathname: `/verification/${res.data.sellerid}`,
             state: {
@@ -56,7 +65,6 @@ export const loginUser = (userData, ip, history) => (dispatch) => {
       }
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
         type: GET_ERRORS,
         payload: "Something went wrong!",
@@ -65,10 +73,12 @@ export const loginUser = (userData, ip, history) => (dispatch) => {
 };
 
 export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
+  const myIP = localStorage.ip
+
   dispatch(clearErrors());
   return axios
     .post(
-      `${BASE_API_URL}/check_verification_code?vnumber=${verfiyData.virefy}&sellerid=${userId} `
+      `${BASE_API_URL}/check_verification_code?vnumber=${verfiyData.virefy}&sellerid=${userId}&ip=${myIP}`
     )
     .then((res) => {
       if (res.data.status === "failed! wrong verification code") {
@@ -78,6 +88,7 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
         localStorage.setItem("jwtUserToken", token);
         localStorage.setItem("companies", JSON.stringify(res.data));
         localStorage.setItem("cityCell", "cityCell");
+        localStorage.setItem(res.data.sellerid,res.data.sellerid)
         dispatch(setCurrentUser(res.data));
         history.push("/");
       }
@@ -93,7 +104,8 @@ export const verfiyUser = (userId, verfiyData, history) => (dispatch) => {
 
 export const verfiySignUpUser = (data, history) => (dispatch) => {
   dispatch(clearErrors());
-  
+  // const myIP = localStorage.ip
+  // console.log(myIP, "IPPPPP")
   return axios
     .post(
       `${BASE_API_URL}/verify_mobile_number?code=${data.verificationCode}&sellerid=${data.sellerId}&mobile_number=${data.mobile}`
@@ -131,11 +143,12 @@ export const verfiySignUpUser = (data, history) => (dispatch) => {
 
 export const signUpUser = (userData, ip, history) => (dispatch) => {
   dispatch(clearErrors());
-
+  const myIP = localStorage.ip
+  console.log(myIP, "MMMM")
   const config = {headers: {"X-Real-IP": ip, "X-Identifier": userData.username }}
   return axios
     .post(
-      `${BASE_API_URL}/signup?sellerid=${userData.username}&name=${userData.fullName}&passw=${
+      `${BASE_API_URL}/signup?sellerid=${userData.username}&ip=${myIP}&name=${userData.fullName}&passw=${
         userData.password
       }&country=${userData.country}&city=${userData.city}&address=${userData.address}&mobileNo=${
         userData.mobile
@@ -192,9 +205,9 @@ export const callResendCode = (sellerid) => (dispatch) => {
 
 export const forgotPassword = (userData, history) => (dispatch) => {
   dispatch(clearErrors());
-
+  const myIP = localStorage.getItem('ip')
   return axios
-    .post(`${BASE_API_URL}/forget_password?seller_id=${userData.userName}&mobile_last4=${userData.last4Digit}`)
+    .post(`${BASE_API_URL}/forget_password?seller_id=${userData.userName}&mobile_last4=${userData.last4Digit}&ip=${myIP}`)
     .then((res) => {
       if (res.data === "False" || res.data === "false" || res.data === "failed") {
         dispatch({
@@ -258,11 +271,11 @@ export const callIpApi = () => {
 export const getMainPicture = () => {
   return ApiRequest.post("get_main_picture")
   .then((res) => {
-    if (res.data.status !== "success") {
-      return null;
-    } else {
-      return res.data.main_image_url;
-    }
+    // if (res.data.status !== "success") {
+    //   return null;
+    // } else {
+    //   return res.data.main_image_url;
+    // }
   });
 }
 

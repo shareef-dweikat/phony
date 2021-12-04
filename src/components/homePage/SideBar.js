@@ -5,15 +5,18 @@ import { connect } from "react-redux";
 import "./sidebar.css";
 import { currentRates } from "../../actions/currencyAction";
 import _ from "lodash";
-import Spinner from "../ui/spinner/Spinner";
+import lock from '../../assests/images/icons/locked.png'
+import Toolbar from '@material-ui/core/Toolbar';   
 
+import Spinner from "../ui/spinner/Spinner";
+import { Blink } from "@bdchauvette/react-blink";
 const SideBar = ({ user }) => {
   const history = useHistory().location.pathname;
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const [engagespotInit, isEngagespotInit] = useState(false);
   const [rates, setRates] = useState([]);
   const [loading, isLoading] = useState(false);
-
+  const userType = localStorage.getItem('companies').type
   useEffect(() => {
     updateCurrencyRate();
     updateEngagespot();
@@ -50,14 +53,22 @@ const SideBar = ({ user }) => {
 
             <hr className="divider my-2"></hr>
 
-            <h5 class="text-muted mt-0" title="Points" style={{fontSize: "1rem"}}>{translate("Points")}</h5>
-            <h3 class="text-success my-2">₪ {currentUser && currentUser.points}</h3>
-
-            <p class="user-info mb-0 px-2 text-muted">
-              <span class="username text-nowrap ms-1">{(user?.sellername || currentUser?.sellername)}</span>
-              <span class="text-nowrap mx-2">|</span>
-              <span class="text-nowrap me-1">{(user?.sellerid || currentUser.sellerid)}</span>
-            </p>
+             <h5 class="text-muted mt-0" title="Points" style={{fontSize: "1rem"}}>{translate("Points")}</h5>
+              
+            <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+              <h3 class="text-success my-2">₪ {currentUser && currentUser.points}</h3>
+              <Toolbar title={currentUser?.days_remaining + ' Days'}>
+                { currentUser?.locked?
+                  <i class="fas fa-lock"  style={{fontSize: 25}}></i>
+                  : <i class="fas fa-lock-open" style={{fontSize: 25}}></i>
+                }
+              </Toolbar>
+            </div>
+              <p class="user-info mb-0 px-2 text-muted">
+                <span class="username text-nowrap ms-1">{(user?.sellername || currentUser?.sellername)}</span>
+                <span class="text-nowrap mx-2">|</span>
+                <span class="text-nowrap me-1">{(user?.sellerid || currentUser.sellerid)}</span>
+              </p>
           </div>
         </div>
       
@@ -135,9 +146,7 @@ const SideBar = ({ user }) => {
             </a>
           </div>
           <div
-            className={`sidebar__link ${
-              history === "/points" && "active-link"
-            } m-4`}
+            className={`sidebar__link  m-4`}
           >
             <a className="link-main " href="/points">
               <span>
@@ -149,6 +158,28 @@ const SideBar = ({ user }) => {
               </span>
             </a>
           </div>
+           <div  className={`sidebar__link ${
+              history === "/points" && "active-link"
+            } m-4`}>
+                <a className="link-main " href="/points">
+                  <span>
+                    <ul>
+                      <li>{translate('Points report')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div>
+                <div className={`sidebar__link ${
+                  history === "/convert_points" && "active-link"
+                } m-4`}>
+                <a className="link-main " href="/convert_points">
+                  <span>
+                    <ul>
+                      <li>{translate('Convert points')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div> 
 
           <div
             className={`sidebar__link ${
@@ -167,6 +198,63 @@ const SideBar = ({ user }) => {
           </div>
           <div
             className={`sidebar__link ${
+              history === "/messages" && "active-link"
+            } m-4`}
+          >
+            <a className="link-main " href="/discounts">
+              <span>
+                <i
+                  className="icon-main fa fa-tags  m-2"
+                  aria-hidden="true"
+                ></i>
+                {translate("discounts")}
+              </span>
+            </a>
+          </div>
+            {
+              'admin' === 'admin' &&
+             <div>
+              <div
+                className={`sidebar__link ${
+                  history === "/add_credits" && "active-link"
+                } m-4`}
+               >
+              <a className="link-main" href="/add_credits">
+                <span>
+                  <i
+                    className="icon-main fa fa-tags  m-2"
+                    aria-hidden="true"
+                  ></i>
+                  {translate("add credits")}
+                </span>
+              </a>
+              </div>
+              {/* <div className={`sidebar__link ${
+                  history === "/add_credits" && "active-link"
+                } m-4`}>
+                <a className="link-main " href="/add_credits">
+                  <span>
+                    <ul>
+                      <li>{translate('Points report')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div>
+                <div className={`sidebar__link ${
+                  history === "/convert_points" && "active-link"
+                } m-4`}>
+                <a className="link-main " href="/convert_points">
+                  <span>
+                    <ul>
+                      <li>{translate('Convert points')}</li>
+                    </ul>
+                  </span>
+                </a>
+                </div> */}
+              </div>
+            }
+          <div
+            className={`sidebar__link ${
               history === "/report" && "active-link"
             } m-4`}
           >
@@ -181,25 +269,33 @@ const SideBar = ({ user }) => {
 
         <div className="card card-currency">
           <div className="card-body">
-            <h6>{translate("Currency exchange rates")}</h6>
-            <hr class="divider my-2"></hr>
-            <table className="currecy-rates">
-              <thead>
-                <tr>
-                  <th>{translate("Currency")}</th>
-                  <th>{translate("Price")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rates.map((rate) => (
-                  <tr>
-                    <td>{translate(_.trim(rate.currency) + " / ILS")}</td>
-                    <td>{rate.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {loading && (<Spinner type="inner"/>)}
+            {!loading && 
+                <>
+                      <h6>{translate("Currency exchange rates")}</h6>
+                  <hr class="divider my-2"></hr>
+                  <table className="currecy-rates">
+                    <thead>
+                      <tr>
+                        <th>{translate("Currency")}</th>
+                        <th>{translate("Price")}</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rates.map((rate) => (
+                        <tr>
+                          <td>{translate(_.trim(rate.currency) + " / ILS")}</td>
+                          <td>{rate.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+            }
+            {loading && <div > 
+              <Blink>
+                <div style={{height: 5,width: 5,borderWidth:1, borderRadius: 50, borderColor: 'red', backgroundColor: 'red', borderStyle: 'solid',}}/>
+            </Blink>  
+            </div>}
           </div>
         </div>
       </div>

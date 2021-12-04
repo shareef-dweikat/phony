@@ -7,7 +7,6 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { logoutUser, setCurrentUser, getMainPicture } from "./actions/userAction";
 import setRequestHeader from "./components/common/setRequestHeader";
 import jwt_decode from "jwt-decode";
-import Settings from "./components/ui/Settings/Settings";
 import Notiflix from "notiflix";
 
 if (localStorage.jwtUserToken) {
@@ -40,11 +39,9 @@ function App() {
     className: "notiflix-notify pp-notiflix",
     rtl: true,
   });
-  
   return (
     <Provider store={store}>
       <I18Provider locale={locale}>
-        <Settings />
         <Router>
           <Fragment>
             <Switch>

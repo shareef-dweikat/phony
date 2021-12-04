@@ -28,3 +28,79 @@ td {
   font-size: 3rem;
   margin: 0;
 }
+.no-data-to-show {
+  font-size: 18px;
+  margin-top: 16px;
+  margin-right: 32px;
+  width: 100%;
+}
+.container-report {
+  padding: 0 64px 0 64px;
+}
+
+.report-search-btn {
+  height: 80px;
+  width: 80px;
+  margin-top: 24px;
+}
+.report-filter-item {
+  width: 240px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.report-label {
+  margin-top: 8px
+}
+
+.left-column {
+  height: 2160px;
+}
+.report-input {
+  width: 160px;
+  height: 40px;
+}
+.col-11 {
+  width: 870px;
+}
+.report-form-control {
+  height: 40px;
+}
+.report-input-left-column{
+  height: 40px;
+ 
+}
+.report-form-control-date-picker {
+  height: 40px;
+  width: 160px;
+}
+.report-dropdown {
+  height: 39px  !important;
+}
+.report-dropdown-container {
+  width: 160px;
+}
+.report-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.report-column {
+  margin: 0 16px 0 8px;
+}
+
+.report-checkbox-container {
+  margin-top: 20px;
+}
+.report-checkbox {
+  padding: 0px !important;
+}
+
+.col-4 {
+  width: 250px;
+}
+
+/* .col-1 {
+  width: 100px;
+} */

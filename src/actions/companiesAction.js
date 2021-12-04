@@ -77,6 +77,7 @@ export const getJawwal3g = (mobileNo, refresh) => (dispatch) => {
 };
 
 export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
+  console.log('dddddccccccc')
   dispatch(clearErrors());
   dispatch({
     type: GET_JAWWAL_ROM,
@@ -96,6 +97,7 @@ export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
   } else {
     ApiRequest.post(`JAB?number=${mobileNo.split("-").join("")}&bundle=rom&language=${lang}&refresh=${refresh}`)
     .then((res) => {
+      console.log(res, "bacckkres")
       dispatch({
         type: GET_JAWWAL_ROM,
         payload: res.data,
@@ -103,10 +105,12 @@ export const getJawwalRom = (mobileNo, refresh) => (dispatch) => {
       localStorage.setItem(storageHash, JSON.stringify(res.data));
     })
     .catch((err) =>
-      dispatch({
-        type: GET_ERRORS,
-        payload: err,
-      })
+    console.log(err, "bacckkererrrres")
+
+      // dispatch({
+      //   type: GET_ERRORS,
+      //   payload: err,
+      // })
     );
   }
 };
@@ -643,8 +647,8 @@ export const chargeGrpupCompany = (type, mobile, data, history) => (dispatch) =>
   dispatch(clearErrors());
   const token = localStorage.jwtUserToken;
   const company = type === "mobile012" ? "012mobile" : type;
-
-  return ApiRequest.post(`${company}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}`)
+  const amount = company ==='partner'?data.amount:''
+  return ApiRequest.post(`${company}?number=${mobile}&pci=${data.PID}&language=${lang}&token=${token}&amount=${amount}`)
   .then((res) => {
     if (res.data == "failed, token error" || res.data.reason == "token expired") {
       Toast.fire({

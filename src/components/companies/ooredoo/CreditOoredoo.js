@@ -55,6 +55,7 @@ const CreditOoredoo = ({ auth, loading }) => {
   };
   const onTypeClick = (item) => {
     localStorage.ooredooCredit = JSON.stringify(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setCredit(item);
   };
 
@@ -74,9 +75,9 @@ const CreditOoredoo = ({ auth, loading }) => {
       break;
     }
   }
-
+  let topDiv = null;
   return (
-    <div className="container ooredoo-container">
+    <div className="container ooredoo-container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />

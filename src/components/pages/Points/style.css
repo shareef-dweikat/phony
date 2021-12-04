@@ -1,0 +1,30 @@
+.insurance .card.outer-wrapper {
+    height: auto;
+}
+
+.insurance .card.outer-wrapper .frame > img {
+    height: 150px;
+}
+
+.insurance .card-sm .card.outer-wrapper .nav-layout {
+    min-height: 110px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+  }
+  
+  .points-page tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  #page-number{
+    width: 5px;
+  }

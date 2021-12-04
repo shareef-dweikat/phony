@@ -52,6 +52,7 @@ const JawwalCredit = ({auth, loading}) => {
   };
   const onTypeClick = (item) => {
     localStorage.JawwalCredit = JSON.stringify(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     setSelected(item);
   };
 
@@ -71,9 +72,10 @@ const JawwalCredit = ({auth, loading}) => {
       break;
     }
   }
+  let topDiv = null;
 
   return (
-    <div className="container">
+    <div className="container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />

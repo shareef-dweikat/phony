@@ -61,6 +61,7 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
 
   const onTypeClick = (item) => {
     setG3(item);
+    topDiv.scrollIntoView({ behavior: "smooth" });
     localStorage.ooredoo3g = JSON.stringify(item);
   };
 
@@ -103,8 +104,10 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
       break;
     }
   }
+  let topDiv = null;
+
   return (
-    <div className="container ooredoo-container">
+    <div className="container ooredoo-container" ref={(ref)=> topDiv = ref}>
       <div className="row mt-5">
         <div className="col-lg-3 col-md-4 col-sm-6">
           <SideBar />
@@ -193,10 +196,11 @@ const Ooredoo3g = ({ getOoredoo3g, loading, ooredoo3g, getOoredoo3gNotRenew, get
                           title={item && item.des}
                           onClick={() => onTypeClick(item)}
                         >
-                          <div className="frame-card position-relative">
+                          <div className="position-relative">
                             <img
                               alt={item.id || item.ID}
                               src={item.url}
+                              width={190}
                             ></img>
                             {(item.auto_renew === "True" || item.auto_renew === "true") && (
                               <Badge text={translate("Renewable")}></Badge>
